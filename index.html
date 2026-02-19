@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Mastery Infographic</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #e2e8f0;
+            --accent-easy: #10b981;
+            --accent-moderate: #f59e0b;
+            --accent-expert: #f43f5e;
+            --accent-tricky: #8b5cf6;
+            --border-color: #334155;
+            --glow: 0 0 20px rgba(56, 189, 248, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
+        }
+
+        header p {
+            font-size: 1.25rem;
+            color: #94a3b8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            border-color: #475569;
+        }
+
+        .card-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(15, 23, 42, 0.5);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #94a3b8;
+        }
+
+        .topic-number {
+            font-family: 'Fira Code', monospace;
+            font-weight: 700;
+            color: #38bdf8;
+            background: rgba(56, 189, 248, 0.1);
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.9rem;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .definition {
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px dashed var(--border-color);
+            font-style: italic;
+        }
+
+        .section {
+            margin-bottom: 0.5rem; /* Reduced margin for accordion feel */
+        }
+        
+        .section-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 0.5rem;
+            transition: background 0.2s, color 0.2s;
+            user-select: none;
+        }
+
+        .section-title:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        /* Active state for title */
+        .section.active .section-title {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .pill {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        
+        /* Accordion Arrow */
+        .section-title::after {
+            content: '▼';
+            margin-left: auto;
+            font-size: 0.7rem;
+            opacity: 0.5;
+            transition: transform 0.3s;
+        }
+
+        .section.active .section-title::after {
+            transform: rotate(180deg);
+        }
+
+        .easy .pill { background: var(--accent-easy);     box-shadow: 0 0 10px var(--accent-easy); }
+        .moderate .pill { background: var(--accent-moderate); box-shadow: 0 0 10px var(--accent-moderate); }
+        .expert .pill { background: var(--accent-expert);   box-shadow: 0 0 10px var(--accent-expert); }
+        .tricky .pill { background: var(--accent-tricky);   box-shadow: 0 0 10px var(--accent-tricky); }
+
+        .easy .section-title { color: var(--accent-easy); }
+        .moderate .section-title { color: var(--accent-moderate); }
+        .expert .section-title { color: var(--accent-expert); }
+        .tricky .section-title { color: var(--accent-tricky); }
+
+        /* Hide content by default */
+        .section-content {
+            display: none;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        /* Show content when active */
+        .section.active .section-content {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        pre {
+            background: #0f172a !important; /* Overwrite prism */
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color) !important;
+            padding: 1rem !important;
+            font-size: 0.85rem !important;
+            margin: 0 !important;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        code {
+            font-family: 'Fira Code', monospace !important;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.5rem; }
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Python Mastery</h1>
+    <p>From Variables to JSON: An Interactive Infographic Guide</p>
+</header>
+
+<div class="container">
+    <div class="grid">
+
+        <!-- TOPIC 1: VARIABLES -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Variables</span>
+                <span class="topic-number">#01</span>
+            </div>
+            <div class="card-body">
+                <div class="definition">
+                    A named container that stores a value in memory. Created with <code>=</code>, type decided by value.
+                </div>
+                
+                <div class="section easy active">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Easy</div>
+                    <div class="section-content">
+<pre><code class="language-python">name = "Ali"          
+age = 20              
+is_student = True     
+print(name)</code></pre>
+                    </div>
+                </div>
+
+                <div class="section moderate">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Moderate (Dynamic Typing)</div>
+                    <div class="section-content">
+<pre><code class="language-python">x = 10                
+x = "Now I am text"   
+print("x is:", x)</code></pre>
+                    </div>
+                </div>
+
+                <div class="section expert">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Expert (Swap)</div>
+                    <div class="section-content">
+<pre><code class="language-python">a, b, c = 1, 2, 3     
+a, b = b, a           
+print(a, b)  # 2 1</code></pre>
+                    </div>
+                </div>
+                
+                <div class="section tricky">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Tricky</div>
+                    <div class="section-content">
+<pre><code class="language-python">a = 5                 
+b = a                 
+a = a + 3             
+c = b                 
+b = a                 
+a = c                 
+# a=5, b=8, c=5</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOPIC 2: DATA TYPES -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Data Types</span>
+                <span class="topic-number">#02</span>
+            </div>
+            <div class="card-body">
+                <div class="definition">
+                    Describes the kind of value a variable holds (int, float, str, bool, list, etc.).
+                </div>
+                
+                <div class="section easy active">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Easy</div>
+                    <div class="section-content">
+<pre><code class="language-python">x = 10                # int
+y = 3.14              # float
+z = "Python"          # str
+flag = False          # bool</code></pre>
+                    </div>
+                </div>
+
+                <div class="section moderate">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Moderate (Mixing Types)</div>
+                    <div class="section-content">
+<pre><code class="language-python">a = 5
+b = 2.0
+result = a + b        
+# 7.0 (float)</code></pre>
+                    </div>
+                </div>
+
+                <div class="section expert">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Expert (Mixed List)</div>
+                    <div class="section-content">
+<pre><code class="language-python">mixed = [1, "two", 3.0]
+for item in mixed:
+    print(type(item))</code></pre>
+                    </div>
+                </div>
+
+                <div class="section tricky">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Tricky</div>
+                    <div class="section-content">
+<pre><code class="language-python">x = "5"
+x = x * 2            
+print(x)    
+# "55" (string repetition)</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOPIC 3: CASTING -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Casting</span>
+                <span class="topic-number">#03</span>
+            </div>
+            <div class="card-body">
+                <div class="definition">
+                    Converting a value from one data type to another (e.g. str to int).
+                </div>
+
+                <div class="section easy active">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Easy</div>
+                    <div class="section-content">
+<pre><code class="language-python">x = "3"
+y = int(x)   # 3
+z = float(x) # 3.0</code></pre>
+                    </div>
+                </div>
+
+                <div class="section moderate">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Moderate</div>
+                    <div class="section-content">
+<pre><code class="language-python">num = 10
+text = str(num)
+msg = "Nr is " + text
+# "Nr is 10"</code></pre>
+                    </div>
+                </div>
+
+                <div class="section expert">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Expert (Safe Cast)</div>
+                    <div class="section-content">
+<pre><code class="language-python">try:
+    val = int("abc")
+except ValueError:
+    val = None</code></pre>
+                    </div>
+                </div>
+
+                <div class="section tricky">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Tricky</div>
+                    <div class="section-content">
+<pre><code class="language-python">try:
+    b = int("7.5") # Fail
+except:
+    b = float("7.5")
+# 7.5 (float)</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOPIC 4: STRINGS -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Strings</span>
+                <span class="topic-number">#04</span>
+            </div>
+            <div class="card-body">
+                <div class="definition">
+                    A sequence of characters used to represent text.
+                </div>
+                
+                <div class="section easy active">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Easy</div>
+                    <div class="section-content">
+<pre><code class="language-python">text = "Hello"
+print(text[0])  # 'H'
+print(text[-1]) # 'o'</code></pre>
+                    </div>
+                </div>
+
+                <div class="section moderate">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Moderate</div>
+                    <div class="section-content">
+<pre><code class="language-python">s = "  hello  "
+print(s.strip().upper())
+# "HELLO"</code></pre>
+                    </div>
+                </div>
+
+                <div class="section expert">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Expert (f-strings)</div>
+                    <div class="section-content">
+<pre><code class="language-python">name, age = "Ali", 21
+msg = f"I am {name}, {age}"
+# "I am Ali, 21"</code></pre>
+                    </div>
+                </div>
+                
+                <div class="section tricky">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Tricky (Slicing)</div>
+                    <div class="section-content">
+<pre><code class="language-python">s = "python"
+print(s[1:4])  # 'yth'
+print(s[::-1]) # 'nohtyp'
+print(s[::2])  # 'pto'</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOPIC 5: BOOLEANS -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Booleans</span>
+                <span class="topic-number">#05</span>
+            </div>
+            <div class="card-body">
+                <div class="definition">
+                    A value that is either True or False.
+                </div>
+
+                <div class="section easy active">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Easy</div>
+                    <div class="section-content">
+<pre><code class="language-python">a = True
+b = False
+print(a, b)</code></pre>
+                    </div>
+                </div>
+
+                <div class="section moderate">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Moderate</div>
+                    <div class="section-content">
+<pre><code class="language-python">x, y = 10, 5
+print(x > y)  # True
+print(x == y) # False</code></pre>
+                    </div>
+                </div>
+
+                <div class="section expert">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Expert (Truthiness)</div>
+                    <div class="section-content">
+<pre><code class="language-python">bool(0)     # False
+bool("")    # False
+bool("0")   # True</code></pre>
+                    </div>
+                </div>
+
+                <div class="section tricky">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Tricky</div>
+                    <div class="section-content">
+<pre><code class="language-python">x, y = 0, 5
+if x and y: ...
+elif x or y:
+    print("One is True")
+# Output: One is True</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOPIC 6: OPERATORS -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Operators</span>
+                <span class="topic-number">#06</span>
+            </div>
+            <div class="card-body">
+                <div class="definition">
+                    Symbols that perform operations on variables and values (+, -, *, /, etc.).
+                </div>
+
+                <div class="section easy active">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Easy</div>
+                    <div class="section-content">
+<pre><code class="language-python">x = 7
+y = 3
+print(x / y) # 2.333...</code></pre>
+                    </div>
+                </div>
+
+                <div class="section moderate">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Moderate</div>
+                    <div class="section-content">
+<pre><code class="language-python">print(7 // 3) # 2 (floor)
+print(7 % 3)  # 1 (rem)
+print(7 ** 3) # 343 (pow)</code></pre>
+                    </div>
+                </div>
+
+                <div class="section expert">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Expert (In-place)</div>
+                    <div class="section-content">
+<pre><code class="language-python">a = 5
+a += 2  # 7
+a *= 3  # 21</code></pre>
+                    </div>
+                </div>
+
+                <div class="section tricky">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Tricky</div>
+                    <div class="section-content">
+<pre><code class="language-python">res = 10
+res /= 2   # 5.0
+res //= 2  # 2.0
+res += 3   # 5.0</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOPIC 7: LISTS -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Lists</span>
+                <span class="topic-number">#07</span>
+            </div>
+            <div class="card-body">
+                <div class="definition">
+                    An ordered, mutable collection of items.
+                </div>
+
+                <div class="section easy active">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Easy</div>
+                    <div class="section-content">
+<pre><code class="language-python">f = ["apple", "banana"]
+print(f[0])   # apple
+print(len(f)) # 2</code></pre>
+                    </div>
+                </div>
+
+                <div class="section moderate">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Moderate</div>
+                    <div class="section-content">
+<pre><code class="language-python">f.append("orange")
+f.insert(1, "kiwi")
+# apple, kiwi, banana...</code></pre>
+                    </div>
+                </div>
+
+                <div class="section expert">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Expert (Comprehension)</div>
+                    <div class="section-content">
+<pre><code class="language-python">nums = [1, 2, 3]
+sq = [n*n for n in nums]
+# [1, 4, 9]</code></pre>
+                    </div>
+                </div>
+
+                <div class="section tricky">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Tricky (Reference)</div>
+                    <div class="section-content">
+<pre><code class="language-python">a = [1, 2]
+b = a
+b.append(3)
+# a is now [1, 2, 3]</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOPIC 8: TUPLES -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Tuples</span>
+                <span class="topic-number">#08</span>
+            </div>
+            <div class="card-body">
+                <div class="definition">
+                    An ordered, immutable collection of items.
+                </div>
+
+                <div class="section easy active">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Easy</div>
+                    <div class="section-content">
+<pre><code class="language-python">t = (1, 2, 3)
+print(t[0]) # 1</code></pre>
+                    </div>
+                </div>
+
+                <div class="section moderate">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Moderate</div>
+                    <div class="section-content">
+<pre><code class="language-python">for item in (1, "A"):
+    print(item)</code></pre>
+                    </div>
+                </div>
+
+                <div class="section expert">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Expert (Unpacking)</div>
+                    <div class="section-content">
+<pre><code class="language-python">data = ("Ali", 21)
+name, age = data
+# name="Ali", age=21</code></pre>
+                    </div>
+                </div>
+
+                <div class="section tricky">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Tricky (Mutable Inner)</div>
+                    <div class="section-content">
+<pre><code class="language-python">t = (1, [3, 4])
+t[1].append(5)
+# (1, [3, 4, 5])
+# Valid: list is mutable.</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOPIC 9: SETS -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Sets</span>
+                <span class="topic-number">#09</span>
+            </div>
+            <div class="card-body">
+                <div class="definition">
+                    An unordered collection of unique items.
+                </div>
+
+                <div class="section easy active">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Easy</div>
+                    <div class="section-content">
+<pre><code class="language-python">nums = {1, 2, 3, 3}
+# {1, 2, 3} (unique)</code></pre>
+                    </div>
+                </div>
+
+                <div class="section moderate">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Moderate</div>
+                    <div class="section-content">
+<pre><code class="language-python">a = {1, 2}
+b = {2, 3}
+print(a | b) # Union {1,2,3}
+print(a & b) # Inter {2}</code></pre>
+                    </div>
+                </div>
+
+                <div class="section expert">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Expert</div>
+                    <div class="section-content">
+<pre><code class="language-python">print(1 in {1, 2}) # True</code></pre>
+                    </div>
+                </div>
+
+                <div class="section tricky">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Tricky</div>
+                    <div class="section-content">
+<pre><code class="language-python">s = set()
+s.add(1)
+s.add(1)
+print(len(s)) # 1</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOPIC 10: IF..ELSE -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">If..Else</span>
+                <span class="topic-number">#10</span>
+            </div>
+            <div class="card-body">
+                <div class="definition">
+                    Conditional statements that control which code runs.
+                </div>
+
+                <div class="section easy active">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Easy</div>
+                    <div class="section-content">
+<pre><code class="language-python">if x > 5:
+    print("Big")
+else:
+    print("Small")</code></pre>
+                    </div>
+                </div>
+
+                <div class="section moderate">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Moderate</div>
+                    <div class="section-content">
+<pre><code class="language-python">if temp > 30:
+    print("Hot")
+elif temp > 20:
+    print("Warm")
+else:
+    print("Cold")</code></pre>
+                    </div>
+                </div>
+
+                <div class="section expert">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Expert</div>
+                    <div class="section-content">
+<pre><code class="language-python">if age >= 18 and id:
+    print("Allowed")</code></pre>
+                    </div>
+                </div>
+
+                <div class="section tricky">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Tricky</div>
+                    <div class="section-content">
+<pre><code class="language-python">n = 0
+if n:
+    print("True")
+else:
+    print("False") 
+# Output: False</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOPIC 11: FOR LOOPS -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">For Loops</span>
+                <span class="topic-number">#11</span>
+            </div>
+            <div class="card-body">
+                <div class="definition">
+                    Repeats code for each item in a sequence.
+                </div>
+
+                <div class="section easy active">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Easy</div>
+                    <div class="section-content">
+<pre><code class="language-python">for i in [1, 2, 3]:
+    print(i)</code></pre>
+                    </div>
+                </div>
+
+                <div class="section moderate">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Moderate</div>
+                    <div class="section-content">
+<pre><code class="language-python">for char in "Hi":
+    print(char)</code></pre>
+                    </div>
+                </div>
+
+                <div class="section expert">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Expert (Loop Else)</div>
+                    <div class="section-content">
+<pre><code class="language-python">for i in range(3):
+    print(i)
+else:
+    print("Done")</code></pre>
+                    </div>
+                </div>
+
+                <div class="section tricky">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Tricky</div>
+                    <div class="section-content">
+<pre><code class="language-python">for i in range(5):
+    if i == 3: break
+else:
+    print("Finished")
+# 'else' skipped due to break</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOPIC 12: WHILE LOOPS -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">While Loops</span>
+                <span class="topic-number">#12</span>
+            </div>
+            <div class="card-body">
+                <div class="definition">
+                    Repeats code as long as the condition is True.
+                </div>
+
+                <div class="section easy active">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Easy</div>
+                    <div class="section-content">
+<pre><code class="language-python">i = 1
+while i <= 3:
+    print(i)
+    i += 1</code></pre>
+                    </div>
+                </div>
+
+                <div class="section moderate">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Moderate</div>
+                    <div class="section-content">
+<pre><code class="language-python">count = 3
+while count > 0:
+    count -= 1</code></pre>
+                    </div>
+                </div>
+
+                <div class="section expert">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Expert (Break)</div>
+                    <div class="section-content">
+<pre><code class="language-python">while True:
+    if i >= 3: break</code></pre>
+                    </div>
+                </div>
+
+                <div class="section tricky">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Tricky</div>
+                    <div class="section-content">
+<pre><code class="language-python">i = 0
+while i < 5:
+    i += 2
+    print(i)
+# 2, 4, 6</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOPIC 13: FUNCTIONS -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Functions</span>
+                <span class="topic-number">#13</span>
+            </div>
+            <div class="card-body">
+                <div class="definition">
+                    A reusable block of code that runs when called.
+                </div>
+
+                <div class="section easy active">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Easy</div>
+                    <div class="section-content">
+<pre><code class="language-python">def greet():
+    print("Hello!")
+greet()</code></pre>
+                    </div>
+                </div>
+
+                <div class="section moderate">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Moderate</div>
+                    <div class="section-content">
+<pre><code class="language-python">def add(a, b):
+    return a + b
+print(add(3, 4)) # 7</code></pre>
+                    </div>
+                </div>
+
+                <div class="section expert">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Expert (Defaults)</div>
+                    <div class="section-content">
+<pre><code class="language-python">def info(name, age=18):
+    print(name, age)
+info("Ali") # Ali 18</code></pre>
+                    </div>
+                </div>
+
+                <div class="section tricky">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Tricky (Mutable Default)</div>
+                    <div class="section-content">
+<pre><code class="language-python">def add(x, l=[]):
+    l.append(x)
+    return l
+# l is shared across calls!
+print(add(1)) # [1]
+print(add(2)) # [1, 2]</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOPIC 14: RANGE -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Range</span>
+                <span class="topic-number">#14</span>
+            </div>
+            <div class="card-body">
+                <div class="definition">
+                    Generates a sequence of numbers.
+                </div>
+
+                <div class="section easy active">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Easy</div>
+                    <div class="section-content">
+<pre><code class="language-python">range(3) 
+# 0, 1, 2</code></pre>
+                    </div>
+                </div>
+
+                <div class="section moderate">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Moderate</div>
+                    <div class="section-content">
+<pre><code class="language-python">range(1, 6)
+# 1, 2, 3, 4, 5</code></pre>
+                    </div>
+                </div>
+
+                <div class="section expert">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Expert (Step)</div>
+                    <div class="section-content">
+<pre><code class="language-python">range(10, 0, -2)
+# 10, 8, 6, 4, 2</code></pre>
+                    </div>
+                </div>
+
+                <div class="section tricky">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Tricky</div>
+                    <div class="section-content">
+<pre><code class="language-python">list(range(2, 10, 3))
+# [2, 5, 8]</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOPIC 15: ITERATORS -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Iterators</span>
+                <span class="topic-number">#15</span>
+            </div>
+            <div class="card-body">
+                <div class="definition">
+                    An object that can be iterated (looped) upon, one element at a time.
+                </div>
+
+                <div class="section easy active">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Easy</div>
+                    <div class="section-content">
+<pre><code class="language-python">it = iter([1, 2])
+print(next(it)) # 1</code></pre>
+                    </div>
+                </div>
+
+                <div class="section moderate">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Moderate</div>
+                    <div class="section-content">
+<pre><code class="language-python"># For loops use 
+# iterators under the hood</code></pre>
+                    </div>
+                </div>
+
+                <div class="section expert">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Expert (Class)</div>
+                    <div class="section-content">
+<pre><code class="language-python">class Counter:
+    def __item__(self): ...
+    def __next__(self): ...</code></pre>
+                    </div>
+                </div>
+
+                <div class="section tricky">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Tricky</div>
+                    <div class="section-content">
+<pre><code class="language-python"># Calling next() on empty
+# iterator raises
+# StopIteration</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOPIC 16: MODULES -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Modules</span>
+                <span class="topic-number">#16</span>
+            </div>
+            <div class="card-body">
+                <div class="definition">
+                    A file containing Python code that you can import.
+                </div>
+
+                <div class="section easy active">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Easy</div>
+                    <div class="section-content">
+<pre><code class="language-python">import math
+print(math.sqrt(16)) # 4.0</code></pre>
+                    </div>
+                </div>
+
+                <div class="section moderate">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Moderate</div>
+                    <div class="section-content">
+<pre><code class="language-python">from math import pi
+print(pi)</code></pre>
+                    </div>
+                </div>
+
+                <div class="section expert">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Expert</div>
+                    <div class="section-content">
+<pre><code class="language-python">import random
+print(random.randint(1,6))</code></pre>
+                    </div>
+                </div>
+
+                <div class="section tricky">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Tricky</div>
+                    <div class="section-content">
+<pre><code class="language-python">import math as m
+print(m.floor(3.9)) # 3</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOPIC 17: DATA HANDLING -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Data Handling</span>
+                <span class="topic-number">#17</span>
+            </div>
+            <div class="card-body">
+                <div class="definition">
+                    Using collections like lists/dictionaries to store and process info.
+                </div>
+
+                <div class="section easy active">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Easy</div>
+                    <div class="section-content">
+<pre><code class="language-python">s = ["Ali", "Sara"]</code></pre>
+                    </div>
+                </div>
+
+                <div class="section moderate">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Moderate</div>
+                    <div class="section-content">
+<pre><code class="language-python">m = {"Ali": 80}
+print(m["Ali"]) # 80</code></pre>
+                    </div>
+                </div>
+
+                <div class="section expert">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Expert</div>
+                    <div class="section-content">
+<pre><code class="language-python">recs = [{"n": "A", "s": 80}]
+for r in recs:
+    print(r["n"])</code></pre>
+                    </div>
+                </div>
+
+                <div class="section tricky">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Tricky (Reference)</div>
+                    <div class="section-content">
+<pre><code class="language-python">data = [{"x": 1}]
+ref = data[0]
+ref["x"] = 99
+# data is [{'x': 99}]</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOPIC 18: MATH -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Math</span>
+                <span class="topic-number">#18</span>
+            </div>
+            <div class="card-body">
+                <div class="definition">
+                     Provides mathematical functions like sqrt, sin, cos, etc.
+                </div>
+
+                <div class="section easy active">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Easy</div>
+                    <div class="section-content">
+<pre><code class="language-python">import math
+print(math.sqrt(25)) # 5.0</code></pre>
+                    </div>
+                </div>
+
+                <div class="section moderate">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Moderate</div>
+                    <div class="section-content">
+<pre><code class="language-python">print(math.sin(math.pi/2))
+# 1.0</code></pre>
+                    </div>
+                </div>
+
+                <div class="section expert">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Expert</div>
+                    <div class="section-content">
+<pre><code class="language-python">v = [0, math.pi/2]
+s = [math.sin(x) for x in v]</code></pre>
+                    </div>
+                </div>
+
+                <div class="section tricky">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Tricky</div>
+                    <div class="section-content">
+<pre><code class="language-python">print(math.ceil(-4.7))  # -4
+print(math.floor(-4.7)) # -5</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+         <!-- TOPIC 19: JSON -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">JSON</span>
+                <span class="topic-number">#19</span>
+            </div>
+            <div class="card-body">
+                <div class="definition">
+                    Text format for data exchange. Python converts to/from dicts/lists.
+                </div>
+
+                <div class="section easy active">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Easy</div>
+                    <div class="section-content">
+<pre><code class="language-python">import json
+p = {"name": "Ali"}
+js = json.dumps(p)</code></pre>
+                    </div>
+                </div>
+
+                <div class="section moderate">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Moderate</div>
+                    <div class="section-content">
+<pre><code class="language-python">obj = json.loads('{"y":1}')
+print(obj["y"]) # 1</code></pre>
+                    </div>
+                </div>
+
+                <div class="section expert">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Expert (Pretty)</div>
+                    <div class="section-content">
+<pre><code class="language-python">print(json.dumps(p, indent=4))</code></pre>
+                    </div>
+                </div>
+
+                <div class="section tricky">
+                    <div class="section-title" onclick="toggleSection(this)"><span class="pill"></span>Tricky</div>
+                    <div class="section-content">
+<pre><code class="language-python">load = json.loads('[1, 2]')
+print(type(load)) 
+# <class 'list'></code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script>
+    function toggleSection(header) {
+        const section = header.parentElement;
+        const cardBody = section.parentElement;
+        
+        // If it's already active, do nothing (or toggle off if desired, but "only that section" usually implies one must be open)
+        // Let's allow toggling off if the user clicks the active one.
+        // Actually, user said "click show detail about only that section".
+        
+        const isActive = section.classList.contains('active');
+        
+        // Close all sections in this card
+        const allSections = cardBody.querySelectorAll('.section');
+        allSections.forEach(s => s.classList.remove('active'));
+        
+        // If it wasn't active, open it
+        if (!isActive) {
+            section.classList.add('active');
+        }
+    }
+</script>
+</body>
+</html>

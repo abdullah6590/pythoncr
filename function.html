@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Functions: Interactive Masterclass</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --bg-color: #f4f7f6;
+            --code-bg: #1e1e1e;
+            --text-color: #333;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #ddd;
+        }
+        h1 { color: var(--primary-color); }
+        
+        /* New Styles for the Storybook Intro */
+        .storybook-intro {
+            background-color: #fff;
+            border-left: 5px solid #3498db;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .storybook-intro h2 { color: #3498db; margin-top: 0; }
+        .highlight-term {
+            background-color: #e8f4f8;
+            color: #2980b9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .module-title {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-top: 40px;
+        }
+        .task-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .task-title {
+            margin-top: 0;
+            color: #2980b9;
+        }
+        .task-desc {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+        .btn-toggle {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .btn-toggle:hover { background-color: #219653; }
+        
+        .answer-container {
+            display: none; /* Hidden by default */
+            margin-top: 15px;
+        }
+        .code-container {
+            background-color: var(--code-bg);
+            border-radius: 5px 5px 0 0;
+            padding: 15px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            color: #c78181;
+            white-space: pre;
+            font-size: 1.05rem;
+        }
+        .comment { color: #6a9955; }
+        .keyword { color: #569cd6; }
+        .string { color: #ce9178; }
+        .function { color: #e7e752; }
+        
+        /* New Styles for Line-by-Line Explanations */
+        .line-by-line {
+            background-color: #fff9e6;
+            border: 1px solid #f1c40f;
+            border-top: none;
+            border-radius: 0 0 5px 5px;
+            padding: 15px;
+            font-size: 0.95rem;
+        }
+        .line-by-line ul { margin: 0; padding-left: 20px; }
+        .line-by-line li { margin-bottom: 8px; }
+        .code-snippet {
+            font-family: monospace;
+            background: #ffeaa7;
+            padding: 2px 5px;
+            border-radius: 3px;
+            color: #d35400;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🐍 Python Functions Masterclass</h1>
+        <p>Learn step-by-step. Solve the task, then click "Show Answer" to see the magic!</p>
+    </header>
+
+    <div class="storybook-intro">
+        <h2>📖 What is a Function? (The Magical Pizza Box)</h2>
+        <p>Imagine you have a magical box in your kitchen. If you put raw ingredients into a slot on top of the box, it magically bakes them and pops out a hot, delicious pizza from the bottom.</p>
+        
+        
+
+        <p>In Python, a <strong>Function</strong> is exactly like that magical box! Here are the secret words to build one:</p>
+        <ul>
+            <li><span class="highlight-term">def</span> : This is the magic password. It stands for "define". It tells Python, <em>"Hey! I am building a new magical box!"</em></li>
+            <li><span class="highlight-term">Function Name</span> : This is what you name your box. (e.g., <code>make_pizza</code>). It should describe what the box does.</li>
+            <li><span class="highlight-term">() Parentheses</span> : These are the slots on top of the box where you drop your ingredients.</li>
+            <li><span class="highlight-term">Parameters</span> : The labels on the slots. It tells us what ingredients the box expects (e.g., <code>cheese</code>, <code>dough</code>).</li>
+            <li><span class="highlight-term">Arguments</span> : The ACTUAL real ingredients you put in the slots later when you use the box (e.g., "Mozzarella").</li>
+            <li><span class="highlight-term">Body</span> : The indented code inside. This is the recipe. It tells the box exactly how to mix the ingredients together.</li>
+            <li><span class="highlight-term">return</span> : The door at the bottom of the box. This sends the finished, baked result back out to you so you can eat it!</li>
+        </ul>
+        <p><strong>To use the box later:</strong> You just call its name and give it ingredients! Like this: <code>make_pizza("Mozzarella")</code>.</p>
+    </div>
+
+    <h2 class="module-title">Module 1: The Basics (Parameters & Returns)</h2>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 1: The Social Media Greeter</h3>
+        <p class="task-desc">Create a function that takes a username and prints a welcome message.</p>
+        <button class="btn-toggle" onclick="toggleCode('task1', this)">Show Answer</button>
+        
+        <div id="task1" class="answer-container">
+            <div class="code-container">
+<code><span class="keyword">def</span> <span class="function">greet_follower</span>(username):
+    print(<span class="string">f"Hello {username}, thanks for following!"</span>)
+
+greet_follower(<span class="string">"AI_Student"</span>)</code>
+            </div>
+            <div class="line-by-line">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">def greet_follower(username):</span> - <strong>def</strong> tells Python we are building a function. We named it <strong>greet_follower</strong>. Inside the parentheses <strong>(username)</strong> is our parameter—it's an empty slot waiting for a user's name. The colon <strong>:</strong> means "get ready, the instructions are coming next!"</li>
+                    <li><span class="code-snippet">print(...)</span> - This is the body. We use an "f-string" (the 'f' before the quotes). It lets us inject the <strong>username</strong> directly into the sentence using curly braces <strong>{}</strong>. It simply prints the message to the screen.</li>
+                    <li><span class="code-snippet">greet_follower("AI_Student")</span> - Now we step out of the function and actually <strong>use</strong> it! We call the function by its name and pass the actual argument <strong>"AI_Student"</strong> into the username slot.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 2: Basic Addition</h3>
+        <p class="task-desc">Create a function that adds two numbers and returns the result.</p>
+        <button class="btn-toggle" onclick="toggleCode('task2', this)">Show Answer</button>
+        
+        <div id="task2" class="answer-container">
+            <div class="code-container">
+<code><span class="keyword">def</span> <span class="function">add_numbers</span>(num1, num2):
+    total = num1 + num2
+    <span class="keyword">return</span> total
+
+result = add_numbers(5, 10)
+print(result)</code>
+            </div>
+            <div class="line-by-line">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">def add_numbers(num1, num2):</span> - We build a function named <strong>add_numbers</strong>. This time, we create TWO empty slots (parameters) separated by a comma: <strong>num1</strong> and <strong>num2</strong>.</li>
+                    <li><span class="code-snippet">total = num1 + num2</span> - We create a new variable inside the function called <strong>total</strong>. We take whatever is inside num1, add it to whatever is inside num2, and store it in total.</li>
+                    <li><span class="code-snippet">return total</span> - This is the exit door! Instead of just printing it, we <strong>return</strong> the total. This gives the answer back to whoever asked for it, so they can save it or use it later.</li>
+                    <li><span class="code-snippet">result = add_numbers(5, 10)</span> - We call the function, giving it 5 and 10 as arguments. Because the function "returns" the answer (15), we catch that answer and save it in a variable called <strong>result</strong>.</li>
+                    <li><span class="code-snippet">print(result)</span> - Finally, we print the saved result (15) to the screen.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 3: Point of Sale (POS) Total</h3>
+        <p class="task-desc">Write a function calculating the total price of an item given its price and quantity.</p>
+        <button class="btn-toggle" onclick="toggleCode('task3', this)">Show Answer</button>
+        
+        <div id="task3" class="answer-container">
+            <div class="code-container">
+<code><span class="keyword">def</span> <span class="function">calculate_item_total</span>(price, quantity):
+    <span class="keyword">return</span> price * quantity
+
+pos_total = calculate_item_total(15, 3)
+print(<span class="string">f"Total: ${pos_total}"</span>)</code>
+            </div>
+            <div class="line-by-line">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">def calculate_item_total(price, quantity):</span> - We name our function. It needs two pieces of info to work: the <strong>price</strong> of one item, and the <strong>quantity</strong> (how many the customer is buying).</li>
+                    <li><span class="code-snippet">return price * quantity</span> - We do the math and hand it back all in one step! The star <strong>*</strong> means multiply. We multiply price by quantity and instantly <strong>return</strong> the result out of the box.</li>
+                    <li><span class="code-snippet">pos_total = calculate_item_total(15, 3)</span> - We use the function for an item that costs $15, and the customer wants 3 of them. We save the returned answer (45) into <strong>pos_total</strong>.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 4: Even or Odd Inventory ID</h3>
+        <p class="task-desc">Write a function to check if a product ID is even or odd. Return True if even, False if odd.</p>
+        <button class="btn-toggle" onclick="toggleCode('task4', this)">Show Answer</button>
+        
+        <div id="task4" class="answer-container">
+            <div class="code-container">
+<code><span class="keyword">def</span> <span class="function">is_even_id</span>(product_id):
+    <span class="keyword">if</span> product_id % 2 == 0:
+        <span class="keyword">return True</span>
+    <span class="keyword">else</span>:
+        <span class="keyword">return False</span>
+
+print(is_even_id(1042))</code>
+            </div>
+            <div class="line-by-line">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">def is_even_id(product_id):</span> - We define a function waiting for a single ID number.</li>
+                    <li><span class="code-snippet">if product_id % 2 == 0:</span> - We ask a True/False question. The <strong>%</strong> symbol is the "Modulo" operator. It divides the number by 2 and checks the <em>remainder</em>. If the remainder is exactly <strong>0</strong>, the number is even!</li>
+                    <li><span class="code-snippet">return True</span> - If the statement above is correct (it is even), the function hands back the boolean value <strong>True</strong> and stops completely.</li>
+                    <li><span class="code-snippet">else: return False</span> - If the remainder is NOT 0 (meaning it's odd), it skips the 'if' block and hands back <strong>False</strong>.</li>
+                    <li><span class="code-snippet">print(...)</span> - We call the function with ID 1042 and print the True/False answer directly to the screen.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">Module 2: Advanced Arguments (Defaults)</h2>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 5: Default Shipping Cost</h3>
+        <p class="task-desc">Create a function calculating total cost. Set a <strong>default</strong> shipping cost of $5.</p>
+        <button class="btn-toggle" onclick="toggleCode('task7', this)">Show Answer</button>
+        
+        <div id="task7" class="answer-container">
+            <div class="code-container">
+<code><span class="keyword">def</span> <span class="function">total_with_shipping</span>(cart_value, shipping_fee=5):
+    <span class="keyword">return</span> cart_value + shipping_fee
+
+print(total_with_shipping(50)) <span class="comment"># Forgot shipping? It uses 5!</span>
+print(total_with_shipping(50, 10)) <span class="comment"># Express shipping? It overrides the 5 with 10!</span></code>
+            </div>
+            <div class="line-by-line">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">def total_with_shipping(cart_value, shipping_fee=5):</span> - Here is a cool trick! By saying <strong>shipping_fee=5</strong> in the parameters, we give it a "Default Value." It means: "If the user doesn't give me a shipping fee, I'll just assume it is 5."</li>
+                    <li><span class="code-snippet">return cart_value + shipping_fee</span> - It adds the cart and shipping together and hands it back.</li>
+                    <li><span class="code-snippet">total_with_shipping(50)</span> - We only passed ONE argument (the cart value 50). Because we didn't pass a second argument, Python says, "Ah, I'll use the default 5 for shipping!" Result = 55.</li>
+                    <li><span class="code-snippet">total_with_shipping(50, 10)</span> - We passed TWO arguments. The 10 <em>overrides</em> the default 5. Result = 60.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 5: Dropshipping Profit Calculator</h3>
+        <p class="task-desc">Given a supplier price and selling price, return the profit. If selling price is lower, return 0.</p>
+        <button class="btn-toggle" onclick="toggleCode('task5', this)">Show Answer</button>
+        
+        <div id="task5" class="answer-container">
+            <div class="code-container">
+<code><span class="keyword">def</span> <span class="function">calculate_profit</span>(supplier_price, selling_price):
+    <span class="keyword">if</span> selling_price > supplier_price:
+        <span class="keyword">return</span> selling_price - supplier_price
+    <span class="keyword">return</span> 0
+
+print(calculate_profit(20, 45))</code>
+            </div>
+            <div class="line-by-line">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">def calculate_profit(supplier_price, selling_price):</span> - Our magic box needs two things: how much the item costs us, and how much the customer paid.</li>
+                    <li><span class="code-snippet">if selling_price > supplier_price:</span> - We ask a logical question: "Did the customer pay more than what it cost us?" The <strong>&gt;</strong> means "greater than".</li>
+                    <li><span class="code-snippet">return selling_price - supplier_price</span> - If the answer is yes, we subtract our cost from the customer's payment to find the profit, and hand that number back.</li>
+                    <li><span class="code-snippet">return 0</span> - If the 'if' statement was false (meaning we lost money or broke even), Python skips to this line and hands back a 0. No profit!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 6: Palindrome Promo Code</h3>
+        <p class="task-desc">Check if a promo code reads the same forwards and backwards (e.g., 'RADAR').</p>
+        <button class="btn-toggle" onclick="toggleCode('task6', this)">Show Answer</button>
+        
+        <div id="task6" class="answer-container">
+            <div class="code-container">
+<code><span class="keyword">def</span> <span class="function">is_palindrome_code</span>(promo_code):
+    code_str = str(promo_code).upper()
+    <span class="keyword">if</span> code_str == code_str[::-1]:
+        <span class="keyword">return True</span>
+    <span class="keyword">return False</span>
+
+print(is_palindrome_code(<span class="string">'RADAR'</span>))</code>
+            </div>
+            <div class="line-by-line">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">def is_palindrome_code(promo_code):</span> - We expect one promo code string.</li>
+                    <li><span class="code-snippet">code_str = str(promo_code).upper()</span> - We clean up the data. <strong>str()</strong> makes sure it's text. <strong>.upper()</strong> makes all letters capital so 'Radar' and 'RADAR' are treated exactly the same.</li>
+                    <li><span class="code-snippet">if code_str == code_str[::-1]:</span> - This is Python magic! <strong>[::-1]</strong> means "read the text backwards." We ask: "Is the normal word exactly equal (<strong>==</strong>) to the backward word?"</li>
+                    <li><span class="code-snippet">return True / return False</span> - If they match, we return True. If not, we return False.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 8: Keyword Arguments Profile</h3>
+        <p class="task-desc">Use keyword arguments to create a user profile so the order doesn't matter.</p>
+        <button class="btn-toggle" onclick="toggleCode('task8', this)">Show Answer</button>
+        
+        <div id="task8" class="answer-container">
+            <div class="code-container">
+<code><span class="keyword">def</span> <span class="function">create_profile</span>(name, age, role):
+    print(<span class="string">f"Profile: {name}, Age {age}, Role: {role}"</span>)
+
+create_profile(role=<span class="string">"Admin"</span>, name=<span class="string">"Ali"</span>, age=22)</code>
+            </div>
+            <div class="line-by-line">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">def create_profile(name, age, role):</span> - Our box expects three specific ingredients in this exact order.</li>
+                    <li><span class="code-snippet">create_profile(role="Admin", name="Ali", age=22)</span> - Normally, we would have to type ("Ali", 22, "Admin"). But by using <strong>Keyword Arguments</strong> (typing the name of the slot and an equals sign), we act like we are putting luggage tags on our data. Because of the tags, Python knows exactly where they go, so the <em>order doesn't matter!</em></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 9: Multiple Return Values</h3>
+        <p class="task-desc">Return both the base revenue and the calculated 10% tax from a gross sales amount.</p>
+        <button class="btn-toggle" onclick="toggleCode('task9', this)">Show Answer</button>
+        
+        <div id="task9" class="answer-container">
+            <div class="code-container">
+<code><span class="keyword">def</span> <span class="function">calculate_finances</span>(gross_sales):
+    tax = gross_sales * 0.10
+    net_revenue = gross_sales - tax
+    <span class="keyword">return</span> net_revenue, tax
+
+revenue, tax_amount = calculate_finances(1000)
+print(<span class="string">f"Revenue: ${revenue}, Tax: ${tax_amount}"</span>)</code>
+            </div>
+            <div class="line-by-line">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">def calculate_finances(gross_sales):</span> - We pass the total sales number into the function.</li>
+                    <li><span class="code-snippet">return net_revenue, tax</span> - Instead of giving back just one item, the magic box returns TWO items separated by a comma. It’s like a vending machine giving you your snack <em>and</em> your change at the same time. This is called returning a <strong>Tuple</strong>.</li>
+                    <li><span class="code-snippet">revenue, tax_amount = calculate_finances(1000)</span> - Because the box throws out two items, we need two catchers! The first item (net_revenue) goes into <strong>revenue</strong>, and the second (tax) goes into <strong>tax_amount</strong>.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 10: Variable Scope (Global vs Local)</h3>
+        <p class="task-desc">Demonstrate variable scope using a global warehouse stock and a local store stock.</p>
+        
+        
+        
+        <button class="btn-toggle" onclick="toggleCode('task10', this)">Show Answer</button>
+        
+        <div id="task10" class="answer-container">
+            <div class="code-container">
+<code>warehouse_stock = 500
+
+<span class="keyword">def</span> <span class="function">check_stock</span>():
+    store_stock = 50
+    print(<span class="string">f"Warehouse: {warehouse_stock}, Store: {store_stock}"</span>)
+
+check_stock()
+<span class="comment"># print(store_stock) would cause an error here!</span></code>
+            </div>
+            <div class="line-by-line">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">warehouse_stock = 500</span> - This is a <strong>Global Variable</strong>. It is sitting outside in the open air. Anyone, including our function, can see it.</li>
+                    <li><span class="code-snippet">store_stock = 50</span> - This is inside the function. It is a <strong>Local Variable</strong>. Think of it like a secret item hidden inside a house. The function can see it, but the outside world cannot!</li>
+                    <li><span class="code-snippet"># print(store_stock)</span> - If we tried to print this outside the function, Python would crash and say "I don't know what store_stock is!" because it's locked inside the function's house.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">Module 3: *args and **kwargs (The Magic Bags)</h2>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 11: Total Cart Value (*args)</h3>
+        <p class="task-desc">A customer can buy any number of items. Sum them all up using *args.</p>
+        
+        
+        
+        <button class="btn-toggle" onclick="toggleCode('task11', this)">Show Answer</button>
+        
+        <div id="task11" class="answer-container">
+            <div class="code-container">
+<code><span class="keyword">def</span> <span class="function">sum_cart_items</span>(*prices):
+    total = 0
+    <span class="keyword">for</span> price <span class="keyword">in</span> prices:
+        total += price
+    <span class="keyword">return</span> total
+
+print(sum_cart_items(12.50, 4.00, 19.99))</code>
+            </div>
+            <div class="line-by-line">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">def sum_cart_items(*prices):</span> - The little star <strong>*</strong> means "Magic Bag!" We don't know how many items the customer is buying. The star grabs all the arguments we pass and packs them neatly into a single list (a Tuple) named <strong>prices</strong>.</li>
+                    <li><span class="code-snippet">total = 0</span> - We start our cash register at zero.</li>
+                    <li><span class="code-snippet">for price in prices:</span> - We open our magic bag and look at every item one by one.</li>
+                    <li><span class="code-snippet">total += price</span> - We add the current item's price to our total. <strong>+=</strong> is a shortcut for "total = total + price".</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 12: Content Metadata (**kwargs)</h3>
+        <p class="task-desc">Print metadata for a video where the tags can vary wildly using **kwargs.</p>
+        <button class="btn-toggle" onclick="toggleCode('task12', this)">Show Answer</button>
+        
+        <div id="task12" class="answer-container">
+            <div class="code-container">
+<code><span class="keyword">def</span> <span class="function">display_info</span>(**metadata):
+    <span class="keyword">for</span> key, value <span class="keyword">in</span> metadata.items():
+        print(<span class="string">f"{key.capitalize()}: {value}"</span>)
+
+display_info(title=<span class="string">"Python Class"</span>, platform=<span class="string">"TikTok"</span>, views=150)</code>
+            </div>
+            <div class="line-by-line">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">def display_info(**metadata):</span> - TWO stars <strong>**</strong> mean "Magic Dictionary!" It takes keyword arguments (like title="Python") and automatically bundles them into a dictionary where "title" is the key and "Python" is the value.</li>
+                    <li><span class="code-snippet">for key, value in metadata.items():</span> - The <strong>.items()</strong> tool lets us pull out both the label (key) and the data (value) from the dictionary at the same time.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">Module 4: Lambda, Map, & Filter (The Mini Robots)</h2>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 13: Lambda VAT</h3>
+        <p class="task-desc">Create a one-line lambda function to add 15% VAT to a price.</p>
+        <button class="btn-toggle" onclick="toggleCode('task13', this)">Show Answer</button>
+        
+        <div id="task13" class="answer-container">
+            <div class="code-container">
+<code>add_vat = <span class="keyword">lambda</span> price: price * 1.15
+
+print(add_vat(100))</code>
+            </div>
+            <div class="line-by-line">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">add_vat = lambda price: price * 1.15</span> - A <strong>lambda</strong> is a tiny, nameless function written on a single line. It's like a mini-robot. "price" is the parameter, the colon ":" separates the input from the math, and "price * 1.15" is what it automatically returns. We gave this mini-robot the nametag <strong>add_vat</strong>.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 14: Filter Out of Stock</h3>
+        <p class="task-desc">Use lambda and filter() to keep only items with stock > 0 in a list of dictionaries.</p>
+        <button class="btn-toggle" onclick="toggleCode('task14', this)">Show Answer</button>
+        
+        <div id="task14" class="answer-container">
+            <div class="code-container">
+<code>inventory = [
+    {<span class="string">"name"</span>: <span class="string">"Laptop"</span>, <span class="string">"stock"</span>: 5},
+    {<span class="string">"name"</span>: <span class="string">"Mouse"</span>, <span class="string">"stock"</span>: 0}
+]
+
+in_stock = list(filter(<span class="keyword">lambda</span> item: item[<span class="string">"stock"</span>] > 0, inventory))
+print(in_stock)</code>
+            </div>
+            <div class="line-by-line">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">filter(...)</span> - <strong>filter()</strong> acts like a bouncer at a club. It goes through a list and only lets items stay if they pass a test.</li>
+                    <li><span class="code-snippet">lambda item: item["stock"] > 0</span> - This is the test! It checks the "stock" number of a single dictionary item. If it's greater than 0, it passes.</li>
+                    <li><span class="code-snippet">list(...)</span> - Filter creates a special object. We wrap it in <strong>list()</strong> to turn it back into a normal, readable list. The Mouse gets kicked out because its stock is 0!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">Module 5: Master Challenges</h2>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 16: Recursive Countdown</h3>
+        <p class="task-desc">Write a recursive function (calls itself) to count down to a flash sale.</p>
+        
+        
+        
+        <button class="btn-toggle" onclick="toggleCode('task16', this)">Show Answer</button>
+        
+        <div id="task16" class="answer-container">
+            <div class="code-container">
+<code><span class="keyword">def</span> <span class="function">countdown</span>(seconds):
+    <span class="keyword">if</span> seconds <= 0:
+        print(<span class="string">"FLASH SALE STARTED!"</span>)
+        <span class="keyword">return</span>
+    print(<span class="string">f"{seconds}..."</span>)
+    countdown(seconds - 1)
+
+countdown(3)</code>
+            </div>
+            <div class="line-by-line">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">def countdown(seconds):</span> - <strong>Recursion</strong> is when a function calls <em>itself</em> from the inside, like Russian nesting dolls!</li>
+                    <li><span class="code-snippet">if seconds <= 0: return</span> - This is the "Base Case." It's the emergency brake. If we don't have an emergency brake, the function will call itself forever!</li>
+                    <li><span class="code-snippet">countdown(seconds - 1)</span> - Here is the magic. It prints the number, then calls <em>itself</em>, but passes the current number minus 1. (3 calls 2, 2 calls 1, 1 calls 0 -> brake applied!).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 17: Find Max Sales Day</h3>
+        <p class="task-desc">Given a list of daily sales figures, write a function to find the highest grossing day.</p>
+        <button class="btn-toggle" onclick="toggleCode('task17', this)">Show Answer</button>
+        
+        <div id="task17" class="answer-container">
+            <div class="code-container">
+<code><span class="keyword">def</span> <span class="function">best_sales_day</span>(sales_data):
+    highest = sales_data[0]
+    best_index = 0
+    <span class="keyword">for</span> index, sale <span class="keyword">in</span> enumerate(sales_data):
+        <span class="keyword">if</span> sale > highest:
+            highest = sale
+            best_index = index
+    <span class="keyword">return</span> <span class="string">f"Day {best_index + 1} with ${highest}"</span>
+
+print(best_sales_day([1200, 3100, 2000]))</code>
+            </div>
+            <div class="line-by-line">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">highest = sales_data[0]</span> - We assume the first day (index 0) was the best day to start.</li>
+                    <li><span class="code-snippet">for index, sale in enumerate(sales_data):</span> - <strong>enumerate()</strong> is a great tool. It gives us BOTH the position (index) and the value (sale) at the same time as we loop through the list.</li>
+                    <li><span class="code-snippet">if sale > highest:</span> - If the current day we are looking at is bigger than our recorded highest, we update our records with the new winner!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 20: Master E-Commerce Checkout (The Grand Finale!)</h3>
+        <p class="task-desc">Build a point-of-sale checkout system utilizing multiple helper functions together.</p>
+        <button class="btn-toggle" onclick="toggleCode('task20', this)">Show Answer</button>
+        
+        <div id="task20" class="answer-container">
+            <div class="code-container">
+<code><span class="keyword">def</span> <span class="function">apply_discount</span>(subtotal, code):
+    <span class="keyword">if</span> code == <span class="string">"RAMADAN20"</span>: 
+        <span class="keyword">return</span> subtotal * 0.80
+    <span class="keyword">return</span> subtotal
+
+<span class="keyword">def</span> <span class="function">process_checkout</span>(cart_items, promo_code=None):
+    subtotal = sum(map(<span class="keyword">lambda</span> item: item[<span class="string">"price"</span>], cart_items))
+    discounted = apply_discount(subtotal, promo_code)
+    <span class="keyword">return</span> discounted
+
+cart = [{<span class="string">"price"</span>: 45.00}, {<span class="string">"price"</span>: 15.00}]
+print(<span class="string">f"Final Price: ${process_checkout(cart, 'RAMADAN20')}"</span>)</code>
+            </div>
+            <div class="line-by-line">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">def apply_discount(...)</span> - We made a "Helper Function." It has one job: figure out the discount.</li>
+                    <li><span class="code-snippet">def process_checkout(...)</span> - This is the "Main" function. It delegates tasks.</li>
+                    <li><span class="code-snippet">map(lambda item: item["price"], cart_items)</span> - We combine tools! <strong>map()</strong> goes through the cart list, and the <strong>lambda</strong> extracts ONLY the price from each dictionary. Then <strong>sum()</strong> adds them all up.</li>
+                    <li><span class="code-snippet">discounted = apply_discount(subtotal, promo_code)</span> - Our main function calls our helper function to do the math, proving we can use boxes inside of other boxes!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleCode(taskId, btnElement) {
+            const answerBlock = document.getElementById(taskId);
+            
+            if (answerBlock.style.display === "none" || answerBlock.style.display === "") {
+                answerBlock.style.display = "block"; // Show both code and explanation
+                btnElement.innerText = "Hide Answer";
+                btnElement.style.backgroundColor = "#e74c3c"; // Red for hide
+            } else {
+                answerBlock.style.display = "none";
+                btnElement.innerText = "Show Answer";
+                btnElement.style.backgroundColor = "#27ae60"; // Green for show
+            }
+        }
+    </script>
+</body>
+</html>
