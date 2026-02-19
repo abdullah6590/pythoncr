@@ -1,0 +1,270 @@
+/* Modern Professional Styling */
+:root {
+    /* Color Palette */
+    --primary: #0f172a; /* Deep Navy */
+    --secondary: #3b82f6; /* Vibrant Blue */
+    --accent: #10b981; /* Success Green */
+    --bg-main: #f8fafc; /* Clean Light Grey */
+    --bg-card: #ffffff; /* Pure White */
+    --text-main: #334155; /* Slate */
+    --text-heading: #1e293b; /* Dark Slate */
+    --border: #e2e8f0; /* Light border */
+    --code-bg: #1e293b; /* Dark Code Background */
+    
+    /* Spacing & Layout */
+    --radius-lg: 12px;
+    --radius-md: 8px;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    
+    /* Animation */
+    --transition: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Layout Container */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Header Styling */
+header {
+    text-align: center;
+    padding: 4rem 0 3rem;
+    position: relative;
+    overflow: hidden;
+}
+
+header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(59,130,246,0.1) 0%, rgba(255,255,255,0) 70%);
+    z-index: -1;
+}
+
+h1 {
+    color: var(--primary);
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.025em;
+}
+
+header p {
+    font-size: 1.125rem;
+    color: #64748b;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Storybook Intro Section */
+.storybook-intro {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+    margin-bottom: 3rem;
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+}
+
+.storybook-intro h2 {
+    color: var(--secondary);
+    font-size: 1.5rem;
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.highlight-term {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: var(--secondary);
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    font-weight: 600;
+    font-family: monospace;
+}
+
+/* Module Titles */
+.module-title {
+    background: linear-gradient(135deg, var(--primary), #334155);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: var(--radius-md);
+    margin: 3rem 0 1.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    box-shadow: var(--shadow-sm);
+}
+
+/* Task Cards */
+.task-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s var(--transition);
+}
+
+.task-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: #cbd5e1;
+}
+
+.task-title {
+    margin-top: 0;
+    color: var(--text-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.task-desc {
+    color: #475569;
+    font-size: 1.05rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Button Styling */
+.btn-toggle {
+    background-color: var(--secondary);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-toggle:hover {
+    background-color: #2563eb;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+}
+
+.btn-toggle.hide-mode {
+    background-color: #ef4444; /* Red for hide */
+}
+.btn-toggle.hide-mode:hover {
+    background-color: #dc2626;
+    box-shadow: 0 4px 6px -1px rgba(220, 38, 38, 0.2);
+}
+
+
+/* Answer & Code Container */
+.answer-container {
+    display: none; /* Logic handles display */
+    margin-top: 1.5rem;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid #334155;
+    animation: slideDown 0.4s ease-out;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.code-header {
+    background-color: #0f172a;
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #334155;
+}
+
+.window-dots {
+    display: flex;
+    gap: 6px;
+}
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.red { background: #ff5f56; }
+.yellow { background: #ffbd2e; }
+.green { background: #27c93f; }
+
+.copy-btn {
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: #94a3b8;
+    font-size: 0.8rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.copy-btn:hover { background: rgba(255,255,255,0.2); color: white; }
+
+
+.code-container {
+    background-color: var(--code-bg);
+    padding: 1.5rem;
+    overflow-x: auto;
+    color: #e2e8f0;
+    font-family: 'Fira Code', 'Courier New', monospace;
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+/* Syntax Highlighting */
+.keyword { color: #c678dd; font-weight: bold; } /* Purple */
+.function { color: #61afef; } /* Blue */
+.string { color: #98c379; } /* Green */
+.comment { color: #7f848e; font-style: italic; } /* Grey */
+.number { color: #d19a66; } /* Orange */
+
+/* Explanation Box */
+.line-by-line {
+    background-color: #fffbeb; /* Very light yellow */
+    border-top: 1px solid #fbbf24;
+    padding: 1.5rem;
+    font-size: 0.95rem;
+    color: #4b5563;
+}
+
+.line-by-line ul {
+    margin: 0;
+    padding-left: 1.5rem;
+}
+
+.line-by-line li {
+    margin-bottom: 0.75rem;
+}
+
+.code-snippet {
+    background-color: rgba(251, 191, 36, 0.2);
+    color: #b45309;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-weight: 600;
+}

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Python Functions: Interactive Masterclass</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -40,6 +40,14 @@
         <button class="btn-toggle" onclick="toggleCode('task1', this)">Show Answer</button>
         
         <div id="task1" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
             <div class="code-container">
 <code><span class="keyword">def</span> <span class="function">greet_follower</span>(username):
     print(<span class="string">f"Hello {username}, thanks for following!"</span>)
@@ -63,6 +71,14 @@ greet_follower(<span class="string">"AI_Student"</span>)</code>
         <button class="btn-toggle" onclick="toggleCode('task2', this)">Show Answer</button>
         
         <div id="task2" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
             <div class="code-container">
 <code><span class="keyword">def</span> <span class="function">add_numbers</span>(num1, num2):
     total = num1 + num2
@@ -90,6 +106,14 @@ print(result)</code>
         <button class="btn-toggle" onclick="toggleCode('task3', this)">Show Answer</button>
         
         <div id="task3" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
             <div class="code-container">
 <code><span class="keyword">def</span> <span class="function">calculate_item_total</span>(price, quantity):
     <span class="keyword">return</span> price * quantity
@@ -114,6 +138,14 @@ print(<span class="string">f"Total: ${pos_total}"</span>)</code>
         <button class="btn-toggle" onclick="toggleCode('task4', this)">Show Answer</button>
         
         <div id="task4" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
             <div class="code-container">
 <code><span class="keyword">def</span> <span class="function">is_even_id</span>(product_id):
     <span class="keyword">if</span> product_id % 2 == 0:
@@ -144,6 +176,14 @@ print(is_even_id(1042))</code>
         <button class="btn-toggle" onclick="toggleCode('task7', this)">Show Answer</button>
         
         <div id="task7" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
             <div class="code-container">
 <code><span class="keyword">def</span> <span class="function">total_with_shipping</span>(cart_value, shipping_fee=5):
     <span class="keyword">return</span> cart_value + shipping_fee
@@ -169,6 +209,14 @@ print(total_with_shipping(50, 10)) <span class="comment"># Express shipping? It 
         <button class="btn-toggle" onclick="toggleCode('task5', this)">Show Answer</button>
         
         <div id="task5" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
             <div class="code-container">
 <code><span class="keyword">def</span> <span class="function">calculate_profit</span>(supplier_price, selling_price):
     <span class="keyword">if</span> selling_price > supplier_price:
@@ -195,6 +243,14 @@ print(calculate_profit(20, 45))</code>
         <button class="btn-toggle" onclick="toggleCode('task6', this)">Show Answer</button>
         
         <div id="task6" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
             <div class="code-container">
 <code><span class="keyword">def</span> <span class="function">is_palindrome_code</span>(promo_code):
     code_str = str(promo_code).upper()
@@ -222,6 +278,14 @@ print(is_palindrome_code(<span class="string">'RADAR'</span>))</code>
         <button class="btn-toggle" onclick="toggleCode('task8', this)">Show Answer</button>
         
         <div id="task8" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
             <div class="code-container">
 <code><span class="keyword">def</span> <span class="function">create_profile</span>(name, age, role):
     print(<span class="string">f"Profile: {name}, Age {age}, Role: {role}"</span>)
@@ -244,6 +308,14 @@ create_profile(role=<span class="string">"Admin"</span>, name=<span class="strin
         <button class="btn-toggle" onclick="toggleCode('task9', this)">Show Answer</button>
         
         <div id="task9" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
             <div class="code-container">
 <code><span class="keyword">def</span> <span class="function">calculate_finances</span>(gross_sales):
     tax = gross_sales * 0.10
@@ -273,6 +345,14 @@ print(<span class="string">f"Revenue: ${revenue}, Tax: ${tax_amount}"</span>)</c
         <button class="btn-toggle" onclick="toggleCode('task10', this)">Show Answer</button>
         
         <div id="task10" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
             <div class="code-container">
 <code>warehouse_stock = 500
 
@@ -305,6 +385,14 @@ check_stock()
         <button class="btn-toggle" onclick="toggleCode('task11', this)">Show Answer</button>
         
         <div id="task11" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
             <div class="code-container">
 <code><span class="keyword">def</span> <span class="function">sum_cart_items</span>(*prices):
     total = 0
@@ -332,6 +420,14 @@ print(sum_cart_items(12.50, 4.00, 19.99))</code>
         <button class="btn-toggle" onclick="toggleCode('task12', this)">Show Answer</button>
         
         <div id="task12" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
             <div class="code-container">
 <code><span class="keyword">def</span> <span class="function">display_info</span>(**metadata):
     <span class="keyword">for</span> key, value <span class="keyword">in</span> metadata.items():
@@ -357,6 +453,14 @@ display_info(title=<span class="string">"Python Class"</span>, platform=<span cl
         <button class="btn-toggle" onclick="toggleCode('task13', this)">Show Answer</button>
         
         <div id="task13" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
             <div class="code-container">
 <code>add_vat = <span class="keyword">lambda</span> price: price * 1.15
 
@@ -377,6 +481,14 @@ print(add_vat(100))</code>
         <button class="btn-toggle" onclick="toggleCode('task14', this)">Show Answer</button>
         
         <div id="task14" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
             <div class="code-container">
 <code>inventory = [
     {<span class="string">"name"</span>: <span class="string">"Laptop"</span>, <span class="string">"stock"</span>: 5},
@@ -408,6 +520,14 @@ print(in_stock)</code>
         <button class="btn-toggle" onclick="toggleCode('task16', this)">Show Answer</button>
         
         <div id="task16" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
             <div class="code-container">
 <code><span class="keyword">def</span> <span class="function">countdown</span>(seconds):
     <span class="keyword">if</span> seconds <= 0:
@@ -435,6 +555,14 @@ countdown(3)</code>
         <button class="btn-toggle" onclick="toggleCode('task17', this)">Show Answer</button>
         
         <div id="task17" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
             <div class="code-container">
 <code><span class="keyword">def</span> <span class="function">best_sales_day</span>(sales_data):
     highest = sales_data[0]
@@ -464,6 +592,14 @@ print(best_sales_day([1200, 3100, 2000]))</code>
         <button class="btn-toggle" onclick="toggleCode('task20', this)">Show Answer</button>
         
         <div id="task20" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
             <div class="code-container">
 <code><span class="keyword">def</span> <span class="function">apply_discount</span>(subtotal, code):
     <span class="keyword">if</span> code == <span class="string">"RAMADAN20"</span>: 
@@ -490,6 +626,6 @@ print(<span class="string">f"Final Price: ${process_checkout(cart, 'RAMADAN20')}
         </div>
     </div>
 
-    <script src="js/script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
