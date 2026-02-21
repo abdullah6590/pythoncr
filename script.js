@@ -138,3 +138,19 @@ function copyToClipboard(button) {
         console.error('Failed to copy text: ', err);
     });
 }
+
+// --- Mobile Navigation Toggle ---
+document.addEventListener('DOMContentLoaded', () => {
+    const nav = document.querySelector('.top-nav');
+    const activeLink = document.querySelector('.nav-link.active');
+    
+    if (nav && activeLink) {
+        activeLink.addEventListener('click', (e) => {
+            // Only toggle menu on mobile screens
+            if (window.innerWidth <= 640) {
+                e.preventDefault(); // Prevent navigating to same page immediately
+                nav.classList.toggle('open');
+            }
+        });
+    }
+});
