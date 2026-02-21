@@ -343,9 +343,134 @@ code {
     border: 1px solid rgba(56, 189, 248, 0.15);
 }
 
+/* OOP Anatomy Diagram */
+.interactive-diagram {
+    background: rgba(12, 18, 34, 0.8);
+    border: 1px solid rgba(167, 139, 250, 0.3);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-top: 2rem;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.interactive-diagram h3 {
+    color: var(--accent-purple);
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.diagram-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.diagram-row {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.diagram-row.mt-2 {
+    margin-top: 1rem;
+}
+
+.diagram-pointer {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 6px 12px;
+    border-radius: 6px;
+    min-width: 150px;
+    text-align: right;
+    position: relative;
+    border-right: 3px solid transparent;
+}
+
+.diagram-pointer::after {
+    content: '→';
+    position: absolute;
+    right: -22px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.class-pointer {
+    background: rgba(167, 139, 250, 0.1);
+    color: var(--accent-purple);
+    border-right-color: var(--accent-purple);
+}
+.class-pointer::after { color: var(--accent-purple); }
+
+.method-pointer {
+    background: rgba(56, 189, 248, 0.1);
+    color: var(--accent-cyan);
+    border-right-color: var(--accent-cyan);
+}
+.method-pointer::after { color: var(--accent-cyan); }
+
+.attr-pointer {
+    background: rgba(251, 146, 60, 0.1);
+    color: var(--accent-orange);
+    border-right-color: var(--accent-orange);
+}
+.attr-pointer::after { color: var(--accent-orange); }
+
+.object-pointer {
+    background: rgba(52, 211, 153, 0.1);
+    color: var(--accent-green);
+    border-right-color: var(--accent-green);
+}
+.object-pointer::after { color: var(--accent-green); }
+
+.diagram-code-line {
+    flex-grow: 1;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.diagram-code-line code {
+    font-size: 0.95rem;
+}
+
 /* Responsive */
 @media (max-width: 640px) {
     h1 { font-size: 2rem; }
     .container { padding: 1rem; }
     .task-card, .storybook-intro { padding: 1.5rem; }
+    
+    .diagram-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    .diagram-pointer {
+        min-width: auto;
+        text-align: left;
+        border-right: none;
+        border-left: 3px solid transparent;
+    }
+    .class-pointer { border-left-color: var(--accent-purple); }
+    .method-pointer { border-left-color: var(--accent-cyan); }
+    .attr-pointer { border-left-color: var(--accent-orange); }
+    .object-pointer { border-left-color: var(--accent-green); }
+    
+    .diagram-pointer::after {
+        display: none;
+    }
+    
+    .diagram-code-line {
+        width: 100%;
+        overflow-x: auto;
+    }
 }

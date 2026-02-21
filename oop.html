@@ -32,6 +32,28 @@
             <li><span class="highlight-term">Attributes (Adjectives)</span> : Variables inside the class. These describe the object (e.g., <code>color = "blue"</code>).</li>
             <li><span class="highlight-term">Methods (Verbs)</span> : Functions inside the class. These are actions the object can take (e.g., <code>open_door()</code>).</li>
         </ul>
+
+        <div class="interactive-diagram">
+            <h3>🔍 Anatomy of OOP (Visual Guide)</h3>
+            <div class="diagram-box">
+                <div class="diagram-row">
+                    <div class="diagram-pointer class-pointer">Class (Blueprint)</div>
+                    <div class="diagram-code-line"><code><span class="keyword">class</span> <span class="function">Robot</span>:</code></div>
+                </div>
+                <div class="diagram-row">
+                    <div class="diagram-pointer method-pointer">Method (Action)</div>
+                    <div class="diagram-code-line"><code>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">def</span> <span class="function">__init__</span>(<span class="self">self</span>, name):</code></div>
+                </div>
+                <div class="diagram-row">
+                    <div class="diagram-pointer attr-pointer">Attribute (Data)</div>
+                    <div class="diagram-code-line"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="self">self</span>.name = name</code></div>
+                </div>
+                <div class="diagram-row mt-2">
+                    <div class="diagram-pointer object-pointer">Object (Real House)</div>
+                    <div class="diagram-code-line"><code>my_robot = <span class="function">Robot</span>(<span class="string">"Wall-E"</span>)</code></div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <h2 class="module-title">Module 1: Creating Your First Blueprint</h2>
