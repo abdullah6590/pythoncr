@@ -541,6 +541,26 @@ code {
     .top-nav.open .nav-link.active::after {
         transform: rotate(180deg);
     }
+    
+    /* --- Mobile GPU Optimization --- */
+    .task-card {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+    .task-card::before {
+        display: none !important;
+    }
+    .task-card:hover {
+        transform: none !important;
+        box-shadow: none !important;
+    }
+    .storybook-intro {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+    #particle-canvas {
+        display: none !important;
+    }
 }
 
 /* Toast Notification */

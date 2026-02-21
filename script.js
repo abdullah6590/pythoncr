@@ -30,11 +30,14 @@ const UNLOCK_DATES = {
 
 // --- Particle Network Background ---
 (function initParticles() {
+    // Skip particles on mobile — too heavy for phone GPUs
+    if (window.innerWidth <= 768) return;
+    
     const canvas = document.getElementById('particle-canvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     let particles = [];
-    const PARTICLE_COUNT = 60;
+    const PARTICLE_COUNT = 40;
     const CONNECTION_DIST = 150;
     let mouse = { x: null, y: null };
 
