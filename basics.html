@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Basics: Interactive Masterclass</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="container">
+
+    <nav class="top-nav">
+        <a href="basics.html" class="nav-link active">📘 Basics</a>
+        <a href="index.html" class="nav-link">🐍 Functions</a>
+        <a href="oop.html" class="nav-link">🏗️ OOP</a>
+    </nav>
+
+    <header>
+        <h1>📘 Python Basics</h1>
+        <p>Welcome! In this masterclass we will learn Python step by step with lots of practice. For each topic: I will explain the concept, I will ask you to write the code yourself, and then we will run and discuss the output!</p>
+    </header>
+
+    <h2 class="module-title">1. Introduction and First Program</h2>
+    <div class="storybook-intro">
+        <p>Python is a popular, easy-to-read programming language used for web, data, AI, and more.</p>
+        <p><strong>Goal:</strong><br>
+        - Run your first Python code.<br>
+        - Understand what <span class="highlight-term">print()</span> does.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 1: First Python Program</h3>
+        <p class="task-desc">Change the message to your own text. Example: <code>print("My name is Ali and I am learning Python")</code></p>
+        <button class="btn-toggle" onclick="toggleCode('basics-task1', this)">Show Answer</button>
+        
+        <div id="basics-task1" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="comment"># First Python program</span>
+print(<span class="string">"Hello, Python student!"</span>)
+
+<span class="comment"># Write your own message here</span>
+print(<span class="string">"I am excited to learn Python basics!"</span>)</code>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">2. Python Syntax and Indentation</h2>
+    <div class="storybook-intro">
+        <p>Python uses <strong>indentation</strong> (spaces) to define code blocks instead of braces.</p>
+        <ul>
+            <li>Same block = same indentation level.</li>
+            <li>Default is 4 spaces in most editors.</li>
+        </ul>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 2: Fixing Indentation</h3>
+        <p class="task-desc">Add one more print inside the if block. Then try removing the indentation and see what happens!</p>
+        <button class="btn-toggle" onclick="toggleCode('basics-task2', this)">Show Answer</button>
+        
+        <div id="basics-task2" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">if</span> 8 > 2:
+    print(<span class="string">"8 is greater than 2"</span>)
+    print(<span class="string">"This line is in the same block"</span>)
+
+<span class="keyword">if</span> 10 > 3:
+    print(<span class="string">"10 is greater than 3"</span>)
+    print(<span class="string">"I added a new line properly indented!"</span>)</code>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">3. Comments</h2>
+    <div class="storybook-intro">
+        <p>Comments are notes for humans, ignored by Python.</p>
+        <ul>
+            <li>Single-line: starts with <span class="highlight-term">#</span></li>
+            <li>Multi-line: multiple <span class="highlight-term">#</span> lines or triple quotes <code>""" ... """</code></li>
+        </ul>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 3: Leaving Notes</h3>
+        <p class="task-desc">Write a short program with at least 3 comments (e.g., Print your name and age).</p>
+        <button class="btn-toggle" onclick="toggleCode('basics-task3', this)">Show Answer</button>
+        
+        <div id="basics-task3" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="comment"># This program introduces me</span>
+<span class="comment"># I'll print my name first</span>
+print(<span class="string">"My name is Ali"</span>)
+
+<span class="comment"># Now I will print my age</span>
+print(<span class="string">"I am 22 years old"</span>)</code>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">4. Variables</h2>
+    <div class="storybook-intro">
+        <p>A variable stores a value with a name.</p>
+        <ul>
+            <li>Use <span class="highlight-term">=</span> to assign.</li>
+            <li>Names: letters, numbers, underscore; cannot start with a number.</li>
+            <li>Case-sensitive: <code>age</code> and <code>Age</code> are different.</li>
+        </ul>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 4: Creating Your Data</h3>
+        <p class="task-desc">Create 3 variables: your_name, your_city, your_year_of_birth. Then print them in one sentence.</p>
+        <button class="btn-toggle" onclick="toggleCode('basics-task4', this)">Show Answer</button>
+        
+        <div id="basics-task4" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code>your_name = <span class="string">"Abdullah"</span>
+your_city = <span class="string">"Peshawar"</span>
+your_year_of_birth = 2000
+
+print(<span class="string">"I am"</span>, your_name, <span class="string">"from"</span>, your_city, <span class="string">"born in"</span>, your_year_of_birth)</code>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">5. Data Types and Casting</h2>
+    <div class="storybook-intro">
+        <p>Common built-in types: <span class="highlight-term">str</span>, <span class="highlight-term">int</span>, <span class="highlight-term">float</span>, <span class="highlight-term">bool</span>.</p>
+        <p>Casting = converting between types using <code>int()</code>, <code>float()</code>, <code>str()</code>.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 5: Text to Number Magic</h3>
+        <p class="task-desc">Ask the user for a number (as text), convert to int, and add 10.</p>
+        <button class="btn-toggle" onclick="toggleCode('basics-task5', this)">Show Answer</button>
+        
+        <div id="basics-task5" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code>text_number = input(<span class="string">"Enter a number: "</span>)
+
+<span class="comment"># Convert to integer and add 10</span>
+result = int(text_number) + 10
+print(f<span class="string">"Your number plus 10 is: {result}"</span>)</code>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">6. Strings</h2>
+    <div class="storybook-intro">
+        <p>Strings are text inside quotes. Key operations:</p>
+        <ul>
+            <li>Indexing: <code>s[0]</code></li>
+            <li>Slicing: <code>s[0:5]</code></li>
+            <li>Methods: <code>upper()</code>, <code>lower()</code>, <code>strip()</code>, <code>replace()</code>, <code>split()</code></li>
+            <li>Concatenation: <code>"Hello " + "World"</code></li>
+            <li>f-strings: <code>f"Hello {name}"</code></li>
+        </ul>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 6: String Manipulation</h3>
+        <p class="task-desc">Given a name string, print: (1) Uppercase (2) First 3 characters (3) A sentence: "Hello, &lt;name&gt;!"</p>
+        <button class="btn-toggle" onclick="toggleCode('basics-task6', this)">Show Answer</button>
+        
+        <div id="basics-task6" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code>student_name = <span class="string">"Abdullah"</span>
+
+print(student_name.upper())
+print(student_name[0:3])
+print(f<span class="string">"Hello, {student_name}!"</span>)</code>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">7. Booleans and Comparisons</h2>
+    <div class="storybook-intro">
+        <p>A boolean is either <code>True</code> or <code>False</code>.</p>
+        <ul>
+            <li>Comparison operators: <code>==, !=, &gt;, &lt;, &gt;=, &lt;=</code></li>
+            <li>Logical operators: <code>and, or, not</code></li>
+        </ul>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 7: Truth Teller</h3>
+        <p class="task-desc">Create two numbers. Print True if both are greater than 5, otherwise False.</p>
+        <button class="btn-toggle" onclick="toggleCode('basics-task7', this)">Show Answer</button>
+        
+        <div id="basics-task7" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code>x = 7
+y = 2
+
+<span class="keyword">if</span> x > 5 <span class="keyword">and</span> y > 5:
+    print(<span class="keyword">True</span>)
+<span class="keyword">else</span>:
+    print(<span class="keyword">False</span>)</code>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">8. Operators</h2>
+    <div class="storybook-intro">
+        <p>Types of operators:</p>
+        <ul>
+            <li>Arithmetic: <code>+ - * / % // **</code></li>
+            <li>Assignment: <code>= += -= *=</code></li>
+            <li>Comparison: <code>== != > <</code></li>
+            <li>Logical: <code>and or not</code></li>
+            <li>Membership: <code>in, not in</code></li>
+        </ul>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 8: The Calculator</h3>
+        <p class="task-desc">Given two numbers, show all arithmetic operations.</p>
+        <button class="btn-toggle" onclick="toggleCode('basics-task8', this)">Show Answer</button>
+        
+        <div id="basics-task8" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code>a = 15
+b = 4
+
+print(<span class="string">"Add:"</span>, a + b)
+print(<span class="string">"Subtract:"</span>, a - b)
+print(<span class="string">"Multiply:"</span>, a * b)
+print(<span class="string">"Divide:"</span>, a / b)
+print(<span class="string">"Floor Divide:"</span>, a // b)
+print(<span class="string">"Modulo (Remainder):"</span>, a % b)
+print(<span class="string">"Power:"</span>, a ** b)</code>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">9. Lists</h2>
+    <div class="storybook-intro">
+        <p>Lists store multiple items in order and are <strong>mutable</strong> (can change).</p>
+        <p>Important methods: <code>append()</code>, <code>insert()</code>, <code>remove()</code>, <code>pop()</code></p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 9: Fruit Basket</h3>
+        <p class="task-desc">Try modifying a list by appending and removing items.</p>
+        <button class="btn-toggle" onclick="toggleCode('basics-task9', this)">Show Answer</button>
+        
+        <div id="basics-task9" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code>fruits = [<span class="string">"apple"</span>, <span class="string">"banana"</span>, <span class="string">"cherry"</span>]
+
+fruits.append(<span class="string">"orange"</span>)
+fruits.remove(<span class="string">"banana"</span>)
+
+print(fruits)</code>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">10. Tuples</h2>
+    <div class="storybook-intro">
+        <p>Tuples are like lists but <strong>immutable</strong> (cannot change items after creation).</p>
+        <p>Syntax: <code>my_tuple = (1, 2, 3)</code></p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 10: Favorite Foods</h3>
+        <p class="task-desc">Create a tuple of 4 favorite foods. Print each item using a loop.</p>
+        <button class="btn-toggle" onclick="toggleCode('basics-task10', this)">Show Answer</button>
+        
+        <div id="basics-task10" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code>foods = (<span class="string">"Biryani"</span>, <span class="string">"Pizza"</span>, <span class="string">"Burger"</span>, <span class="string">"Karahi"</span>)
+
+<span class="keyword">for</span> food <span class="keyword">in</span> foods:
+    print(food)</code>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">11. Sets</h2>
+    <div class="storybook-intro">
+        <p>Sets are unordered collections of unique items. They instantly remove duplicates!</p>
+        <p>Syntax: <code>{1, 2, 3}</code></p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 11: Common Students</h3>
+        <p class="task-desc">Create two sets of student IDs. Print the IDs that are in both sets using intersection (<code>&</code>).</p>
+        <button class="btn-toggle" onclick="toggleCode('basics-task11', this)">Show Answer</button>
+        
+        <div id="basics-task11" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code>class_a = {1, 2, 3}
+class_b = {3, 4, 5}
+
+common_students = class_a & class_b
+print(<span class="string">"Students in both classes:"</span>, common_students)</code>
+            </div>
+        </div>
+    </div>
+    
+    <h2 class="module-title">12. Dictionaries</h2>
+    <div class="storybook-intro">
+        <p>Dictionaries store data as key–value pairs. Like a real dictionary linking a word to its definition!</p>
+        <p>Syntax: <code>person = {"name": "Ali", "age": 20}</code></p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 12: Book Database</h3>
+        <p class="task-desc">Create a dictionary for a book (title, author, year). Print each key and value.</p>
+        <button class="btn-toggle" onclick="toggleCode('basics-task12', this)">Show Answer</button>
+        
+        <div id="basics-task12" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code>book = {
+    <span class="string">"title"</span>: <span class="string">"Python Crash Course"</span>,
+    <span class="string">"author"</span>: <span class="string">"Eric Matthes"</span>,
+    <span class="string">"year"</span>: 2019
+}
+
+<span class="keyword">for</span> key, value <span class="keyword">in</span> book.items():
+    print(f<span class="string">"{key}: {value}"</span>)</code>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">13. If, Elif, Else</h2>
+    <div class="storybook-intro">
+        <p>Conditional statements let the program make decisions based on rules you define.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 13: Age Checker</h3>
+        <p class="task-desc">Write a program that uses an age variable to print "Child", "Teenager", or "Adult".</p>
+        <button class="btn-toggle" onclick="toggleCode('basics-task13', this)">Show Answer</button>
+        
+        <div id="basics-task13" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code>age = 18
+
+<span class="keyword">if</span> age < 13:
+    print(<span class="string">"Child"</span>)
+<span class="keyword">elif</span> age < 20:
+    print(<span class="string">"Teenager"</span>)
+<span class="keyword">else</span>:
+    print(<span class="string">"Adult"</span>)</code>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">14. While Loops</h2>
+    <div class="storybook-intro">
+        <p>A <code>while</code> loop repeats while a condition is True. Be careful to avoid infinite loops!</p>
+        <p>Think of it like a traffic light: "I will wait while the light is red." You don't know exactly how long it will take, but you know the condition.</p>
+        <div style="background: rgba(239, 68, 68, 0.1); border-left: 4px solid #ef4444; padding: 1rem; margin-top: 1rem; border-radius: 4px;">
+            <strong style="color: #ef4444;">🚨 The Danger Zone: Infinite Loops</strong><br>
+            If you forget the <code>count += 1</code> line, the computer will never stop counting because the condition never becomes False! If you do this, your program will freeze!
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 14: The Countdown</h3>
+        <p class="task-desc">Print numbers from 10 down to 1 using a while loop.</p>
+        <button class="btn-toggle" onclick="toggleCode('basics-task14', this)">Show Answer</button>
+        
+        <div id="basics-task14" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code>count = 10
+
+<span class="keyword">while</span> count > 0:
+    print(count)
+    count -= 1  <span class="comment"># DON'T FORGET THIS STEP!</span>
+
+print(<span class="string">"Blastoff!"</span>)</code>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">15. For Loops</h2>
+    <div class="storybook-intro">
+        <p><code>for</code> loops iterate over sequences (like lists, strings, or numbers safely ending automatically).</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 15: The Roll Call</h3>
+        <p class="task-desc">Loop over a list of 5 names and print "Hello, &lt;name&gt;".</p>
+        <button class="btn-toggle" onclick="toggleCode('basics-task15', this)">Show Answer</button>
+        
+        <div id="basics-task15" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code>names = [<span class="string">"Ali"</span>, <span class="string">"Sara"</span>, <span class="string">"Bilal"</span>, <span class="string">"Noor"</span>, <span class="string">"Zain"</span>]
+
+<span class="keyword">for</span> name <span class="keyword">in</span> names:
+    print(f<span class="string">"Hello, {name}!"</span>)</code>
+            </div>
+        </div>
+    </div>
+
+    </div><!-- .container -->
+
+    <script src="script.js"></script>
+</body>
+</html>
