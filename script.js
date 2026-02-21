@@ -6,23 +6,30 @@
 // Set the date and time when specific pages should unlock for students.
 // Format: 'YYYY-MM-DDTHH:MM:SS'
 const UNLOCK_DATES = {
-    // Example: Locks OOP and NumPy until March 2026. Change these dates as needed!
     'oop.html': new Date('2026-02-23T14:00:00').getTime(),
     'numpy.html': new Date('2026-02-25T14:00:00').getTime()
 };
 
-// --- Teacher/Admin Bypass Key ---
-// Anyone with this key can bypass the lock screen. It resets on page refresh!
-const UNLOCK_SECRET = "galaxy";
-
-// --- Particle Network Background ---
-(function initParticles() {
-    // Skip particle animation on locked pages to prevent mobile GPU crash
+// --- INSTANT LOCK REDIRECT (runs before ANYTHING loads) ---
+(function() {
     const pathArray = window.location.pathname.split('/');
     let page = pathArray[pathArray.length - 1];
     if (page === '') page = 'index.html';
-    if (UNLOCK_DATES[page] && new Date().getTime() < UNLOCK_DATES[page]) return;
 
+    // Check if this page is locked
+    if (UNLOCK_DATES[page] && new Date().getTime() < UNLOCK_DATES[page]) {
+        // Check for bypass parameter (set by locked.html after correct password)
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('unlocked') !== '1') {
+            // REDIRECT immediately to the lightweight lock page!
+            window.location.replace('locked.html?page=' + page + '&until=' + UNLOCK_DATES[page]);
+            return; // Stop everything
+        }
+    }
+})();
+
+// --- Particle Network Background ---
+(function initParticles() {
     const canvas = document.getElementById('particle-canvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -170,73 +177,8 @@ function toggleOutput(id, btn) {
     }
 }
 
-// --- Mobile Navigation Toggle & Content Lock ---
+// --- Mobile Navigation Toggle ---
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Content Lock Check (Direct Access via URL)
-    const currentTime = new Date().getTime();
-    const pathArray = window.location.pathname.split('/');
-    let currentPage = pathArray[pathArray.length - 1];
-    if (currentPage === '') currentPage = 'index.html'; // Fallback for root
-
-    if (UNLOCK_DATES[currentPage] && currentTime < UNLOCK_DATES[currentPage]) {
-        const unlockDateObj = new Date(UNLOCK_DATES[currentPage]);
-        const unlockDateStr = unlockDateObj.toLocaleString(undefined, {
-            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
-            hour: '2-digit', minute: '2-digit'
-        });
-
-        // Inject the lock screen overlay directly on top (covers everything visually)
-        const lockScreen = document.createElement('div');
-        lockScreen.className = 'locked-screen';
-        lockScreen.id = 'lock-overlay';
-        lockScreen.innerHTML = `
-            <div class="lock-icon" id="secret-unlock-btn" style="cursor: pointer;" title="Teacher Access">🔒</div>
-            <h2>Content Locked</h2>
-            <p style="color: #a1a1aa; max-width: 400px; margin: 0 auto;">The materials and tasks for this module are locked for now. Please return on the scheduled date.</p>
-            <div class="unlock-date">Unlocks: ${unlockDateStr}</div>
-            <br>
-            <div id="teacher-access-form" style="display: none; margin-top: 1.5rem;">
-                <input type="password" id="teacher-password" placeholder="Enter Access Key..." style="padding: 0.6rem 1rem; border-radius: 8px; border: 1px solid var(--accent-green); background: rgba(0,0,0,0.5); color: #fff; text-align: center; font-size: 1rem; width: 200px;">
-                <button id="teacher-submit" class="btn-output" style="margin-left: 0.5rem; padding: 0.6rem 1rem;">Unlock</button>
-            </div>
-            <a href="index.html" class="btn-output" style="display: inline-block; text-decoration: none; margin-top: 2.5rem;">Return to Dashboard</a>
-        `;
-        document.body.appendChild(lockScreen);
-        document.body.style.overflow = 'hidden'; // Prevent scrolling behind overlay
-
-        // --- Secret Bypass Logic ---
-        const secretBtn = document.getElementById('secret-unlock-btn');
-        const teacherForm = document.getElementById('teacher-access-form');
-        const teacherInput = document.getElementById('teacher-password');
-        const teacherSubmit = document.getElementById('teacher-submit');
-
-        secretBtn.addEventListener('click', () => {
-            teacherForm.style.display = 'block';
-            teacherInput.focus();
-        });
-
-        const submitPassword = () => {
-            const password = teacherInput.value;
-            if (password === UNLOCK_SECRET) {
-                teacherInput.blur();
-                // Just remove the overlay — content was always there behind it!
-                lockScreen.remove();
-                document.body.style.overflow = ''; // Re-enable scrolling
-                showToast("🔓 Teacher Access Granted!");
-            } else if (password !== "") {
-                teacherInput.blur();
-                showToast("❌ Incorrect Access Key.");
-                teacherInput.value = "";
-            }
-        };
-
-        teacherSubmit.addEventListener('click', submitPassword);
-        teacherInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') submitPassword();
-        });
-    }
-
-    // 2. Navigation Link Intercept & Mobile Toggle
     const nav = document.querySelector('.top-nav');
     const navLinks = document.querySelectorAll('.nav-link');
     

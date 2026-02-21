@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Locked</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0a0e1a;
+            color: #fff;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        .lock-box {
+            text-align: center;
+            padding: 3rem 2rem;
+            max-width: 420px;
+            width: 90%;
+        }
+        .lock-emoji {
+            font-size: 4rem;
+            cursor: pointer;
+            display: inline-block;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(52, 211, 153, 0.5);
+            transition: transform 0.2s;
+        }
+        .lock-emoji:hover { transform: scale(1.15); }
+        h1 {
+            color: #34d399;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        .msg {
+            color: #a1a1aa;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        .date-badge {
+            display: inline-block;
+            font-weight: bold;
+            color: #ffd700;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 4px;
+            margin-bottom: 2rem;
+        }
+        .key-form {
+            display: none;
+            margin: 1.5rem 0;
+        }
+        .key-form input {
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            border: 1px solid #34d399;
+            background: rgba(0,0,0,0.5);
+            color: #fff;
+            text-align: center;
+            font-size: 1rem;
+            width: 180px;
+            outline: none;
+        }
+        .key-form input:focus { box-shadow: 0 0 8px rgba(52,211,153,0.3); }
+        .btn {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            background: linear-gradient(135deg, #34d399, #059669);
+            color: #0a0e1a;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            text-decoration: none;
+            margin: 0.3rem;
+            transition: transform 0.2s;
+        }
+        .btn:hover { transform: translateY(-2px); }
+        .error { color: #ef4444; margin-top: 0.5rem; display: none; }
+    </style>
+</head>
+<body>
+    <div class="lock-box">
+        <div class="lock-emoji" id="lock-icon">🔒</div>
+        <h1>Content Locked</h1>
+        <p class="msg">This module has not been released yet. Please return on the scheduled date.</p>
+        <div class="date-badge" id="unlock-date"></div>
+        <br>
+
+        <div class="key-form" id="key-form">
+            <input type="password" id="key-input" placeholder="Enter Access Key...">
+            <button class="btn" id="key-submit">Unlock</button>
+            <p class="error" id="error-msg">Incorrect key. Try again.</p>
+        </div>
+
+        <br>
+        <a href="index.html" class="btn">Return to Dashboard</a>
+    </div>
+
+    <script>
+        // Read which page we came from
+        const params = new URLSearchParams(window.location.search);
+        const targetPage = params.get('page') || 'index.html';
+        const unlockTime = parseInt(params.get('until') || '0');
+        const SECRET = "galaxy";
+
+        // Show unlock date
+        if (unlockTime) {
+            const d = new Date(unlockTime);
+            document.getElementById('unlock-date').textContent = 'Unlocks: ' + d.toLocaleString(undefined, {
+                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+                hour: '2-digit', minute: '2-digit'
+            });
+        }
+
+        // Toggle password form
+        document.getElementById('lock-icon').addEventListener('click', function() {
+            document.getElementById('key-form').style.display = 'block';
+            document.getElementById('key-input').focus();
+        });
+
+        // Submit password
+        function tryUnlock() {
+            const val = document.getElementById('key-input').value;
+            if (val === SECRET) {
+                // Redirect back with bypass flag!
+                window.location.href = targetPage + '?unlocked=1';
+            } else if (val !== '') {
+                document.getElementById('error-msg').style.display = 'block';
+                document.getElementById('key-input').value = '';
+            }
+        }
+
+        document.getElementById('key-submit').addEventListener('click', tryUnlock);
+        document.getElementById('key-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') tryUnlock();
+        });
+    </script>
+</body>
+</html>
