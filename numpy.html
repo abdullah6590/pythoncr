@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NumPy: Interactive Masterclass</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .output-container {
+            margin-top: 1rem;
+            padding: 1rem 1.5rem;
+            background: #000;
+            border-left: 4px solid var(--accent-green);
+            border-radius: 4px;
+            font-family: 'Fira Code', monospace;
+            color: #fff;
+            display: none;
+            animation: fadeSlideIn 0.3s ease-out;
+        }
+        .btn-output {
+            background: linear-gradient(135deg, var(--accent-green), #10b981);
+            color: #0a0e1a;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 1rem;
+        }
+        .btn-output:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(52, 211, 153, 0.3);
+        }
+        .output-visible {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="container">
+
+    <nav class="top-nav">
+        <a href="basics.html" class="nav-link">📘 Basics</a>
+        <a href="index.html" class="nav-link">🐍 Functions</a>
+        <a href="oop.html" class="nav-link">🏗️ OOP</a>
+        <a href="numpy.html" class="nav-link active">🧮 NumPy</a>
+    </nav>
+
+    <header>
+        <h1>🧮 NumPy Introduction</h1>
+        <p>NumPy (Numerical Python) is a fundamental library for Python numerical computing. It provides efficient multi-dimensional array objects and various mathematical functions for handling large datasets, making it a critical tool for professionals in fields that require heavy computation.</p>
+    </header>
+
+    <div class="storybook-intro">
+        <h2>📦 NumPy Arrays</h2>
+        <p>NumPy arrays are a part of the NumPy library, which is a powerful tool for numerical computing in Python. These arrays are designed for high-performance operations on large volumes of data and support multi-dimensional arrays and matrices. This makes them ideal for complex mathematical computations and large-scale data processing.</p>
+        <p><strong>Features:</strong></p>
+        <ul>
+            <li><span class="highlight-term">Multi-dimensional support</span>: NumPy arrays can handle more than one dimension, making them suitable for matrix operations and more complex mathematical constructs.</li>
+            <li><span class="highlight-term">Broad broadcasting capabilities</span>: They can perform operations between arrays of different sizes and shapes, a feature known as broadcasting.</li>
+            <li><span class="highlight-term">Efficient storage and processing</span>: NumPy arrays are stored more efficiently than Python lists and provide optimized performance for numerical operations.</li>
+        </ul>
+
+        <h2 style="margin-top: 2rem;">✨ Key Features of NumPy</h2>
+        <p>NumPy has various features that make it superior to standard Python lists for data science:</p>
+        <ul>
+            <li><span class="highlight-term">N-Dimensional Arrays</span> : NumPy's core feature is `ndarray`, an N-dimensional array object that supports homogeneous (same type) data types.</li>
+            <li><span class="highlight-term">High Performance</span> : Arrays are stored in contiguous memory locations, enabling much faster computations than Python lists.</li>
+            <li><span class="highlight-term">Broadcasting</span> : Allows element-wise computations between arrays of different shapes without creating new data.</li>
+            <li><span class="highlight-term">Vectorization</span> : Eliminates the need for explicit Python loops by applying operations directly on entire arrays.</li>
+            <li><span class="highlight-term">Linear Algebra</span> : Contains routines for math operations like matrix multiplication, decompositions, and determinants.</li>
+        </ul>
+
+        <h3 style="margin-top: 2rem;">⚙️ Installation</h3>
+        <p>To begin using NumPy, install it via pip: <code>pip install numpy</code></p>
+        <p>Once installed, import it using the standard alias: <code>import numpy as np</code></p>
+    </div>
+
+    <h2 class="module-title">Module 1: Creating Arrays</h2>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 1: Using np.array</h3>
+        <p class="task-desc">Use <code>np.array()</code> when you want to convert standard Python lists into powerful NumPy arrays.</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task1', this)">Show Answer</button>
+        
+        <div id="np-task1" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+a1 = np.array([1, 2, 3])            <span class="comment"># 1D array</span>
+a2 = np.array([[1, 2], [3, 4]])     <span class="comment"># 2D array</span>
+a3 = np.array([[[1, 2], [3, 4]],    <span class="comment"># 3D array</span>
+               [[5, 6], [7, 8]]])
+
+print(a1)
+print(a2)
+print(a3)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out1', this)">Show Output</button>
+            <div id="out1" class="output-container">
+[1 2 3]<br>
+[[1 2]<br>
+ [3 4]]<br>
+[[[1 2]<br>
+  [3 4]]<br><br>
+ [[5 6]<br>
+  [7 8]]]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">import numpy as np</span> - We bring the NumPy library into our script and give it the nickname <strong>np</strong> so we don't have to type 'numpy' every time.</li>
+                    <li><span class="code-snippet">np.array([1, 2, 3])</span> - We pass a standard Python list into the array function to create a 1-Dimensional array (like a single row).</li>
+                    <li><span class="code-snippet">np.array([[1, 2], [3, 4]])</span> - By nesting lists inside a list, we create a 2-Dimensional array (like an Excel table with rows and columns).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 2: Using Built-in NumPy Functions</h3>
+        <p class="task-desc">NumPy provides quick utility functions for creating arrays filled with zeros, ones, or ranges without typing them manually.</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task2', this)">Show Answer</button>
+        
+        <div id="np-task2" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+a0 = np.zeros((3, 3))
+a1 = np.ones((2, 2))
+ar = np.arange(0, 10, 2)
+
+print(a0)
+print(a1)
+print(ar)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out2', this)">Show Output</button>
+            <div id="out2" class="output-container">
+[[0. 0. 0.]<br>
+ [0. 0. 0.]<br>
+ [0. 0. 0.]]<br>
+[[1. 1.]<br>
+ [1. 1.]]<br>
+[0 2 4 6 8]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">np.zeros((3, 3))</span> - Instantly creates a 3x3 grid where every single value is perfectly set to zero. Great for placeholder data!</li>
+                    <li><span class="code-snippet">np.ones((2, 2))</span> - Similar to zeros, but creates a 2x2 grid filled entirely with the number 1.</li>
+                    <li><span class="code-snippet">np.arange(0, 10, 2)</span> - "Array Range". It generates numbers starting from 0, stopping before 10, taking steps of 2. (Result: 0, 2, 4, 6, 8).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">Module 2: Indexing and Slicing</h2>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 3: Basic Array Indexing</h3>
+        <p class="task-desc">Extracting specific elements from an array using their position (index).</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task3', this)">Show Answer</button>
+        
+        <div id="np-task3" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+a1 = np.array([10, 20, 30, 40, 50])
+print(a1[2])      <span class="comment"># single element</span>
+print(a1[-1])     <span class="comment"># last element</span>
+
+a2 = np.array([[1, 2, 3],
+               [4, 5, 6],
+               [7, 8, 9]])
+print(a2[1, 0])   <span class="comment"># row 1, column 0</span></code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out3', this)">Show Output</button>
+            <div id="out3" class="output-container">
+30<br>
+50<br>
+4
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">a1[2]</span> - Python counts from zero! So index 2 is actually the 3rd item in the list (30).</li>
+                    <li><span class="code-snippet">a1[-1]</span> - Using negative numbers counts backward from the end. -1 is always the very last item (50).</li>
+                    <li><span class="code-snippet">a2[1, 0]</span> - For a 2D grid, we provide two coordinates: [row_index, column_index]. Row 1 is the second row [4, 5, 6], and column 0 is the first item in that row, which is 4!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 4: Array Slicing</h3>
+        <p class="task-desc">Select entire rows, columns, or sub-arrays efficiently.</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task4', this)">Show Answer</button>
+        
+        <div id="np-task4" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+a = np.array([[1, 2, 3],
+              [4, 5, 6]])
+
+print(a[1:4])      <span class="comment"># row slice</span>
+print(a[:, 1])     <span class="comment"># all rows, column 1</span></code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out4', this)">Show Output</button>
+            <div id="out4" class="output-container">
+[[4 5 6]]<br>
+[2 5]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">a[1:4]</span> - Slices grab a range. This grabs rows starting at index 1 and stops before 4. Since there are only 2 rows, it just returns the second row (index 1).</li>
+                    <li><span class="code-snippet">a[:, 1]</span> - The lone colon <strong>:</strong> means "Select EVERYTHING". So we say: Get ALL rows, but only look at column index 1. It extracts the vertical slice [2, 5]!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 5: Advanced Indexing</h3>
+        <p class="task-desc">Advanced Indexing provides more flexible ways to access and manipulate elements based on conditions or exact index lists.</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task5', this)">Show Answer</button>
+        
+        <div id="np-task5" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+a = np.array([10, 20, 30, 40, 50, 60])
+idx = np.array([1, 3, 5])
+
+print(a[idx])       <span class="comment"># integer indexing</span>
+
+cond = a > 30
+print(a[cond])      <span class="comment"># boolean indexing</span></code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out5', this)">Show Output</button>
+            <div id="out5" class="output-container">
+[20 40 60]<br>
+[40 50 60]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">a[idx]</span> - We pass a whole list of indexes [1, 3, 5] into the array! NumPy grabs the items at ALL those positions simultaneously.</li>
+                    <li><span class="code-snippet">cond = a > 30</span> - This creates a "Boolean Mask" (a list of True/False values). It checks every number to see if it's > 30.</li>
+                    <li><span class="code-snippet">a[cond]</span> - We feed the True/False mask back into the array. NumPy acts like a filter, only keeping the numbers where the condition was True (40, 50, 60)!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">Module 3: Math and Operations</h2>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 6: Basic Arithmetic (Vectorization)</h3>
+        <p class="task-desc">Perform math on entire arrays instantly without writing standard Python for-loops.</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task6', this)">Show Answer</button>
+        
+        <div id="np-task6" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+x = np.array([1, 2, 3])
+y = np.array([4, 5, 6])
+
+print(x + y)    <span class="comment"># add</span>
+print(x - y)    <span class="comment"># subtract</span>
+print(x * y)    <span class="comment"># multiply</span>
+print(x / y)    <span class="comment"># divide</span></code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out6', this)">Show Output</button>
+            <div id="out6" class="output-container">
+[5 7 9]<br>
+[-3 -3 -3]<br>
+[ 4 10 18]<br>
+[0.25 0.4  0.5 ]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">x + y</span> - NumPy's superpower! It perfectly aligns the two arrays and adds them item-by-item (1+4=5, 2+5=7, 3+6=9) automatically! This is called <strong>Vectorization</strong>.</li>
+                    <li><span class="code-snippet">x * y</span> - Multiplies the matching elements, instead of doing complicated matrix multiplication.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 7: Unary & Binary Operations</h3>
+        <p class="task-desc">Transforming single arrays (Unary) or using built-in numpy math functions (Binary).</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task7', this)">Show Answer</button>
+        
+        <div id="np-task7" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+a = np.array([-3, -1, 0, 1, 3])
+print(np.absolute(a))  <span class="comment"># Unary: Absolute value</span>
+
+a1 = np.array([1, 2, 3])
+a2 = np.array([4, 5, 6])
+res = np.add(a1, a2)   <span class="comment"># Binary: Explicit addition function</span>
+print(res)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out7', this)">Show Output</button>
+            <div id="out7" class="output-container">
+[3 1 0 1 3]<br>
+[5 7 9]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">np.absolute(a)</span> - A Unary operator runs on an entire array at once. Here it converts all negative numbers to positive instantly.</li>
+                    <li><span class="code-snippet">np.add(a1, a2)</span> - This is the exact same thing as writing <code>a1 + a2</code>, but explicitly using NumPy's built-in optimized function.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 8: Advanced Math Functions</h3>
+        <p class="task-desc">NumPy provides complex mathematical operations like Trigonometry and Exponentials.</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task8', this)">Show Answer</button>
+        
+        <div id="np-task8" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+a = np.array([0, np.pi/2, np.pi])
+print(np.sin(a))
+
+b = np.array([0, 1, 2, 3])
+print(np.exp(b))
+print(np.sqrt(b))</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out8', this)">Show Output</button>
+            <div id="out8" class="output-container">
+[0.0000000e+00 1.0000000e+00 1.2246468e-16]<br>
+[ 1.          2.71828183  7.3890561  20.08553692]<br>
+[0.         1.         1.41421356 1.73205081]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">np.pi</span> - NumPy has famous constants built right in, like Pi (3.14159...)</li>
+                    <li><span class="code-snippet">np.sin(a)</span> - Calculates the trigonometric sine for every value in the array.</li>
+                    <li><span class="code-snippet">np.exp(b)</span> - Calculates <em>e^x</em> for every item in the array.</li>
+                    <li><span class="code-snippet">np.sqrt(b)</span> - Calculates the square root of every item. Notice how fast and clean this is compared to a loop!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <h2 class="module-title">Module 4: Sorting and Organization</h2>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 9: Sorting Structured Arrays</h3>
+        <p class="task-desc">NumPy can handle structured data (like SQL tables) and sort by specific columns.</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task9', this)">Show Answer</button>
+        
+        <div id="np-task9" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+dtype = [(<span class="string">'name'</span>, <span class="string">'S10'</span>), (<span class="string">'year'</span>, int), (<span class="string">'cgpa'</span>, float)]
+vals  = [(<span class="string">'Hrithik'</span>, 2009, 8.5),
+         (<span class="string">'Ajay'</span>,    2008, 8.7),
+         (<span class="string">'Pankaj'</span>,  2008, 7.9),
+         (<span class="string">'Aakash'</span>,  2009, 9.0)]
+
+a = np.array(vals, dtype=dtype)
+
+print(np.sort(a, order=<span class="string">'name'</span>))
+print(np.sort(a, order=[<span class="string">'year'</span>, <span class="string">'cgpa'</span>]))</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out9', this)">Show Output</button>
+            <div id="out9" class="output-container">
+[(b'Aakash', 2009, 9. ) (b'Ajay', 2008, 8.7) (b'Hrithik', 2009, 8.5)<br>
+ (b'Pankaj', 2008, 7.9)]<br>
+[(b'Pankaj', 2008, 7.9) (b'Ajay', 2008, 8.7) (b'Hrithik', 2009, 8.5)<br>
+ (b'Aakash', 2009, 9. )]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">dtype = [...]</span> - We define a custom data structure with named columns (name, year, cgpa) and their specific data types!</li>
+                    <li><span class="code-snippet">np.sort(a, order='name')</span> - Automatically sorts the entire dataset alphabetically by the 'name' column.</li>
+                    <li><span class="code-snippet">order=['year', 'cgpa']</span> - A multi-level sort! It first groups and sorts everything by 'year', and then for any tied years, it sorts them by 'cgpa'.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    </div><!-- .container -->
+
+    <script src="script.js"></script>
+    <script>
+        function toggleOutput(id, btn) {
+            const el = document.getElementById(id);
+            if (el.classList.contains('output-visible')) {
+                el.classList.remove('output-visible');
+                btn.innerText = 'Show Output';
+            } else {
+                el.classList.add('output-visible');
+                btn.innerText = 'Hide Output';
+            }
+        }
+    </script>
+</body>
+</html>
