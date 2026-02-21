@@ -5,38 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NumPy: Interactive Masterclass</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        .output-container {
-            margin-top: 1rem;
-            padding: 1rem 1.5rem;
-            background: #000;
-            border-left: 4px solid var(--accent-green);
-            border-radius: 4px;
-            font-family: 'Fira Code', monospace;
-            color: #fff;
-            display: none;
-            animation: fadeSlideIn 0.3s ease-out;
-        }
-        .btn-output {
-            background: linear-gradient(135deg, var(--accent-green), #10b981);
-            color: #0a0e1a;
-            border: none;
-            padding: 0.5rem 1.2rem;
-            font-size: 0.85rem;
-            font-weight: 700;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            margin-top: 1rem;
-        }
-        .btn-output:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(52, 211, 153, 0.3);
-        }
-        .output-visible {
-            display: block;
-        }
-    </style>
 </head>
 <body>
     <canvas id="particle-canvas"></canvas>
@@ -487,17 +455,5 @@ print(np.sort(a, order=[<span class="string">'year'</span>, <span class="string"
     </div><!-- .container -->
 
     <script src="script.js"></script>
-    <script>
-        function toggleOutput(id, btn) {
-            const el = document.getElementById(id);
-            if (el.classList.contains('output-visible')) {
-                el.classList.remove('output-visible');
-                btn.innerText = 'Show Output';
-            } else {
-                el.classList.add('output-visible');
-                btn.innerText = 'Hide Output';
-            }
-        }
-    </script>
 </body>
 </html>

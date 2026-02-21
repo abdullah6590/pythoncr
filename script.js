@@ -2,6 +2,19 @@
 // 🐍 Python Masterclass — Tech Theme Scripts
 // ============================================
 
+// --- Content Unlock Configuration ---
+// Set the date and time when specific pages should unlock for students.
+// Format: 'YYYY-MM-DDTHH:MM:SS'
+const UNLOCK_DATES = {
+    // Example: Locks OOP and NumPy until March 2026. Change these dates as needed!
+    'oop.html': new Date('2026-02-22T14:00:00').getTime(),
+    'numpy.html': new Date('2026-02-25T14:00:00').getTime()
+};
+
+// --- Teacher/Admin Bypass Key ---
+// Anyone with this key can bypass the lock screen. It resets on page refresh!
+const UNLOCK_SECRET = "galaxy";
+
 // --- Particle Network Background ---
 (function initParticles() {
     const canvas = document.getElementById('particle-canvas');
@@ -139,18 +152,99 @@ function copyToClipboard(button) {
     });
 }
 
-// --- Mobile Navigation Toggle ---
+// --- Toggle Output Content ---
+function toggleOutput(id, btn) {
+    const el = document.getElementById(id);
+    if (el.classList.contains('output-visible')) {
+        el.classList.remove('output-visible');
+        btn.innerText = 'Show Output';
+    } else {
+        el.classList.add('output-visible');
+        btn.innerText = 'Hide Output';
+    }
+}
+
+// --- Mobile Navigation Toggle & Content Lock ---
 document.addEventListener('DOMContentLoaded', () => {
+    // 1. Content Lock Check (Direct Access via URL)
+    const currentTime = new Date().getTime();
+    const pathArray = window.location.pathname.split('/');
+    let currentPage = pathArray[pathArray.length - 1];
+    if (currentPage === '') currentPage = 'index.html'; // Fallback for root
+
+    if (UNLOCK_DATES[currentPage] && currentTime < UNLOCK_DATES[currentPage]) {
+        const unlockDateObj = new Date(UNLOCK_DATES[currentPage]);
+        const unlockDateStr = unlockDateObj.toLocaleString(undefined, {
+            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+            hour: '2-digit', minute: '2-digit'
+        });
+
+        // Hide main content elements completely
+        const elementsToHide = document.querySelectorAll('header, .storybook-intro, .task-card, .module-title');
+        elementsToHide.forEach(el => el.style.display = 'none');
+
+        // Inject high-end lock screen overlay into the container
+        const lockScreen = document.createElement('div');
+        lockScreen.className = 'locked-screen';
+        lockScreen.innerHTML = `
+            <div class="lock-icon" id="secret-unlock-btn" style="cursor: pointer;" title="Teacher Access">🔒</div>
+            <h2>Content Locked</h2>
+            <p style="color: #a1a1aa; max-width: 400px; margin: 0 auto;">The materials and tasks for this module have not yet been released. Please return on the scheduled date.</p>
+            <div class="unlock-date">Unlocks: ${unlockDateStr}</div>
+            <br>
+            <a href="index.html" class="btn-output" style="display: inline-block; text-decoration: none; margin-top: 2.5rem;">Return to Dashboard</a>
+        `;
+        const container = document.querySelector('.container');
+        if (container) {
+            container.appendChild(lockScreen);
+            
+            // --- Secret Bypass Logic ---
+            const secretBtn = document.getElementById('secret-unlock-btn');
+            secretBtn.addEventListener('click', () => {
+                const password = prompt("Teacher Access Required:");
+                if (password === UNLOCK_SECRET) {
+                    // Unlock success! Remove lock screen and reveal content.
+                    lockScreen.remove();
+                    elementsToHide.forEach(el => el.style.display = '');
+                    showToast("🔓 Teacher Access Granted!");
+                } else if (password !== null) {
+                    alert("Incorrect Access Key.");
+                }
+            });
+        }
+    }
+
+    // 2. Navigation Link Intercept & Mobile Toggle
     const nav = document.querySelector('.top-nav');
-    const activeLink = document.querySelector('.nav-link.active');
+    const navLinks = document.querySelectorAll('.nav-link');
     
-    if (nav && activeLink) {
-        activeLink.addEventListener('click', (e) => {
-            // Only toggle menu on mobile screens
-            if (window.innerWidth <= 640) {
-                e.preventDefault(); // Prevent navigating to same page immediately
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            // Mobile menu toggle (Only applies if it's the active toggle button)
+            if (link.classList.contains('active') && window.innerWidth <= 640 && nav) {
+                e.preventDefault();
                 nav.classList.toggle('open');
             }
         });
-    }
+    });
 });
+
+// Toast Notification System (for locked links)
+function showToast(message) {
+    let toast = document.getElementById('lock-toast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'lock-toast';
+        toast.className = 'toast';
+        document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    
+    // Force browser reflow to reset animation
+    void toast.offsetWidth; 
+    
+    toast.classList.add('show');
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 4000);
+}

@@ -89,6 +89,10 @@
 my_robot = Robot(<span class="string">"Robo-Cop"</span>)
 print(my_robot.name)</code>
             </div>
+            <button class="btn-output" onclick="toggleOutput('oop-out1', this)">Show Output</button>
+            <div id="oop-out1" class="output-container">
+Robo-Cop
+            </div>
             <div class="line-by-line">
                 <strong>📝 Line-by-Line Explanation:</strong>
                 <ul>
@@ -125,6 +129,10 @@ print(my_robot.name)</code>
 
 pet = Dog(<span class="string">"Buddy"</span>)
 pet.bark()</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('oop-out2', this)">Show Output</button>
+            <div id="oop-out2" class="output-container">
+Woof! My name is Buddy
             </div>
             <div class="line-by-line">
                 <strong>📝 Line-by-Line Explanation:</strong>
@@ -171,6 +179,10 @@ my_account = BankAccount(<span class="string">"Abdullah"</span>)
 my_account.deposit(500)
 <span class="comment"># print(my_account.__balance)  <-- This would crash! It's hidden!</span></code>
             </div>
+            <button class="btn-output" onclick="toggleOutput('oop-out3', this)">Show Output</button>
+            <div id="oop-out3" class="output-container">
+Deposited $500. New balance: $500
+            </div>
             <div class="line-by-line">
                 <strong>📝 Line-by-Line Explanation:</strong>
                 <ul>
@@ -216,6 +228,11 @@ my_civic = Car()
 my_civic.start_engine() <span class="comment"># Inherited from Parent!</span>
 my_civic.honk_horn()    <span class="comment"># Unique to Child!</span></code>
             </div>
+            <button class="btn-output" onclick="toggleOutput('oop-out4', this)">Show Output</button>
+            <div id="oop-out4" class="output-container">
+Engine is roaring: Vroom Vroom!<br>
+Beep Beep!
+            </div>
             <div class="line-by-line">
                 <strong>📝 Line-by-Line Explanation:</strong>
                 <ul>
@@ -256,6 +273,10 @@ my_civic.honk_horn()    <span class="comment"># Unique to Child!</span></code>
 
 ai_dev = Developer(<span class="string">"Abdullah"</span>, 90000, <span class="string">"Python"</span>)
 print(<span class="string">f"{ai_dev.name} codes in {ai_dev.language}"</span>)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('oop-out5', this)">Show Output</button>
+            <div id="oop-out5" class="output-container">
+Abdullah codes in Python
             </div>
             <div class="line-by-line">
                 <strong>📝 Line-by-Line Explanation:</strong>
@@ -307,6 +328,11 @@ bessie = Cow()
 animal_sound(kitty)
 animal_sound(bessie)</code>
             </div>
+            <button class="btn-output" onclick="toggleOutput('oop-out6', this)">Show Output</button>
+            <div id="oop-out6" class="output-container">
+Meow!<br>
+Moo!
+            </div>
             <div class="line-by-line">
                 <strong>📝 Line-by-Line Explanation:</strong>
                 <ul>
@@ -353,6 +379,11 @@ animal_sound(bessie)</code>
 headset = Product(<span class="string">"Wireless Headset"</span>, 100)
 print(<span class="string">f"Original Price: ${headset.get_price()}"</span>)
 headset.apply_discount(20)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('oop-out7', this)">Show Output</button>
+            <div id="oop-out7" class="output-container">
+Original Price: $100<br>
+Discount applied! New price: $80.0
             </div>
             <div class="line-by-line">
                 <strong>📝 Line-by-Line Explanation:</strong>
