@@ -80,7 +80,52 @@
 
         <h3 style="margin-top: 2rem;">⚙️ Installation</h3>
         <p>To begin using NumPy, install it via pip: <code>pip install numpy</code></p>
-        <p>Once installed, import it using the standard alias: <code>import numpy as np</code></p>
+
+        <h3 style="margin-top: 2rem;">1. How to Import NumPy</h3>
+        <p>The standard way to import NumPy is using the <code>as</code> keyword to create an alias. By convention, everyone in the programming world uses <strong>np</strong>.</p>
+        <div class="code-container" style="border-radius: 8px; margin: 1rem 0; padding: 1.5rem;">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np</code>
+        </div>
+        <p><em>Why np?</em> It saves you from typing "numpy" every time you want to use a function, keeping your code clean and readable.</p>
+
+        <h3 style="margin-top: 2.5rem;">2. A Basic Example: Creating an Array</h3>
+        <p>In this example, we’ll convert a regular Python list into a NumPy array and perform a simple operation.</p>
+        
+        <div class="code-container" style="border-radius: 8px; margin: 1rem 0; padding: 1.5rem;">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+<span class="comment"># 1. Create a simple Python list</span>
+my_list = [1, 2, 3, 4, 5]
+
+<span class="comment"># 2. Convert it into a NumPy array</span>
+my_array = np.array(my_list)
+
+<span class="comment"># 3. Perform a mathematical operation (e.g., multiply everything by 2)</span>
+result = my_array * 2
+
+print(<span class="string">"Original Array:"</span>, my_array)
+print(<span class="string">"Doubled Array:"</span>, result)</code>
+        </div>
+
+        <p>If you run the code from the previous example, here is exactly what will appear in your console:</p>
+        
+        <div class="output-container output-visible" style="margin-bottom: 2rem; animation: none;">
+Original Array: [1 2 3 4 5]<br>
+Doubled Array: [ 2  4  6  8 10]
+        </div>
+
+        <h4>🤔 Why does it look like that?</h4>
+        <p>There are two subtle but important things to notice about the output compared to a regular Python list:</p>
+        <ul>
+            <li><span class="highlight-term">No Commas</span>: When you print a NumPy array, it displays the elements separated by spaces rather than commas (e.g., <code>[1 2 3]</code> vs <code>[1, 2, 3]</code>). This is a visual cue that you are working with a NumPy object.</li>
+            <li><span class="highlight-term">Element-wise Operation</span>: The <em>Doubled Array</em> shows that NumPy multiplied every single number inside the array by 2. If you tried to do <code>my_list * 2</code> with a standard Python list, it would have just given you the list twice: <code>[1, 2, 3, 4, 5, 1, 2, 3, 4, 5]</code>.</li>
+        </ul>
+
+        <h4 style="margin-top: 1.5rem;">🧠 Explanation of the Example</h4>
+        <ul>
+            <li><span class="code-snippet">np.array()</span>: This function takes a list and turns it into an "ndarray" (n-dimensional array).</li>
+            <li><span class="highlight-term">Vectorization</span>: Notice how we did <code>my_array * 2</code>. In a standard Python list, this wouldn't work (it would just double the length of the list). In NumPy, it multiplies every individual element by 2 instantly. This is called "broadcasting."</li>
+        </ul>
     </div>
 
     <h2 class="module-title">Module 1: Creating Arrays</h2>
