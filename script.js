@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (password === UNLOCK_SECRET) {
                     // Unlock success! Remove lock screen and reveal content.
                     lockScreen.remove();
-                    elementsToHide.forEach(el => el.style.display = '');
+                    elementsToHide.forEach(el => el.style.removeProperty('display'));
                     showToast("🔓 Teacher Access Granted!");
                 } else if (password !== null) {
                     alert("Incorrect Access Key.");
