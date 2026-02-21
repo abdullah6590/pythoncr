@@ -181,12 +181,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const container = document.querySelector('.container');
         if (container) {
-            // Refactor: Wrap all existing content in a single hidden div
+            // Refactor: Create a specific wrapper for actual lesson content, ignoring nav/canvas
             const contentWrapper = document.createElement('div');
-            // Move all children of container (except our new lock screen) into the wrapper
-            while (container.firstChild) {
-                contentWrapper.appendChild(container.firstChild);
+            
+            // Explicitly select only the content blocks we want to hide
+            const contentElements = container.querySelectorAll('header, .storybook-intro, .module-title, .task-card');
+            
+            // If we found them, wrap them
+            if (contentElements.length > 0) {
+                // Insert wrapper just before the first content element
+                container.insertBefore(contentWrapper, contentElements[0]);
+                
+                // Move all selected elements into the wrapper
+                contentElements.forEach(el => contentWrapper.appendChild(el));
             }
+
             contentWrapper.style.display = 'none'; // Hide the entire wrapper safely
             
             // Inject high-end lock screen overlay into the container
@@ -195,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
             lockScreen.innerHTML = `
                 <div class="lock-icon" id="secret-unlock-btn" style="cursor: pointer;" title="Teacher Access">🔒</div>
                 <h2>Content Locked</h2>
-                <p style="color: #a1a1aa; max-width: 400px; margin: 0 auto;">The materials and tasks for this module have not yet been released. Please return on the scheduled date.</p>
+                <p style="color: #a1a1aa; max-width: 400px; margin: 0 auto;">The materials and tasks for this module are lock for now. Please return on the scheduled date.</p>
                 <div class="unlock-date">Unlocks: ${unlockDateStr}</div>
                 <br>
                 <div id="teacher-access-form" style="display: none; margin-top: 1.5rem;">
