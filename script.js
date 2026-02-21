@@ -6,8 +6,8 @@
 // Set the date and time when specific pages should unlock for students.
 // Format: 'YYYY-MM-DDTHH:MM:SS'
 const UNLOCK_DATES = {
-    'oop.html': new Date('2026-02-23T14:00:00').getTime(),
-    'numpy.html': new Date('2026-02-25T14:00:00').getTime()
+    'oop.html': new Date('2026-02-23T13:30:00').getTime(),
+    'numpy.html': new Date('2026-02-25T13:30:00').getTime()
 };
 
 // --- INSTANT LOCK REDIRECT (runs before ANYTHING loads) ---
