@@ -198,6 +198,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 <p style="color: #a1a1aa; max-width: 400px; margin: 0 auto;">The materials and tasks for this module have not yet been released. Please return on the scheduled date.</p>
                 <div class="unlock-date">Unlocks: ${unlockDateStr}</div>
                 <br>
+                <div id="teacher-access-form" style="display: none; margin-top: 1.5rem;">
+                    <input type="password" id="teacher-password" placeholder="Enter Access Key..." style="padding: 0.5rem; border-radius: 4px; border: 1px solid var(--accent-green); background: rgba(0,0,0,0.5); color: #fff; text-align: center;">
+                    <button id="teacher-submit" class="btn-output" style="margin-left: 0.5rem; padding: 0.5rem 1rem;">Unlock</button>
+                </div>
                 <a href="index.html" class="btn-output" style="display: inline-block; text-decoration: none; margin-top: 2.5rem;">Return to Dashboard</a>
             `;
             
@@ -207,16 +211,30 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // --- Secret Bypass Logic ---
             const secretBtn = document.getElementById('secret-unlock-btn');
+            const teacherForm = document.getElementById('teacher-access-form');
+            const teacherInput = document.getElementById('teacher-password');
+            const teacherSubmit = document.getElementById('teacher-submit');
+
             secretBtn.addEventListener('click', () => {
-                const password = prompt("Teacher Access Required:");
+                teacherForm.style.display = 'block';
+                teacherInput.focus();
+            });
+
+            const submitPassword = () => {
+                const password = teacherInput.value;
                 if (password === UNLOCK_SECRET) {
-                    // Unlock success! Remove lock screen and reveal content wrapper.
                     lockScreen.remove();
                     contentWrapper.style.removeProperty('display');
                     showToast("🔓 Teacher Access Granted!");
-                } else if (password !== null) {
-                    alert("Incorrect Access Key.");
+                } else if (password !== "") {
+                    showToast("❌ Incorrect Access Key.");
+                    teacherInput.value = "";
                 }
+            };
+
+            teacherSubmit.addEventListener('click', submitPassword);
+            teacherInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') submitPassword();
             });
         }
     }
