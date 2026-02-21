@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python OOP: Interactive Masterclass</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="container">
+
+    <nav class="top-nav">
+        <a href="index.html" class="nav-link">🐍 Functions</a>
+        <a href="oop.html" class="nav-link active">🏗️ OOP</a>
+    </nav>
+
+    <header>
+        <h1>🏗️ Object-Oriented Programming (OOP)</h1>
+        <p>Solve the task, then click "Show Answer" to reveal the magic blueprints!</p>
+    </header>
+
+    <div class="storybook-intro">
+        <h2>📖 What is OOP? (The Blueprint and the House)</h2>
+        <p>Imagine you are an architect. You draw a highly detailed paper <strong>Blueprint</strong> for a beautiful house. You can't live inside the paper blueprint, right? But, you can give that blueprint to a builder, and they can build 100 real, physical houses from it.</p>
+
+        <p>In Python:</p>
+        <ul>
+            <li><span class="highlight-term">Class (The Blueprint)</span> : The instructions! It defines what the house will look like (color, doors) and what it can do (turn on lights, lock doors).</li>
+            <li><span class="highlight-term">Object (The Real House)</span> : The actual, physical thing built from the Class. You can build as many Objects as you want from one single Class!</li>
+            <li><span class="highlight-term">Attributes (Adjectives)</span> : Variables inside the class. These describe the object (e.g., <code>color = "blue"</code>).</li>
+            <li><span class="highlight-term">Methods (Verbs)</span> : Functions inside the class. These are actions the object can take (e.g., <code>open_door()</code>).</li>
+        </ul>
+    </div>
+
+    <h2 class="module-title">Module 1: Creating Your First Blueprint</h2>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 1: The AI Robot Factory</h3>
+        <p class="task-desc">Create a simple <code>Robot</code> class with an <code>__init__</code> method that gives the robot a name. Then, create an actual robot object named "Robo-Cop".</p>
+        <button class="btn-toggle" onclick="toggleCode('oop-task1', this)">Show Answer</button>
+        
+        <div id="oop-task1" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">class</span> <span class="function">Robot</span>:
+    <span class="comment"># The __init__ method is the 'Builder'</span>
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="self">self</span>, name):
+        <span class="self">self</span>.name = name
+
+<span class="comment"># Creating the actual object (The House)</span>
+my_robot = Robot(<span class="string">"Robo-Cop"</span>)
+print(my_robot.name)</code>
+            </div>
+            <div class="line-by-line">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">class Robot:</span> - The magic word <strong>class</strong> tells Python we are making a new blueprint. We named it Robot. (Notice it starts with a Capital letter—that's a Python rule for classes!)</li>
+                    <li><span class="code-snippet">def __init__(self, name):</span> - This is the <strong>Constructor</strong>. Think of it as the construction worker who builds the object the moment it is born. The word <strong>self</strong> is super important! It means "Me!" It points to the specific robot being built right now.</li>
+                    <li><span class="code-snippet">self.name = name</span> - We tell the robot: "Take the name given to you, and attach it to YOURSELF as a permanent nametag."</li>
+                    <li><span class="code-snippet">my_robot = Robot("Robo-Cop")</span> - We step outside the blueprint. We call the <code>Robot</code> factory, give it the name "Robo-Cop", and store the newly built, physical robot in the variable <code>my_robot</code>.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 2: Adding Actions (Methods)</h3>
+        <p class="task-desc">Create a <code>Dog</code> class. Give it a name, and add a method called <code>bark()</code> that prints "Woof! My name is [name]".</p>
+        <button class="btn-toggle" onclick="toggleCode('oop-task2', this)">Show Answer</button>
+        
+        <div id="oop-task2" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">class</span> <span class="function">Dog</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="self">self</span>, dog_name):
+        <span class="self">self</span>.name = dog_name
+        
+    <span class="keyword">def</span> <span class="function">bark</span>(<span class="self">self</span>):
+        print(<span class="string">f"Woof! My name is {<span class="self">self</span>.name}"</span>)
+
+pet = Dog(<span class="string">"Buddy"</span>)
+pet.bark()</code>
+            </div>
+            <div class="line-by-line">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">def bark(self):</span> - We add an action (a Method) to the blueprint. Every method inside a class MUST have <strong>self</strong> as its first parameter. Why? Because the dog needs to know <em>who</em> is barking!</li>
+                    <li><span class="code-snippet">print(f"...{self.name}")</span> - When the dog barks, it looks at its own nametag (<code>self.name</code>) to tell you who it is.</li>
+                    <li><span class="code-snippet">pet.bark()</span> - To make the object do an action, we write the object's name, add a dot <strong>.</strong>, and then call the action!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">Module 2: Encapsulation (Keeping Secrets)</h2>
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <p>Sometimes, we don't want the outside world messing with our object's data. If we have a Bank Account object, we shouldn't let someone just type <code>account.balance = 1000000</code>! We "Encapsulate" or hide the data to keep it safe.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 3: The Secret Bank Account</h3>
+        <p class="task-desc">Create a <code>BankAccount</code> class. Make the balance a <strong>private</strong> attribute so it can't be changed directly from the outside.</p>
+        <button class="btn-toggle" onclick="toggleCode('oop-task3', this)">Show Answer</button>
+        
+        <div id="oop-task3" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">class</span> <span class="function">BankAccount</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="self">self</span>, owner):
+        <span class="self">self</span>.owner = owner
+        <span class="self">self</span>.__balance = 0  <span class="comment"># The double underscore makes it PRIVATE!</span>
+
+    <span class="keyword">def</span> <span class="function">deposit</span>(<span class="self">self</span>, amount):
+        <span class="keyword">if</span> amount > 0:
+            <span class="self">self</span>.__balance += amount
+            print(<span class="string">f"Deposited ${amount}. New balance: ${<span class="self">self</span>.__balance}"</span>)
+
+my_account = BankAccount(<span class="string">"Abdullah"</span>)
+my_account.deposit(500)
+<span class="comment"># print(my_account.__balance)  <-- This would crash! It's hidden!</span></code>
+            </div>
+            <div class="line-by-line">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">self.__balance = 0</span> - Magic trick! By putting two underscores <strong>__</strong> in front of the variable name, Python locks it in a vault. The outside world cannot see or touch it!</li>
+                    <li><span class="code-snippet">def deposit(self, amount):</span> - Since the outside world can't touch the money directly, we provide a safe "window" (a method) to let them add money legally.</li>
+                    <li><span class="code-snippet">self.__balance += amount</span> - Inside the class, the methods <em>are</em> allowed to open the vault and change the private variable.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">Module 3: Inheritance (Family Trees)</h2>
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <p>Instead of writing the same code over and over, classes can have "Children." The Child class gets all the features of the Parent class automatically, but can also have its own unique superpowers!</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 4: The Vehicle Parent & Car Child</h3>
+        <p class="task-desc">Create a <code>Vehicle</code> class with a <code>start_engine()</code> method. Then, create a <code>Car</code> class that <strong>inherits</strong> from Vehicle and adds a <code>honk_horn()</code> method.</p>
+        <button class="btn-toggle" onclick="toggleCode('oop-task4', this)">Show Answer</button>
+        
+        <div id="oop-task4" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="comment"># The Parent Class</span>
+<span class="keyword">class</span> <span class="function">Vehicle</span>:
+    <span class="keyword">def</span> <span class="function">start_engine</span>(<span class="self">self</span>):
+        print(<span class="string">"Engine is roaring: Vroom Vroom!"</span>)
+
+<span class="comment"># The Child Class (Notice Vehicle is inside the parentheses!)</span>
+<span class="keyword">class</span> <span class="function">Car</span>(Vehicle):
+    <span class="keyword">def</span> <span class="function">honk_horn</span>(<span class="self">self</span>):
+        print(<span class="string">"Beep Beep!"</span>)
+
+my_civic = Car()
+my_civic.start_engine() <span class="comment"># Inherited from Parent!</span>
+my_civic.honk_horn()    <span class="comment"># Unique to Child!</span></code>
+            </div>
+            <div class="line-by-line">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">class Vehicle:</span> - We create a basic parent blueprint that knows how to start an engine.</li>
+                    <li><span class="code-snippet">class Car(Vehicle):</span> - By putting <strong>(Vehicle)</strong> next to the new Car class, we tell Python: "Copy everything from Vehicle and paste it into Car automatically!"</li>
+                    <li><span class="code-snippet">my_civic.start_engine()</span> - Even though we never wrote <code>start_engine()</code> inside the Car class, our Civic can still do it because it inherited the ability from its parent!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 5: Using `super()` in Inheritance</h3>
+        <p class="task-desc">Create a Parent <code>Employee</code> class. Create a Child <code>Developer</code> class that inherits from Employee, but adds a programming language using <code>super()</code>.</p>
+        <button class="btn-toggle" onclick="toggleCode('oop-task5', this)">Show Answer</button>
+        
+        <div id="oop-task5" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">class</span> <span class="function">Employee</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="self">self</span>, name, salary):
+        <span class="self">self</span>.name = name
+        <span class="self">self</span>.salary = salary
+
+<span class="keyword">class</span> <span class="function">Developer</span>(Employee):
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="self">self</span>, name, salary, language):
+        <span class="comment"># Call the Parent's __init__ method to handle name and salary</span>
+        super().__init__(name, salary)
+        <span class="comment"># Add the new unique attribute</span>
+        <span class="self">self</span>.language = language
+
+ai_dev = Developer(<span class="string">"Abdullah"</span>, 90000, <span class="string">"Python"</span>)
+print(<span class="string">f"{ai_dev.name} codes in {ai_dev.language}"</span>)</code>
+            </div>
+            <div class="line-by-line">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">class Developer(Employee):</span> - Developer inherits from Employee. But wait, the Developer has a <em>new</em> ingredient (language) that the Parent doesn't know about!</li>
+                    <li><span class="code-snippet">super().__init__(name, salary)</span> - <strong>super()</strong> is a magical hotline to the Parent class. It says: "Hey Parent, handle the name and salary setup for me, just like you always do." This saves us from rewriting code!</li>
+                    <li><span class="code-snippet">self.language = language</span> - After the Parent handles the basics, the Child steps in to handle its own unique <code>language</code> attribute.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">Module 4: Polymorphism (Many Forms)</h2>
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <p>Polymorphism means "many forms". It happens when different objects have a method with the exact same name, but they do entirely different things when you call them!</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 6: The Animal Translator</h3>
+        <p class="task-desc">Create two entirely different classes, <code>Cat</code> and <code>Cow</code>. Give them both a method called <code>speak()</code>.</p>
+        <button class="btn-toggle" onclick="toggleCode('oop-task6', this)">Show Answer</button>
+        
+        <div id="oop-task6" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">class</span> <span class="function">Cat</span>:
+    <span class="keyword">def</span> <span class="function">speak</span>(<span class="self">self</span>):
+        <span class="keyword">return</span> <span class="string">"Meow!"</span>
+
+<span class="keyword">class</span> <span class="function">Cow</span>:
+    <span class="keyword">def</span> <span class="function">speak</span>(<span class="self">self</span>):
+        <span class="keyword">return</span> <span class="string">"Moo!"</span>
+
+<span class="comment"># A simple function that accepts ANY animal</span>
+<span class="keyword">def</span> <span class="function">animal_sound</span>(animal):
+    print(animal.speak())
+
+kitty = Cat()
+bessie = Cow()
+
+<span class="comment"># The same function call produces different results!</span>
+animal_sound(kitty)
+animal_sound(bessie)</code>
+            </div>
+            <div class="line-by-line">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">def speak(self):</span> - We put the exact same method name in both completely unrelated classes.</li>
+                    <li><span class="code-snippet">def animal_sound(animal):</span> - This normal function takes an object. It doesn't care if it's a Cat, a Cow, or an Alien. As long as the object has a <code>speak()</code> method, it will work!</li>
+                    <li><strong>This is Polymorphism!</strong> A single command (<code>speak</code>) behaves in many different ways depending on which object is responding.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">Module 5: The Grand Finale</h2>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 7: Full E-Commerce Product Class</h3>
+        <p class="task-desc">Combine everything! Build a <code>Product</code> class with a name, a private price, and a method to apply a discount percentage.</p>
+        <button class="btn-toggle" onclick="toggleCode('oop-task7', this)">Show Answer</button>
+        
+        <div id="oop-task7" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">class</span> <span class="function">Product</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="self">self</span>, name, price):
+        <span class="self">self</span>.name = name
+        <span class="self">self</span>.__price = price <span class="comment"># Private!</span>
+        
+    <span class="keyword">def</span> <span class="function">get_price</span>(<span class="self">self</span>):
+        <span class="comment"># A safe way to view the private price</span>
+        <span class="keyword">return</span> <span class="self">self</span>.__price
+        
+    <span class="keyword">def</span> <span class="function">apply_discount</span>(<span class="self">self</span>, discount_percent):
+        <span class="comment"># Convert 20% to 0.20</span>
+        discount_amount = <span class="self">self</span>.__price * (discount_percent / 100)
+        <span class="self">self</span>.__price -= discount_amount
+        print(<span class="string">f"Discount applied! New price: ${<span class="self">self</span>.__price}"</span>)
+
+headset = Product(<span class="string">"Wireless Headset"</span>, 100)
+print(<span class="string">f"Original Price: ${headset.get_price()}"</span>)
+headset.apply_discount(20)</code>
+            </div>
+            <div class="line-by-line">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">self.__price = price</span> - We lock the price down so hackers can't change it from outside! (Encapsulation).</li>
+                    <li><span class="code-snippet">def get_price(self):</span> - This is called a "Getter". Because the price is private, we provide a safe method just to <em>look</em> at it without being able to change it.</li>
+                    <li><span class="code-snippet">self.__price -= discount_amount</span> - Inside the class, the <code>apply_discount</code> method is authorized to modify the private price. It calculates the math and securely updates the tag!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    </div><!-- .container -->
+
+    <script src="script.js"></script>
+</body>
+</html>
