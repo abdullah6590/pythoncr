@@ -179,23 +179,30 @@ document.addEventListener('DOMContentLoaded', () => {
             hour: '2-digit', minute: '2-digit'
         });
 
-        // Hide main content elements completely
-        const elementsToHide = document.querySelectorAll('header, .storybook-intro, .task-card, .module-title');
-        elementsToHide.forEach(el => el.style.display = 'none');
-
-        // Inject high-end lock screen overlay into the container
-        const lockScreen = document.createElement('div');
-        lockScreen.className = 'locked-screen';
-        lockScreen.innerHTML = `
-            <div class="lock-icon" id="secret-unlock-btn" style="cursor: pointer;" title="Teacher Access">🔒</div>
-            <h2>Content Locked</h2>
-            <p style="color: #a1a1aa; max-width: 400px; margin: 0 auto;">The materials and tasks for this module have not yet been released. Please return on the scheduled date.</p>
-            <div class="unlock-date">Unlocks: ${unlockDateStr}</div>
-            <br>
-            <a href="index.html" class="btn-output" style="display: inline-block; text-decoration: none; margin-top: 2.5rem;">Return to Dashboard</a>
-        `;
         const container = document.querySelector('.container');
         if (container) {
+            // Refactor: Wrap all existing content in a single hidden div
+            const contentWrapper = document.createElement('div');
+            // Move all children of container (except our new lock screen) into the wrapper
+            while (container.firstChild) {
+                contentWrapper.appendChild(container.firstChild);
+            }
+            contentWrapper.style.display = 'none'; // Hide the entire wrapper safely
+            
+            // Inject high-end lock screen overlay into the container
+            const lockScreen = document.createElement('div');
+            lockScreen.className = 'locked-screen';
+            lockScreen.innerHTML = `
+                <div class="lock-icon" id="secret-unlock-btn" style="cursor: pointer;" title="Teacher Access">🔒</div>
+                <h2>Content Locked</h2>
+                <p style="color: #a1a1aa; max-width: 400px; margin: 0 auto;">The materials and tasks for this module have not yet been released. Please return on the scheduled date.</p>
+                <div class="unlock-date">Unlocks: ${unlockDateStr}</div>
+                <br>
+                <a href="index.html" class="btn-output" style="display: inline-block; text-decoration: none; margin-top: 2.5rem;">Return to Dashboard</a>
+            `;
+            
+            // Put both back into the container
+            container.appendChild(contentWrapper);
             container.appendChild(lockScreen);
             
             // --- Secret Bypass Logic ---
@@ -203,9 +210,9 @@ document.addEventListener('DOMContentLoaded', () => {
             secretBtn.addEventListener('click', () => {
                 const password = prompt("Teacher Access Required:");
                 if (password === UNLOCK_SECRET) {
-                    // Unlock success! Remove lock screen and reveal content.
+                    // Unlock success! Remove lock screen and reveal content wrapper.
                     lockScreen.remove();
-                    elementsToHide.forEach(el => el.style.removeProperty('display'));
+                    contentWrapper.style.removeProperty('display');
                     showToast("🔓 Teacher Access Granted!");
                 } else if (password !== null) {
                     alert("Incorrect Access Key.");
