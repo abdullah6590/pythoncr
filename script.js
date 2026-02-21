@@ -223,10 +223,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const submitPassword = () => {
                 const password = teacherInput.value;
                 if (password === UNLOCK_SECRET) {
-                    lockScreen.remove();
-                    contentWrapper.style.removeProperty('display');
-                    showToast("🔓 Teacher Access Granted!");
+                    // Fix mobile freeze: blur the input to dismiss the virtual keyboard
+                    // before destroying the DOM element it is attached to!
+                    teacherInput.blur(); 
+                    
+                    setTimeout(() => {
+                        lockScreen.remove();
+                        contentWrapper.style.removeProperty('display');
+                        showToast("🔓 Teacher Access Granted!");
+                    }, 50); // tiny delay ensures keyboard closes safely
                 } else if (password !== "") {
+                    teacherInput.blur();
                     showToast("❌ Incorrect Access Key.");
                     teacherInput.value = "";
                 }
