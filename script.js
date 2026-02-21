@@ -17,6 +17,12 @@ const UNLOCK_SECRET = "galaxy";
 
 // --- Particle Network Background ---
 (function initParticles() {
+    // Skip particle animation on locked pages to prevent mobile GPU crash
+    const pathArray = window.location.pathname.split('/');
+    let page = pathArray[pathArray.length - 1];
+    if (page === '') page = 'index.html';
+    if (UNLOCK_DATES[page] && new Date().getTime() < UNLOCK_DATES[page]) return;
+
     const canvas = document.getElementById('particle-canvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
