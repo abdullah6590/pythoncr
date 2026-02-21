@@ -7,7 +7,7 @@
 // Format: 'YYYY-MM-DDTHH:MM:SS'
 const UNLOCK_DATES = {
     // Example: Locks OOP and NumPy until March 2026. Change these dates as needed!
-    'oop.html': new Date('2026-02-22T14:00:00').getTime(),
+    'oop.html': new Date('2026-02-23T14:00:00').getTime(),
     'numpy.html': new Date('2026-02-25T14:00:00').getTime()
 };
 
@@ -179,10 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
             hour: '2-digit', minute: '2-digit'
         });
 
-        // Add a CSS class to the body — CSS will handle hiding the content!
-        document.body.classList.add('content-locked');
-
-        // Inject the lock screen overlay directly into the body (on top of everything)
+        // Inject the lock screen overlay directly on top (covers everything visually)
         const lockScreen = document.createElement('div');
         lockScreen.className = 'locked-screen';
         lockScreen.id = 'lock-overlay';
@@ -199,6 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <a href="index.html" class="btn-output" style="display: inline-block; text-decoration: none; margin-top: 2.5rem;">Return to Dashboard</a>
         `;
         document.body.appendChild(lockScreen);
+        document.body.style.overflow = 'hidden'; // Prevent scrolling behind overlay
 
         // --- Secret Bypass Logic ---
         const secretBtn = document.getElementById('secret-unlock-btn');
@@ -215,9 +213,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const password = teacherInput.value;
             if (password === UNLOCK_SECRET) {
                 teacherInput.blur();
-                // Simply remove the class — CSS handles showing content again!
-                document.body.classList.remove('content-locked');
+                // Just remove the overlay — content was always there behind it!
                 lockScreen.remove();
+                document.body.style.overflow = ''; // Re-enable scrolling
                 showToast("🔓 Teacher Access Granted!");
             } else if (password !== "") {
                 teacherInput.blur();

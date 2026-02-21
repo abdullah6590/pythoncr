@@ -545,11 +545,6 @@ code {
 
 /* --- Content Lock & Toast Styles --- */
 
-/* When the body has this class, hide ALL content inside the container */
-body.content-locked .container {
-    display: none !important;
-}
-
 .locked-screen {
     position: fixed;
     top: 0;
