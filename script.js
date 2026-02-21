@@ -179,80 +179,57 @@ document.addEventListener('DOMContentLoaded', () => {
             hour: '2-digit', minute: '2-digit'
         });
 
-        const container = document.querySelector('.container');
-        if (container) {
-            // Refactor: Create a specific wrapper for actual lesson content, ignoring nav/canvas
-            const contentWrapper = document.createElement('div');
-            
-            // Explicitly select only the content blocks we want to hide
-            const contentElements = container.querySelectorAll('header, .storybook-intro, .module-title, .task-card');
-            
-            // If we found them, wrap them
-            if (contentElements.length > 0) {
-                // Insert wrapper just before the first content element
-                container.insertBefore(contentWrapper, contentElements[0]);
-                
-                // Move all selected elements into the wrapper
-                contentElements.forEach(el => contentWrapper.appendChild(el));
+        // Add a CSS class to the body — CSS will handle hiding the content!
+        document.body.classList.add('content-locked');
+
+        // Inject the lock screen overlay directly into the body (on top of everything)
+        const lockScreen = document.createElement('div');
+        lockScreen.className = 'locked-screen';
+        lockScreen.id = 'lock-overlay';
+        lockScreen.innerHTML = `
+            <div class="lock-icon" id="secret-unlock-btn" style="cursor: pointer;" title="Teacher Access">🔒</div>
+            <h2>Content Locked</h2>
+            <p style="color: #a1a1aa; max-width: 400px; margin: 0 auto;">The materials and tasks for this module are locked for now. Please return on the scheduled date.</p>
+            <div class="unlock-date">Unlocks: ${unlockDateStr}</div>
+            <br>
+            <div id="teacher-access-form" style="display: none; margin-top: 1.5rem;">
+                <input type="password" id="teacher-password" placeholder="Enter Access Key..." style="padding: 0.6rem 1rem; border-radius: 8px; border: 1px solid var(--accent-green); background: rgba(0,0,0,0.5); color: #fff; text-align: center; font-size: 1rem; width: 200px;">
+                <button id="teacher-submit" class="btn-output" style="margin-left: 0.5rem; padding: 0.6rem 1rem;">Unlock</button>
+            </div>
+            <a href="index.html" class="btn-output" style="display: inline-block; text-decoration: none; margin-top: 2.5rem;">Return to Dashboard</a>
+        `;
+        document.body.appendChild(lockScreen);
+
+        // --- Secret Bypass Logic ---
+        const secretBtn = document.getElementById('secret-unlock-btn');
+        const teacherForm = document.getElementById('teacher-access-form');
+        const teacherInput = document.getElementById('teacher-password');
+        const teacherSubmit = document.getElementById('teacher-submit');
+
+        secretBtn.addEventListener('click', () => {
+            teacherForm.style.display = 'block';
+            teacherInput.focus();
+        });
+
+        const submitPassword = () => {
+            const password = teacherInput.value;
+            if (password === UNLOCK_SECRET) {
+                teacherInput.blur();
+                // Simply remove the class — CSS handles showing content again!
+                document.body.classList.remove('content-locked');
+                lockScreen.remove();
+                showToast("🔓 Teacher Access Granted!");
+            } else if (password !== "") {
+                teacherInput.blur();
+                showToast("❌ Incorrect Access Key.");
+                teacherInput.value = "";
             }
+        };
 
-            contentWrapper.style.display = 'none'; // Hide the entire wrapper safely
-            
-            // Inject high-end lock screen overlay into the container
-            const lockScreen = document.createElement('div');
-            lockScreen.className = 'locked-screen';
-            lockScreen.innerHTML = `
-                <div class="lock-icon" id="secret-unlock-btn" style="cursor: pointer;" title="Teacher Access">🔒</div>
-                <h2>Content Locked</h2>
-                <p style="color: #a1a1aa; max-width: 400px; margin: 0 auto;">The materials and tasks for this module are lock for now. Please return on the scheduled date.</p>
-                <div class="unlock-date">Unlocks: ${unlockDateStr}</div>
-                <br>
-                <div id="teacher-access-form" style="display: none; margin-top: 1.5rem;">
-                    <input type="password" id="teacher-password" placeholder="Enter Access Key..." style="padding: 0.5rem; border-radius: 4px; border: 1px solid var(--accent-green); background: rgba(0,0,0,0.5); color: #fff; text-align: center;">
-                    <button id="teacher-submit" class="btn-output" style="margin-left: 0.5rem; padding: 0.5rem 1rem;">Unlock</button>
-                </div>
-                <a href="index.html" class="btn-output" style="display: inline-block; text-decoration: none; margin-top: 2.5rem;">Return to Dashboard</a>
-            `;
-            
-            // Put both back into the container
-            container.appendChild(contentWrapper);
-            container.appendChild(lockScreen);
-            
-            // --- Secret Bypass Logic ---
-            const secretBtn = document.getElementById('secret-unlock-btn');
-            const teacherForm = document.getElementById('teacher-access-form');
-            const teacherInput = document.getElementById('teacher-password');
-            const teacherSubmit = document.getElementById('teacher-submit');
-
-            secretBtn.addEventListener('click', () => {
-                teacherForm.style.display = 'block';
-                teacherInput.focus();
-            });
-
-            const submitPassword = () => {
-                const password = teacherInput.value;
-                if (password === UNLOCK_SECRET) {
-                    // Fix mobile freeze: blur the input to dismiss the virtual keyboard
-                    // before destroying the DOM element it is attached to!
-                    teacherInput.blur(); 
-                    
-                    setTimeout(() => {
-                        lockScreen.remove();
-                        contentWrapper.style.removeProperty('display');
-                        showToast("🔓 Teacher Access Granted!");
-                    }, 50); // tiny delay ensures keyboard closes safely
-                } else if (password !== "") {
-                    teacherInput.blur();
-                    showToast("❌ Incorrect Access Key.");
-                    teacherInput.value = "";
-                }
-            };
-
-            teacherSubmit.addEventListener('click', submitPassword);
-            teacherInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') submitPassword();
-            });
-        }
+        teacherSubmit.addEventListener('click', submitPassword);
+        teacherInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') submitPassword();
+        });
     }
 
     // 2. Navigation Link Intercept & Mobile Toggle
