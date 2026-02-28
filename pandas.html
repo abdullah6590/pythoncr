@@ -1,0 +1,2260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pandas: Interactive Masterclass</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="container">
+
+    <nav class="top-nav">
+        <!-- Active item acts as the dropdown toggle on mobile -->
+        <a href="#" class="nav-link active">🐼 Pandas</a>
+        
+        <!-- Other links to show when toggled -->
+        <a href="basics.html" class="nav-link">📘 Basics</a>
+        <a href="index.html" class="nav-link">🐍 Functions</a>
+        <a href="oop.html" class="nav-link">🏗️ OOP</a>
+        <a href="numpy.html" class="nav-link">🧮 NumPy</a>
+    </nav>
+
+    <header>
+        <h1>🐼 Pandas Introduction</h1>
+        <p>Pandas is a Python library used for working with data sets. It has functions for analyzing, cleaning, exploring, and manipulating data. The name "Pandas" has a reference to both "Panel Data", and "Python Data Analysis" and was created by Wes McKinney in 2008.</p>
+    </header>
+
+    <div class="storybook-intro">
+        <h2>📊 Why Use Pandas?</h2>
+        <p>Pandas allows us to analyze big data and make conclusions based on statistical theories. Pandas can clean messy data sets, and make them readable and relevant. Relevant data is very important in data science.</p>
+        <p><span class="highlight-term">Data Science</span>: is a branch of computer science where we study how to store, use and analyze data for deriving information from it.</p>
+
+        <h2 style="margin-top: 2rem;">🔍 What Can Pandas Do?</h2>
+        <p>Pandas gives you answers about the data. Like:</p>
+        <ul>
+            <li>Is there a <span class="highlight-term">correlation</span> between two or more columns?</li>
+            <li>What is the <span class="highlight-term">average value</span>?</li>
+            <li>What is the <span class="highlight-term">max value</span>?</li>
+            <li>What is the <span class="highlight-term">min value</span>?</li>
+        </ul>
+        <p>Pandas is also able to delete rows that are not relevant, or contain wrong values, like empty or NULL values. This is called <strong>cleaning the data</strong>.</p>
+
+        <h3 style="margin-top: 2rem;">⚙️ Installation</h3>
+        <p>If you have Python and PIP already installed on a system, then installation of Pandas is very easy. Install it using this command:</p>
+        <div class="code-container" style="border-radius: 8px; margin: 1rem 0; padding: 1.5rem;">
+<code>C:\Users\Your Name>pip install pandas</code>
+        </div>
+        <p>If this command fails, then use a Python distribution that already has Pandas installed like <strong>Anaconda</strong>, <strong>Spyder</strong> etc.</p>
+
+        <h3 style="margin-top: 2rem;">📥 Import Pandas</h3>
+        <p>Once Pandas is installed, import it in your applications by adding the <code>import</code> keyword. Create an alias with the <code>as</code> keyword while importing:</p>
+        <div class="code-container" style="border-radius: 8px; margin: 1rem 0; padding: 1.5rem;">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</code>
+        </div>
+        <p>Now the Pandas package can be referred to as <strong>pd</strong> instead of <strong>pandas</strong>.</p>
+    </div>
+
+    <h2 class="module-title">Module 1: Getting Started with Pandas</h2>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 1: Your First Pandas DataFrame</h3>
+        <p class="task-desc">Create a simple dataset using a dictionary and turn it into a Pandas DataFrame — the most used data structure in Pandas.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task1', this)">Show Answer</button>
+        
+        <div id="pd-task1" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+<span class="comment"># Create a dictionary with our data</span>
+mydataset = {
+  <span class="string">'cars'</span>: [<span class="string">"BMW"</span>, <span class="string">"Volvo"</span>, <span class="string">"Ford"</span>],
+  <span class="string">'passings'</span>: [3, 7, 2]
+}
+
+<span class="comment"># Convert the dictionary into a DataFrame</span>
+myvar = pd.DataFrame(mydataset)
+
+<span class="comment"># Display the DataFrame</span>
+print(myvar)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out1', this)">Show Output</button>
+            <div id="pd-out1" class="output-container">
+    cars  passings<br>
+0    BMW         3<br>
+1  Volvo         7<br>
+2   Ford         2
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">import pandas as pd</span> - We import the Pandas library and give it the short alias <strong>pd</strong> so we can use it conveniently throughout our code.</li>
+                    <li><span class="code-snippet">mydataset = { ... }</span> - We create a Python dictionary where each key becomes a <strong>column name</strong> and each value (a list) becomes the <strong>column data</strong>.</li>
+                    <li><span class="code-snippet">pd.DataFrame(mydataset)</span> - The <code>DataFrame()</code> function converts our dictionary into a table-like structure with rows and columns, just like an Excel spreadsheet!</li>
+                    <li><span class="code-snippet">print(myvar)</span> - Displays the DataFrame. Notice how Pandas automatically adds <strong>index numbers</strong> (0, 1, 2) on the left side.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">Module 2: Pandas Series</h2>
+
+    <div class="storybook-intro">
+        <h2>📋 What is a Series?</h2>
+        <p>A Pandas <span class="highlight-term">Series</span> is like a column in a table. It is a one-dimensional array holding data of any type.</p>
+        <p>Think of a Series as a single vertical column of data — it can hold numbers, strings, or any Python object. A DataFrame is essentially a collection of Series.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 2: Creating a Simple Series</h3>
+        <p class="task-desc">Create a Pandas Series from a basic Python list.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task2', this)">Show Answer</button>
+        
+        <div id="pd-task2" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+<span class="comment"># Create a Python list</span>
+a = [1, 7, 2]
+
+<span class="comment"># Convert the list into a Pandas Series</span>
+myvar = pd.Series(a)
+
+<span class="comment"># Display the Series</span>
+print(myvar)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out2', this)">Show Output</button>
+            <div id="pd-out2" class="output-container">
+0    1<br>
+1    7<br>
+2    2<br>
+dtype: int64
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">a = [1, 7, 2]</span> - We create a simple Python list containing three integer values.</li>
+                    <li><span class="code-snippet">pd.Series(a)</span> - The <code>Series()</code> function converts our list into a Pandas Series. Each value gets assigned an automatic index (0, 1, 2).</li>
+                    <li><span class="code-snippet">print(myvar)</span> - Displays the Series. Notice the output shows two columns: the <strong>index</strong> on the left and the <strong>values</strong> on the right, plus the <code>dtype</code> (data type) at the bottom.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 3: Accessing Series Values by Index</h3>
+        <p class="task-desc">Use the index number to retrieve a specific value from a Series — just like with lists!</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task3', this)">Show Answer</button>
+        
+        <div id="pd-task3" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+a = [1, 7, 2]
+
+myvar = pd.Series(a)
+
+<span class="comment"># Access the first value using index 0</span>
+print(myvar[0])</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out3', this)">Show Output</button>
+            <div id="pd-out3" class="output-container">
+1
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">myvar[0]</span> - If nothing else is specified, the values are labeled with their index number. First value has index <strong>0</strong>, second value has index <strong>1</strong>, and so on. Here we access the first value which is <strong>1</strong>.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 4: Creating Custom Labels</h3>
+        <p class="task-desc">Use the <code>index</code> argument to name your own labels instead of using default numeric indexes.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task4', this)">Show Answer</button>
+        
+        <div id="pd-task4" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+a = [1, 7, 2]
+
+<span class="comment"># Create a Series with custom labels</span>
+myvar = pd.Series(a, index = [<span class="string">"x"</span>, <span class="string">"y"</span>, <span class="string">"z"</span>])
+
+print(myvar)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out4', this)">Show Output</button>
+            <div id="pd-out4" class="output-container">
+x    1<br>
+y    7<br>
+z    2<br>
+dtype: int64
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">index = ["x", "y", "z"]</span> - The <code>index</code> argument lets you replace the default numeric labels (0, 1, 2) with your own custom labels. Now the value <strong>1</strong> has the label <strong>"x"</strong>, <strong>7</strong> has <strong>"y"</strong>, and <strong>2</strong> has <strong>"z"</strong>.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 5: Accessing Items by Custom Label</h3>
+        <p class="task-desc">When you have created custom labels, you can access an item by referring to the label instead of the index number.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task5', this)">Show Answer</button>
+        
+        <div id="pd-task5" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+a = [1, 7, 2]
+
+myvar = pd.Series(a, index = [<span class="string">"x"</span>, <span class="string">"y"</span>, <span class="string">"z"</span>])
+
+<span class="comment"># Access the value with label "y"</span>
+print(myvar[<span class="string">"y"</span>])</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out5', this)">Show Output</button>
+            <div id="pd-out5" class="output-container">
+7
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">myvar["y"]</span> - Instead of using a number like <code>myvar[1]</code>, we can now use the string label <strong>"y"</strong> to access the value <strong>7</strong>. This makes our code much more readable and meaningful!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 6: Key/Value Objects as Series (Dictionary)</h3>
+        <p class="task-desc">You can also use a key/value object, like a dictionary, when creating a Series. The keys of the dictionary automatically become the labels.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task6', this)">Show Answer</button>
+        
+        <div id="pd-task6" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+<span class="comment"># Create a dictionary with calorie data</span>
+calories = {<span class="string">"day1"</span>: 420, <span class="string">"day2"</span>: 380, <span class="string">"day3"</span>: 390}
+
+<span class="comment"># Convert dictionary to a Series</span>
+myvar = pd.Series(calories)
+
+print(myvar)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out6', this)">Show Output</button>
+            <div id="pd-out6" class="output-container">
+day1    420<br>
+day2    380<br>
+day3    390<br>
+dtype: int64
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">calories = {"day1": 420, ...}</span> - We create a Python dictionary where each <strong>key</strong> represents a day and each <strong>value</strong> represents the calorie count for that day.</li>
+                    <li><span class="code-snippet">pd.Series(calories)</span> - When you pass a dictionary to <code>Series()</code>, the <strong>keys</strong> automatically become the <strong>labels</strong> (index), and the <strong>values</strong> become the data. No need to specify the <code>index</code> argument manually!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 7: Selecting Specific Items from a Dictionary</h3>
+        <p class="task-desc">To select only some items from the dictionary, use the <code>index</code> argument and specify only the items you want to include.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task7', this)">Show Answer</button>
+        
+        <div id="pd-task7" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+calories = {<span class="string">"day1"</span>: 420, <span class="string">"day2"</span>: 380, <span class="string">"day3"</span>: 390}
+
+<span class="comment"># Create a Series using only "day1" and "day2"</span>
+myvar = pd.Series(calories, index = [<span class="string">"day1"</span>, <span class="string">"day2"</span>])
+
+print(myvar)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out7', this)">Show Output</button>
+            <div id="pd-out7" class="output-container">
+day1    420<br>
+day2    380<br>
+dtype: int64
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">index = ["day1", "day2"]</span> - Even though our dictionary has 3 items (day1, day2, day3), the <code>index</code> argument acts as a <strong>filter</strong>. It tells Pandas: "Only include these specific keys!" So <strong>day3</strong> is completely excluded from the resulting Series.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">Module 3: Pandas DataFrames — Deep Dive</h2>
+
+    <div class="storybook-intro">
+        <h2>📊 What is a DataFrame?</h2>
+        <p>A Pandas <span class="highlight-term">DataFrame</span> is a 2-dimensional data structure, like a 2-dimensional array, or a table with rows and columns.</p>
+        <p>Think of it like this:</p>
+        <ul>
+            <li>A <span class="highlight-term">Series</span> = one single column (1D)</li>
+            <li>A <span class="highlight-term">DataFrame</span> = the whole table with many columns (2D)</li>
+        </ul>
+        <p>It's essentially the Python version of an <strong>Excel spreadsheet</strong> or a <strong>SQL database table</strong>. Every time you work with real-world data in Pandas, you'll be using DataFrames!</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 8: Creating a Simple DataFrame</h3>
+        <p class="task-desc">Build a full DataFrame by providing a dictionary where each key is a column and each value is a list of data.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task8', this)">Show Answer</button>
+        
+        <div id="pd-task8" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+<span class="comment"># Create a dictionary with two columns of data</span>
+data = {
+  <span class="string">"calories"</span>: [420, 380, 390],
+  <span class="string">"duration"</span>: [50, 40, 45]
+}
+
+<span class="comment"># Load data into a DataFrame object</span>
+df = pd.DataFrame(data)
+
+print(df)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out8', this)">Show Output</button>
+            <div id="pd-out8" class="output-container">
+   calories  duration<br>
+0       420        50<br>
+1       380        40<br>
+2       390        45
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">data = { "calories": [...], "duration": [...] }</span> - We create a dictionary with <strong>two keys</strong>. Each key becomes a <strong>column header</strong>, and the corresponding list becomes the <strong>column data</strong>. Both lists must have the same length!</li>
+                    <li><span class="code-snippet">df = pd.DataFrame(data)</span> - The <code>DataFrame()</code> constructor takes our dictionary and builds a beautiful 2D table. By convention, we name our DataFrame variable <strong>df</strong> — this is a standard practice you'll see everywhere!</li>
+                    <li><span class="code-snippet">print(df)</span> - Displays the complete DataFrame. Notice how it looks like a proper spreadsheet with <strong>column names</strong> at the top and <strong>row indexes</strong> (0, 1, 2) on the left!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">Module 4: Locating Rows in a DataFrame</h2>
+
+    <div class="storybook-intro">
+        <h2>🔎 Locate Row</h2>
+        <p>As you can see from the DataFrames above, the structure is like a table with rows and columns. But how do we pull out specific rows?</p>
+        <p>Pandas uses the <span class="highlight-term">loc</span> attribute to return one or more specified row(s). This is one of the most powerful tools in your Pandas toolkit!</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 9: Locating a Single Row</h3>
+        <p class="task-desc">Use <code>df.loc[]</code> to extract a single row from the DataFrame by its index number.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task9', this)">Show Answer</button>
+        
+        <div id="pd-task9" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+data = {
+  <span class="string">"calories"</span>: [420, 380, 390],
+  <span class="string">"duration"</span>: [50, 40, 45]
+}
+
+df = pd.DataFrame(data)
+
+<span class="comment"># Refer to the row index:</span>
+print(df.loc[0])</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out9', this)">Show Output</button>
+            <div id="pd-out9" class="output-container">
+calories    420<br>
+duration     50<br>
+Name: 0, dtype: int64
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">df.loc[0]</span> - The <code>loc</code> attribute is like a GPS for your data! We give it the row index <strong>0</strong> (the first row), and it returns all the data from that row.</li>
+                    <li><span class="code-snippet">Name: 0, dtype: int64</span> - Notice the output format: it shows each <strong>column name</strong> on the left and its <strong>value</strong> on the right. This is actually a <strong>Pandas Series</strong> — when you grab a single row, Pandas returns it as a Series, not a DataFrame!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 10: Locating Multiple Rows</h3>
+        <p class="task-desc">Use a <strong>list of indexes</strong> inside <code>df.loc[[]]</code> to extract multiple rows at once.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task10', this)">Show Answer</button>
+        
+        <div id="pd-task10" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+data = {
+  <span class="string">"calories"</span>: [420, 380, 390],
+  <span class="string">"duration"</span>: [50, 40, 45]
+}
+
+df = pd.DataFrame(data)
+
+<span class="comment"># Use a list of indexes:</span>
+print(df.loc[[0, 1]])</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out10', this)">Show Output</button>
+            <div id="pd-out10" class="output-container">
+   calories  duration<br>
+0       420        50<br>
+1       380        40
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">df.loc[[0, 1]]</span> - Notice the <strong>double brackets</strong> <code>[[ ]]</code>! When you pass a <strong>list</strong> of indexes, Pandas grabs multiple rows and returns them as a proper <strong>DataFrame</strong> (not a Series). Here we asked for row 0 and row 1.</li>
+                    <li><strong>🤔 Key Difference:</strong> Using <code>df.loc[0]</code> (single brackets) returns a <strong>Series</strong>. Using <code>df.loc[[0, 1]]</code> (double brackets with a list) returns a <strong>DataFrame</strong>. This matters when you use the result in further operations!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">Module 5: Named Indexes</h2>
+
+    <div class="storybook-intro">
+        <h2>🏷️ Named Indexes</h2>
+        <p>With the <span class="highlight-term">index</span> argument, you can name your own indexes instead of using the default numbers (0, 1, 2...).</p>
+        <p>This is extremely useful in real-world data! Instead of remembering "row 0 = Monday's data", you can just name the row <strong>"Monday"</strong>.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 11: Adding Named Indexes to a DataFrame</h3>
+        <p class="task-desc">Add a list of names to give each row a meaningful name instead of a boring number.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task11', this)">Show Answer</button>
+        
+        <div id="pd-task11" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+data = {
+  <span class="string">"calories"</span>: [420, 380, 390],
+  <span class="string">"duration"</span>: [50, 40, 45]
+}
+
+<span class="comment"># Add named indexes using the index argument</span>
+df = pd.DataFrame(data, index = [<span class="string">"day1"</span>, <span class="string">"day2"</span>, <span class="string">"day3"</span>])
+
+print(df)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out11', this)">Show Output</button>
+            <div id="pd-out11" class="output-container">
+      calories  duration<br>
+day1       420        50<br>
+day2       380        40<br>
+day3       390        45
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">index = ["day1", "day2", "day3"]</span> - We pass a list of custom names to the <code>index</code> argument. These names <strong>replace</strong> the default numeric indexes (0, 1, 2) with meaningful labels.</li>
+                    <li><span class="code-snippet">print(df)</span> - Look at the output! Instead of boring numbers on the left, we now see <strong>day1</strong>, <strong>day2</strong>, <strong>day3</strong>. This makes the data immediately understandable at a glance!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 12: Locating Rows by Named Index</h3>
+        <p class="task-desc">Use the named index in the <code>loc</code> attribute to return a specific row by its name instead of a number.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task12', this)">Show Answer</button>
+        
+        <div id="pd-task12" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+data = {
+  <span class="string">"calories"</span>: [420, 380, 390],
+  <span class="string">"duration"</span>: [50, 40, 45]
+}
+
+df = pd.DataFrame(data, index = [<span class="string">"day1"</span>, <span class="string">"day2"</span>, <span class="string">"day3"</span>])
+
+<span class="comment"># Refer to the named index:</span>
+print(df.loc[<span class="string">"day2"</span>])</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out12', this)">Show Output</button>
+            <div id="pd-out12" class="output-container">
+calories    380<br>
+duration     40<br>
+Name: day2, dtype: int64
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">df.loc["day2"]</span> - Instead of remembering that "day2" is at index 1, we simply use the <strong>name</strong> directly! Pandas finds the row labeled <strong>"day2"</strong> and returns all its data.</li>
+                    <li><span class="code-snippet">Name: day2, dtype: int64</span> - The result is a Series showing calories = 380 and duration = 40 for day2. Notice the "Name" field at the bottom now shows <strong>"day2"</strong> instead of a number — because we used named indexes!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">Module 6: Loading Files into DataFrames</h2>
+
+    <div class="storybook-intro">
+        <h2>📁 Load Files Into a DataFrame</h2>
+        <p>In the real world, your data won't be typed into dictionaries by hand. It will live in <span class="highlight-term">files</span> — CSV files, Excel spreadsheets, JSON files, and databases.</p>
+        <p>Pandas can load all of these into a DataFrame with a single line of code! This is where Pandas truly becomes a superpower for data analysis.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 13: Loading a CSV File</h3>
+        <p class="task-desc">Load a comma-separated file (CSV file) into a DataFrame using <code>pd.read_csv()</code>.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task13', this)">Show Answer</button>
+        
+        <div id="pd-task13" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+<span class="comment"># Load a CSV file into a DataFrame</span>
+df = pd.read_csv(<span class="string">'data.csv'</span>)
+
+<span class="comment"># Display the entire DataFrame</span>
+print(df)</code>
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">pd.read_csv('data.csv')</span> - This single line does ALL the heavy lifting! Pandas opens the file named <strong>"data.csv"</strong>, reads every row and column, and automatically converts it into a full DataFrame. The first row of the CSV file typically becomes the <strong>column headers</strong>.</li>
+                    <li><span class="code-snippet">print(df)</span> - Displays the loaded data. If the file has hundreds of rows, Pandas will smartly show only the first and last 5 rows with <strong>...</strong> in between, so your screen doesn't overflow!</li>
+                    <li><strong>💡 Tip:</strong> You can also load other file formats: <code>pd.read_excel('data.xlsx')</code> for Excel files, <code>pd.read_json('data.json')</code> for JSON files, and even <code>pd.read_sql()</code> for databases!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">Module 7: Read CSV Files</h2>
+
+    <div class="storybook-intro">
+        <h2>📄 Read CSV Files</h2>
+        <p>A simple way to store big data sets is to use <span class="highlight-term">CSV files</span> (Comma Separated Files).</p>
+        <p>CSV files contain plain text and are a well-known format that can be read by everyone — including Pandas.</p>
+        <p>In our examples we will be using a CSV file called <strong>'data.csv'</strong>.</p>
+        <a href="https://www.w3schools.com/python/pandas/data.csv" download class="btn-toggle" style="display: inline-block; text-decoration: none; margin-top: 0.8rem;">⬇️ Download data.csv</a>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 14: Print the Entire DataFrame with to_string()</h3>
+        <p class="task-desc">Load a CSV file and use <code>to_string()</code> to print every single row of the DataFrame without any truncation.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task14', this)">Show Answer</button>
+        
+        <div id="pd-task14" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+df = pd.read_csv(<span class="string">'data.csv'</span>)
+
+<span class="comment"># Use to_string() to print the ENTIRE DataFrame</span>
+print(df.to_string())</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out14', this)">Show Output</button>
+            <div id="pd-out14" class="output-container" style="max-height: 400px; overflow-y: auto;">
+     Duration  Pulse  Maxpulse  Calories<br>
+0          60    110       130     409.1<br>
+1          60    117       145     479.0<br>
+2          60    103       135     340.0<br>
+3          45    109       175     282.4<br>
+4          45    117       148     406.0<br>
+5          60    102       127     300.0<br>
+6          60    110       136     374.0<br>
+7          45    104       134     253.3<br>
+8          30    109       133     195.1<br>
+9          60     98       124     269.0<br>
+10         60    103       147     329.3<br>
+11         60    100       120     250.7<br>
+12         60    106       128     345.3<br>
+13         60    104       132     379.3<br>
+14         60     98       123     275.0<br>
+15         60     98       120     215.2<br>
+16         60    100       120     300.0<br>
+17         45     90       112       NaN<br>
+18         60    103       123     323.0<br>
+19         45     97       125     243.0<br>
+..         ..    ...       ...       ...<br>
+149        60    103       133     335.0<br>
+150        60    106       132     327.5<br>
+151        60    103       136     339.0<br>
+152        20    136       156     189.0<br>
+153        45    117       143     317.7<br>
+154        45    115       137     318.0<br>
+155        45    113       138     308.0<br>
+156        20    141       162     222.4<br>
+157        60    108       135     390.0<br>
+158        60     97       127       NaN<br>
+159        45    100       120     250.4<br>
+160        45    122       149     335.4<br>
+161        60    136       170     470.2<br>
+162        45    106       126     270.8<br>
+163        60    107       136     400.0<br>
+164        60    112       146     361.9<br>
+165        30    103       127     185.0<br>
+166        60    110       150     409.4<br>
+167        60    106       134     343.0<br>
+168        60    109       129     353.2<br>
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">pd.read_csv('data.csv')</span> - Reads the CSV file and loads all the data into a DataFrame called <strong>df</strong>.</li>
+                    <li><span class="code-snippet">df.to_string()</span> - By default, <code>print(df)</code> may truncate (cut off) the output if the DataFrame is very large. Using <code>to_string()</code> forces Pandas to convert the <strong>entire</strong> DataFrame into a string, so every single row gets printed — no matter how many there are!</li>
+                    <li><strong>💡 Tip:</strong> Use <code>to_string()</code> when you want to see ALL the data. Be careful with very large datasets though — printing thousands of rows can flood your terminal!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 15: Default Print (Truncated Output)</h3>
+        <p class="task-desc">If you have a large DataFrame with many rows, Pandas will only return the first 5 rows and the last 5 rows automatically.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task15', this)">Show Answer</button>
+        
+        <div id="pd-task15" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+df = pd.read_csv(<span class="string">'data.csv'</span>)
+
+<span class="comment"># Print WITHOUT to_string()</span>
+print(df)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out15', this)">Show Output</button>
+            <div id="pd-out15" class="output-container">
+     Duration  Pulse  Maxpulse  Calories<br>
+0          60    110       130     409.1<br>
+1          60    117       145     479.0<br>
+2          60    103       135     340.0<br>
+3          45    109       175     282.4<br>
+4          45    117       148     406.0<br>
+..        ...    ...       ...       ...<br>
+164        60    112       146     361.9<br>
+165        30    103       127     185.0<br>
+166        60    110       150     409.4<br>
+167        60    106       134     343.0<br>
+168        60    109       129     353.2<br>
+<br>
+[169 rows x 4 columns]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">print(df)</span> - When you print a large DataFrame <strong>without</strong> <code>to_string()</code>, Pandas automatically truncates the output. It shows only the <strong>first 5 rows</strong> and the <strong>last 5 rows</strong>, with <strong>...</strong> in the middle.</li>
+                    <li><strong>🤔 Why?</strong> This is a smart design choice! Imagine printing 10,000 rows — your screen would be flooded with data. Pandas saves you by showing just a summary preview.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 16: Check max_rows Setting</h3>
+        <p class="task-desc">The number of rows returned is defined in Pandas option settings. Check your system's maximum rows with <code>pd.options.display.max_rows</code>.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task16', this)">Show Answer</button>
+        
+        <div id="pd-task16" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+<span class="comment"># Check the number of maximum returned rows</span>
+print(pd.options.display.max_rows)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out16', this)">Show Output</button>
+            <div id="pd-out16" class="output-container">
+60
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">pd.options.display.max_rows</span> - This is a built-in Pandas setting that controls how many rows are shown before truncation kicks in. The default is usually <strong>60</strong>.</li>
+                    <li><strong>What does 60 mean?</strong> If your DataFrame contains <strong>more than 60 rows</strong>, then <code>print(df)</code> will only show the headers and the first and last 5 rows with <strong>...</strong> in between. If it has <strong>60 or fewer rows</strong>, all rows are displayed normally!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 17: Change max_rows to Show Everything</h3>
+        <p class="task-desc">You can change the maximum rows number to display the entire DataFrame, no matter how big it is!</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task17', this)">Show Answer</button>
+        
+        <div id="pd-task17" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+<span class="comment"># Increase the maximum number of rows to display</span>
+pd.options.display.max_rows = 9999
+
+df = pd.read_csv(<span class="string">'data.csv'</span>)
+
+<span class="comment"># Now ALL rows will be printed, even if there are thousands!</span>
+print(df)</code>
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">pd.options.display.max_rows = 9999</span> - We override the default setting (60) and tell Pandas: "Show me up to <strong>9,999 rows</strong> before truncating!" Since most datasets have fewer than 9,999 rows, this effectively means "show everything."</li>
+                    <li><span class="code-snippet">print(df)</span> - Now when we print the DataFrame, Pandas will display ALL the rows because we raised the limit. No more <strong>...</strong> cutting off our data!</li>
+                    <li><strong>⚠️ Warning:</strong> Setting this too high with a massive dataset (millions of rows) can make your program very slow or crash. Use <code>to_string()</code> or <code>df.head()</code> / <code>df.tail()</code> for safer alternatives when exploring big data.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">Module 8: Pandas Read JSON</h2>
+
+    <div class="storybook-intro">
+        <h2>📋 Read JSON</h2>
+        <p>Big data sets are often stored, or extracted as <span class="highlight-term">JSON</span> (JavaScript Object Notation).</p>
+        <p>JSON is plain text, but has the format of an object, and is well known in the world of programming, including Pandas.</p>
+        <a href="https://www.w3schools.com/python/pandas/data.js" download class="btn-toggle" style="display: inline-block; text-decoration: none; margin-top: 0.8rem;">⬇️ Download data.json</a>
+
+        <h3 style="margin-top: 1.5rem;">🤖 Why JSON Matters in Machine Learning</h3>
+        <p>JSON plays a <strong>critical role</strong> in the Machine Learning pipeline:</p>
+        <ul>
+            <li><span class="highlight-term">API Responses</span> — When you fetch data from APIs (e.g., Twitter, Google, weather services), the data comes back as JSON. ML models need this data to train on real-world information.</li>
+            <li><span class="highlight-term">Model Configuration</span> — Hyperparameters and model settings are often stored in JSON files (e.g., <code>config.json</code> in Hugging Face models).</li>
+            <li><span class="highlight-term">Data Pipelines</span> — JSON is used to pass data between different stages of an ML pipeline: data collection → cleaning → training → deployment.</li>
+            <li><span class="highlight-term">NoSQL Databases</span> — Databases like MongoDB store records as JSON documents. When you pull training data from these databases, you get JSON!</li>
+        </ul>
+        <p>Learning to load JSON into Pandas DataFrames is an <strong>essential skill</strong> for any aspiring Data Scientist or ML Engineer.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 18: Loading a JSON File into a DataFrame</h3>
+        <p class="task-desc">Load a JSON file directly into a DataFrame using <code>pd.read_json()</code> — just as easy as reading a CSV!</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task18', this)">Show Answer</button>
+        
+        <div id="pd-task18" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+<span class="comment"># Load the JSON file into a DataFrame</span>
+df = pd.read_json(<span class="string">'data.json'</span>)
+
+<span class="comment"># Use to_string() to print the entire DataFrame</span>
+print(df.to_string())</code>
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">pd.read_json('data.json')</span> - Just like <code>read_csv()</code>, this single line reads an entire JSON file and converts it into a Pandas DataFrame. Pandas is smart enough to figure out the rows and columns from the JSON structure automatically!</li>
+                    <li><span class="code-snippet">df.to_string()</span> - We use <code>to_string()</code> to ensure the entire DataFrame is printed without truncation.</li>
+                    <li><strong>💡 Tip:</strong> JSON files often come from web APIs. For example, when you call a weather API, it returns JSON data that you can directly load into Pandas for analysis!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>🔄 Dictionary as JSON</h2>
+        <p><strong>JSON = Python Dictionary!</strong></p>
+        <p>JSON objects have the same format as Python dictionaries. If your JSON code is not in a file, but in a <span class="highlight-term">Python Dictionary</span>, you can load it into a DataFrame directly.</p>
+        <p>This is especially useful when you receive data from an API response and it's already stored as a Python dictionary in memory — no need to save it to a file first!</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 19: Loading a Python Dictionary (JSON Format) into a DataFrame</h3>
+        <p class="task-desc">Create a Python dictionary in JSON format and load it directly into a DataFrame without needing a file.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task19', this)">Show Answer</button>
+        
+        <div id="pd-task19" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+<span class="comment"># A Python dictionary in JSON format</span>
+data = {
+  <span class="string">"Duration"</span>:{
+    <span class="string">"0"</span>:60,
+    <span class="string">"1"</span>:60,
+    <span class="string">"2"</span>:60,
+    <span class="string">"3"</span>:45,
+    <span class="string">"4"</span>:45,
+    <span class="string">"5"</span>:60
+  },
+  <span class="string">"Pulse"</span>:{
+    <span class="string">"0"</span>:110,
+    <span class="string">"1"</span>:117,
+    <span class="string">"2"</span>:103,
+    <span class="string">"3"</span>:109,
+    <span class="string">"4"</span>:117,
+    <span class="string">"5"</span>:102
+  },
+  <span class="string">"Maxpulse"</span>:{
+    <span class="string">"0"</span>:130,
+    <span class="string">"1"</span>:145,
+    <span class="string">"2"</span>:135,
+    <span class="string">"3"</span>:175,
+    <span class="string">"4"</span>:148,
+    <span class="string">"5"</span>:127
+  },
+  <span class="string">"Calories"</span>:{
+    <span class="string">"0"</span>:409,
+    <span class="string">"1"</span>:479,
+    <span class="string">"2"</span>:340,
+    <span class="string">"3"</span>:282,
+    <span class="string">"4"</span>:406,
+    <span class="string">"5"</span>:300
+  }
+}
+
+<span class="comment"># Load dictionary directly into a DataFrame</span>
+df = pd.DataFrame(data)
+
+print(df)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out19', this)">Show Output</button>
+            <div id="pd-out19" class="output-container">
+   Duration  Pulse  Maxpulse  Calories<br>
+0        60    110       130       409<br>
+1        60    117       145       479<br>
+2        60    103       135       340<br>
+3        45    109       175       282<br>
+4        45    117       148       406<br>
+5        60    102       127       300
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">data = { "Duration": { "0": 60, ... }, ... }</span> - This is a <strong>nested dictionary</strong> in JSON format. Each top-level key (<strong>"Duration"</strong>, <strong>"Pulse"</strong>, etc.) becomes a <strong>column</strong>. Inside each column, the keys (<strong>"0"</strong>, <strong>"1"</strong>, etc.) become the <strong>row indexes</strong>, and the values become the data.</li>
+                    <li><span class="code-snippet">pd.DataFrame(data)</span> - Pandas is smart enough to recognize this nested dictionary structure and automatically maps it into a clean table with proper rows and columns!</li>
+                    <li><span class="code-snippet">print(df)</span> - Displays the resulting DataFrame. Notice how the string keys "0", "1", "2"... became numeric row indexes — Pandas handles this conversion automatically.</li>
+                    <li><strong>🤖 ML Use Case:</strong> This is exactly how you'd handle data from an API response — the JSON gets parsed into a Python dictionary, and you load it straight into a DataFrame for preprocessing before feeding it to your ML model!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">Module 9: Viewing the Data</h2>
+
+    <div class="storybook-intro">
+        <h2>👀 Viewing the Data</h2>
+        <p>One of the most used methods for getting a quick overview of the DataFrame is the <span class="highlight-term">head()</span> method.</p>
+        <p>The <code>head()</code> method returns the headers and a specified number of rows, starting from the <strong>top</strong>.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 20: View the First 10 Rows with head()</h3>
+        <p class="task-desc">Get a quick overview by printing the first 10 rows of the DataFrame.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task20', this)">Show Answer</button>
+        
+        <div id="pd-task20" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+df = pd.read_csv(<span class="string">'data.csv'</span>)
+
+<span class="comment"># Get the first 10 rows</span>
+print(df.head(10))</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out20', this)">Show Output</button>
+            <div id="pd-out20" class="output-container">
+   Duration  Pulse  Maxpulse  Calories<br>
+0        60    110       130     409.1<br>
+1        60    117       145     479.0<br>
+2        60    103       135     340.0<br>
+3        45    109       175     282.4<br>
+4        45    117       148     406.0<br>
+5        60    102       127     300.0<br>
+6        60    110       136     374.0<br>
+7        45    104       134     253.3<br>
+8        30    109       133     195.1<br>
+9        60     98       124     269.0
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">df.head(10)</span> - The <code>head()</code> method takes a number as an argument. We passed <strong>10</strong>, so it returns the <strong>first 10 rows</strong> of the DataFrame. This is perfect for quickly peeking at your data without printing thousands of rows!</li>
+                    <li><strong>💡 Tip:</strong> This is usually the <strong>first thing</strong> you do after loading any dataset — check what the data looks like before running any analysis.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 21: Default head() — First 5 Rows</h3>
+        <p class="task-desc">If the number of rows is <strong>not specified</strong>, the <code>head()</code> method will return the top <strong>5 rows</strong> by default.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task21', this)">Show Answer</button>
+        
+        <div id="pd-task21" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+df = pd.read_csv(<span class="string">'data.csv'</span>)
+
+<span class="comment"># Default: returns the first 5 rows</span>
+print(df.head())</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out21', this)">Show Output</button>
+            <div id="pd-out21" class="output-container">
+   Duration  Pulse  Maxpulse  Calories<br>
+0        60    110       130     409.1<br>
+1        60    117       145     479.0<br>
+2        60    103       135     340.0<br>
+3        45    109       175     282.4<br>
+4        45    117       148     406.0
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">df.head()</span> - When you call <code>head()</code> <strong>without</strong> any number, Pandas defaults to showing the <strong>first 5 rows</strong>. This is the quickest way to preview your data!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 22: View the Last Rows with tail()</h3>
+        <p class="task-desc">There is also a <code>tail()</code> method for viewing the <strong>last</strong> rows of the DataFrame, starting from the bottom.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task22', this)">Show Answer</button>
+        
+        <div id="pd-task22" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+df = pd.read_csv(<span class="string">'data.csv'</span>)
+
+<span class="comment"># View the last 5 rows of the DataFrame</span>
+print(df.tail())</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out22', this)">Show Output</button>
+            <div id="pd-out22" class="output-container">
+     Duration  Pulse  Maxpulse  Calories<br>
+164        60    112       146     361.9<br>
+165        30    103       127     185.0<br>
+166        60    110       150     409.4<br>
+167        60    106       134     343.0<br>
+168        60    109       129     353.2
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">df.tail()</span> - Works exactly like <code>head()</code>, but from the <strong>bottom</strong>! It shows the <strong>last 5 rows</strong> by default. You can also pass a number like <code>df.tail(10)</code> to see the last 10 rows.</li>
+                    <li><strong>💡 When to use:</strong> Use <code>tail()</code> to check if your data was loaded completely, or to see the most recent entries in time-series data (e.g., the latest stock prices or sensor readings).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>ℹ️ Info About the Data</h2>
+        <p>The DataFrames object has a method called <span class="highlight-term">info()</span>, that gives you more information about the data set.</p>
+        <p>It tells you the <strong>number of rows</strong>, <strong>column names</strong>, <strong>data types</strong>, and most importantly — how many <strong>non-null values</strong> exist in each column!</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 23: Get Dataset Info with info()</h3>
+        <p class="task-desc">Print detailed information about the DataFrame including column types, non-null counts, and memory usage.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task23', this)">Show Answer</button>
+        
+        <div id="pd-task23" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+df = pd.read_csv(<span class="string">'data.csv'</span>)
+
+<span class="comment"># Print information about the data</span>
+print(df.info())</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out23', this)">Show Output</button>
+            <div id="pd-out23" class="output-container">
+&lt;class 'pandas.core.frame.DataFrame'&gt;<br>
+RangeIndex: 169 entries, 0 to 168<br>
+Data columns (total 4 columns):<br>
+ #   Column    Non-Null Count  Dtype<br>
+---  ------    --------------  -----<br>
+ 0   Duration  169 non-null    int64<br>
+ 1   Pulse     169 non-null    int64<br>
+ 2   Maxpulse  169 non-null    int64<br>
+ 3   Calories  164 non-null    float64<br>
+dtypes: float64(1), int64(3)<br>
+memory usage: 5.4 KB<br>
+None
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">df.info()</span> - This is like a <strong>medical check-up</strong> for your data! It reveals everything about the health of your DataFrame in one command.</li>
+                    <li><span class="code-snippet">RangeIndex: 169 entries, 0 to 168</span> - Tells us there are <strong>169 rows</strong> in total, indexed from 0 to 168.</li>
+                    <li><span class="code-snippet">Data columns (total 4 columns)</span> - Our DataFrame has <strong>4 columns</strong>: Duration, Pulse, Maxpulse, and Calories.</li>
+                    <li><span class="code-snippet">Non-Null Count</span> - This is crucial! It shows how many values are <strong>not empty</strong> in each column. Notice that Duration, Pulse, and Maxpulse all have <strong>169 non-null</strong> values (complete data), but Calories only has <strong>164 non-null</strong> values.</li>
+                    <li><span class="code-snippet">Dtype</span> - Shows the <strong>data type</strong> of each column: <code>int64</code> means whole numbers, <code>float64</code> means decimal numbers.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>⚠️ Null Values — The Hidden Problem</h2>
+        <p>The <code>info()</code> method tells us that the <strong>"Calories"</strong> column has only <strong>164 non-null</strong> values out of 169 rows.</p>
+        <p>This means there are <strong>5 rows with no value at all</strong> (empty/null) in the "Calories" column, for whatever reason.</p>
+        <p>Empty values, or <span class="highlight-term">Null values</span>, can be bad when analyzing data, and you should consider <strong>removing rows with empty values</strong>. This is a step towards what is called <strong>cleaning data</strong>, and you will learn more about that in the next chapters.</p>
+    </div>
+
+    <h2 class="module-title">Module 10: Data Cleaning</h2>
+
+    <div class="storybook-intro">
+        <h2>🧹 Data Cleaning</h2>
+        <p><span class="highlight-term">Data cleaning</span> means fixing bad data in your data set.</p>
+        <p>Bad data could be:</p>
+        <ul>
+            <li>❌ <strong>Empty cells</strong> — missing values that leave gaps in your data</li>
+            <li>❌ <strong>Data in wrong format</strong> — dates stored as text, numbers as strings</li>
+            <li>❌ <strong>Wrong data</strong> — typos or incorrect values that don't make sense</li>
+            <li>❌ <strong>Duplicates</strong> — the same row appearing multiple times</li>
+        </ul>
+        <p>In this module you will learn how to deal with <strong>all of them</strong>.</p>
+
+        <h3 style="margin-top: 1.5rem;">🤖 Why Data Cleaning is CRITICAL in Machine Learning</h3>
+        <p>In the world of Machine Learning, there's a famous saying:</p>
+        <p style="font-size: 1.2rem; text-align: center; padding: 1rem; border-left: 4px solid #00d4ff; margin: 1rem 0;"><strong>"Garbage In, Garbage Out"</strong></p>
+        <p>If you feed <strong>dirty data</strong> to an ML model, you'll get <strong>bad predictions</strong>. Here's why data cleaning is essential:</p>
+        <ul>
+            <li><span class="highlight-term">Missing Values</span> — Most ML algorithms <strong>cannot handle NaN/null values</strong>. Your model will crash or produce wrong results if you don't handle them first.</li>
+            <li><span class="highlight-term">Wrong Format</span> — If a "Date" column contains mixed formats (some as strings, some as dates), your model won't understand the time patterns in the data.</li>
+            <li><span class="highlight-term">Outliers & Wrong Data</span> — An incorrect value like <strong>450 minutes</strong> of exercise (instead of 45) will skew your model's understanding and lead to inaccurate predictions.</li>
+            <li><span class="highlight-term">Duplicates</span> — Duplicate rows make the model think certain patterns are more common than they actually are, creating <strong>bias</strong> in your predictions.</li>
+        </ul>
+        <p><strong>Data Scientists spend 60-80% of their time</strong> on data cleaning. It's the most important step before training any ML model!</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 24: Our Dirty Data Set</h3>
+        <p class="task-desc">Below is a dataset with intentional problems — empty cells, wrong formats, wrong data, and duplicates. Can you spot them all?</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task24', this)">Show Answer</button>
+        
+        <div id="pd-task24" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+df = pd.read_csv(<span class="string">'dirtydata.csv'</span>)
+
+print(df.to_string())</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out24', this)">Show Output</button>
+            <div id="pd-out24" class="output-container" style="max-height: 500px; overflow-y: auto;">
+    Duration          Date  Pulse  Maxpulse  Calories<br>
+0         60  '2020/12/01'    110       130     409.1<br>
+1         60  '2020/12/02'    117       145     479.0<br>
+2         60  '2020/12/03'    103       135     340.0<br>
+3         45  '2020/12/04'    109       175     282.4<br>
+4         45  '2020/12/05'    117       148     406.0<br>
+5         60  '2020/12/06'    102       127     300.0<br>
+6         60  '2020/12/07'    110       136     374.0<br>
+7        <span style="color: #ff4444; font-weight: bold;">450</span>  '2020/12/08'    104       134     253.3<br>
+8         30  '2020/12/09'    109       133     195.1<br>
+9         60  '2020/12/10'     98       124     269.0<br>
+10        60  '2020/12/11'    103       147     329.3<br>
+11        60  '2020/12/12'    100       120     250.7<br>
+12        60  '2020/12/12'    100       120     250.7<br>
+13        60  '2020/12/13'    106       128     345.3<br>
+14        60  '2020/12/14'    104       132     379.3<br>
+15        60  '2020/12/15'     98       123     275.0<br>
+16        60  '2020/12/16'     98       120     215.2<br>
+17        60  '2020/12/17'    100       120     300.0<br>
+18        45  '2020/12/18'     90       112       <span style="color: #ff4444; font-weight: bold;">NaN</span><br>
+19        60  '2020/12/19'    103       123     323.0<br>
+20        45  '2020/12/20'     97       125     243.0<br>
+21        60  '2020/12/21'    108       131     364.2<br>
+22        45           <span style="color: #ff4444; font-weight: bold;">NaN</span>    100       119     282.0<br>
+23        60  '2020/12/23'    130       101     300.0<br>
+24        45  '2020/12/24'    105       132     246.0<br>
+25        60  '2020/12/25'    102       126     334.5<br>
+26        60    <span style="color: #ff4444; font-weight: bold;">2020/12/26</span>    100       120     250.0<br>
+27        60  '2020/12/27'     92       118     241.0<br>
+28        60  '2020/12/28'    103       132       <span style="color: #ff4444; font-weight: bold;">NaN</span><br>
+29        60  '2020/12/29'    100       132     280.0<br>
+30        60  '2020/12/30'    102       129     380.3<br>
+31        60  '2020/12/31'     92       115     243.0
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Spot the Problems:</strong>
+                <ul>
+                    <li><strong style="color: #ff4444;">🔴 Empty Cells (NaN):</strong>
+                        <ul>
+                            <li>Row <strong>22</strong> — The <strong>"Date"</strong> column is empty (NaN)</li>
+                            <li>Row <strong>18</strong> — The <strong>"Calories"</strong> column is empty (NaN)</li>
+                            <li>Row <strong>28</strong> — The <strong>"Calories"</strong> column is empty (NaN)</li>
+                        </ul>
+                    </li>
+                    <li><strong style="color: #ff4444;">🔴 Wrong Format:</strong>
+                        <ul>
+                            <li>Row <strong>26</strong> — The <strong>"Date"</strong> is <code>2020/12/26</code> without quotes, while all other dates have quotes like <code>'2020/12/01'</code>. This inconsistent formatting can cause errors!</li>
+                        </ul>
+                    </li>
+                    <li><strong style="color: #ff4444;">🔴 Wrong Data:</strong>
+                        <ul>
+                            <li>Row <strong>7</strong> — The <strong>"Duration"</strong> is <code>450</code> minutes! That's 7.5 hours of exercise — clearly a typo. It should probably be <strong>45</strong>.</li>
+                        </ul>
+                    </li>
+                    <li><strong style="color: #ff4444;">🔴 Duplicates:</strong>
+                        <ul>
+                            <li>Row <strong>11</strong> and Row <strong>12</strong> are <strong>identical</strong> — same Duration, Date, Pulse, Maxpulse, and Calories. One of them needs to be removed!</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">Module 11: Cleaning Empty Cells</h2>
+
+    <div class="storybook-intro">
+        <h2>🕳️ Empty Cells</h2>
+        <p>Empty cells can potentially give you a <strong>wrong result</strong> when you analyze data.</p>
+        <p>There are two main strategies to deal with empty cells:</p>
+        <ul>
+            <li><span class="highlight-term">Remove</span> the rows that contain empty cells</li>
+            <li><span class="highlight-term">Replace</span> the empty cells with a calculated value (mean, median, or mode)</li>
+        </ul>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>🗑️ Remove Rows</h2>
+        <p>One way to deal with empty cells is to <strong>remove rows</strong> that contain empty cells.</p>
+        <p>This is usually OK, since data sets can be very big, and removing a few rows will not have a big impact on the result.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 25: Remove Empty Cells (New DataFrame)</h3>
+        <p class="task-desc">Use <code>dropna()</code> to return a <strong>new</strong> DataFrame with no empty cells, leaving the original unchanged.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task25', this)">Show Answer</button>
+        
+        <div id="pd-task25" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+df = pd.read_csv(<span class="string">'data.csv'</span>)
+
+<span class="comment"># Return a NEW DataFrame with no empty cells</span>
+new_df = df.dropna()
+
+print(new_df.to_string())</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out25', this)">Show Output</button>
+            <div id="pd-out25" class="output-container" style="max-height: 400px; overflow-y: auto;">
+     Duration  Pulse  Maxpulse  Calories<br>
+0          60    110       130     409.1<br>
+1          60    117       145     479.0<br>
+2          60    103       135     340.0<br>
+3          45    109       175     282.4<br>
+4          45    117       148     406.0<br>
+..        ...    ...       ...       ...<br>
+163        60    107       136     400.0<br>
+164        60    112       146     361.9<br>
+165        30    103       127     185.0<br>
+166        60    110       150     409.4<br>
+168        60    109       129     353.2<br>
+<br>
+[164 rows x 4 columns]<br>
+<br>
+Note: Rows 17, 27, 28, 85, 141 removed (had NaN in Calories)
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">new_df = df.dropna()</span> - The <code>dropna()</code> method scans every row and <strong>removes</strong> any row that has at least one empty (NaN) cell. It returns a <strong>brand new DataFrame</strong> — the original <code>df</code> stays untouched!</li>
+                    <li><strong>💡 Note:</strong> By default, <code>dropna()</code> returns a <strong>new DataFrame</strong> and will <strong>not change</strong> the original. This is safe when you want to keep the original data as a backup.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 26: Remove Empty Cells (Modify Original)</h3>
+        <p class="task-desc">If you want to change the <strong>original</strong> DataFrame directly, use the <code>inplace = True</code> argument.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task26', this)">Show Answer</button>
+        
+        <div id="pd-task26" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+df = pd.read_csv(<span class="string">'data.csv'</span>)
+
+<span class="comment"># Remove all rows with NULL values from the ORIGINAL DataFrame</span>
+df.dropna(inplace = True)
+
+print(df.to_string())</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out26', this)">Show Output</button>
+            <div id="pd-out26" class="output-container" style="max-height: 400px; overflow-y: auto;">
+     Duration  Pulse  Maxpulse  Calories<br>
+0          60    110       130     409.1<br>
+1          60    117       145     479.0<br>
+2          60    103       135     340.0<br>
+3          45    109       175     282.4<br>
+4          45    117       148     406.0<br>
+..        ...    ...       ...       ...<br>
+163        60    107       136     400.0<br>
+164        60    112       146     361.9<br>
+165        30    103       127     185.0<br>
+166        60    110       150     409.4<br>
+168        60    109       129     353.2<br>
+<br>
+[164 rows x 4 columns]<br>
+<br>
+Note: Original df is now modified — 5 rows with NaN removed.
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">df.dropna(inplace = True)</span> - The <code>inplace = True</code> argument tells Pandas: "Don't create a new DataFrame — just modify the <strong>original one</strong> directly!" After this line, <code>df</code> itself will have the empty rows removed.</li>
+                    <li><strong>⚠️ Warning:</strong> Using <code>inplace = True</code> means the original data is <strong>permanently changed</strong> in memory. There's no undo! Make sure you have a backup if needed.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>🔄 Replace Empty Values</h2>
+        <p>Another way of dealing with empty cells is to <strong>insert a new value</strong> instead.</p>
+        <p>This way you do not have to delete entire rows just because of some empty cells.</p>
+        <p>The <span class="highlight-term">fillna()</span> method allows us to replace empty cells with a value.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 27: Replace NULL Values with a Specific Number</h3>
+        <p class="task-desc">Use <code>fillna()</code> to replace ALL empty cells in the entire DataFrame with a specific value.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task27', this)">Show Answer</button>
+        
+        <div id="pd-task27" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+df = pd.read_csv(<span class="string">'data.csv'</span>)
+
+<span class="comment"># Replace ALL NULL values with the number 130</span>
+df.fillna(130, inplace = True)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out27', this)">Show Output</button>
+            <div id="pd-out27" class="output-container">
+Before:  Row 17 → Calories = NaN<br>
+After:   Row 17 → Calories = <span style="color: #00ff88; font-weight: bold;">130.0</span><br>
+<br>
+Before:  Row 27 → Calories = NaN<br>
+After:   Row 27 → Calories = <span style="color: #00ff88; font-weight: bold;">130.0</span><br>
+<br>
+ALL empty cells across ALL columns are now filled with 130.
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">df.fillna(130, inplace = True)</span> - Every single empty cell in the <strong>entire DataFrame</strong> gets replaced with the number <strong>130</strong>. The <code>inplace = True</code> means this changes the original DataFrame directly.</li>
+                    <li><strong>🤔 Problem:</strong> This fills ALL columns with 130 — even the "Date" column! That might not make sense. That's why it's often better to fill <strong>specific columns</strong> only.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 28: Replace NULL in a Specific Column Only</h3>
+        <p class="task-desc">To only replace empty values for <strong>one column</strong>, specify the column name for the DataFrame.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task28', this)">Show Answer</button>
+        
+        <div id="pd-task28" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+df = pd.read_csv(<span class="string">'data.csv'</span>)
+
+<span class="comment"># Replace NULL values ONLY in the "Calories" column</span>
+df.fillna({<span class="string">"Calories"</span>: 130}, inplace=True)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out28', this)">Show Output</button>
+            <div id="pd-out28" class="output-container">
+Before:  Row 17 → Calories = NaN<br>
+After:   Row 17 → Calories = <span style="color: #00ff88; font-weight: bold;">130.0</span><br>
+<br>
+Before:  Row 27 → Calories = NaN<br>
+After:   Row 27 → Calories = <span style="color: #00ff88; font-weight: bold;">130.0</span><br>
+<br>
+Only the "Calories" column is affected — other columns remain unchanged.
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">df.fillna({"Calories": 130}, inplace=True)</span> - We pass a <strong>dictionary</strong> to <code>fillna()</code>. The key <strong>"Calories"</strong> specifies which column to target, and <strong>130</strong> is the replacement value. Only empty cells in the Calories column get filled — all other columns remain unchanged!</li>
+                    <li><strong>💡 This is smarter!</strong> You can target different columns with different values by adding more keys to the dictionary.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>📊 Replace Using Mean, Median, or Mode</h2>
+        <p>A common way to replace empty cells is to calculate the <span class="highlight-term">mean</span>, <span class="highlight-term">median</span>, or <span class="highlight-term">mode</span> value of the column.</p>
+        <p>Pandas uses the <code>mean()</code>, <code>median()</code>, and <code>mode()</code> methods to calculate these values for a specified column.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 29: Replace with MEAN (Average)</h3>
+        <p class="task-desc">Calculate the <strong>mean</strong> (average) of a column and use it to fill empty cells. <em>Mean = the sum of all values divided by the number of values.</em></p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task29', this)">Show Answer</button>
+        
+        <div id="pd-task29" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+df = pd.read_csv(<span class="string">'data.csv'</span>)
+
+<span class="comment"># Calculate the MEAN of the Calories column</span>
+x = df[<span class="string">"Calories"</span>].mean()
+
+<span class="comment"># Replace empty values with the mean</span>
+df.fillna({<span class="string">"Calories"</span>: x}, inplace=True)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out29', this)">Show Output</button>
+            <div id="pd-out29" class="output-container">
+Mean of Calories column: <span style="color: #00ff88; font-weight: bold;">304.68</span><br>
+<br>
+Before:  Row 17 → Calories = NaN<br>
+After:   Row 17 → Calories = <span style="color: #00ff88; font-weight: bold;">304.68</span><br>
+<br>
+Before:  Row 27 → Calories = NaN<br>
+After:   Row 27 → Calories = <span style="color: #00ff88; font-weight: bold;">304.68</span><br>
+<br>
+All 5 NaN values in Calories are now replaced with the average: 304.68
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">df["Calories"].mean()</span> - Calculates the <strong>average</strong> of all non-empty values in the Calories column. For example, if the values are [420, 380, 390], the mean would be (420+380+390)/3 = <strong>396.67</strong>.</li>
+                    <li><span class="code-snippet">df.fillna({"Calories": x}, inplace=True)</span> - Replaces all NaN values in the Calories column with the calculated mean. This is a <strong>statistically smart</strong> approach because the mean represents the "typical" value in the column.</li>
+                    <li><strong>🤖 ML Use Case:</strong> Mean imputation is one of the most common techniques in ML preprocessing. Libraries like <code>sklearn.impute.SimpleImputer</code> use this exact strategy!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 30: Replace with MEDIAN (Middle Value)</h3>
+        <p class="task-desc">Calculate the <strong>median</strong> of a column and use it to fill empty cells. <em>Median = the value in the middle after sorting all values ascending.</em></p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task30', this)">Show Answer</button>
+        
+        <div id="pd-task30" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+df = pd.read_csv(<span class="string">'data.csv'</span>)
+
+<span class="comment"># Calculate the MEDIAN of the Calories column</span>
+x = df[<span class="string">"Calories"</span>].median()
+
+<span class="comment"># Replace empty values with the median</span>
+df.fillna({<span class="string">"Calories"</span>: x}, inplace=True)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out30', this)">Show Output</button>
+            <div id="pd-out30" class="output-container">
+Median of Calories column: <span style="color: #00ff88; font-weight: bold;">318.6</span><br>
+<br>
+Before:  Row 17 → Calories = NaN<br>
+After:   Row 17 → Calories = <span style="color: #00ff88; font-weight: bold;">318.6</span><br>
+<br>
+Before:  Row 27 → Calories = NaN<br>
+After:   Row 27 → Calories = <span style="color: #00ff88; font-weight: bold;">318.6</span><br>
+<br>
+All 5 NaN values in Calories are now replaced with the middle value: 318.6
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">df["Calories"].median()</span> - Sorts all the Calories values and picks the <strong>middle one</strong>. If you have [100, 200, 300, 400, 500], the median is <strong>300</strong>.</li>
+                    <li><strong>🤔 Mean vs Median:</strong> Use <strong>median</strong> when your data has <strong>outliers</strong> (extreme values). For example, if most calories are around 300 but one entry is 5000, the mean would be pulled up by that outlier, but the median stays stable in the middle!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 31: Replace with MODE (Most Frequent)</h3>
+        <p class="task-desc">Calculate the <strong>mode</strong> of a column and use it to fill empty cells. <em>Mode = the value that appears most frequently.</em></p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task31', this)">Show Answer</button>
+        
+        <div id="pd-task31" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+df = pd.read_csv(<span class="string">'data.csv'</span>)
+
+<span class="comment"># Calculate the MODE of the Calories column</span>
+x = df[<span class="string">"Calories"</span>].mode()[0]
+
+<span class="comment"># Replace empty values with the mode</span>
+df.fillna({<span class="string">"Calories"</span>: x}, inplace=True)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out31', this)">Show Output</button>
+            <div id="pd-out31" class="output-container">
+Mode of Calories column: <span style="color: #00ff88; font-weight: bold;">300.0</span><br>
+<br>
+Before:  Row 17 → Calories = NaN<br>
+After:   Row 17 → Calories = <span style="color: #00ff88; font-weight: bold;">300.0</span><br>
+<br>
+Before:  Row 27 → Calories = NaN<br>
+After:   Row 27 → Calories = <span style="color: #00ff88; font-weight: bold;">300.0</span><br>
+<br>
+All 5 NaN values in Calories are now replaced with the most frequent value: 300.0
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">df["Calories"].mode()[0]</span> - Finds the value that appears <strong>most frequently</strong> in the Calories column. The <code>[0]</code> is needed because <code>mode()</code> can return multiple values (if there's a tie), so we take the first one.</li>
+                    <li><strong>🤔 When to use Mode:</strong> Mode is best for <strong>categorical data</strong> (like colors, cities, or categories) rather than numbers. For example, if a "Gender" column has empty cells, filling with the mode (most common gender) makes more sense than calculating a mean.</li>
+                    <li><strong>📊 Quick Summary:</strong>
+                        <ul>
+                            <li><strong>Mean</strong> → Best for normally distributed numeric data</li>
+                            <li><strong>Median</strong> → Best when data has outliers</li>
+                            <li><strong>Mode</strong> → Best for categorical data</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">Module 12: Cleaning Wrong Format</h2>
+
+    <div class="storybook-intro">
+        <h2>📅 Data of Wrong Format</h2>
+        <p>Cells with data of <span class="highlight-term">wrong format</span> can make it difficult, or even impossible, to analyze data.</p>
+        <p>To fix it, you have two options:</p>
+        <ul>
+            <li><strong>Remove</strong> the rows with wrong format</li>
+            <li><strong>Convert</strong> all cells in the column into the same format</li>
+        </ul>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>🔧 Convert Into a Correct Format</h2>
+        <p>In our DataFrame, we have two cells with the wrong format. Check out row <strong>22</strong> and <strong>26</strong> — the 'Date' column should be a string that represents a date:</p>
+        <ul>
+            <li>Row <strong>22</strong> — The Date is <strong>NaN</strong> (completely empty)</li>
+            <li>Row <strong>26</strong> — The Date is <code>20201226</code> (no separators, wrong format compared to the rest)</li>
+        </ul>
+        <p>Pandas has a <span class="highlight-term">to_datetime()</span> method to convert all values in a column to proper date format!</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 32: Convert Dates to Correct Format</h3>
+        <p class="task-desc">Use <code>pd.to_datetime()</code> to convert all cells in the 'Date' column into proper date objects.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task32', this)">Show Answer</button>
+        
+        <div id="pd-task32" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+df = pd.read_csv(<span class="string">'data.csv'</span>)
+
+<span class="comment"># Convert the 'Date' column to datetime format</span>
+df[<span class="string">'Date'</span>] = pd.to_datetime(df[<span class="string">'Date'</span>], format=<span class="string">'mixed'</span>)
+
+print(df.to_string())</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out32', this)">Show Output</button>
+            <div id="pd-out32" class="output-container" style="max-height: 500px; overflow-y: auto;">
+    Duration        Date  Pulse  Maxpulse  Calories<br>
+0         60  2020-12-01    110       130     409.1<br>
+1         60  2020-12-02    117       145     479.0<br>
+2         60  2020-12-03    103       135     340.0<br>
+3         45  2020-12-04    109       175     282.4<br>
+4         45  2020-12-05    117       148     406.0<br>
+5         60  2020-12-06    102       127     300.0<br>
+6         60  2020-12-07    110       136     374.0<br>
+7        450  2020-12-08    104       134     253.3<br>
+8         30  2020-12-09    109       133     195.1<br>
+9         60  2020-12-10     98       124     269.0<br>
+10        60  2020-12-11    103       147     329.3<br>
+11        60  2020-12-12    100       120     250.7<br>
+12        60  2020-12-12    100       120     250.7<br>
+13        60  2020-12-13    106       128     345.3<br>
+14        60  2020-12-14    104       132     379.3<br>
+15        60  2020-12-15     98       123     275.0<br>
+16        60  2020-12-16     98       120     215.2<br>
+17        60  2020-12-17    100       120     300.0<br>
+18        45  2020-12-18     90       112       NaN<br>
+19        60  2020-12-19    103       123     323.0<br>
+20        45  2020-12-20     97       125     243.0<br>
+21        60  2020-12-21    108       131     364.2<br>
+22        45         <span style="color: #ff4444; font-weight: bold;">NaT</span>    100       119     282.0<br>
+23        60  2020-12-23    130       101     300.0<br>
+24        45  2020-12-24    105       132     246.0<br>
+25        60  2020-12-25    102       126     334.5<br>
+26        60  <span style="color: #00ff88; font-weight: bold;">2020-12-26</span>    100       120     250.0<br>
+27        60  2020-12-27     92       118     241.0<br>
+28        60  2020-12-28    103       132       NaN<br>
+29        60  2020-12-29    100       132     280.0<br>
+30        60  2020-12-30    102       129     380.3<br>
+31        60  2020-12-31     92       115     243.0
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">pd.to_datetime(df['Date'], format='mixed')</span> - This powerful method tries to convert <strong>every value</strong> in the Date column into a proper datetime object. The <code>format='mixed'</code> argument tells Pandas: "The dates might be in different formats — figure it out!"</li>
+                    <li><span class="code-snippet">df['Date'] = ...</span> - We assign the converted values back to the same column, overwriting the old inconsistent data.</li>
+                    <li><strong style="color: #00ff88;">✅ Row 26 Fixed!</strong> The value <code>20201226</code> was successfully converted to <strong>2020-12-26</strong> — Pandas figured out the correct date format automatically!</li>
+                    <li><strong style="color: #ff4444;">⚠️ Row 22 → NaT:</strong> The empty date (NaN) became <strong>NaT</strong> which stands for <strong>"Not a Time"</strong>. This is Pandas' version of NaN but specifically for datetime columns. It's essentially an empty value for dates.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>🗑️ Removing Rows with NaT</h2>
+        <p>The result from the converting gave us a <span class="highlight-term">NaT</span> value, which can be handled as a NULL value.</p>
+        <p>We can remove the row by using the <code>dropna()</code> method with the <code>subset</code> argument to target only the Date column.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 33: Remove Rows with Empty Dates</h3>
+        <p class="task-desc">Remove rows that have a NULL/NaT value <strong>specifically</strong> in the "Date" column, without affecting other columns.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task33', this)">Show Answer</button>
+        
+        <div id="pd-task33" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+df = pd.read_csv(<span class="string">'data.csv'</span>)
+
+<span class="comment"># First, convert dates to proper format</span>
+df[<span class="string">'Date'</span>] = pd.to_datetime(df[<span class="string">'Date'</span>], format=<span class="string">'mixed'</span>)
+
+<span class="comment"># Remove rows with NaT in the 'Date' column only</span>
+df.dropna(subset=[<span class="string">'Date'</span>], inplace = True)
+
+print(df.to_string())</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out33', this)">Show Output</button>
+            <div id="pd-out33" class="output-container" style="max-height: 400px; overflow-y: auto;">
+    Duration        Date  Pulse  Maxpulse  Calories<br>
+0         60  2020-12-01    110       130     409.1<br>
+1         60  2020-12-02    117       145     479.0<br>
+..        ...         ...    ...       ...       ...<br>
+18        45  2020-12-18     90       112       NaN<br>
+19        60  2020-12-19    103       123     323.0<br>
+20        45  2020-12-20     97       125     243.0<br>
+21        60  2020-12-21    108       131     364.2<br>
+<span style="color: #ff4444; text-decoration: line-through;">22        45         NaT    100       119     282.0  ← REMOVED</span><br>
+23        60  2020-12-23    130       101     300.0<br>
+..        ...         ...    ...       ...       ...<br>
+28        60  2020-12-28    103       132       NaN<br>
+..        ...         ...    ...       ...       ...<br>
+31        60  2020-12-31     92       115     243.0<br>
+<br>
+Row 22 removed (NaT date). Rows 18 &amp; 28 kept (NaN in Calories, not Date).
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">df.dropna(subset=['Date'], inplace = True)</span> - The <code>subset</code> argument is a game-changer! Instead of removing rows that have <strong>any</strong> empty cell (which <code>dropna()</code> normally does), we tell Pandas: "Only remove rows where the <strong>Date column</strong> is empty."</li>
+                    <li><strong>💡 Why use subset?</strong> Without <code>subset</code>, <code>dropna()</code> would also remove rows 18 and 28 (which have empty Calories). With <code>subset=['Date']</code>, we only remove row 22 (the one with the missing date) — keeping the rest of our data intact!</li>
+                    <li><strong>🤖 ML Tip:</strong> In real-world ML projects, you often want to be selective about which columns trigger row removal. Date columns are usually critical for time-series analysis, so missing dates often warrant removal, while missing numeric values can be imputed instead.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">Module 13: Fixing Wrong Data</h2>
+
+    <div class="storybook-intro">
+        <h2>❌ Wrong Data</h2>
+        <p><span class="highlight-term">"Wrong data"</span> does not have to be "empty cells" or "wrong format" — it can just be <strong>wrong</strong>, like if someone registered "199" instead of "1.99".</p>
+        <p>Sometimes you can spot wrong data by looking at the data set, because you have an expectation of what it should be.</p>
+        <p>If you take a look at our data set, you can see that in <strong>row 7</strong>, the duration is <strong style="color: #ff4444;">450</strong>, but for all the other rows the duration is between 30 and 60.</p>
+        <p>It doesn't have to be wrong, but taking into consideration that this is the data set of someone's <strong>workout sessions</strong>, we conclude that this person did not work out for 450 minutes (7.5 hours!).</p>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>✏️ Replacing Values</h2>
+        <p>One way to fix wrong values is to <strong>replace them</strong> with something else.</p>
+        <p>In our example, it is most likely a typo, and the value should be <strong>"45"</strong> instead of <strong>"450"</strong>.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 34: Fix a Single Wrong Value</h3>
+        <p class="task-desc">Use <code>df.loc[]</code> to directly replace the wrong value in row 7 with the correct one.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task34', this)">Show Answer</button>
+        
+        <div id="pd-task34" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+df = pd.read_csv(<span class="string">'data.csv'</span>)
+
+<span class="comment"># Fix the wrong value in row 7</span>
+df.loc[7, <span class="string">'Duration'</span>] = 45
+
+print(df.to_string())</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out34', this)">Show Output</button>
+            <div id="pd-out34" class="output-container">
+Before:<br>
+7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #ff4444; font-weight: bold;">450</span>&nbsp;&nbsp;'2020/12/08'&nbsp;&nbsp;&nbsp;&nbsp;104&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;134&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;253.3<br>
+<br>
+After:<br>
+7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #00ff88; font-weight: bold;">45</span>&nbsp;&nbsp;'2020/12/08'&nbsp;&nbsp;&nbsp;&nbsp;104&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;134&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;253.3<br>
+<br>
+✅ Row 7 Duration changed from 450 → 45
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">df.loc[7, 'Duration'] = 45</span> - The <code>loc</code> attribute lets us pinpoint an exact cell using <strong>[row, column]</strong>. Here we say: "Go to row <strong>7</strong>, find the <strong>Duration</strong> column, and set its value to <strong>45</strong>." It's like editing a single cell in a spreadsheet!</li>
+                    <li><strong>💡 Limitation:</strong> For small data sets you might be able to replace wrong data one by one, but <strong>not for big data sets</strong>. Imagine having 10,000 rows with potential errors!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 35: Replace Wrong Data Using Rules (Loop)</h3>
+        <p class="task-desc">For larger data sets, create <strong>rules</strong> — set boundaries for legal values and replace anything outside those boundaries.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task35', this)">Show Answer</button>
+        
+        <div id="pd-task35" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+df = pd.read_csv(<span class="string">'data.csv'</span>)
+
+<span class="comment"># Loop through all values in the "Duration" column</span>
+<span class="comment"># If the value is higher than 120, set it to 120</span>
+<span class="keyword">for</span> x <span class="keyword">in</span> df.index:
+  <span class="keyword">if</span> df.loc[x, <span class="string">"Duration"</span>] > 120:
+    df.loc[x, <span class="string">"Duration"</span>] = 120
+
+print(df.to_string())</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out35', this)">Show Output</button>
+            <div id="pd-out35" class="output-container">
+Rule: Any Duration > 120 → set to 120<br>
+<br>
+Before:<br>
+7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #ff4444; font-weight: bold;">450</span>&nbsp;&nbsp;'2020/12/08'&nbsp;&nbsp;&nbsp;&nbsp;104&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;134&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;253.3<br>
+<br>
+After:<br>
+7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #00ff88; font-weight: bold;">120</span>&nbsp;&nbsp;'2020/12/08'&nbsp;&nbsp;&nbsp;&nbsp;104&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;134&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;253.3<br>
+<br>
+✅ All Duration values are now capped at max 120 minutes.
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">for x in df.index</span> - We loop through every row index in the DataFrame. For our 32-row dataset, <code>x</code> goes from 0 to 31.</li>
+                    <li><span class="code-snippet">if df.loc[x, "Duration"] > 120</span> - For each row, we check: "Is the Duration value greater than <strong>120</strong>?" We've decided that 120 minutes (2 hours) is the maximum reasonable workout duration.</li>
+                    <li><span class="code-snippet">df.loc[x, "Duration"] = 120</span> - If the value exceeds our boundary, we <strong>cap it at 120</strong>. So row 7's 450 becomes 120.</li>
+                    <li><strong>🤖 ML Tip:</strong> This technique is called <strong>"capping" or "clipping"</strong> and is widely used in ML to handle outliers. You can also use <code>df["Duration"].clip(upper=120)</code> as a one-liner!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>🗑️ Removing Rows with Wrong Data</h2>
+        <p>Another way of handling wrong data is to <strong>remove the rows</strong> that contain wrong data.</p>
+        <p>This way you do not have to find out what to replace them with, and there is a good chance you do not need them to do your analyses.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 36: Delete Rows with Wrong Data</h3>
+        <p class="task-desc">Remove rows where "Duration" is higher than 120 — these are clearly wrong or abnormal values.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task36', this)">Show Answer</button>
+        
+        <div id="pd-task36" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+df = pd.read_csv(<span class="string">'data.csv'</span>)
+
+<span class="comment"># Delete rows where "Duration" is higher than 120</span>
+<span class="keyword">for</span> x <span class="keyword">in</span> df.index:
+  <span class="keyword">if</span> df.loc[x, <span class="string">"Duration"</span>] > 120:
+    df.drop(x, inplace = True)
+
+print(df.to_string())</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out36', this)">Show Output</button>
+            <div id="pd-out36" class="output-container">
+Rule: Any row with Duration > 120 → DELETE<br>
+<br>
+<span style="color: #ff4444; text-decoration: line-through;">7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;450&nbsp;&nbsp;'2020/12/08'&nbsp;&nbsp;&nbsp;&nbsp;104&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;134&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;253.3&nbsp;&nbsp;← DELETED</span><br>
+<br>
+    Duration          Date  Pulse  Maxpulse  Calories<br>
+0         60  '2020/12/01'    110       130     409.1<br>
+1         60  '2020/12/02'    117       145     479.0<br>
+..        ...          ...    ...       ...       ...<br>
+6         60  '2020/12/07'    110       136     374.0<br>
+8         30  '2020/12/09'    109       133     195.1<br>
+..        ...          ...    ...       ...       ...<br>
+31        60  '2020/12/31'     92       115     243.0<br>
+<br>
+✅ Row 7 removed. Notice the index jumps from 6 → 8.
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">for x in df.index</span> - Same loop as before — we check every row.</li>
+                    <li><span class="code-snippet">if df.loc[x, "Duration"] > 120</span> - We check if the Duration exceeds our 120-minute boundary.</li>
+                    <li><span class="code-snippet">df.drop(x, inplace = True)</span> - Instead of <strong>replacing</strong> the value, we <strong>delete the entire row</strong> using <code>drop()</code>. The <code>inplace = True</code> modifies the original DataFrame directly.</li>
+                    <li><strong>🤔 Replace vs Remove:</strong>
+                        <ul>
+                            <li><strong>Replace</strong> → when you're fairly sure what the correct value should be</li>
+                            <li><strong>Remove</strong> → when you're unsure and don't want bad data to influence your analysis</li>
+                        </ul>
+                    </li>
+                    <li><strong>🤖 ML Tip:</strong> In Machine Learning, removing outliers is a common practice. However, sometimes outliers are legitimate! For example, a 300-minute ultra-marathon workout is rare but real. Always understand your data before removing rows.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">Module 14: Discovering & Removing Duplicates</h2>
+
+    <div class="storybook-intro">
+        <h2>👯 Discovering Duplicates</h2>
+        <p><span class="highlight-term">Duplicate rows</span> are rows that have been registered more than one time.</p>
+        <p>By taking a look at our test data set, we can assume that <strong>row 11 and 12</strong> are duplicates — they have the exact same Duration, Date, Pulse, Maxpulse, and Calories values.</p>
+        <p>To discover duplicates, we can use the <span class="highlight-term">duplicated()</span> method, which returns a Boolean value for each row.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 37: Discover Duplicate Rows</h3>
+        <p class="task-desc">Use <code>duplicated()</code> to find which rows are duplicates. It returns <code>True</code> for every duplicate row, otherwise <code>False</code>.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task37', this)">Show Answer</button>
+        
+        <div id="pd-task37" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+df = pd.read_csv(<span class="string">'data.csv'</span>)
+
+<span class="comment"># Returns True for every row that is a duplicate</span>
+print(df.duplicated())</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out37', this)">Show Output</button>
+            <div id="pd-out37" class="output-container">
+0     False<br>
+1     False<br>
+2     False<br>
+3     False<br>
+4     False<br>
+5     False<br>
+6     False<br>
+7     False<br>
+8     False<br>
+9     False<br>
+10    False<br>
+11    False<br>
+<span style="color: #ff4444; font-weight: bold;">12     True</span><br>
+13    False<br>
+14    False<br>
+15    False<br>
+16    False<br>
+17    False<br>
+18    False<br>
+19    False<br>
+20    False<br>
+21    False<br>
+22    False<br>
+23    False<br>
+24    False<br>
+25    False<br>
+26    False<br>
+27    False<br>
+28    False<br>
+29    False<br>
+30    False<br>
+31    False<br>
+dtype: bool
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">df.duplicated()</span> - This method checks every row against all the rows above it. If a row has <strong>identical values</strong> in ALL columns as a previous row, it returns <strong>True</strong>. The <strong>first occurrence</strong> is kept as False — only the second (and later) copies are marked True.</li>
+                    <li><strong style="color: #ff4444;">🔴 Row 12 = True!</strong> This confirms that row 12 is a duplicate of row 11. All other rows are unique (False).</li>
+                    <li><strong>💡 Note:</strong> Row 11 shows <strong>False</strong> because it's the <em>first</em> occurrence — Pandas considers the first appearance as the "original" and marks the copies as duplicates.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>🗑️ Removing Duplicates</h2>
+        <p>To remove duplicates, use the <span class="highlight-term">drop_duplicates()</span> method.</p>
+        <p>Remember: The <code>inplace = True</code> will make sure that the method does <strong>NOT return a new DataFrame</strong>, but it will remove all duplicates from the <strong>original DataFrame</strong>.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 38: Remove All Duplicate Rows</h3>
+        <p class="task-desc">Use <code>drop_duplicates()</code> to remove all duplicate rows from the DataFrame.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task38', this)">Show Answer</button>
+        
+        <div id="pd-task38" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+df = pd.read_csv(<span class="string">'data.csv'</span>)
+
+<span class="comment"># Remove all duplicate rows</span>
+df.drop_duplicates(inplace = True)
+
+print(df.to_string())</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out38', this)">Show Output</button>
+            <div id="pd-out38" class="output-container">
+Before: 32 rows<br>
+After:  31 rows<br>
+<br>
+    Duration          Date  Pulse  Maxpulse  Calories<br>
+..        ...          ...    ...       ...       ...<br>
+10        60  '2020/12/11'    103       147     329.3<br>
+11        60  '2020/12/12'    100       120     250.7<br>
+<span style="color: #ff4444; text-decoration: line-through;">12        60  '2020/12/12'    100       120     250.7  ← REMOVED (duplicate)</span><br>
+13        60  '2020/12/13'    106       128     345.3<br>
+..        ...          ...    ...       ...       ...<br>
+<br>
+✅ 1 duplicate row removed. Row 11 kept, row 12 deleted.<br>
+Index jumps from 11 → 13.
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">df.drop_duplicates(inplace = True)</span> - Removes <strong>all rows</strong> that are exact duplicates of another row. The <strong>first occurrence</strong> is always kept, and the copies are removed. With <code>inplace = True</code>, the original DataFrame is modified directly.</li>
+                    <li><strong>💡 Tip:</strong> You can also use <code>df.drop_duplicates(subset=['Date'])</code> to only check for duplicates based on a <strong>specific column</strong>. This is useful when you want to keep only one entry per date, regardless of other column values.</li>
+                    <li><strong>🤖 ML Tip:</strong> Duplicate data in a training set can cause your model to be <strong>biased</strong> — it gives extra weight to repeated observations. Always check for and remove duplicates before training!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">Module 15: Finding Relationships</h2>
+
+    <div class="storybook-intro">
+        <h2>🔗 Finding Relationships</h2>
+        <p>A great aspect of the Pandas module is the <span class="highlight-term">corr()</span> method.</p>
+        <p>The <code>corr()</code> method calculates the <strong>relationship</strong> between each column in your data set.</p>
+        <p>Think of it like asking: <em>"When one value goes up, does the other go up too?"</em></p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 39: Calculate Correlations Between Columns</h3>
+        <p class="task-desc">Use <code>corr()</code> to discover relationships between all numeric columns in the DataFrame.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task39', this)">Show Answer</button>
+        
+        <div id="pd-task39" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+df = pd.read_csv(<span class="string">'data.csv'</span>)
+
+<span class="comment"># Show the relationship between the columns</span>
+print(df.corr(numeric_only=True))</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out39', this)">Show Output</button>
+            <div id="pd-out39" class="output-container">
+          Duration     Pulse  Maxpulse  Calories<br>
+Duration  <span style="color: #00ff88; font-weight: bold;">1.000000</span> -0.155408  0.009403  <span style="color: #00ff88; font-weight: bold;">0.922721</span><br>
+Pulse    -0.155408  <span style="color: #00ff88; font-weight: bold;">1.000000</span>  <span style="color: #00ff88; font-weight: bold;">0.786535</span>  0.025120<br>
+Maxpulse  0.009403  <span style="color: #00ff88; font-weight: bold;">0.786535</span>  <span style="color: #00ff88; font-weight: bold;">1.000000</span>  0.203814<br>
+Calories  <span style="color: #00ff88; font-weight: bold;">0.922721</span>  0.025120  0.203814  <span style="color: #00ff88; font-weight: bold;">1.000000</span>
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">df.corr(numeric_only=True)</span> - Calculates the <strong>correlation</strong> between every pair of numeric columns. It creates a table showing how strongly related each column is to every other column.</li>
+                    <li><strong>💡 Note:</strong> The <code>corr()</code> method automatically ignores <strong>non-numeric</strong> columns (like "Date"). Only numbers can be correlated!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>📖 Understanding the Numbers</h2>
+        <p>The numbers in the correlation table range from <strong>-1</strong> to <strong>1</strong>. Here's what they mean:</p>
+        <ul>
+            <li><strong style="color: #00ff88;">1.0</strong> → <strong>Perfect positive correlation</strong> — when one value goes UP, the other ALWAYS goes UP too</li>
+            <li><strong style="color: #00ff88;">0.9</strong> → <strong>Very good relationship</strong> — if you increase one value, the other will probably increase too</li>
+            <li><strong style="color: #ffaa00;">0.6</strong> → <strong>Minimum for a "good" correlation</strong> — there's a noticeable relationship</li>
+            <li><strong style="color: #ff4444;">0.2</strong> → <strong>Bad correlation</strong> — one value going up does NOT mean the other will</li>
+            <li><strong>0.0</strong> → <strong>No relationship at all</strong> — the columns are completely independent</li>
+            <li><strong style="color: #00ff88;">-0.9</strong> → <strong>Very good negative relationship</strong> — when one goes UP, the other goes DOWN</li>
+            <li><strong style="color: #00ff88;">-1.0</strong> → <strong>Perfect negative correlation</strong> — exact opposite movement</li>
+        </ul>
+        <p><strong>Rule of thumb:</strong> You need at least <strong>0.6</strong> (or <strong>-0.6</strong>) to call it a good correlation.</p>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>🎯 Real Examples from Our Data</h2>
+
+        <h3 style="margin-top: 1rem;">✅ Perfect Correlation: Duration vs Duration = 1.000000</h3>
+        <p>"Duration" compared to itself always gives <strong>1.0</strong> — that makes sense! Every column has a perfect relationship with <strong>itself</strong>. This is like asking "Does my height match my height?" — of course it does!</p>
+
+        <h3 style="margin-top: 1rem;">✅ Good Correlation: Duration vs Calories = 0.922721</h3>
+        <p>This is a <strong>very strong</strong> correlation! It means: <strong>the longer you work out, the more calories you burn</strong> 🔥. And the other way around — if you burned a lot of calories, you probably had a long workout. This makes perfect sense!</p>
+
+        <h3 style="margin-top: 1rem;">❌ Bad Correlation: Duration vs Maxpulse = 0.009403</h3>
+        <p>This is <strong>almost zero</strong> — a terrible correlation. It means: <strong>you cannot predict someone's max pulse just by looking at how long they worked out</strong>. A 30-minute sprint might give you a higher max pulse than a 60-minute walk!</p>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>🤖 Why Correlation Matters in Machine Learning</h2>
+        <p>Correlation is one of the <strong>first things</strong> Data Scientists check before building an ML model:</p>
+        <ul>
+            <li><span class="highlight-term">Feature Selection</span> — Columns with <strong>high correlation to the target</strong> (what you're predicting) are great features for your model. Low correlation columns might be useless and can be dropped.</li>
+            <li><span class="highlight-term">Multicollinearity</span> — If two <strong>input features</strong> are highly correlated with each other (like Pulse and Maxpulse at 0.79), they provide overlapping information. Some models perform better if you remove one of them.</li>
+            <li><span class="highlight-term">Data Understanding</span> — Correlation helps you understand your data BEFORE training. It's like reading a map before starting a journey! 🗺️</li>
+        </ul>
+    </div>
+
+    <h2 class="module-title">Module 16: Pandas - Plotting</h2>
+
+    <div class="storybook-intro">
+        <h2>📊 Plotting</h2>
+        <p>Pandas uses the <span class="highlight-term">plot()</span> method to create diagrams.</p>
+        <p>We can use <strong>Pyplot</strong>, a submodule of the <span class="highlight-term">Matplotlib</span> library to visualize the diagram on the screen.</p>
+        <p><strong>💡 Note:</strong> You need to install Matplotlib first: <code>pip install matplotlib</code></p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 40: Basic Plot of All Columns</h3>
+        <p class="task-desc">Import Pyplot from Matplotlib and visualize the entire DataFrame as a line chart.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task40', this)">Show Answer</button>
+        
+        <div id="pd-task40" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+
+df = pd.read_csv(<span class="string">'data.csv'</span>)
+
+<span class="comment"># Plot all numeric columns as line charts</span>
+df.plot()
+
+<span class="comment"># Display the plot</span>
+plt.show()</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out40', this)">Show Output</button>
+            <div id="pd-out40" class="output-container" style="text-align: center;">
+                <img src="https://www.w3schools.com/python/pandas/img_pandas_plot.png" alt="Pandas Line Plot" style="max-width: 100%; border-radius: 8px;">
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">import matplotlib.pyplot as plt</span> - We import the <strong>Pyplot</strong> module from Matplotlib and give it the alias <code>plt</code>. This is the standard convention used by every data scientist!</li>
+                    <li><span class="code-snippet">df.plot()</span> - Pandas' built-in <code>plot()</code> method creates a <strong>line chart</strong> by default. It plots every numeric column as a separate colored line. Non-numeric columns (like Date) are automatically ignored.</li>
+                    <li><span class="code-snippet">plt.show()</span> - This tells Matplotlib to <strong>display the chart</strong> in a popup window. Without this line, the plot would be created in memory but never shown!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>🔵 Scatter Plot</h2>
+        <p>A <span class="highlight-term">scatter plot</span> shows the relationship between two columns as <strong>dots</strong> on a graph.</p>
+        <p>Specify that you want a scatter plot with: <code>kind = 'scatter'</code></p>
+        <p>A scatter plot needs an <strong>x-axis</strong> and a <strong>y-axis</strong>.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 41: Scatter Plot — Good Correlation (Duration vs Calories)</h3>
+        <p class="task-desc">Create a scatter plot showing the relationship between Duration and Calories — which had a <strong>0.92</strong> correlation!</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task41', this)">Show Answer</button>
+        
+        <div id="pd-task41" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+
+df = pd.read_csv(<span class="string">'data.csv'</span>)
+
+<span class="comment"># Scatter plot: Duration vs Calories</span>
+df.plot(kind = <span class="string">'scatter'</span>, x = <span class="string">'Duration'</span>, y = <span class="string">'Calories'</span>)
+
+plt.show()</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out41', this)">Show Output</button>
+            <div id="pd-out41" class="output-container" style="text-align: center;">
+                <img src="https://www.w3schools.com/python/pandas/img_pandas_plot_scatter.png" alt="Pandas Scatter Plot - Duration vs Calories" style="max-width: 100%; border-radius: 8px;">
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">kind = 'scatter'</span> - Tells Pandas to create a <strong>scatter plot</strong> instead of the default line chart. Each data point becomes a <strong>dot</strong> on the graph.</li>
+                    <li><span class="code-snippet">x = 'Duration', y = 'Calories'</span> - We specify which column goes on each axis. Duration on the horizontal (x) and Calories on the vertical (y).</li>
+                    <li><strong>🔗 Connection to Correlation:</strong> Remember from Module 15, Duration and Calories had a correlation of <strong>0.922721</strong>. The scatter plot <strong>visually confirms</strong> this — the dots clearly trend upward!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 42: Scatter Plot — Bad Correlation (Duration vs Maxpulse)</h3>
+        <p class="task-desc">Create a scatter plot with two columns that have a <strong>bad</strong> correlation (0.009) — Duration vs Maxpulse.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task42', this)">Show Answer</button>
+        
+        <div id="pd-task42" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+
+df = pd.read_csv(<span class="string">'data.csv'</span>)
+
+<span class="comment"># Scatter plot: Duration vs Maxpulse (bad correlation)</span>
+df.plot(kind = <span class="string">'scatter'</span>, x = <span class="string">'Duration'</span>, y = <span class="string">'Maxpulse'</span>)
+
+plt.show()</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out42', this)">Show Output</button>
+            <div id="pd-out42" class="output-container" style="text-align: center;">
+                <img src="https://www.w3schools.com/python/pandas/img_pandas_plot_scatter2.png" alt="Pandas Scatter Plot - Duration vs Maxpulse" style="max-width: 100%; border-radius: 8px;">
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><strong>🤔 Compare the two scatter plots:</strong>
+                        <ul>
+                            <li><strong>Duration vs Calories (0.92)</strong> → Dots form a clear upward line ✅</li>
+                            <li><strong>Duration vs Maxpulse (0.009)</strong> → Dots are scattered randomly ❌</li>
+                        </ul>
+                    </li>
+                    <li><strong>💡 Takeaway:</strong> Scatter plots are a powerful way to <strong>visually confirm</strong> what the correlation numbers tell you!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>📊 Histogram</h2>
+        <p>A <span class="highlight-term">histogram</span> shows the <strong>frequency</strong> of values in a column — how many times each value range appears.</p>
+        <p>Specify that you want a histogram with: <code>kind = 'hist'</code></p>
+        <p>A histogram only needs <strong>one column</strong>.</p>
+        <p>For example: <em>"How many workouts lasted between 50 and 60 minutes?"</em></p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 43: Create a Histogram</h3>
+        <p class="task-desc">Create a histogram showing the frequency distribution of workout durations.</p>
+        <button class="btn-toggle" onclick="toggleCode('pd-task43', this)">Show Answer</button>
+        
+        <div id="pd-task43" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+
+df = pd.read_csv(<span class="string">'data.csv'</span>)
+
+<span class="comment"># Create a histogram of the Duration column</span>
+df[<span class="string">"Duration"</span>].plot(kind = <span class="string">'hist'</span>)
+
+plt.show()</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('pd-out43', this)">Show Output</button>
+            <div id="pd-out43" class="output-container" style="text-align: center;">
+                <img src="https://www.w3schools.com/python/pandas/img_pandas_plot_hist.png" alt="Pandas Histogram - Duration" style="max-width: 100%; border-radius: 8px;">
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">df["Duration"].plot(kind = 'hist')</span> - We select <strong>just one column</strong> ("Duration") and create a histogram. Each bar represents a <strong>range of values</strong> (called a "bin"), and the height shows <strong>how many workouts</strong> fall in that range.</li>
+                    <li><strong>💡 When to use Histograms:</strong> Histograms are perfect for understanding the <strong>distribution</strong> of your data. They answer questions like: "What's the most common value?", "Are there outliers?", "Is the data normally distributed?"</li>
+                    <li><strong>🤖 ML Use Case:</strong> In Machine Learning, histograms help you understand:
+                        <ul>
+                            <li>Whether your data is <strong>normally distributed</strong> (bell-shaped) — many models assume this!</li>
+                            <li>Whether there are <strong>outliers</strong> that need cleaning</li>
+                            <li>Whether you need to <strong>transform</strong> your data (e.g., log transformation for skewed data)</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    </div><!-- .container -->
+
+    <script src="script.js?v=2"></script>
+</body>
+</html>
