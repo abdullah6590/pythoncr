@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matplotlib: Interactive Masterclass</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="container">
+
+    <nav class="top-nav">
+        <!-- Active item acts as the dropdown toggle on mobile -->
+        <a href="#" class="nav-link active">📊 Matplotlib</a>
+        
+        <!-- Other links to show when toggled -->
+        <a href="basics.html" class="nav-link">📘 Basics</a>
+        <a href="index.html" class="nav-link">🐍 Functions</a>
+        <a href="oop.html" class="nav-link">🏗️ OOP</a>
+        <a href="numpy.html" class="nav-link">🧮 NumPy</a>
+        <a href="pandas.html" class="nav-link">🐼 Pandas</a>
+    </nav>
+
+    <header>
+        <h1>📊 Matplotlib Introduction</h1>
+        <p>Matplotlib is a low-level graph plotting library in Python that serves as a powerful visualization utility. Created by John D. Hunter, Matplotlib is open source and widely used in data science, machine learning, and scientific computing to create stunning charts, graphs, and plots.</p>
+    </header>
+
+    <div class="storybook-intro">
+        <h2>🎨 What is Matplotlib?</h2>
+        <p><span class="highlight-term">Matplotlib</span> is the most popular Python library for creating <strong>static, animated, and interactive</strong> visualizations.</p>
+        <p>Think of Matplotlib as a <strong>canvas</strong> where you can paint any type of chart — line charts, bar charts, scatter plots, histograms, pie charts, 3D plots, and more!</p>
+        <p>It is mostly written in Python, with a few segments in C, Objective-C, and JavaScript for platform compatibility.</p>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>🤖 Why Matplotlib Matters in Machine Learning</h2>
+        <p>In Machine Learning, <strong>visualization is everything</strong>. Here's why every ML engineer needs Matplotlib:</p>
+        <ul>
+            <li><span class="highlight-term">Data Exploration</span> — Visualize your dataset BEFORE building models to spot patterns, outliers, and distributions</li>
+            <li><span class="highlight-term">Model Evaluation</span> — Plot accuracy curves, loss functions, confusion matrices, and ROC curves to evaluate model performance</li>
+            <li><span class="highlight-term">Feature Analysis</span> — Create scatter plots and heatmaps to understand relationships between features</li>
+            <li><span class="highlight-term">Communication</span> — Present findings and results to stakeholders with clear, professional charts</li>
+        </ul>
+        <p><strong>💡 Fun Fact:</strong> Libraries like <code>Seaborn</code>, <code>Plotly</code>, and even <code>Pandas.plot()</code> are all built ON TOP of Matplotlib!</p>
+    </div>
+
+    <h2 class="module-title">Module 1: Installation & Setup</h2>
+
+    <div class="storybook-intro">
+        <h2>⚙️ Installing Matplotlib</h2>
+        <p>If you have Python and PIP already installed on your system, then installation of Matplotlib is very easy.</p>
+        <p>If this command fails, you can use a Python distribution that already has Matplotlib installed, like <strong>Anaconda</strong> or <strong>Spyder</strong>.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 1: Install Matplotlib</h3>
+        <p class="task-desc">Use pip to install Matplotlib on your system.</p>
+        <button class="btn-toggle" onclick="toggleCode('mpl-task1', this)">Show Answer</button>
+        
+        <div id="mpl-task1" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="comment"># Run this in your terminal / command prompt</span>
+pip install matplotlib</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('mpl-out1', this)">Show Output</button>
+            <div id="mpl-out1" class="output-container">
+Collecting matplotlib<br>
+&nbsp;&nbsp;Downloading matplotlib-3.8.2-cp311-cp311-win_amd64.whl (7.6 MB)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.6/7.6 MB 5.2 MB/s<br>
+Installing collected packages: matplotlib<br>
+<span style="color: #00ff88; font-weight: bold;">Successfully installed matplotlib-3.8.2</span>
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">pip install matplotlib</span> - <code>pip</code> is Python's package manager. This command downloads Matplotlib and all its dependencies (like NumPy, Pillow, etc.) from the Python Package Index (PyPI) and installs them on your system.</li>
+                    <li><strong>💡 Tip:</strong> If you're using <strong>Jupyter Notebook</strong> or <strong>Google Colab</strong>, Matplotlib comes pre-installed! You can start using it right away.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">Module 2: Importing & Version Check</h2>
+
+    <div class="storybook-intro">
+        <h2>📦 Import Matplotlib</h2>
+        <p>Once Matplotlib is installed, import it in your applications by adding the <code>import</code> statement.</p>
+        <p>The most commonly used module is <span class="highlight-term">pyplot</span>, which is usually imported with the alias <code>plt</code>.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 2: Import Matplotlib</h3>
+        <p class="task-desc">Import the Matplotlib library and its Pyplot submodule.</p>
+        <button class="btn-toggle" onclick="toggleCode('mpl-task2', this)">Show Answer</button>
+        
+        <div id="mpl-task2" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="comment"># Import the full library</span>
+<span class="keyword">import</span> matplotlib
+
+<span class="comment"># Import the Pyplot submodule (most commonly used)</span>
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('mpl-out2', this)">Show Output</button>
+            <div id="mpl-out2" class="output-container">
+<span style="color: #00ff88;">✅ No output — but Matplotlib is now ready to use!</span><br>
+<br>
+The import runs silently. If no error appears, it means<br>
+Matplotlib was successfully imported into your program.
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">import matplotlib</span> - Imports the <strong>entire Matplotlib library</strong>. You rarely use this directly — it's mainly for checking the version or accessing configuration settings.</li>
+                    <li><span class="code-snippet">import matplotlib.pyplot as plt</span> - This is the <strong>most important line</strong> you'll write! <code>pyplot</code> is the submodule that contains all the plotting functions (<code>plot()</code>, <code>scatter()</code>, <code>bar()</code>, <code>hist()</code>, etc.). We give it the alias <code>plt</code> — this is the <strong>universal convention</strong> used by every data scientist on the planet!</li>
+                    <li><strong>🤖 ML Standard:</strong> In every ML notebook, you'll see <code>import matplotlib.pyplot as plt</code> alongside <code>import numpy as np</code> and <code>import pandas as pd</code>. These three imports are the "holy trinity" of data science!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 3: Check Matplotlib Version</h3>
+        <p class="task-desc">The version string is stored under the <code>__version__</code> attribute. Let's check which version we have!</p>
+        <button class="btn-toggle" onclick="toggleCode('mpl-task3', this)">Show Answer</button>
+        
+        <div id="mpl-task3" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> matplotlib
+
+<span class="comment"># Check the installed version</span>
+print(matplotlib.__version__)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('mpl-out3', this)">Show Output</button>
+            <div id="mpl-out3" class="output-container">
+<span style="color: #00ff88; font-weight: bold;">3.8.2</span>
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">matplotlib.__version__</span> - The double underscores (<code>__</code>) indicate this is a special <strong>"dunder" attribute</strong> in Python. The <code>__version__</code> attribute stores the version number as a string. This is a standard convention — almost all Python libraries have this!</li>
+                    <li><span class="code-snippet">print(...)</span> - Displays the version number. Your version might be different depending on when you installed Matplotlib. As long as it's <strong>3.0 or higher</strong>, you're good!</li>
+                    <li><strong>💡 Why Check Versions?</strong> Different versions may have different features or syntax. When sharing code or following tutorials, matching versions helps avoid compatibility issues. This is especially important in ML where reproducibility matters!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">Module 3: Pyplot Basics</h2>
+
+    <div class="storybook-intro">
+        <h2>📈 What is Pyplot?</h2>
+        <p>Most of the Matplotlib utilities lie under the <span class="highlight-term">pyplot</span> submodule, and are usually imported under the <code>plt</code> alias.</p>
+        <p>Pyplot provides a <strong>MATLAB-like</strong> interface for making plots. <strong>MATLAB</strong> is a very popular (and expensive!) software used by engineers and scientists for data visualization. Pyplot gives you the <strong>same power for FREE</strong> with simple commands like <code>plt.plot()</code>, <code>plt.show()</code>, and <code>plt.title()</code>, you can create professional charts in just a few lines of code. No complicated setup needed!</p>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>📍 Plotting x and y Points</h2>
+        <p>The <span class="highlight-term">plot()</span> function is used to draw points (markers) in a diagram.</p>
+        <p>By default, the <code>plot()</code> function draws a <strong>line from point to point</strong>.</p>
+        <p>The function takes <strong>two parameters</strong>:</p>
+        <ul>
+            <li><strong>Parameter 1:</strong> An array containing the points on the <span class="highlight-term">x-axis</span> (horizontal)</li>
+            <li><strong>Parameter 2:</strong> An array containing the points on the <span class="highlight-term">y-axis</span> (vertical)</li>
+        </ul>
+        <p>For example, if we need to plot a line from <strong>(1, 3)</strong> to <strong>(8, 10)</strong>, we pass two arrays: <code>[1, 8]</code> and <code>[3, 10]</code> to the plot function.</p>
+        <p><strong>💡 Think of it like this:</strong> The x-array says <em>"WHERE to go horizontally"</em> and the y-array says <em>"WHERE to go vertically."</em> Matplotlib connects the dots! 🎯</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 4: Draw a Simple Line</h3>
+        <p class="task-desc">Use the <code>plot()</code> function to draw a line from position (0,0) to position (6,250).</p>
+        <button class="btn-toggle" onclick="toggleCode('mpl-task4', this)">Show Answer</button>
+        
+        <div id="mpl-task4" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+<span class="comment"># Create data points</span>
+xpoints = np.array([0, 6])
+ypoints = np.array([0, 250])
+
+<span class="comment"># Plot the line</span>
+plt.plot(xpoints, ypoints)
+
+<span class="comment"># Display the chart</span>
+plt.show()</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('mpl-out4', this)">Show Output</button>
+            <div id="mpl-out4" class="output-container" style="text-align: center;">
+                <img src="https://www.w3schools.com/python/img_matplotlib_pyplot.png" alt="Matplotlib Simple Line" style="max-width: 100%; border-radius: 8px;">
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">import matplotlib.pyplot as plt</span> - Import the Pyplot module with the standard alias <code>plt</code>.</li>
+                    <li><span class="code-snippet">import numpy as np</span> - We use NumPy to create arrays for our data points. Matplotlib works great with NumPy arrays!</li>
+                    <li><span class="code-snippet">xpoints = np.array([0, 6])</span> - Creates an array with two x-coordinates: <strong>0</strong> (start) and <strong>6</strong> (end).</li>
+                    <li><span class="code-snippet">ypoints = np.array([0, 250])</span> - Creates an array with two y-coordinates: <strong>0</strong> (start) and <strong>250</strong> (end).</li>
+                    <li><span class="code-snippet">plt.plot(xpoints, ypoints)</span> - The <code>plot()</code> function takes x and y data and draws a <strong>line</strong> connecting the points. With just two points, you get a straight line from (0,0) to (6,250)!</li>
+                    <li><span class="code-snippet">plt.show()</span> - Renders and displays the plot in a popup window. <strong>Always call this at the end!</strong> Without it, the plot exists in memory but is never shown.</li>
+                    <li><strong>🤖 ML Insight:</strong> This simple <code>plt.plot()</code> + <code>plt.show()</code> pattern is the foundation. In ML, you'll use this same pattern to plot training loss, accuracy curves, and predictions!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 5: Plot Without a Line (Points Only)</h3>
+        <p class="task-desc">Use the <code>plot()</code> function to draw only the <strong>points</strong> without connecting them with a line, using the <code>'o'</code> marker.</p>
+        <button class="btn-toggle" onclick="toggleCode('mpl-task5', this)">Show Answer</button>
+        
+        <div id="mpl-task5" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+xpoints = np.array([1, 8])
+ypoints = np.array([3, 10])
+
+<span class="comment"># Plot with 'o' = circle markers, no line</span>
+plt.plot(xpoints, ypoints, <span class="string">'o'</span>)
+
+plt.show()</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('mpl-out5', this)">Show Output</button>
+            <div id="mpl-out5" class="output-container" style="text-align: center;">
+                <img src="https://www.w3schools.com/python/img_matplotlib_plot_o.png" alt="Matplotlib Points Only" style="max-width: 100%; border-radius: 8px;">
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">plt.plot(xpoints, ypoints, 'o')</span> - The third argument <code>'o'</code> is a <strong>format string</strong>. The letter <strong>'o'</strong> means "draw circle markers." This tells Matplotlib to plot only the <strong>dots</strong> — no connecting line between them!</li>
+                    <li><strong>💡 Other Markers:</strong> You can use <code>'*'</code> for stars, <code>'x'</code> for crosses, <code>'s'</code> for squares, <code>'^'</code> for triangles, and many more!</li>
+                    <li><strong>🤖 ML Use:</strong> Plotting individual data points (without lines) is exactly what a <strong>scatter plot</strong> does. This is how you visualize your training data before fitting a model!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 6: Plot Multiple Points</h3>
+        <p class="task-desc">Plot a line through <strong>multiple data points</strong> by providing arrays with more than two values.</p>
+        <button class="btn-toggle" onclick="toggleCode('mpl-task6', this)">Show Answer</button>
+        
+        <div id="mpl-task6" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+xpoints = np.array([1, 2, 6, 8])
+ypoints = np.array([3, 8, 1, 10])
+
+<span class="comment"># Plot a line through all 4 points</span>
+plt.plot(xpoints, ypoints)
+
+plt.show()</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('mpl-out6', this)">Show Output</button>
+            <div id="mpl-out6" class="output-container" style="text-align: center;">
+                <img src="https://www.w3schools.com/python/img_matplotlib_plotting2.png" alt="Matplotlib Multiple Points" style="max-width: 100%; border-radius: 8px;">
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">xpoints = np.array([1, 2, 6, 8])</span> - Now we have <strong>4 data points</strong> instead of just 2. The x-coordinates are 1, 2, 6, and 8.</li>
+                    <li><span class="code-snippet">ypoints = np.array([3, 8, 1, 10])</span> - The corresponding y-coordinates. Matplotlib will draw lines connecting: (1,3) → (2,8) → (6,1) → (8,10).</li>
+                    <li><strong>🔗 Key Rule:</strong> The <code>xpoints</code> and <code>ypoints</code> arrays <strong>must have the same length!</strong> Each x-value pairs with the y-value at the same index.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 7: Default X-Points</h3>
+        <p class="task-desc">If you do NOT specify the x-axis points, Matplotlib will use <strong>default values</strong>: 0, 1, 2, 3, etc.</p>
+        <button class="btn-toggle" onclick="toggleCode('mpl-task7', this)">Show Answer</button>
+        
+        <div id="mpl-task7" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+<span class="comment"># Only y-points provided — x defaults to 0, 1, 2, 3, 4, 5</span>
+ypoints = np.array([3, 8, 1, 10, 5, 7])
+
+plt.plot(ypoints)
+
+plt.show()</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('mpl-out7', this)">Show Output</button>
+            <div id="mpl-out7" class="output-container" style="text-align: center;">
+                <img src="https://www.w3schools.com/python/img_matplotlib_plotting4.png" alt="Matplotlib Default X Points" style="max-width: 100%; border-radius: 8px;">
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">plt.plot(ypoints)</span> - When you pass <strong>only one array</strong>, Matplotlib treats it as the <strong>y-values</strong> and automatically generates x-values as <strong>0, 1, 2, 3, ...</strong> (matching the array indices).</li>
+                    <li><strong>🤔 So the points are:</strong> (0,3), (1,8), (2,1), (3,10), (4,5), (5,7) — Matplotlib filled in the x-values for us!</li>
+                    <li><strong>💡 When to skip x-values:</strong> This shortcut is perfect when your x-axis represents simple sequential steps — like <strong>epochs in ML training</strong>. You just pass the loss values and the x-axis automatically becomes epoch 0, 1, 2, 3...</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>🎓 Quick Reference: The Plotting Pattern</h2>
+        <p>Every Matplotlib plot follows this <strong>3-step pattern</strong>:</p>
+        <ul>
+            <li><strong>Step 1:</strong> <code>import matplotlib.pyplot as plt</code> — Import the library</li>
+            <li><strong>Step 2:</strong> <code>plt.plot(x, y)</code> — Create the plot (or <code>plt.scatter()</code>, <code>plt.bar()</code>, <code>plt.hist()</code>, etc.)</li>
+            <li><strong>Step 3:</strong> <code>plt.show()</code> — Display the plot on screen</li>
+        </ul>
+        <p>That's it! Master these 3 steps and you can create <strong>any</strong> visualization! 🚀</p>
+    </div>
+
+    <h2 class="module-title">Module 4: Markers</h2>
+
+    <div class="storybook-intro">
+        <h2>🔘 Markers</h2>
+        <p>You can use the keyword argument <span class="highlight-term">marker</span> to <strong>emphasize each point</strong> with a specified marker symbol.</p>
+        <p>Markers make your data points <strong>visible and stand out</strong> — instead of just a plain line, each data point gets its own icon!</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 8: Mark Points with Circles</h3>
+        <p class="task-desc">Use <code>marker = 'o'</code> to mark each data point with a circle.</p>
+        <button class="btn-toggle" onclick="toggleCode('mpl-task8', this)">Show Answer</button>
+        
+        <div id="mpl-task8" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+ypoints = np.array([3, 8, 1, 10])
+
+<span class="comment"># Mark each point with a circle</span>
+plt.plot(ypoints, marker = <span class="string">'o'</span>)
+plt.show()</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('mpl-out8', this)">Show Output</button>
+            <div id="mpl-out8" class="output-container" style="text-align: center;">
+                <img src="https://www.w3schools.com/python/img_matplotlib_marker_o.png" alt="Matplotlib Circle Marker" style="max-width: 100%; border-radius: 8px;">
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">marker = 'o'</span> - The <code>'o'</code> tells Matplotlib to draw a <strong>circle</strong> at each data point. The line is still drawn between points, but now you can clearly see WHERE each point is!</li>
+                    <li><strong>🤖 ML Use:</strong> In ML, markers help you see <strong>individual data points</strong> on training curves. For example, marking each epoch where the model improved helps identify the best checkpoint!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 9: Mark Points with Stars</h3>
+        <p class="task-desc">Use <code>marker = '*'</code> to mark each data point with a star ⭐.</p>
+        <button class="btn-toggle" onclick="toggleCode('mpl-task9', this)">Show Answer</button>
+        
+        <div id="mpl-task9" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+ypoints = np.array([3, 8, 1, 10])
+
+<span class="comment"># Mark each point with a star</span>
+plt.plot(ypoints, marker = <span class="string">'*'</span>)
+plt.show()</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('mpl-out9', this)">Show Output</button>
+            <div id="mpl-out9" class="output-container" style="text-align: center;">
+                <img src="https://www.w3schools.com/python/img_matplotlib_marker_star.png" alt="Matplotlib Star Marker" style="max-width: 100%; border-radius: 8px;">
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">marker = '*'</span> - Changes the marker to a <strong>star shape</strong>. You can use any marker symbol from the reference table below!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>📋 Marker Reference</h2>
+        <p>You can choose any of these markers:</p>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.2);">
+                <th style="text-align: left; padding: 8px; color: #00ff88;">Marker</th>
+                <th style="text-align: left; padding: 8px; color: #00ff88;">Description</th>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>'o'</code></td><td style="padding: 6px;">Circle</td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>'*'</code></td><td style="padding: 6px;">Star</td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>'.'</code></td><td style="padding: 6px;">Point</td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>','</code></td><td style="padding: 6px;">Pixel</td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>'x'</code></td><td style="padding: 6px;">X</td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>'X'</code></td><td style="padding: 6px;">X (filled)</td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>'+'</code></td><td style="padding: 6px;">Plus</td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>'P'</code></td><td style="padding: 6px;">Plus (filled)</td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>'s'</code></td><td style="padding: 6px;">Square</td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>'D'</code></td><td style="padding: 6px;">Diamond</td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>'d'</code></td><td style="padding: 6px;">Diamond (thin)</td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>'p'</code></td><td style="padding: 6px;">Pentagon</td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>'H'</code></td><td style="padding: 6px;">Hexagon</td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>'v'</code></td><td style="padding: 6px;">Triangle Down</td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>'^'</code></td><td style="padding: 6px;">Triangle Up</td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>'&lt;'</code></td><td style="padding: 6px;">Triangle Left</td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>'&gt;'</code></td><td style="padding: 6px;">Triangle Right</td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>'|'</code></td><td style="padding: 6px;">Vertical Line</td></tr>
+            <tr><td style="padding: 6px;"><code>'_'</code></td><td style="padding: 6px;">Horizontal Line</td></tr>
+        </table>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>✍️ Format Strings (fmt)</h2>
+        <p>You can also use a <span class="highlight-term">shortcut string notation</span> to specify the marker, line style, and color all at once!</p>
+        <p>This parameter is called <code>fmt</code>, and is written with this syntax: <strong style="color: #00ff88;">marker | line | color</strong></p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 10: Format String (Circle + Dotted + Red)</h3>
+        <p class="task-desc">Use the format string <code>'o:r'</code> to draw <strong>circle markers</strong>, a <strong>dotted line</strong>, in <strong>red</strong> — all in one parameter!</p>
+        <button class="btn-toggle" onclick="toggleCode('mpl-task10', this)">Show Answer</button>
+        
+        <div id="mpl-task10" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+ypoints = np.array([3, 8, 1, 10])
+
+<span class="comment"># 'o' = circle marker, ':' = dotted line, 'r' = red color</span>
+plt.plot(ypoints, <span class="string">'o:r'</span>)
+plt.show()</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('mpl-out10', this)">Show Output</button>
+            <div id="mpl-out10" class="output-container" style="text-align: center;">
+                <img src="https://www.w3schools.com/python/img_matplotlib_marker_fmt1.png" alt="Matplotlib Format String" style="max-width: 100%; border-radius: 8px;">
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">'o:r'</span> - This is a <strong>format string</strong> that packs 3 things into one:
+                        <ul>
+                            <li><code>o</code> = circle marker</li>
+                            <li><code>:</code> = dotted line style</li>
+                            <li><code>r</code> = red color</li>
+                        </ul>
+                    </li>
+                    <li><strong>💡 Pro Tip:</strong> If you leave out the line value (e.g., <code>'or'</code>), no line will be plotted — only markers!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>📋 Line & Color Reference</h2>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.2);">
+                <th style="text-align: left; padding: 8px; color: #00ff88;">Line Syntax</th>
+                <th style="text-align: left; padding: 8px; color: #00ff88;">Description</th>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>'-'</code></td><td style="padding: 6px;">Solid line</td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>':'</code></td><td style="padding: 6px;">Dotted line</td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>'--'</code></td><td style="padding: 6px;">Dashed line</td></tr>
+            <tr><td style="padding: 6px;"><code>'-.'</code></td><td style="padding: 6px;">Dashed/dotted line</td></tr>
+        </table>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.2);">
+                <th style="text-align: left; padding: 8px; color: #00ff88;">Color</th>
+                <th style="text-align: left; padding: 8px; color: #00ff88;">Description</th>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>'r'</code></td><td style="padding: 6px;"><span style="color: red;">■</span> Red</td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>'g'</code></td><td style="padding: 6px;"><span style="color: green;">■</span> Green</td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>'b'</code></td><td style="padding: 6px;"><span style="color: blue;">■</span> Blue</td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>'c'</code></td><td style="padding: 6px;"><span style="color: cyan;">■</span> Cyan</td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>'m'</code></td><td style="padding: 6px;"><span style="color: magenta;">■</span> Magenta</td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>'y'</code></td><td style="padding: 6px;"><span style="color: yellow;">■</span> Yellow</td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>'k'</code></td><td style="padding: 6px;"><span style="color: black;">■</span> Black</td></tr>
+            <tr><td style="padding: 6px;"><code>'w'</code></td><td style="padding: 6px;"><span style="color: white;">■</span> White</td></tr>
+        </table>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>📏 Marker Size</h2>
+        <p>Use the keyword argument <span class="highlight-term">markersize</span> or the shorter version <code>ms</code> to set the size of the markers.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 11: Set Marker Size</h3>
+        <p class="task-desc">Set the size of the markers to <strong>20</strong> using <code>ms = 20</code>.</p>
+        <button class="btn-toggle" onclick="toggleCode('mpl-task11', this)">Show Answer</button>
+        
+        <div id="mpl-task11" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+ypoints = np.array([3, 8, 1, 10])
+
+<span class="comment"># Set marker size to 20</span>
+plt.plot(ypoints, marker = <span class="string">'o'</span>, ms = 20)
+plt.show()</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('mpl-out11', this)">Show Output</button>
+            <div id="mpl-out11" class="output-container" style="text-align: center;">
+                <img src="https://www.w3schools.com/python/img_matplotlib_marker_o_20.png" alt="Matplotlib Marker Size 20" style="max-width: 100%; border-radius: 8px;">
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">ms = 20</span> - Short for <code>markersize</code>. The default size is about <strong>6</strong>, so 20 makes the markers much bigger and easier to see! Great for presentations and reports.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>🎨 Marker Color</h2>
+        <p>You can customize <strong>two parts</strong> of a marker's color:</p>
+        <ul>
+            <li><span class="highlight-term">mec</span> (markeredgecolor) — the <strong>outline/border</strong> color</li>
+            <li><span class="highlight-term">mfc</span> (markerfacecolor) — the <strong>fill/inside</strong> color</li>
+        </ul>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 12: Set Marker Edge Color</h3>
+        <p class="task-desc">Set the <strong>edge color</strong> of the markers to red using <code>mec = 'r'</code>.</p>
+        <button class="btn-toggle" onclick="toggleCode('mpl-task12', this)">Show Answer</button>
+        
+        <div id="mpl-task12" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+ypoints = np.array([3, 8, 1, 10])
+
+<span class="comment"># Red edge color, default face color</span>
+plt.plot(ypoints, marker = <span class="string">'o'</span>, ms = 20, mec = <span class="string">'r'</span>)
+plt.show()</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('mpl-out12', this)">Show Output</button>
+            <div id="mpl-out12" class="output-container" style="text-align: center;">
+                <img src="https://www.w3schools.com/python/img_matplotlib_marker_o_mec.png" alt="Matplotlib Marker Edge Color" style="max-width: 100%; border-radius: 8px;">
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">mec = 'r'</span> - Sets only the <strong>edge (outline)</strong> of each marker to red. The inside of the marker keeps the default blue fill. Think of it like a ring — red border, blue center!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 13: Set Marker Face Color</h3>
+        <p class="task-desc">Set the <strong>face (fill) color</strong> of the markers to red using <code>mfc = 'r'</code>.</p>
+        <button class="btn-toggle" onclick="toggleCode('mpl-task13', this)">Show Answer</button>
+        
+        <div id="mpl-task13" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+ypoints = np.array([3, 8, 1, 10])
+
+<span class="comment"># Red face color, default edge color</span>
+plt.plot(ypoints, marker = <span class="string">'o'</span>, ms = 20, mfc = <span class="string">'r'</span>)
+plt.show()</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('mpl-out13', this)">Show Output</button>
+            <div id="mpl-out13" class="output-container" style="text-align: center;">
+                <img src="https://www.w3schools.com/python/img_matplotlib_marker_o_mfc.png" alt="Matplotlib Marker Face Color" style="max-width: 100%; border-radius: 8px;">
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">mfc = 'r'</span> - Sets the <strong>inside fill</strong> of each marker to red. The edge stays the default blue. Now the circle has a <strong>red center with blue outline</strong> — the opposite of <code>mec</code>!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 14: Color the Entire Marker</h3>
+        <p class="task-desc">Use <strong>both</strong> <code>mec</code> and <code>mfc</code> together to make the entire marker one solid color.</p>
+        <button class="btn-toggle" onclick="toggleCode('mpl-task14', this)">Show Answer</button>
+        
+        <div id="mpl-task14" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+ypoints = np.array([3, 8, 1, 10])
+
+<span class="comment"># Both edge AND face set to red = solid red marker</span>
+plt.plot(ypoints, marker = <span class="string">'o'</span>, ms = 20, mec = <span class="string">'r'</span>, mfc = <span class="string">'r'</span>)
+plt.show()</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('mpl-out14', this)">Show Output</button>
+            <div id="mpl-out14" class="output-container" style="text-align: center;">
+                <img src="https://www.w3schools.com/python/img_matplotlib_marker_o_mec_mfc.png" alt="Matplotlib Marker Full Color" style="max-width: 100%; border-radius: 8px;">
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">mec = 'r', mfc = 'r'</span> - When both edge and face are the <strong>same color</strong>, you get a completely solid marker. This is the most common way to create colored markers!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 15: Use Hex Color Values</h3>
+        <p class="task-desc">You can also use <strong>Hexadecimal color values</strong> for more precise colors.</p>
+        <button class="btn-toggle" onclick="toggleCode('mpl-task15', this)">Show Answer</button>
+        
+        <div id="mpl-task15" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+ypoints = np.array([3, 8, 1, 10])
+
+<span class="comment"># Beautiful green using hex color code</span>
+plt.plot(ypoints, marker = <span class="string">'o'</span>, ms = 20, mec = <span class="string">'#4CAF50'</span>, mfc = <span class="string">'#4CAF50'</span>)
+plt.show()</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('mpl-out15', this)">Show Output</button>
+            <div id="mpl-out15" class="output-container" style="text-align: center;">
+                <img src="https://www.w3schools.com/python/img_matplotlib_marker_o_hex.png" alt="Matplotlib Hex Color Marker" style="max-width: 100%; border-radius: 8px;">
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">'#4CAF50'</span> - This is a <strong>hexadecimal color code</strong> (also used in CSS/HTML!). It gives you access to <strong>millions of colors</strong> instead of just the 8 basic ones. <code>#4CAF50</code> is a beautiful Material Design green! 💚</li>
+                    <li><strong>💡 Tip:</strong> You can find hex color codes at websites like <strong>colorpicker.me</strong> or simply Google "hex color picker."</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 16: Use Named Colors</h3>
+        <p class="task-desc">Matplotlib supports <strong>140 named colors</strong>! Use any CSS color name like <code>'hotpink'</code>.</p>
+        <button class="btn-toggle" onclick="toggleCode('mpl-task16', this)">Show Answer</button>
+        
+        <div id="mpl-task16" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+ypoints = np.array([3, 8, 1, 10])
+
+<span class="comment"># Using a named color: "hotpink"</span>
+plt.plot(ypoints, marker = <span class="string">'o'</span>, ms = 20, mec = <span class="string">'hotpink'</span>, mfc = <span class="string">'hotpink'</span>)
+plt.show()</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('mpl-out16', this)">Show Output</button>
+            <div id="mpl-out16" class="output-container" style="text-align: center;">
+                <img src="https://www.w3schools.com/python/img_matplotlib_marker_hotpink.png" alt="Matplotlib Hotpink Marker" style="max-width: 100%; border-radius: 8px;">
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">'hotpink'</span> - Matplotlib supports all <strong>140 CSS/HTML named colors</strong>! Some fun ones: <code>'coral'</code>, <code>'gold'</code>, <code>'turquoise'</code>, <code>'tomato'</code>, <code>'orchid'</code>, <code>'salmon'</code>.</li>
+                    <li><strong>🎨 Three ways to specify colors:</strong>
+                        <ul>
+                            <li><strong>Short codes:</strong> <code>'r'</code>, <code>'g'</code>, <code>'b'</code> (quick but limited to 8 colors)</li>
+                            <li><strong>Named colors:</strong> <code>'hotpink'</code>, <code>'gold'</code> (140 options, easy to read)</li>
+                            <li><strong>Hex codes:</strong> <code>'#FF69B4'</code> (millions of colors, full precision)</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">Module 5: Labels & Title</h2>
+
+    <div class="storybook-intro">
+        <h2>🏷️ Create Labels for a Plot</h2>
+        <p>A chart without labels is like a book without a title — nobody knows what it's about!</p>
+        <p>With Pyplot, you can use <span class="highlight-term">xlabel()</span> and <span class="highlight-term">ylabel()</span> to set labels for the x- and y-axis.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 17: Add Axis Labels</h3>
+        <p class="task-desc">Add descriptive labels to the x-axis and y-axis using <code>xlabel()</code> and <code>ylabel()</code>.</p>
+        <button class="btn-toggle" onclick="toggleCode('mpl-task17', this)">Show Answer</button>
+        
+        <div id="mpl-task17" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+
+x = np.array([80, 85, 90, 95, 100, 105, 110, 115, 120, 125])
+y = np.array([240, 250, 260, 270, 280, 290, 300, 310, 320, 330])
+
+plt.plot(x, y)
+
+<span class="comment"># Add labels to the axes</span>
+plt.xlabel(<span class="string">"Average Pulse"</span>)
+plt.ylabel(<span class="string">"Calorie Burnage"</span>)
+
+plt.show()</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('mpl-out17', this)">Show Output</button>
+            <div id="mpl-out17" class="output-container" style="text-align: center;">
+                <img src="https://www.w3schools.com/python/img_matplotlib_labels.png" alt="Matplotlib Axis Labels" style="max-width: 100%; border-radius: 8px;">
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">plt.xlabel("Average Pulse")</span> - Adds a label <strong>below the x-axis</strong> (horizontal). This tells the viewer what the horizontal values represent — in this case, the average pulse rate during exercise.</li>
+                    <li><span class="code-snippet">plt.ylabel("Calorie Burnage")</span> - Adds a label <strong>beside the y-axis</strong> (vertical). This tells the viewer what the vertical values represent — calories burned during exercise.</li>
+                    <li><strong>💡 Why Labels Matter:</strong> Without labels, your chart is just lines and numbers. Labels give <strong>context and meaning</strong> — turning data into information! Always label your axes.</li>
+                    <li><strong>🤖 ML Tip:</strong> In ML, clear labeling is essential. Common labels include: <code>"Epoch"</code> (x) vs <code>"Loss"</code> (y) for training curves, or <code>"Feature Value"</code> vs <code>"Prediction"</code> for model outputs.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>📌 Create a Title for a Plot</h2>
+        <p>Use the <span class="highlight-term">title()</span> function to add a <strong>title</strong> at the top of your plot.</p>
+        <p>A good title tells the reader <em>exactly</em> what the chart is about at a glance!</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 18: Add a Plot Title</h3>
+        <p class="task-desc">Add a title, x-label, and y-label to create a fully labeled, professional-looking chart.</p>
+        <button class="btn-toggle" onclick="toggleCode('mpl-task18', this)">Show Answer</button>
+        
+        <div id="mpl-task18" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+
+x = np.array([80, 85, 90, 95, 100, 105, 110, 115, 120, 125])
+y = np.array([240, 250, 260, 270, 280, 290, 300, 310, 320, 330])
+
+plt.plot(x, y)
+
+<span class="comment"># Add title and labels</span>
+plt.title(<span class="string">"Sports Watch Data"</span>)
+plt.xlabel(<span class="string">"Average Pulse"</span>)
+plt.ylabel(<span class="string">"Calorie Burnage"</span>)
+
+plt.show()</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('mpl-out18', this)">Show Output</button>
+            <div id="mpl-out18" class="output-container" style="text-align: center;">
+                <img src="https://www.w3schools.com/python/img_matplotlib_title.png" alt="Matplotlib Plot Title" style="max-width: 100%; border-radius: 8px;">
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">plt.title("Sports Watch Data")</span> - Adds a <strong>title at the top</strong> of the chart. This is the first thing people read — make it clear and descriptive!</li>
+                    <li><strong>🎨 Complete Chart Anatomy:</strong>
+                        <ul>
+                            <li><code>plt.title()</code> → Title at the <strong>top</strong></li>
+                            <li><code>plt.xlabel()</code> → Label at the <strong>bottom</strong> (x-axis)</li>
+                            <li><code>plt.ylabel()</code> → Label on the <strong>left side</strong> (y-axis)</li>
+                        </ul>
+                    </li>
+                    <li><strong>🤖 ML Best Practice:</strong> When presenting ML results, always include a title like <code>"Model Accuracy Over 50 Epochs"</code> or <code>"Loss: Training vs Validation"</code>. It makes your work look professional and easy to understand!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">Module 6: Display Multiple Plots</h2>
+
+    <div class="storybook-intro">
+        <h2>📊 Subplots — Multiple Plots in One Figure</h2>
+        <p>With the <span class="highlight-term">subplot()</span> function you can draw <strong>multiple plots</strong> in one figure!</p>
+        <p>Think of it like dividing a page into a <strong>grid</strong> — each cell in the grid gets its own chart.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 19: Two Plots Side by Side</h3>
+        <p class="task-desc">Use <code>subplot()</code> to draw 2 plots next to each other (1 row, 2 columns).</p>
+        <button class="btn-toggle" onclick="toggleCode('mpl-task19', this)">Show Answer</button>
+        
+        <div id="mpl-task19" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+<span class="comment"># Plot 1:</span>
+x = np.array([0, 1, 2, 3])
+y = np.array([3, 8, 1, 10])
+
+plt.subplot(1, 2, 1)
+plt.plot(x, y)
+
+<span class="comment"># Plot 2:</span>
+x = np.array([0, 1, 2, 3])
+y = np.array([10, 20, 30, 40])
+
+plt.subplot(1, 2, 2)
+plt.plot(x, y)
+
+plt.show()</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('mpl-out19', this)">Show Output</button>
+            <div id="mpl-out19" class="output-container" style="text-align: center;">
+                <img src="https://www.w3schools.com/python/img_matplotlib_subplots1.png" alt="Matplotlib Two Subplots Side by Side" style="max-width: 100%; border-radius: 8px;">
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">plt.subplot(1, 2, 1)</span> - The <code>subplot()</code> function takes <strong>3 arguments</strong> that describe the grid layout:
+                        <ul>
+                            <li><strong>1st argument (1):</strong> Number of <strong>rows</strong></li>
+                            <li><strong>2nd argument (2):</strong> Number of <strong>columns</strong></li>
+                            <li><strong>3rd argument (1):</strong> <strong>Index</strong> of the current plot (which cell to draw in)</li>
+                        </ul>
+                        So <code>subplot(1, 2, 1)</code> means: "Create a grid with <strong>1 row and 2 columns</strong>, and this is the <strong>first</strong> plot."
+                    </li>
+                    <li><span class="code-snippet">plt.subplot(1, 2, 2)</span> - Same grid (1 row, 2 columns), but now we're drawing in the <strong>second</strong> cell — the right side.</li>
+                    <li><strong>💡 Remember:</strong> After calling <code>subplot()</code>, all plotting commands (<code>plot()</code>, <code>title()</code>, etc.) apply to <strong>that specific subplot</strong> until you call <code>subplot()</code> again!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 20: Two Plots Stacked Vertically</h3>
+        <p class="task-desc">Draw 2 plots <strong>on top of each other</strong> by using 2 rows and 1 column.</p>
+        <button class="btn-toggle" onclick="toggleCode('mpl-task20', this)">Show Answer</button>
+        
+        <div id="mpl-task20" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+<span class="comment"># Plot 1 (top):</span>
+x = np.array([0, 1, 2, 3])
+y = np.array([3, 8, 1, 10])
+
+plt.subplot(2, 1, 1)
+plt.plot(x, y)
+
+<span class="comment"># Plot 2 (bottom):</span>
+x = np.array([0, 1, 2, 3])
+y = np.array([10, 20, 30, 40])
+
+plt.subplot(2, 1, 2)
+plt.plot(x, y)
+
+plt.show()</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('mpl-out20', this)">Show Output</button>
+            <div id="mpl-out20" class="output-container" style="text-align: center;">
+                <img src="https://www.w3schools.com/python/img_matplotlib_subplots2.png" alt="Matplotlib Two Subplots Stacked" style="max-width: 100%; border-radius: 8px;">
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">plt.subplot(2, 1, 1)</span> - <strong>2 rows, 1 column</strong>, this is the <strong>first</strong> plot (top).</li>
+                    <li><span class="code-snippet">plt.subplot(2, 1, 2)</span> - Same grid, this is the <strong>second</strong> plot (bottom).</li>
+                    <li><strong>🤔 Compare:</strong>
+                        <ul>
+                            <li><code>subplot(1, 2, ...)</code> → Plots <strong>side by side</strong> (1 row, 2 columns)</li>
+                            <li><code>subplot(2, 1, ...)</code> → Plots <strong>stacked vertically</strong> (2 rows, 1 column)</li>
+                        </ul>
+                    </li>
+                    <li><strong>🤖 ML Use:</strong> Stacked plots are perfect for comparing <strong>training loss</strong> (top) vs <strong>validation loss</strong> (bottom) to spot overfitting!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 21: Six Plots in a 2×3 Grid</h3>
+        <p class="task-desc">Draw <strong>6 plots</strong> in a 2-row by 3-column grid. You can draw as many plots as you like!</p>
+        <button class="btn-toggle" onclick="toggleCode('mpl-task21', this)">Show Answer</button>
+        
+        <div id="mpl-task21" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+x = np.array([0, 1, 2, 3])
+y = np.array([3, 8, 1, 10])
+
+plt.subplot(2, 3, 1)
+plt.plot(x, y)
+
+x = np.array([0, 1, 2, 3])
+y = np.array([10, 20, 30, 40])
+
+plt.subplot(2, 3, 2)
+plt.plot(x, y)
+
+x = np.array([0, 1, 2, 3])
+y = np.array([3, 8, 1, 10])
+
+plt.subplot(2, 3, 3)
+plt.plot(x, y)
+
+x = np.array([0, 1, 2, 3])
+y = np.array([10, 20, 30, 40])
+
+plt.subplot(2, 3, 4)
+plt.plot(x, y)
+
+x = np.array([0, 1, 2, 3])
+y = np.array([3, 8, 1, 10])
+
+plt.subplot(2, 3, 5)
+plt.plot(x, y)
+
+x = np.array([0, 1, 2, 3])
+y = np.array([10, 20, 30, 40])
+
+plt.subplot(2, 3, 6)
+plt.plot(x, y)
+
+plt.show()</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('mpl-out21', this)">Show Output</button>
+            <div id="mpl-out21" class="output-container" style="text-align: center;">
+                <img src="https://www.w3schools.com/python/img_matplotlib_subplots3.png" alt="Matplotlib 6 Subplots Grid" style="max-width: 100%; border-radius: 8px;">
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">plt.subplot(2, 3, 1)</span> through <span class="code-snippet">plt.subplot(2, 3, 6)</span> - We create a <strong>2×3 grid</strong> (2 rows, 3 columns = 6 cells). The index goes from <strong>1 to 6</strong>, filling left-to-right, top-to-bottom:
+                        <ul>
+                            <li>Top row: cells <strong>1, 2, 3</strong></li>
+                            <li>Bottom row: cells <strong>4, 5, 6</strong></li>
+                        </ul>
+                    </li>
+                    <li><strong>🤖 ML Use Case:</strong> A 2×3 grid is perfect for comparing <strong>6 different models</strong> or <strong>6 different features</strong> at once — a common practice when exploring datasets!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>🏷️ Adding Titles to Subplots</h2>
+        <p>You can add a <span class="highlight-term">title()</span> to <strong>each individual subplot</strong> — just call <code>plt.title()</code> after each <code>plt.subplot()</code>.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 22: Subplots with Individual Titles</h3>
+        <p class="task-desc">Create 2 side-by-side plots, each with its own title.</p>
+        <button class="btn-toggle" onclick="toggleCode('mpl-task22', this)">Show Answer</button>
+        
+        <div id="mpl-task22" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+<span class="comment"># Plot 1:</span>
+x = np.array([0, 1, 2, 3])
+y = np.array([3, 8, 1, 10])
+
+plt.subplot(1, 2, 1)
+plt.plot(x, y)
+plt.title(<span class="string">"SALES"</span>)
+
+<span class="comment"># Plot 2:</span>
+x = np.array([0, 1, 2, 3])
+y = np.array([10, 20, 30, 40])
+
+plt.subplot(1, 2, 2)
+plt.plot(x, y)
+plt.title(<span class="string">"INCOME"</span>)
+
+plt.show()</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('mpl-out22', this)">Show Output</button>
+            <div id="mpl-out22" class="output-container" style="text-align: center;">
+                <img src="https://www.w3schools.com/python/img_matplotlib_subplots4.png" alt="Matplotlib Subplots with Titles" style="max-width: 100%; border-radius: 8px;">
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">plt.title("SALES")</span> - Adds a title to the <strong>first subplot</strong> (the one selected by <code>subplot(1,2,1)</code>). Each subplot gets its own title!</li>
+                    <li><span class="code-snippet">plt.title("INCOME")</span> - Adds a title to the <strong>second subplot</strong>.</li>
+                    <li><strong>💡 Key Pattern:</strong> After calling <code>subplot()</code>, everything you do (<code>plot()</code>, <code>title()</code>, <code>xlabel()</code>) applies to <strong>THAT specific subplot</strong> only. Switch to a different subplot with another <code>subplot()</code> call.</li>
+                    <li><strong>🤖 ML Dashboard:</strong> In ML, you often create dashboards like this: <strong>"Training Loss"</strong> on the left, <strong>"Accuracy"</strong> on the right — giving a complete picture of model performance at a glance!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">Module 7: Scatter Plots</h2>
+
+    <div class="storybook-intro">
+        <h2>🔵 Creating Scatter Plots</h2>
+        <p>With Pyplot, you can use the <span class="highlight-term">scatter()</span> function to draw a scatter plot.</p>
+        <p>The <code>scatter()</code> function plots <strong>one dot for each observation</strong>. It needs two arrays of the same length — one for x-axis values and one for y-axis values.</p>
+        <p><strong>💡 Why Scatter Plots?</strong> They help you see <strong>relationships</strong> between two variables. Do they go up together? Down? Or is there no pattern at all?</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 23: Simple Scatter Plot</h3>
+        <p class="task-desc">Create a scatter plot showing the relationship between car <strong>age</strong> (x) and <strong>speed</strong> (y) for 13 cars.</p>
+        <button class="btn-toggle" onclick="toggleCode('mpl-task23', this)">Show Answer</button>
+        
+        <div id="mpl-task23" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+x = np.array([5,7,8,7,2,17,2,9,4,11,12,9,6])
+y = np.array([99,86,87,88,111,86,103,87,94,78,77,85,86])
+
+plt.scatter(x, y)
+plt.show()</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('mpl-out23', this)">Show Output</button>
+            <div id="mpl-out23" class="output-container" style="text-align: center;">
+                <img src="https://www.w3schools.com/python/img_matplotlib_scatter.png" alt="Matplotlib Scatter Plot" style="max-width: 100%; border-radius: 8px;">
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">x = np.array([5,7,8,7,2,17,2,9,4,11,12,9,6])</span> - The <strong>age</strong> of each car (in years). 13 cars were observed passing by.</li>
+                    <li><span class="code-snippet">y = np.array([99,86,87,88,111,86,103,87,94,78,77,85,86])</span> - The <strong>speed</strong> of each car (km/h) as it passed by.</li>
+                    <li><span class="code-snippet">plt.scatter(x, y)</span> - Unlike <code>plot()</code> which connects points with lines, <code>scatter()</code> draws <strong>individual dots only</strong> — perfect for spotting patterns and relationships!</li>
+                    <li><strong>🔍 What does it show?</strong> It seems the <strong>newer the car</strong> (lower x), the <strong>faster it drives</strong> (higher y). But with only 13 cars, it could be a coincidence!</li>
+                    <li><strong>🤖 ML Connection:</strong> In ML, scatter plots are step #1 for <strong>exploratory data analysis (EDA)</strong>. Before building any model, you scatter plot your features vs. target to see if there's a relationship worth modeling!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>🔄 Compare Plots</h2>
+        <p>In the example above, there seems to be a relationship between speed and age — but what if we plot observations from <strong>another day</strong> as well?</p>
+        <p>You can call <code>plt.scatter()</code> <strong>multiple times</strong> before <code>plt.show()</code> to overlay datasets on the same figure!</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 24: Compare Two Datasets</h3>
+        <p class="task-desc">Overlay scatter plots from <strong>two different days</strong> to confirm or deny the pattern.</p>
+        <button class="btn-toggle" onclick="toggleCode('mpl-task24', this)">Show Answer</button>
+        
+        <div id="mpl-task24" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+<span class="comment"># Day one, the age and speed of 13 cars:</span>
+x = np.array([5,7,8,7,2,17,2,9,4,11,12,9,6])
+y = np.array([99,86,87,88,111,86,103,87,94,78,77,85,86])
+plt.scatter(x, y)
+
+<span class="comment"># Day two, the age and speed of 15 cars:</span>
+x = np.array([2,2,8,1,15,8,12,9,7,3,11,4,7,14,12])
+y = np.array([100,105,84,105,90,99,90,95,94,100,79,112,91,80,85])
+plt.scatter(x, y)
+
+plt.show()</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('mpl-out24', this)">Show Output</button>
+            <div id="mpl-out24" class="output-container" style="text-align: center;">
+                <img src="https://www.w3schools.com/python/img_matplotlib_scatter_compare.png" alt="Matplotlib Scatter Compare" style="max-width: 100%; border-radius: 8px;">
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">plt.scatter(x, y)</span> (called twice) - Each call adds a <strong>new set of dots</strong> to the same figure. Matplotlib automatically uses <strong>different colors</strong> — blue for day one, orange for day two!</li>
+                    <li><strong>🔍 Conclusion:</strong> Both datasets show the same pattern — newer cars tend to be faster. By <strong>comparing two sets of data</strong>, we can be more confident in our conclusion!</li>
+                    <li><strong>🤖 ML Insight:</strong> This is exactly how data scientists <strong>validate patterns</strong>. If a pattern holds across multiple samples, it's more likely to be real and not just noise. In ML, this is related to concepts like <strong>cross-validation</strong>!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>🎨 Custom Scatter Colors</h2>
+        <p>You can set your own color for each scatter plot using the <span class="highlight-term">color</span> or <code>c</code> argument.</p>
+        <p>Use named colors, hex codes, or short color codes — just like with markers!</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 25: Colored Scatter Plots</h3>
+        <p class="task-desc">Set custom colors for each scatter dataset — <code>'hotpink'</code> for day one and <code>'#88c999'</code> (green hex) for day two.</p>
+        <button class="btn-toggle" onclick="toggleCode('mpl-task25', this)">Show Answer</button>
+        
+        <div id="mpl-task25" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+x = np.array([5,7,8,7,2,17,2,9,4,11,12,9,6])
+y = np.array([99,86,87,88,111,86,103,87,94,78,77,85,86])
+plt.scatter(x, y, color = <span class="string">'hotpink'</span>)
+
+x = np.array([2,2,8,1,15,8,12,9,7,3,11,4,7,14,12])
+y = np.array([100,105,84,105,90,99,90,95,94,100,79,112,91,80,85])
+plt.scatter(x, y, color = <span class="string">'#88c999'</span>)
+
+plt.show()</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('mpl-out25', this)">Show Output</button>
+            <div id="mpl-out25" class="output-container" style="text-align: center;">
+                <img src="https://www.w3schools.com/python/img_matplotlib_scatter_color.png" alt="Matplotlib Scatter Custom Colors" style="max-width: 100%; border-radius: 8px;">
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">color = 'hotpink'</span> - Uses the <strong>named color</strong> "hotpink" for the first dataset's dots. Makes day one data stand out!</li>
+                    <li><span class="code-snippet">color = '#88c999'</span> - Uses a <strong>hex color code</strong> for a soft green. You can use any of the 3 color methods: short codes (<code>'r'</code>), named colors (<code>'hotpink'</code>), or hex (<code>'#88c999'</code>).</li>
+                    <li><strong>💡 Why Custom Colors?</strong> Default colors work, but custom colors help when you're presenting to an audience or creating publication-ready charts. Choose colors that are <strong>accessible</strong> and easy to distinguish!</li>
+                    <li><strong>🤖 ML Tip:</strong> In ML classification tasks, you often color scatter points by their <strong>class label</strong> — e.g., blue for "positive" and red for "negative." This instantly shows how well-separated your classes are!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">Module 8: Histograms</h2>
+
+    <div class="storybook-intro">
+        <h2>📊 Create Histograms</h2>
+        <p>In Matplotlib, we use the <span class="highlight-term">hist()</span> function to create histograms.</p>
+        <p>A histogram shows the <strong>frequency distribution</strong> of data — how many values fall into each range (called "bins").</p>
+        <p><strong>💡 Think of it like this:</strong> If scatter plots show <em>relationships</em> between variables, histograms show the <em>shape</em> of a single variable — where most values cluster and how spread out they are!</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 26: Generate Random Normal Data</h3>
+        <p class="task-desc">Use NumPy to generate 250 random values centered around 170 with a standard deviation of 10 (a <strong>normal distribution</strong>).</p>
+        <button class="btn-toggle" onclick="toggleCode('mpl-task26', this)">Show Answer</button>
+        
+        <div id="mpl-task26" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+<span class="comment"># Generate 250 random values</span>
+<span class="comment"># Mean = 170, Standard Deviation = 10</span>
+x = np.random.normal(170, 10, 250)
+
+print(x)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('mpl-out26', this)">Show Output</button>
+            <div id="mpl-out26" class="output-container" style="max-height: 200px; overflow-y: auto;">
+[167.62 175.32 152.84 165.50 163.17 162.29 172.83 168.67 164.57 180.81<br>
+ 170.57 167.53 176.15 176.95 158.41 187.88 159.03 166.69 160.73 152.22<br>
+ 164.01 163.95 176.58 173.19 169.40 166.88 149.90 148.39 177.90 166.72<br>
+ 177.44 170.93 173.26 174.76 162.28 166.77 160.53 170.67 159.11 165.36<br>
+ 178.38 171.52 173.32 159.63 151.95 175.71 165.00 164.80 177.50 149.28<br>
+ ... ]<br>
+<br>
+<span style="color: #00ff88;">📝 250 random values, mostly clustered around 170!</span><br>
+<span style="color: #aaa;">Note: Your output will be different every time (it's random!)</span>
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">np.random.normal(170, 10, 250)</span> - Generates <strong>250 random numbers</strong> from a <strong>normal (bell curve) distribution</strong>:
+                        <ul>
+                            <li><strong>170</strong> = the <em>mean</em> (center of the bell curve)</li>
+                            <li><strong>10</strong> = the <em>standard deviation</em> (how spread out the values are)</li>
+                            <li><strong>250</strong> = number of values to generate</li>
+                        </ul>
+                    </li>
+                    <li><strong>🤖 ML Connection:</strong> The <strong>normal distribution</strong> (bell curve) is EVERYWHERE in ML! Many algorithms assume your data is normally distributed. Understanding it is key to feature engineering, data preprocessing, and model selection.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 27: Create a Histogram</h3>
+        <p class="task-desc">Use <code>hist()</code> to visualize the distribution of 250 randomly generated values as a histogram.</p>
+        <button class="btn-toggle" onclick="toggleCode('mpl-task27', this)">Show Answer</button>
+        
+        <div id="mpl-task27" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+<span class="comment"># Generate random data with normal distribution</span>
+x = np.random.normal(170, 10, 250)
+
+<span class="comment"># Create a histogram</span>
+plt.hist(x)
+plt.show()</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('mpl-out27', this)">Show Output</button>
+            <div id="mpl-out27" class="output-container" style="text-align: center;">
+                <img src="https://www.w3schools.com/python/img_matplotlib_histogram1.png" alt="Matplotlib Histogram" style="max-width: 100%; border-radius: 8px;">
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">plt.hist(x)</span> - The <code>hist()</code> function takes an array and automatically:
+                        <ul>
+                            <li>Divides the range into <strong>bins</strong> (default is 10 bins)</li>
+                            <li>Counts how many values fall into each bin</li>
+                            <li>Draws <strong>bars</strong> where the height = frequency (count)</li>
+                        </ul>
+                    </li>
+                    <li><strong>🔍 Reading the Chart:</strong> The tallest bars are near <strong>170</strong> (the mean) — that's where most values cluster. The bars get shorter toward the edges, forming the classic <strong>bell curve shape</strong>!</li>
+                    <li><strong>💡 Customize Bins:</strong> You can control the number of bins: <code>plt.hist(x, bins=20)</code> for more detail, or <code>plt.hist(x, bins=5)</code> for a broader view.</li>
+                    <li><strong>🤖 ML Uses for Histograms:</strong>
+                        <ul>
+                            <li><strong>Check data distribution</strong> — Is it normal? Skewed? Bimodal?</li>
+                            <li><strong>Detect outliers</strong> — Values in tiny bars far from center</li>
+                            <li><strong>Feature engineering</strong> — Decide if you need to normalize/standardize</li>
+                            <li><strong>Model residuals</strong> — Plot prediction errors to check if they're normally distributed</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    </div><!-- .container -->
+
+    <script src="script.js?v=2"></script>
+</body>
+</html>
