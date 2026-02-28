@@ -454,6 +454,1040 @@ print(np.sort(a, order=[<span class="string">'year'</span>, <span class="string"
         </div>
     </div>
 
+    <h2 class="module-title">Module 5: Reshaping Arrays</h2>
+
+    <div class="storybook-intro">
+        <h2>🔄 Reshaping Arrays</h2>
+        <p><span class="highlight-term">Reshaping</span> means changing the <strong>shape</strong> of an array — the number of elements in each dimension.</p>
+        <p>By reshaping, we can add or remove dimensions or change the number of elements in each dimension.</p>
+        <p><strong>💡 Key Rule:</strong> The total number of elements must stay the <strong>same</strong>! You can reshape a 12-element array into (4,3) or (2,6) or (2,3,2) — but NOT (3,5) because 3×5=15 ≠ 12.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 10: Reshape 1-D to 2-D</h3>
+        <p class="task-desc">Convert a 1-D array with 12 elements into a 2-D array with <strong>4 rows and 3 columns</strong>.</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task10', this)">Show Answer</button>
+        
+        <div id="np-task10" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+arr = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
+
+newarr = arr.reshape(4, 3)
+
+print(newarr)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out10', this)">Show Output</button>
+            <div id="out10" class="output-container">
+[[ 1  2  3]<br>
+ [ 4  5  6]<br>
+ [ 7  8  9]<br>
+ [10 11 12]]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">arr = np.array([1, 2, 3, ..., 12])</span> - Creates a <strong>1-D array</strong> with 12 elements — just a flat list of numbers.</li>
+                    <li><span class="code-snippet">arr.reshape(4, 3)</span> - Reshapes the flat array into a <strong>2-D array</strong> with <strong>4 rows</strong> and <strong>3 columns</strong>. The 12 elements are distributed row by row: first 3 go to row 1, next 3 to row 2, etc.</li>
+                    <li><strong>🔢 Math Check:</strong> 4 × 3 = 12 ✅ — matches the total number of elements!</li>
+                    <li><strong>🤖 ML Use:</strong> Reshaping is essential in ML! Image data often comes as a flat 1-D array of pixels that needs to be reshaped into 2-D (height × width) or 3-D (height × width × channels) for neural networks.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 11: Reshape 1-D to 3-D</h3>
+        <p class="task-desc">Convert a 1-D array with 12 elements into a <strong>3-D array</strong> — 2 blocks, each containing 3 rows of 2 elements.</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task11', this)">Show Answer</button>
+        
+        <div id="np-task11" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+arr = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
+
+newarr = arr.reshape(2, 3, 2)
+
+print(newarr)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out11', this)">Show Output</button>
+            <div id="out11" class="output-container">
+[[[ 1  2]<br>
+  [ 3  4]<br>
+  [ 5  6]]<br>
+<br>
+ [[ 7  8]<br>
+  [ 9 10]<br>
+  [11 12]]]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">arr.reshape(2, 3, 2)</span> - Creates a <strong>3-D array</strong> with:
+                        <ul>
+                            <li><strong>2</strong> = outer dimension (2 "blocks")</li>
+                            <li><strong>3</strong> = middle dimension (3 rows per block)</li>
+                            <li><strong>2</strong> = inner dimension (2 elements per row)</li>
+                        </ul>
+                    </li>
+                    <li><strong>🔢 Math Check:</strong> 2 × 3 × 2 = 12 ✅</li>
+                    <li><strong>🤖 ML Connection:</strong> In deep learning, 3-D arrays represent images (height × width × color_channels) or sequences (batch × timesteps × features). Reshaping between dimensions is a daily operation!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 12: Invalid Reshape (Error!)</h3>
+        <p class="task-desc">What happens if the elements <strong>don't match</strong>? Try reshaping 8 elements into a 3×3 array (which needs 9).</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task12', this)">Show Answer</button>
+        
+        <div id="np-task12" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+arr = np.array([1, 2, 3, 4, 5, 6, 7, 8])
+
+<span class="comment"># This will raise an ERROR!</span>
+newarr = arr.reshape(3, 3)
+
+print(newarr)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out12', this)">Show Output</button>
+            <div id="out12" class="output-container">
+<span style="color: #ff4444; font-weight: bold;">ValueError: cannot reshape array of size 8 into shape (3,3)</span><br>
+<br>
+<span style="color: #aaa;">❌ 3 × 3 = 9, but we only have 8 elements!</span>
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">arr.reshape(3, 3)</span> - This <strong>FAILS</strong> because 3 × 3 = 9, but the array only has <strong>8 elements</strong>. NumPy can't create something from nothing!</li>
+                    <li><strong>💡 Rule of Thumb:</strong> Always check: <code>total_elements = dim1 × dim2 × dim3 × ...</code>. If the math doesn't match, you'll get a <code>ValueError</code>.</li>
+                    <li><strong>✅ Valid reshapes for 8 elements:</strong> (2,4), (4,2), (8,1), (1,8), (2,2,2)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 13: Copy or View?</h3>
+        <p class="task-desc">Does reshape return a <strong>copy</strong> of the data or a <strong>view</strong>? Let's check!</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task13', this)">Show Answer</button>
+        
+        <div id="np-task13" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+arr = np.array([1, 2, 3, 4, 5, 6, 7, 8])
+
+<span class="comment"># Check if reshape returns a view or copy</span>
+print(arr.reshape(2, 4).base)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out13', this)">Show Output</button>
+            <div id="out13" class="output-container">
+[1 2 3 4 5 6 7 8]<br>
+<br>
+<span style="color: #00ff88;">✅ It returns the original array — so it's a VIEW!</span>
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">.base</span> - The <code>.base</code> attribute returns <code>None</code> if the array <strong>owns its data</strong> (a copy), or returns the <strong>original array</strong> if it's a view.</li>
+                    <li><strong>🔍 What's the difference?</strong>
+                        <ul>
+                            <li><strong>View:</strong> Same data, different shape. Changing one changes the other! (Memory efficient)</li>
+                            <li><strong>Copy:</strong> Completely independent data. Changes don't affect each other. (Uses more memory)</li>
+                        </ul>
+                    </li>
+                    <li><strong>💡 Key Insight:</strong> <code>reshape()</code> returns a <strong>view</strong> whenever possible — meaning NO extra memory is used! The data stays in the same place, only the "view" of it changes.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 14: Unknown Dimension (-1)</h3>
+        <p class="task-desc">Pass <code>-1</code> as one dimension and let NumPy <strong>automatically calculate</strong> it for you!</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task14', this)">Show Answer</button>
+        
+        <div id="np-task14" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+arr = np.array([1, 2, 3, 4, 5, 6, 7, 8])
+
+<span class="comment"># Let NumPy figure out the last dimension</span>
+newarr = arr.reshape(2, 2, -1)
+
+print(newarr)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out14', this)">Show Output</button>
+            <div id="out14" class="output-container">
+[[[1 2]<br>
+  [3 4]]<br>
+<br>
+ [[5 6]<br>
+  [7 8]]]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">arr.reshape(2, 2, -1)</span> - The <code>-1</code> means: "Hey NumPy, <strong>figure it out yourself!</strong>" NumPy calculates: 8 ÷ (2 × 2) = <strong>2</strong>. So the shape becomes (2, 2, 2).</li>
+                    <li><strong>⚠️ Important:</strong> You can only use <code>-1</code> for <strong>ONE</strong> dimension. You can't have <code>reshape(-1, -1)</code> — NumPy needs at least some hints!</li>
+                    <li><strong>🤖 ML Tip:</strong> <code>reshape(-1, 1)</code> is extremely common in ML — it converts a flat array into a <strong>column vector</strong>, which many scikit-learn functions require as input!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 15: Flattening Arrays</h3>
+        <p class="task-desc"><strong>Flattening</strong> means converting a multidimensional array back into a 1-D array using <code>reshape(-1)</code>.</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task15', this)">Show Answer</button>
+        
+        <div id="np-task15" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+arr = np.array([[1, 2, 3], [4, 5, 6]])
+
+<span class="comment"># Flatten: Convert 2-D back to 1-D</span>
+newarr = arr.reshape(-1)
+
+print(newarr)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out15', this)">Show Output</button>
+            <div id="out15" class="output-container">
+[1 2 3 4 5 6]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">arr.reshape(-1)</span> - Using <code>-1</code> alone tells NumPy: "Make this a <strong>1-D array</strong> with ALL elements in a single row." This is called <strong>flattening</strong>!</li>
+                    <li><strong>💡 Alternatives:</strong> You can also use <code>arr.flatten()</code> (returns a copy) or <code>arr.ravel()</code> (returns a view). All three achieve the same visual result, but differ in memory behavior.</li>
+                    <li><strong>🤖 ML Use:</strong> Flattening is critical in ML! When feeding image data (e.g., 28×28 pixels) into a traditional neural network's <strong>dense layer</strong>, you first flatten it into a 1-D array of 784 values. In frameworks like TensorFlow, you'll see <code>tf.keras.layers.Flatten()</code> which does exactly this!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>📝 Quick Note</h2>
+        <p>There are many more functions for changing array shapes in NumPy: <code>flatten</code>, <code>ravel</code>, <code>rot90</code>, <code>flip</code>, <code>fliplr</code>, <code>flipud</code>, etc. These fall under the <strong>intermediate to advanced</strong> section of NumPy.</p>
+    </div>
+
+    <h2 class="module-title">Module 6: Data Types</h2>
+
+    <div class="storybook-intro">
+        <h2>🏷️ Data Types in Python</h2>
+        <p>By default, Python has these data types:</p>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.2);">
+                <th style="text-align: left; padding: 8px; color: #00ff88;">Type</th>
+                <th style="text-align: left; padding: 8px; color: #00ff88;">Description</th>
+                <th style="text-align: left; padding: 8px; color: #00ff88;">Example</th>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>strings</code></td><td style="padding: 6px;">Text data</td><td style="padding: 6px;"><code>"ABCD"</code></td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>integer</code></td><td style="padding: 6px;">Whole numbers</td><td style="padding: 6px;"><code>-1, -2, -3</code></td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>float</code></td><td style="padding: 6px;">Real/decimal numbers</td><td style="padding: 6px;"><code>1.2, 42.42</code></td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>boolean</code></td><td style="padding: 6px;">True or False</td><td style="padding: 6px;"><code>True, False</code></td></tr>
+            <tr><td style="padding: 6px;"><code>complex</code></td><td style="padding: 6px;">Complex numbers</td><td style="padding: 6px;"><code>1.0 + 2.0j</code></td></tr>
+        </table>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>🔢 Data Types in NumPy</h2>
+        <p>NumPy has some <strong>extra data types</strong>, and refers to data types with <span class="highlight-term">one character</span>, like <code>i</code> for integers, <code>u</code> for unsigned integers, etc.</p>
+        <p>Below is a list of all data types in NumPy and the characters used to represent them:</p>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.2);">
+                <th style="text-align: left; padding: 8px; color: #00ff88;">Character</th>
+                <th style="text-align: left; padding: 8px; color: #00ff88;">Data Type</th>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>i</code></td><td style="padding: 6px;">Integer</td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>b</code></td><td style="padding: 6px;">Boolean</td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>u</code></td><td style="padding: 6px;">Unsigned Integer</td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>f</code></td><td style="padding: 6px;">Float</td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>c</code></td><td style="padding: 6px;">Complex Float</td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>m</code></td><td style="padding: 6px;">Timedelta</td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>M</code></td><td style="padding: 6px;">Datetime</td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>O</code></td><td style="padding: 6px;">Object</td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>S</code></td><td style="padding: 6px;">String</td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;"><code>U</code></td><td style="padding: 6px;">Unicode String</td></tr>
+            <tr><td style="padding: 6px;"><code>V</code></td><td style="padding: 6px;">Void (fixed memory chunk)</td></tr>
+        </table>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>🔍 Checking the Data Type of an Array</h2>
+        <p>The NumPy array object has a property called <span class="highlight-term">dtype</span> that returns the data type of the array.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 16: Check Integer Array Data Type</h3>
+        <p class="task-desc">Use the <code>.dtype</code> property to find the data type of an integer array.</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task16', this)">Show Answer</button>
+        
+        <div id="np-task16" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+arr = np.array([1, 2, 3, 4])
+
+print(arr.dtype)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out16', this)">Show Output</button>
+            <div id="out16" class="output-container">
+int32
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">arr.dtype</span> - The <code>.dtype</code> property reveals the <strong>internal data type</strong> of every element in the array. Here, <code>int32</code> means <strong>32-bit integer</strong> — NumPy automatically chose this based on the values.</li>
+                    <li><strong>💡 Why it matters:</strong> Knowing the data type helps you understand <strong>memory usage</strong> and <strong>precision</strong>. An <code>int32</code> uses 4 bytes per element, while <code>int64</code> uses 8 bytes — double the memory!</li>
+                    <li><strong>🤖 ML Insight:</strong> In deep learning, switching from <code>float64</code> to <code>float32</code> can <strong>cut memory usage in half</strong> and speed up GPU training — often with no loss in accuracy!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 17: Check String Array Data Type</h3>
+        <p class="task-desc">Check the data type of an array containing <strong>strings</strong>.</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task17', this)">Show Answer</button>
+        
+        <div id="np-task17" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+arr = np.array([<span class="string">'apple'</span>, <span class="string">'banana'</span>, <span class="string">'cherry'</span>])
+
+print(arr.dtype)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out17', this)">Show Output</button>
+            <div id="out17" class="output-container">
+&lt;U6
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">arr.dtype</span> returns <code>&lt;U6</code> — Let's decode this:
+                        <ul>
+                            <li><code>&lt;</code> = little-endian byte order (how memory is organized)</li>
+                            <li><code>U</code> = Unicode string (the <code>U</code> from the reference table!)</li>
+                            <li><code>6</code> = maximum length of 6 characters (the longest word is "cherry" = 6 letters)</li>
+                        </ul>
+                    </li>
+                    <li><strong>💡 Key Point:</strong> NumPy arrays are <strong>homogeneous</strong> — all elements MUST be the same type. If you mix integers and strings, NumPy will convert everything to strings!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>⚙️ Creating Arrays With a Defined Data Type</h2>
+        <p>You can use the <span class="highlight-term">dtype</span> argument in <code>np.array()</code> to <strong>force</strong> a specific data type for the array elements.</p>
+        <p><strong>💡 Size Control:</strong> For <code>i</code>, <code>u</code>, <code>f</code>, <code>S</code> and <code>U</code> you can also define the <strong>size in bytes</strong>!</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 18: Create a String Array from Integers</h3>
+        <p class="task-desc">Create an array of integers but force the data type to <strong>string</strong> using <code>dtype='S'</code>.</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task18', this)">Show Answer</button>
+        
+        <div id="np-task18" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+arr = np.array([1, 2, 3, 4], dtype=<span class="string">'S'</span>)
+
+print(arr)
+print(arr.dtype)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out18', this)">Show Output</button>
+            <div id="out18" class="output-container">
+[b'1' b'2' b'3' b'4']<br>
+|S1
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">dtype='S'</span> - Forces NumPy to store the integers as <strong>byte strings</strong>. The <code>b</code> prefix in the output (e.g., <code>b'1'</code>) indicates byte strings.</li>
+                    <li><span class="code-snippet">|S1</span> - The dtype means: <code>S</code> = string type, <code>1</code> = 1 byte per string (each number is a single character: "1", "2", etc.)</li>
+                    <li><strong>💡 Use Case:</strong> Forcing data types is useful when you need to <strong>save memory</strong> or when interfacing with systems that expect specific types (e.g., writing data to binary files).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 19: Create Array with Specific Integer Size</h3>
+        <p class="task-desc">Create an array with <strong>4-byte integers</strong> using <code>dtype='i4'</code>.</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task19', this)">Show Answer</button>
+        
+        <div id="np-task19" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+arr = np.array([1, 2, 3, 4], dtype=<span class="string">'i4'</span>)
+
+print(arr)
+print(arr.dtype)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out19', this)">Show Output</button>
+            <div id="out19" class="output-container">
+[1 2 3 4]<br>
+int32
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">dtype='i4'</span> - Specifies <strong>integer</strong> (<code>i</code>) with <strong>4 bytes</strong> (32 bits). You can also use:
+                        <ul>
+                            <li><code>'i1'</code> = 8-bit integer (-128 to 127)</li>
+                            <li><code>'i2'</code> = 16-bit integer (-32,768 to 32,767)</li>
+                            <li><code>'i4'</code> = 32-bit integer (~±2 billion)</li>
+                            <li><code>'i8'</code> = 64-bit integer (huge range!)</li>
+                        </ul>
+                    </li>
+                    <li><strong>🤖 ML Performance Tip:</strong> Choosing the <strong>smallest data type</strong> that fits your data dramatically reduces memory usage:
+                        <ul>
+                            <li>1 million <code>float64</code> values = <strong>8 MB</strong></li>
+                            <li>1 million <code>float32</code> values = <strong>4 MB</strong> (50% savings!)</li>
+                            <li>This matters when training models on <strong>millions of data points</strong>!</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>🧠 float32 vs float64 — Why It Matters in Deep Learning</h2>
+        <p>ML models are <strong>extremely sensitive to memory</strong>. Understanding the difference between <code>float32</code> and <code>float64</code> is one of the most practical things you'll learn!</p>
+        
+        <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.2);">
+                <th style="text-align: left; padding: 8px; color: #00ff88;">Feature</th>
+                <th style="text-align: left; padding: 8px; color: #00ff88;">float32</th>
+                <th style="text-align: left; padding: 8px; color: #00ff88;">float64</th>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                <td style="padding: 6px;">Bytes per value</td>
+                <td style="padding: 6px;"><strong>4 bytes</strong></td>
+                <td style="padding: 6px;">8 bytes</td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                <td style="padding: 6px;">Decimal precision</td>
+                <td style="padding: 6px;">~7 digits</td>
+                <td style="padding: 6px;">~15 digits</td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                <td style="padding: 6px;">Memory (1M values)</td>
+                <td style="padding: 6px;"><strong style="color: #00ff88;">4 MB</strong></td>
+                <td style="padding: 6px;">8 MB</td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                <td style="padding: 6px;">GPU Training Speed</td>
+                <td style="padding: 6px;"><strong style="color: #00ff88;">⚡ 2-3x faster</strong></td>
+                <td style="padding: 6px;">Slower</td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                <td style="padding: 6px;">Used by TensorFlow/PyTorch</td>
+                <td style="padding: 6px;"><strong style="color: #00ff88;">✅ Default</strong></td>
+                <td style="padding: 6px;">❌ Rarely used</td>
+            </tr>
+            <tr>
+                <td style="padding: 6px;">Used by NumPy/Pandas</td>
+                <td style="padding: 6px;">Optional</td>
+                <td style="padding: 6px;"><strong>✅ Default</strong></td>
+            </tr>
+        </table>
+
+        <p style="margin-top: 15px;"><strong>🔑 The Key Insight:</strong> <code>float64</code> gives you <strong>15 digits of precision</strong>, but in Deep Learning, you rarely need more than <strong>7 digits</strong>. Neural networks learn through small, iterative weight updates — the extra precision of float64 is <strong>wasted</strong>, and it costs you:</p>
+        <ul>
+            <li><strong>2× more memory</strong> — fewer samples fit in GPU VRAM</li>
+            <li><strong>2-3× slower training</strong> — GPUs are optimized for 32-bit operations</li>
+            <li><strong>No accuracy benefit</strong> — studies show float32 achieves the same model accuracy as float64 in almost all cases</li>
+        </ul>
+
+        <p style="margin-top: 15px;"><strong>💡 Pro Tip — Converting dtype:</strong></p>
+        <div class="code-container" style="border-radius: 8px; margin: 0.5rem 0; padding: 1rem;">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+<span class="comment"># NumPy defaults to float64</span>
+data = np.array([1.5, 2.7, 3.9])
+print(data.dtype)  <span class="comment"># float64</span>
+
+<span class="comment"># Convert to float32 for ML — 50% memory savings!</span>
+data_ml = data.astype(np.float32)
+print(data_ml.dtype)  <span class="comment"># float32</span></code>
+        </div>
+
+        <p style="margin-top: 10px;"><strong>That's why every ML framework</strong> (TensorFlow, PyTorch, Keras) uses <code>float32</code> as their <strong>default</strong>. When you load data into a model, always convert: <code>arr.astype(np.float32)</code> 🚀</p>
+    </div>
+
+    <h2 class="module-title">Module 7: Joining Arrays</h2>
+
+    <div class="storybook-intro">
+        <h2>🔗 Joining NumPy Arrays</h2>
+        <p><span class="highlight-term">Joining</span> means putting the contents of two or more arrays into a <strong>single array</strong>.</p>
+        <p>In SQL we join tables based on a key, whereas in NumPy we join arrays by <strong>axes</strong>.</p>
+        <p>We pass a sequence of arrays to the <code>concatenate()</code> function, along with the axis. If axis is not explicitly passed, it defaults to <strong>0</strong>.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 20: Join Two 1-D Arrays</h3>
+        <p class="task-desc">Use <code>np.concatenate()</code> to join two 1-D arrays into one.</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task20', this)">Show Answer</button>
+        
+        <div id="np-task20" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+arr1 = np.array([1, 2, 3])
+
+arr2 = np.array([4, 5, 6])
+
+arr = np.concatenate((arr1, arr2))
+
+print(arr)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out20', this)">Show Output</button>
+            <div id="out20" class="output-container">
+[1 2 3 4 5 6]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">np.concatenate((arr1, arr2))</span> - Joins <code>arr1</code> and <code>arr2</code> end-to-end into a <strong>single array</strong>. Note the <strong>double parentheses</strong> — the arrays are passed as a <em>tuple</em> <code>(arr1, arr2)</code>.</li>
+                    <li><strong>💡 Default axis = 0:</strong> Since no axis is specified, concatenation happens along axis 0 (the first axis). For 1-D arrays, this simply appends one after the other.</li>
+                    <li><strong>🤖 ML Use:</strong> Concatenation is used to <strong>combine datasets</strong> — e.g., merging training data from multiple sources, or combining feature arrays from different preprocessing pipelines!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 21: Join Two 2-D Arrays Along Columns (axis=1)</h3>
+        <p class="task-desc">Join two 2-D arrays <strong>side by side</strong> (along columns) using <code>axis=1</code>.</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task21', this)">Show Answer</button>
+        
+        <div id="np-task21" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+arr1 = np.array([[1, 2], [3, 4]])
+
+arr2 = np.array([[5, 6], [7, 8]])
+
+arr = np.concatenate((arr1, arr2), axis=1)
+
+print(arr)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out21', this)">Show Output</button>
+            <div id="out21" class="output-container">
+[[1 2 5 6]<br>
+ [3 4 7 8]]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">axis=1</span> - Joins along the <strong>columns</strong> (side by side). Each row gets the columns from both arrays appended.
+                        <ul>
+                            <li><code>axis=0</code> → join along <strong>rows</strong> (stack vertically, more rows)</li>
+                            <li><code>axis=1</code> → join along <strong>columns</strong> (stack horizontally, more columns)</li>
+                        </ul>
+                    </li>
+                    <li><strong>🤖 ML Use:</strong> This is how you <strong>combine features</strong>! If you have demographic data (2 columns) and purchase data (2 columns), you concatenate along axis=1 to create one feature matrix with 4 columns.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>📚 Joining Arrays Using Stack Functions</h2>
+        <p><span class="highlight-term">Stacking</span> is similar to concatenation, but it joins arrays along a <strong>new axis</strong>.</p>
+        <p>Think of it like this: <code>concatenate</code> = merge into existing dimensions, <code>stack</code> = create a new dimension!</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 22: Stack Along a New Axis</h3>
+        <p class="task-desc">Use <code>np.stack()</code> to stack two 1-D arrays along <code>axis=1</code>, creating pairs.</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task22', this)">Show Answer</button>
+        
+        <div id="np-task22" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+arr1 = np.array([1, 2, 3])
+
+arr2 = np.array([4, 5, 6])
+
+arr = np.stack((arr1, arr2), axis=1)
+
+print(arr)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out22', this)">Show Output</button>
+            <div id="out22" class="output-container">
+[[1 4]<br>
+ [2 5]<br>
+ [3 6]]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">np.stack((arr1, arr2), axis=1)</span> - Creates a <strong>new 2-D array</strong> where corresponding elements are <strong>paired together</strong>: [1,4], [2,5], [3,6]. Think of it as "zipping" the arrays!</li>
+                    <li><strong>🔍 Stack vs Concatenate:</strong> <code>concatenate</code> keeps the same number of dimensions. <code>stack</code> <strong>adds a new dimension</strong> — two 1-D arrays become one 2-D array!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 23: Horizontal Stack (hstack)</h3>
+        <p class="task-desc">Use the helper function <code>np.hstack()</code> to stack arrays horizontally (along rows).</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task23', this)">Show Answer</button>
+        
+        <div id="np-task23" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+arr1 = np.array([1, 2, 3])
+
+arr2 = np.array([4, 5, 6])
+
+arr = np.hstack((arr1, arr2))
+
+print(arr)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out23', this)">Show Output</button>
+            <div id="out23" class="output-container">
+[1 2 3 4 5 6]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">np.hstack((arr1, arr2))</span> - <strong>Horizontal stack</strong> — places arrays <strong>side by side</strong>. For 1-D arrays, this works exactly like <code>concatenate</code>!</li>
+                    <li><strong>💡 "h" = horizontal</strong> — think of it as gluing arrays left-to-right →</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 24: Vertical Stack (vstack)</h3>
+        <p class="task-desc">Use <code>np.vstack()</code> to stack arrays vertically (along columns — one on top of the other).</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task24', this)">Show Answer</button>
+        
+        <div id="np-task24" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+arr1 = np.array([1, 2, 3])
+
+arr2 = np.array([4, 5, 6])
+
+arr = np.vstack((arr1, arr2))
+
+print(arr)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out24', this)">Show Output</button>
+            <div id="out24" class="output-container">
+[[1 2 3]<br>
+ [4 5 6]]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">np.vstack((arr1, arr2))</span> - <strong>Vertical stack</strong> — places arrays <strong>on top of each other</strong>, creating a 2-D array. <code>arr1</code> becomes the first row, <code>arr2</code> becomes the second row.</li>
+                    <li><strong>💡 "v" = vertical</strong> — think of it as stacking arrays top-to-bottom ↓</li>
+                    <li><strong>🤖 ML Use:</strong> <code>vstack</code> is commonly used to <strong>add new data samples</strong> to a dataset. Each row = one sample, so stacking vertically = more training data!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 25: Depth Stack (dstack)</h3>
+        <p class="task-desc">Use <code>np.dstack()</code> to stack arrays along the <strong>third axis</strong> (depth/height).</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task25', this)">Show Answer</button>
+        
+        <div id="np-task25" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+arr1 = np.array([1, 2, 3])
+
+arr2 = np.array([4, 5, 6])
+
+arr = np.dstack((arr1, arr2))
+
+print(arr)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out25', this)">Show Output</button>
+            <div id="out25" class="output-container">
+[[[1 4]<br>
+  [2 5]<br>
+  [3 6]]]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">np.dstack((arr1, arr2))</span> - <strong>Depth stack</strong> — stacks along the <strong>third axis</strong> (axis=2), creating a 3-D array. Corresponding elements are paired into depth pairs.</li>
+                    <li><strong>🎯 Quick Reference — Stack Family:</strong>
+                        <ul>
+                            <li><code>hstack</code> → Horizontal (side by side) → like <code>concatenate(axis=1)</code></li>
+                            <li><code>vstack</code> → Vertical (top to bottom) → like <code>concatenate(axis=0)</code></li>
+                            <li><code>dstack</code> → Depth (front to back) → stacks along axis=2</li>
+                        </ul>
+                    </li>
+                    <li><strong>🤖 ML Connection:</strong> <code>dstack</code> is used in image processing to combine <strong>color channels</strong> — stack a red, green, and blue 2-D array to create one 3-D RGB image!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">Module 8: Splitting Arrays</h2>
+
+    <div class="storybook-intro">
+        <h2>✂️ Splitting NumPy Arrays</h2>
+        <p><span class="highlight-term">Splitting</span> is the <strong>reverse operation of Joining</strong>.</p>
+        <p>Joining merges multiple arrays into one → Splitting breaks <strong>one array into multiple</strong>.</p>
+        <p>We use <code>array_split()</code> for splitting arrays — pass it the array and the <strong>number of splits</strong> you want.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 26: Split Array into 3 Equal Parts</h3>
+        <p class="task-desc">Use <code>np.array_split()</code> to split a 6-element array into <strong>3 equal parts</strong>.</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task26', this)">Show Answer</button>
+        
+        <div id="np-task26" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+arr = np.array([1, 2, 3, 4, 5, 6])
+
+newarr = np.array_split(arr, 3)
+
+print(newarr)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out26', this)">Show Output</button>
+            <div id="out26" class="output-container">
+[array([1, 2]), array([3, 4]), array([5, 6])]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">np.array_split(arr, 3)</span> - Splits the array into <strong>3 parts</strong>. Since 6 ÷ 3 = 2, each part gets exactly <strong>2 elements</strong>.</li>
+                    <li><strong>💡 Return Value:</strong> The result is a <strong>Python list</strong> containing 3 NumPy arrays — NOT a single array! You can access each part with indexing: <code>newarr[0]</code>, <code>newarr[1]</code>, <code>newarr[2]</code>.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 27: Split into Unequal Parts</h3>
+        <p class="task-desc">What if the array <strong>can't be divided equally</strong>? Split 6 elements into 4 parts.</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task27', this)">Show Answer</button>
+        
+        <div id="np-task27" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+arr = np.array([1, 2, 3, 4, 5, 6])
+
+newarr = np.array_split(arr, 4)
+
+print(newarr)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out27', this)">Show Output</button>
+            <div id="out27" class="output-container">
+[array([1, 2]), array([3, 4]), array([5]), array([6])]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">np.array_split(arr, 4)</span> - 6 elements ÷ 4 parts doesn't divide evenly! <code>array_split()</code> handles this gracefully — the first 2 parts get 2 elements each, and the last 2 parts get 1 element each.</li>
+                    <li><strong>⚠️ array_split vs split:</strong> NumPy also has <code>np.split()</code>, but it will <strong>raise an error</strong> if the split isn't perfectly even. <code>array_split()</code> is the <strong>safer choice</strong> — it adjusts automatically!</li>
+                    <li><strong>🤖 ML Use:</strong> Unequal splitting is common when creating <strong>cross-validation folds</strong>. If you have 100 samples and 3 folds, you'll get splits of 34, 33, 33!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 28: Access Individual Split Arrays</h3>
+        <p class="task-desc">Since <code>array_split()</code> returns a <strong>list</strong>, access each split individually by index.</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task28', this)">Show Answer</button>
+        
+        <div id="np-task28" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+arr = np.array([1, 2, 3, 4, 5, 6])
+
+newarr = np.array_split(arr, 3)
+
+print(newarr[0])
+print(newarr[1])
+print(newarr[2])</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out28', this)">Show Output</button>
+            <div id="out28" class="output-container">
+[1 2]<br>
+[3 4]<br>
+[5 6]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">newarr[0]</span> - Access the <strong>first</strong> split → <code>[1, 2]</code></li>
+                    <li><span class="code-snippet">newarr[1]</span> - Access the <strong>second</strong> split → <code>[3, 4]</code></li>
+                    <li><span class="code-snippet">newarr[2]</span> - Access the <strong>third</strong> split → <code>[5, 6]</code></li>
+                    <li><strong>💡 Tip:</strong> Each element in the result list is a full <strong>NumPy array</strong> — so you can perform all normal NumPy operations on each split!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>📐 Splitting 2-D Arrays</h2>
+        <p>The same syntax works for <strong>2-D arrays</strong>! Pass the array and the number of splits. You can also specify which <strong>axis</strong> to split along.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 29: Split a 2-D Array into 3 Parts</h3>
+        <p class="task-desc">Split a 6-row 2-D array into <strong>3 smaller 2-D arrays</strong> (2 rows each).</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task29', this)">Show Answer</button>
+        
+        <div id="np-task29" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+arr = np.array([[1, 2], [3, 4], [5, 6], [7, 8], [9, 10], [11, 12]])
+
+newarr = np.array_split(arr, 3)
+
+print(newarr)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out29', this)">Show Output</button>
+            <div id="out29" class="output-container">
+[array([[1, 2],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3, 4]]),<br>
+ array([[5, 6],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [7, 8]]),<br>
+ array([[ 9, 10],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [11, 12]])]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">np.array_split(arr, 3)</span> - Splits the 6-row array into <strong>3 parts of 2 rows each</strong>. The default axis=0 splits along rows.</li>
+                    <li><strong>🔍 Notice:</strong> Each split is still a <strong>2-D array</strong> — the shape is preserved, only the number of rows changes!</li>
+                    <li><strong>🤖 ML Use:</strong> This is exactly how you create <strong>mini-batches</strong> for training — split your dataset into smaller chunks and feed them one batch at a time to the model!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 30: Split 2-D Along Columns (axis=1)</h3>
+        <p class="task-desc">Split a 2-D array along <strong>columns</strong> using <code>axis=1</code>.</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task30', this)">Show Answer</button>
+        
+        <div id="np-task30" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+arr = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9],
+                [10, 11, 12], [13, 14, 15], [16, 17, 18]])
+
+newarr = np.array_split(arr, 3, axis=1)
+
+print(newarr)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out30', this)">Show Output</button>
+            <div id="out30" class="output-container">
+[array([[ 1],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ 4],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ 7],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [10],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [13],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [16]]),<br>
+ array([[ 2],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ 5],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ 8],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [11],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [14],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [17]]),<br>
+ array([[ 3],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ 6],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ 9],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [12],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [15],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [18]])]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">axis=1</span> - Instead of splitting along rows (default), we split along <strong>columns</strong>. The 3-column array is split into 3 arrays of <strong>1 column each</strong>.
+                        <ul>
+                            <li><code>axis=0</code> → split <strong>rows</strong> (horizontal cuts)</li>
+                            <li><code>axis=1</code> → split <strong>columns</strong> (vertical cuts)</li>
+                        </ul>
+                    </li>
+                    <li><strong>🤖 ML Use:</strong> Column splitting is useful for <strong>separating features from labels</strong> — e.g., splitting the last column (target variable) from the feature columns!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 31: Using hsplit() — Opposite of hstack()</h3>
+        <p class="task-desc">Use <code>np.hsplit()</code> as a shortcut to split along columns — the opposite of <code>hstack()</code>!</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task31', this)">Show Answer</button>
+        
+        <div id="np-task31" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+arr = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9],
+                [10, 11, 12], [13, 14, 15], [16, 17, 18]])
+
+newarr = np.hsplit(arr, 3)
+
+print(newarr)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out31', this)">Show Output</button>
+            <div id="out31" class="output-container">
+[array([[ 1],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ 4],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ 7],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [10],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [13],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [16]]),<br>
+ array([[ 2],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ 5],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ 8],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [11],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [14],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [17]]),<br>
+ array([[ 3],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ 6],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ 9],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [12],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [15],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [18]])]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">np.hsplit(arr, 3)</span> - <strong>Horizontal split</strong> — same result as <code>array_split(arr, 3, axis=1)</code>, but shorter to write!</li>
+                    <li><strong>🎯 Join ↔ Split Pairs:</strong>
+                        <ul>
+                            <li><code>hstack</code> ↔ <code>hsplit</code> (horizontal)</li>
+                            <li><code>vstack</code> ↔ <code>vsplit</code> (vertical)</li>
+                            <li><code>dstack</code> ↔ <code>dsplit</code> (depth)</li>
+                        </ul>
+                    </li>
+                    <li><strong>🤖 ML Connection:</strong> Splitting is the foundation of <strong>train/test splits</strong>! In scikit-learn, <code>train_test_split()</code> internally does exactly this — splits your data into training and testing portions.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
     </div><!-- .container -->
 
     <script src="script.js?v=2"></script>
