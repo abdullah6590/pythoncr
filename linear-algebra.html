@@ -939,18 +939,488 @@ U (Upper):<br>
         <p>Dimension is simply the number of basis vectors. ℝ² = dimension 2. If your dataset has 100 features, its dimension is 100. If PCA knocks it down to 10 features, the dimension is reduced to 10, drastically lowering noise and compute time.</p>
     </div>
 
+
+
+    <h2 class="module-title">Module 8: Eigenvalues & Vectors (Heart of ML)</h2>
+
     <div class="storybook-intro">
-        <h2>🎯 Why This Matters for You </h2>
-        <p>Since you are diving deep into advanced fields like <strong>AI price forecasting</strong>, <strong>Model Predictive Control (MPC) optimization</strong>, and <strong>Neural Models</strong>, vector spaces explain the hidden mechanisms inside every framework.</p>
+        <h2>📌 1. What is an Eigenvector?</h2>
         
+        <p>Matrix multiplication normally changes the direction of a vector. But an <strong>eigenvector</strong> is special:</p>
         <ul>
-            <li>✔ <strong>Why PCA works:</strong> Projecting into a cleaner basis subspace.</li>
-            <li>✔ <strong>Why SVD works:</strong> Decomposing complex vector spaces into orthogonal ones.</li>
-            <li>✔ <strong>Why multicollinearity breaks regression:</strong> Because linear dependence collapses the span.</li>
-            <li>✔ <strong>Why feature engineering matters:</strong> Because you are designing the coordinate space your neural network traverses!</li>
+            <li>👉 It keeps the <strong>same direction</strong></li>
+            <li>👉 It only gets <strong>scaled</strong> (stretched or shrunk)</li>
         </ul>
-        <p style="margin-top: 1rem;"><em>Neural networks internally change the basis matrix at every single layer! You are now speaking the absolute underlying language of AI.</em></p>
+
+        <h3 style="margin-top: 1rem;">Mathematical Definition</h3>
+        <p>For a square matrix `A`, if there exists a vector `v ≠ 0` such that:</p>
+        <pre style="background: rgba(0,0,0,0.5); padding: 10px; border-radius: 5px; color:#38bdf8;">A v = λ v</pre>
+        <p>Then <strong><code>v</code> is the eigenvector</strong>, and <strong><code>λ</code> is the eigenvalue</strong>.</p>
+        
+        <h3 style="margin-top: 1rem;">🤖 ML Intuition</h3>
+        <p>Imagine your data is a cloud of points stretched in some direction. <strong>Eigenvectors show the main directions of the data spread</strong>. They highlight the most important patterns mathematically! This is exactly what Principal Component Analysis (PCA) finds.</p>
     </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Topic 19: Finding Eigenvalues & Eigenvectors</h3>
+        <p class="task-desc">Solving <code>det(A - λI) = 0</code> manually gives the Characteristic Equation. In Python, NumPy does it instantly.</p>
+        <button class="btn-toggle" onclick="toggleCode('la-task19', this)">Show Answer</button>
+        
+        <div id="la-task19" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+A = np.array([[2, 1],
+              [1, 2]])
+
+<span class="comment"># Calculate eigenvalues and eigenvectors</span>
+eigenvalues, eigenvectors = np.linalg.eig(A)
+
+print("Eigenvalues:", eigenvalues)
+print("Eigenvectors:
+", eigenvectors)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out19', this)">Show Output</button>
+            <div id="out19" class="output-container">
+Eigenvalues: [3. 1.]<br>
+Eigenvectors:<br>
+ [[ 0.70710678 -0.70710678]<br>
+  [ 0.70710678  0.70710678]]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">np.linalg.eig(A)</span> - The NumPy function that returns a tuple of (eigenvalues, eigenvectors).</li>
+                    <li><strong>Geometric Meaning:</strong> By taking the vectors, the eigenvalue `3.` tells us there is strong stretching in that specific direction. The corresponding eigenvector `[0.707, 0.707]` indicates a 45-degree diagonal. The `1.` eigenvalue implies no stretching, just preserving length in the orthogonal direction `[-0.707, 0.707]`.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="storybook-intro">
+        <h2>🛠️ Advanced Matrix Properties</h2>
+
+        <h3 style="margin-top: 1rem;">1. Diagonalization (`A = PDP⁻¹`)</h3>
+        <p>If a matrix has enough independent eigenvectors, it can be decomposed into <code>P</code> (matrix of eigenvectors) and <code>D</code> (diagonal matrix of eigenvalues). This massively simplifies computing matrix powers and studying system stability (Crucial for <strong>Markov models</strong> and <strong>Control systems / MPC</strong>).</p>
+
+        <h3 style="margin-top: 1rem;">2. The Spectral Theorem</h3>
+        <p>If a matrix is <strong>Symmetric</strong>, all its eigenvalues are real numbers, and its eigenvectors are perfectly orthogonal (perpendicular). Covariance matrices are always symmetric, which is why PCA works so nicely and cleanly.</p>
+        
+        <h3 style="margin-top: 1rem;">3. Positive Definite Matrices</h3>
+        <p>If all eigenvalues are <code>> 0</code>, the matrix is <em>Positive Definite</em>. In optimization (like computing the Hessian matrix for Neural Networks), this guarantees you have found a global convex minimum! In linear regression `(XᵀX)`, positive eigenvalues guarantee a stable, unique model with no multicollinearity!</p>
+    </div>
+
+
+    <div class="task-card">
+        <h3 class="task-title">Topic 20: PCA From Scratch (Deep Learning Connection)</h3>
+        <p class="task-desc">Principal Component Analysis is nothing more than taking the Eigen Decomposition of a Covariance Matrix.</p>
+        <button class="btn-toggle" onclick="toggleCode('la-task20', this)">Show Answer</button>
+        
+        <div id="la-task20" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+<span class="comment"># Sample student data: [Height, Weight]</span>
+X = np.array([[170, 65],
+              [180, 75],
+              [175, 70]])
+
+<span class="comment"># Step 1: Center data by subtracting the mean</span>
+X_mean = X - np.mean(X, axis=0)
+
+<span class="comment"># Step 2: Compute Covariance matrix (Features are rows, so we transpose)</span>
+C = np.cov(X_mean.T)
+
+<span class="comment"># Step 3: Eigen decomposition!</span>
+eigenvalues, eigenvectors = np.linalg.eig(C)
+
+print("Eigenvalues:", eigenvalues)
+print("Eigenvectors:
+", eigenvectors)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out20', this)">Show Output</button>
+            <div id="out20" class="output-container">
+Eigenvalues: [50.  0.]<br>
+Eigenvectors:<br>
+ [[ 0.70710678 -0.70710678]<br>
+  [ 0.70710678  0.70710678]]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">X_mean = X - np.mean(...)</span> - We must center data at coordinate (0,0) before analyzing variance.</li>
+                    <li><span class="code-snippet">C = np.cov(X_mean.T)</span> - The Covariance matrix measures how Height and Weight change together. It is symmetric!</li>
+                    <li><span class="code-snippet">np.linalg.eig(C)</span> - We find the eigenvectors. The largest eigenvalue is `50.`! Therefore, the corresponding eigenvector `[0.707, 0.707]` IS the **First Principal Component**. </li>
+                    <li><strong>🤖 Neural Networks Connection:</strong> In deep learning, the eigenvalues of the weight matrices dictate gradient explosion (eigenvalues > 1) and gradient vanishing (eigenvalues < 1), dictating the entire training stability!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <h2 class="module-title">Module 9: Orthogonality & Gram–Schmidt</h2>
+
+    <div class="storybook-intro">
+        <h2>📌 1. Orthogonal Vectors</h2>
+        
+        <p>Two vectors are strictly <strong>orthogonal</strong> if their dot product equals exactly zero: <code>v₁ · v₂ = 0</code>. Geometrically, this means they are perfectly perpendicular (at a 90-degree angle).</p>
+        
+        <h3 style="margin-top: 1rem;">🧠 Geometric Meaning</h3>
+        <p>Orthogonal vectors carry completely independent information. They do not overlap in direction at all.</p>
+        
+        <h3 style="margin-top: 1rem;">🤖 ML Connection: PCA & Regression</h3>
+        <p>In PCA, principal components are calculated to be entirely orthogonal. Why? Because we want each new component to capture uniquely new mathematical information without redundancy. If your features are orthogonal, you have <strong>zero multicollinearity</strong> and perfectly stable regression.</p>
+    </div>
+
+    <div class="storybook-intro">
+        <h2>📌 2. Orthonormal Vectors</h2>
+        <p>Vectors that are Orthogonal <strong>AND</strong> have a length (magnitude) perfectly equal to 1. <code>||v|| = 1</code>.</p>
+        
+        <h3 style="margin-top: 1rem;">🤖 ML Connection: Neural Networks</h3>
+        <p>In deep neural networks, weight matrix initialization sometimes algorithmically forces matrices to be orthonormal. This elegantly prevents <strong>gradient explosion</strong> and maintains perfect variance stability across 100+ deep layers.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Topic 21: Orthogonal Projections</h3>
+        <p class="task-desc">Projection gives the "shadow" of one vector onto another. This mathematically minimizes the perpendicular error distance.</p>
+        <button class="btn-toggle" onclick="toggleCode('la-task21', this)">Show Answer</button>
+        
+        <div id="la-task21" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+x = np.array([1, 2])
+y = np.array([3, 4])
+
+<span class="comment"># Projection of y onto x</span>
+<span class="comment"># Formula: proj_x(y) = ((y · x) / (x · x)) * x</span>
+proj = (np.dot(y, x) / np.dot(x, x)) * x
+
+print("Projection:", proj)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out21', this)">Show Output</button>
+            <div id="out21" class="output-container">
+Projection: [2.2 4.4]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">(np.dot(y, x) / np.dot(x, x)) * x</span> - First computes the scalar mapping ratio (dot product), divides by the length of `x` squared, and then multiplies that scalar back against vector `x`.</li>
+                    <li><strong>🤖 ML Connection:</strong> Linear regression finds the mathematical projection of the Target vector <code>y</code> directly onto the Column space of <code>X</code>. Because projection perfectly minimizes distance, it minimizes error. That is why Least Squares Regression works conceptually!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="task-card">
+        <h3 class="task-title">Topic 22: The Gram–Schmidt Process</h3>
+        <p class="task-desc">This process algorithmically converts a set of standard dependent/independent vectors into a perfectly orthogonal set.</p>
+        <button class="btn-toggle" onclick="toggleCode('la-task22', this)">Show Answer</button>
+        
+        <div id="la-task22" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+v1 = np.array([1, 1])
+v2 = np.array([1, 0])
+
+<span class="comment"># Step 1: Base vector</span>
+u1 = v1
+
+<span class="comment"># Step 2: Remove the projection of v2 onto u1 from v2!</span>
+proj = (np.dot(v2, u1) / np.dot(u1, u1)) * u1
+u2 = v2 - proj
+
+print("Original:
+v1:
+", v1, "
+v2:
+", v2)
+print("
+Orthogonal vectors:")
+print("u1:
+", u1)
+print("u2:
+", u2)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out22', this)">Show Output</button>
+            <div id="out22" class="output-container">
+Original:<br>
+v1:<br>
+ [1 1]<br>
+v2:<br>
+ [1 0]<br>
+<br>
+Orthogonal vectors:<br>
+u1:<br>
+ [1 1]<br>
+u2:<br>
+ [ 0.5 -0.5]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">u2 = v2 - proj</span> - The core magic. We take `v2` and cleanly subtract the "shadow" it casts onto `u1`. The remaining vector `u2` is mathematically guaranteed to be orthogonal to `u1`! (Notice the dot product of `[1, 1]` and `[0.5, -0.5]` is zero).</li>
+                    <li><strong>🧠 Why Important?</strong> Gram-Schmidt is historically foundational to creating QR Decomposition algorithms!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="task-card">
+        <h3 class="task-title">Topic 23: QR Decomposition</h3>
+        <p class="task-desc">Factorizes any matrix <code>A</code> into <code>A = QR</code>, where Q is orthogonal/orthonormal and R is an upper triangular matrix.</p>
+        <button class="btn-toggle" onclick="toggleCode('la-task23', this)">Show Answer</button>
+        
+        <div id="la-task23" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+A = np.array([[1, 1],
+              [1, 0]])
+
+<span class="comment"># Decompose into Q (orthonormal) and R (upper triangular)</span>
+Q, R = np.linalg.qr(A)
+
+print("Q:
+", Q)
+print("
+R:
+", R)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out23', this)">Show Output</button>
+            <div id="out23" class="output-container">
+Q:<br>
+ [[-0.70710678 -0.70710678]<br>
+  [-0.70710678  0.70710678]]<br>
+<br>
+R:<br>
+ [[-1.41421356 -0.70710678]<br>
+  [ 0.         -0.70710678]]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">np.linalg.qr(A)</span> - High-performance algorithm computing the decomposition.</li>
+                    <li><strong>🤖 ML Connection:</strong> When solving big Machine Learning Least Squares problems `Xw = y`, directly computing `(XᵀX)⁻¹` leads to severe mathematical instability with large floating-point datasets. Advanced solvers heavily utilize QR Decomposition instead because matrix <code>Q</code> has a perfect condition number (stability) of 1!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="storybook-intro">
+        <h2>🔥 Why Orthogonality is Critical in Deep Learning</h2>
+        
+        <p>In massive deep networks spanning billions of parameters, if weight matrices are perfectly <strong>well-conditioned</strong>:</p>
+        <ul>
+            <li>✔ Prevents Multicollinearity internally.</li>
+            <li>✔ Improves numerical stability in 64-bit and 32-bit floats.</li>
+            <li>✔ Massively stabilizes Optimization / gradient descent search curves.</li>
+        </ul>
+        <p>If they are NOT well-conditioned, the eigenvalues explode or vanish causing <strong>Gradients to Explode violently</strong>. Modern <strong>Orthogonal Initialization</strong> ensures the training state remains pristine and stable.</p>
+    </div>
+
+    <h2 class="module-title">Module 10: Singular Value Decomposition (SVD)</h2>
+
+    <div class="storybook-intro">
+        <h2>📌 1. What is SVD? (The Backbone of Data Science)</h2>
+        
+        <p>SVD is the mathematical backbone of PCA, Recommender Systems (like Netflix), Image Compression, and NLP embeddings. For <strong>any matrix A</strong> (even non-square or rank-deficient), SVD decomposes it into three matrices:</p>
+        <pre style="background: rgba(0,0,0,0.5); padding: 10px; border-radius: 5px; color:#38bdf8;">A = U Σ Vᵀ</pre>
+        <ul>
+            <li><strong>U</strong> → Left singular vectors (Rotation)</li>
+            <li><strong>Σ (Sigma)</strong> → Diagonal matrix of singular values (Scaling/Stretching)</li>
+            <li><strong>Vᵀ</strong> → Right singular vectors (Rotation)</li>
+        </ul>
+        
+        <h3 style="margin-top: 1rem;">🔥 Why is it so powerful in ML?</h3>
+        <p>Unlike Eigen Decomposition (which only works properly for square, invertible matrices), <strong>SVD works for literally everything</strong>: rectangular matrices, non-invertible matrices, and rank-deficient matrices. It breaks down ANY linear transformation perfectly.</p>
+    </div>
+
+    <div class="storybook-intro">
+        <h2>📌 2. What are Singular Values?</h2>
+        
+        <p>Singular values are mathematically the square roots of the eigenvalues of <code>AᵀA</code>. They measure <strong>how much stretching happens</strong> along certain mathematical directions in your dataset.</p>
+        
+        <h3 style="margin-top: 1rem;">🤖 ML Example: Dataset Matrix</h3>
+        <p>Suppose you have a dataset with 3 samples and 2 features:</p>
+        <pre style="background: rgba(0,0,0,0.5); padding: 5px; border-radius: 5px; color:#38bdf8;">
+[ 1  2 ]
+[ 3  4 ]
+[ 5  6 ]</pre>
+        <p>Running SVD on this exact feature matrix finds the absolute most important feature variance directions without even computing a covariance matrix. Truncating the smallest singular values gives you perfect Low-Rank Approximations (the math behind Image Compression and basic NLP Topic Modeling).</p>
+    </div>
+
+
+    <h2 class="module-title">Module 11: Optimization & ML Connection</h2>
+
+    <div class="storybook-intro">
+        <h2>Where Linear Algebra meets Machine Learning Training!</h2>
+        <p>This part explains how models fundamentally learn, why gradient descent works, why some problems are perfectly stable, and why some models violently diverge. Since you are working in optimization, MPC, and AI forecasting, this is incredibly critical.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Topic 24: Gradient & Gradient Descent</h3>
+        <p class="task-desc">The Gradient points in the <strong>direction of steepest increase</strong>. In ML, we move in the opposite direction (Gradient Descent) to minimize loss.</p>
+        <button class="btn-toggle" onclick="toggleCode('la-task24', this)">Show Answer</button>
+        
+        <div id="la-task24" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+<span class="comment"># Design Matrix (X) and Targets (y)</span>
+X = np.array([[1, 1],
+              [1, 2],
+              [1, 3]])
+y = np.array([2, 3, 4])
+
+<span class="comment"># Initial weights</span>
+w = np.array([0, 0])
+
+<span class="comment"># Linear Regression Loss Gradient: ∇J = Xᵀ(Xw - y)</span>
+gradient = X.T @ (X @ w - y)
+
+print("Loss Gradient Vector:", gradient)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out24', this)">Show Output</button>
+            <div id="out24" class="output-container">
+Loss Gradient Vector: [ -9 -20]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">X.T @ (X @ w - y)</span> - This mathematical vector perfectly tells the network exactly how to adjust the weights to reduce error.</li>
+                    <li><strong>🤖 Gradient Descent Rule:</strong> <code>w_new = w - η∇J</code> (where <code>η</code> is the learning rate). If the gradient is large, the update is fast. If small, learning slows down!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="storybook-intro">
+        <h2>📐 Hessian Matrix & Quadratic Forms</h2>
+        
+        <h3 style="margin-top: 1rem;">1. The Hessian Matrix</h3>
+        <p>The Hessian is the matrix of <strong>second derivatives</strong>. While the gradient tells you the <em>slope</em>, the Hessian tells you the <strong>Curvature</strong> (whether you are in a bowl minimum, a peak maximum, or a saddle point).</p>
+        <p>For Linear Regression quadratic loss, the Hessian is perfectly defined as <code>H = XᵀX</code>! Matrix <code>XᵀX</code> controls the entire curvature of the training landscape.</p>
+
+        <h3 style="margin-top: 1rem;">2. Positive Definite Matrices & Convex Functions</h3>
+        <p>When is a function <strong>Convex</strong> (having a perfect, single global minimum)? When its Hessian is strictly <strong>Positive Definite</strong> (all eigenvalues > 0).</p>
+        
+        <h3 style="margin-top: 1rem;">🤖 ML Connection: Stability</h3>
+        <p>In Linear regression, if your features are perfectly independent, <code>XᵀX</code> has eigenvalues > 0. It is positive definite, and a unique solution exists perfectly! But if an eigenvalue = 0, you have multicollinearity! The Hessian is flattened in one direction, creating an infinitely long valley where gradient descent wanders aimlessly (unstable model).</p>
+    </div>
+
+    <div class="storybook-intro">
+        <h2>🔥 Eigenvalues & Advanced Optimization</h2>
+        
+        <h3 style="margin-top: 1rem;">Eigenvalues & Conditioning</h3>
+        <p>The eigenvalues of the Hessian literally determine the speed of convergence. If the largest eigenvalue is extremely big, the loss landscape is incredibly steep in one direction. If the smallest eigenvalue is small, it is perfectly flat in another.</p>
+        
+        <p>Condition number: <code>κ = λ_max / λ_min</code>.</p>
+        <p><strong>🤖 ML Connection:</strong> If <code>κ</code> is huge, the problem is severely ill-conditioned. Gradient descent struggles violently, causing the notorious exploding or vanishing gradients in Deep Learning!</p>
+
+        <h3 style="margin-top: 1rem;">Newton's Method (MPC / Control Systems)</h3>
+        <p>Standard Gradient Descent: <code>w = w - η∇J</code></p>
+        <p><strong>Newton's Method:</strong> <code>w = w - H⁻¹∇J</code></p>
+        <p>Instead of just blindly stepping down a slope, Newton's method uses the inverse Hessian to calculate the <em>exact curvature</em> and jump directly to the minimum. It is incredibly fast (few steps) but computationally insanely expensive to invert a giant Hessian. <strong>This is the core foundation used in massive advanced optimization solvers and Model Predictive Control (MPC)!</strong></p>
+    </div>
+
+    <h2 class="module-title" style="margin-top: 50px;">Conclusion: The Two Lenses of Linear Algebra</h2>
+    <p style="text-align: center; color: var(--text-muted); font-size: 1.1rem; max-width: 800px; margin: 0 auto 30px;">To truly master Linear Algebra for ML, you must see it from two distinct mathematical angles: The <strong>Numeric View</strong> and the <strong>Geometric View</strong>. When you possess both, Machine Learning intuitively clicks.</p>
+
+    <div class="storybook-intro" style="border-left: 5px solid #38bdf8;">
+        <h2>🔵 1. The Numeric Level (Computation View)</h2>
+        <p>This is the world of raw numbers, rigid formulas, matrix operations, Python code, and algorithms. In this level, everything is just blunt mechanical calculations.</p>
+        
+        <h3 style="margin-top: 1rem;">Example: Matrix Multiplication</h3>
+        <p>You have matrix <code>A</code> and matrix <code>B</code>. You painstakingly calculate the dot products of the rows and columns to find the answers: <code>[17, 39]</code>. It is just arithmetic.</p>
+        
+        <h3 style="margin-top: 1rem;">Example: Linear Regression Formula</h3>
+        <p><code>w = (XᵀX)⁻¹Xᵀy</code></p>
+        <p>You compute the inverse, multiply it out, and the computer spits out the answer. You are done.</p>
+
+        <h3 style="margin-top: 1rem;">📌 The Takeaway</h3>
+        <p>The Numeric Level is <strong>Exactly how a CPU/GPU sees Machine Learning.</strong> Training a neural net is simply: Multiply this matrix, add this bias, compute this floating-point gradient, update these numbers. Pure math.</p>
+    </div>
+
+    <div class="storybook-intro" style="border-left: 5px solid #f472b6;">
+        <h2>🟣 2. The Geometric Level (Shape & Space View)</h2>
+        <p>This is much deeper. Here, matrices are NOT grids of numbers. They are <strong>Transformers of Space</strong>. They dictate the stretching, rotation, projection, and compression of reality.</p>
+        
+        <h3 style="margin-top: 1rem;">Example: Matrix Multiplication</h3>
+        <p>A matrix is a physical transformation. A matrix like <code>[[2,0], [0,1]]</code> does not mean "multiply numbers." It physically means: <em>Stretch the entire dimensional coordinate system across the X-axis by x2, and leave the Y-axis alone.</em> Matrix multiplication is the sheer <strong>deformation of space</strong>.</p>
+        
+        <h3 style="margin-top: 1rem;">Example: Linear Regression</h3>
+        <p>Instead of number crunching <code>(XᵀX)⁻¹Xᵀy</code>, what are we actually doing? We are literally <strong>projecting the target vector `y` straight downwards onto the flat column-space constructed by `X`</strong>. That resulting geometric projection IS the absolute best mathematical approximation. Suddenly, regression makes perfect visual sense.</p>
+        
+        <h3 style="margin-top: 1rem;">Example: Neural Networks (SVD & Gradients)</h3>
+        <ul>
+            <li><strong>SVD:</strong> Tells us every single matrix is literally just a <code>Rotate → Stretch → Rotate</code>. So a neural network layer is simply deforming your data space so it's easier to slice!</li>
+            <li><strong>Gradient Descent:</strong> You aren't "updating numbers." You are physically walking downhill on a curved, high-dimensional valley surface. The Gradient is the steepest downhill arrow. The Hessian is the bowl's curvature.</li>
+        </ul>
+
+        <h3 style="margin-top: 1rem;">📌 The Takeaway</h3>
+        <p>The Geometric Level is <strong>Exactly how AI Researchers think.</strong> It focuses purely on structural and conceptual understanding.</p>
+    </div>
+
+
+    <div class="storybook-intro">
+        <h2>🔥 Why You Need Both Lenses</h2>
+        <div style="overflow-x: auto; margin-top: 1rem;">
+            <table class="data-table" style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr>
+                        <th style="padding: 10px; border-bottom: 2px solid rgba(255,255,255,0.2); text-align: left;">Numeric View (Computations)</th>
+                        <th style="padding: 10px; border-bottom: 2px solid rgba(255,255,255,0.2); text-align: left;">Geometric View (Shapes)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.1);">Crucial for Python implementation and coding</td>
+                        <td style="padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.1);">Crucial for pure human intuition</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.1);">Excellent for passing mathematics exams</td>
+                        <td style="padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.1);">Excellent for deep ML Research and Architecture</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px;">The language of the <strong>Computer</strong></td>
+                        <td style="padding: 10px;">The language of the <strong>Researcher</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 
     </div><!-- .container -->
 
