@@ -1488,6 +1488,308 @@ print(newarr)</code>
         </div>
     </div>
 
+    <h2 class="module-title">Module 9: Searching Arrays</h2>
+
+    <div class="storybook-intro">
+        <h2>🔍 Searching Arrays</h2>
+        <p>You can search an array for a certain value, and return the <strong>indexes</strong> that get a match.</p>
+        <p>To search an array, use the <span class="highlight-term">where()</span> method.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 32: Find All Occurrences of a Value</h3>
+        <p class="task-desc">Use <code>np.where()</code> to find <strong>all indexes</strong> where the value is <code>4</code>.</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task32', this)">Show Answer</button>
+        
+        <div id="np-task32" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+arr = np.array([1, 2, 3, 4, 5, 4, 4])
+
+x = np.where(arr == 4)
+
+print(x)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out32', this)">Show Output</button>
+            <div id="out32" class="output-container">
+(array([3, 5, 6]),)
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">np.where(arr == 4)</span> - Returns a <strong>tuple of arrays</strong>, one for each dimension. The array <code>[3, 5, 6]</code> tells us that the value 4 appears at indexes <strong>3, 5, and 6</strong>.</li>
+                    <li><strong>💡 How it works:</strong> <code>arr == 4</code> creates a boolean array <code>[F, F, F, T, F, T, T]</code>, and <code>where()</code> returns the positions where it's <code>True</code>!</li>
+                    <li><strong>🤖 ML Use:</strong> <code>np.where()</code> is essential for finding <strong>misclassified samples</strong> — e.g., <code>np.where(predictions != actual_labels)</code> instantly tells you which samples your model got wrong!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 33: Find Values with a Condition</h3>
+        <p class="task-desc">Use <code>np.where()</code> to find all indexes where values are <strong>even</strong>.</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task33', this)">Show Answer</button>
+        
+        <div id="np-task33" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+arr = np.array([1, 2, 3, 4, 5, 6, 7, 8])
+
+<span class="comment"># Find indexes where values are even</span>
+x = np.where(arr % 2 == 0)
+
+print(x)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out33', this)">Show Output</button>
+            <div id="out33" class="output-container">
+(array([1, 3, 5, 7]),)
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">arr % 2 == 0</span> - The modulo operator <code>%</code> gives the remainder after division. If remainder is 0, the number is <strong>even</strong>!</li>
+                    <li><strong>🔍 Result:</strong> Indexes [1, 3, 5, 7] correspond to values [2, 4, 6, 8] — all even numbers!</li>
+                    <li><strong>💡 You can use ANY condition:</strong> <code>arr > 5</code>, <code>arr != 0</code>, <code>arr < mean</code> — the possibilities are endless!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 34: Search Sorted — Find Insertion Point</h3>
+        <p class="task-desc">Use <code>np.searchsorted()</code> to find where a value <strong>should be inserted</strong> to keep the array sorted.</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task34', this)">Show Answer</button>
+        
+        <div id="np-task34" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+arr = np.array([6, 7, 8, 9])
+
+<span class="comment"># Where should 7.5 be inserted?</span>
+x = np.searchsorted(arr, 7)
+
+print(x)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out34', this)">Show Output</button>
+            <div id="out34" class="output-container">
+1
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">np.searchsorted(arr, 7)</span> - Returns the index <strong>1</strong>, meaning if you insert 7 at index 1, the array stays sorted: <code>[6, 7, 7, 8, 9]</code>.</li>
+                    <li><strong>💡 Binary Search:</strong> <code>searchsorted()</code> uses <strong>binary search</strong> internally, making it extremely fast — O(log n) — even for huge arrays with millions of elements!</li>
+                    <li><strong>🤖 ML Use:</strong> Used in <strong>binning/discretization</strong> — when you need to convert continuous values into categories (e.g., age groups), searchsorted quickly finds which bin each value belongs to!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 35: Search Sorted — Multiple Values</h3>
+        <p class="task-desc">Find insertion points for <strong>multiple values</strong> at once.</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task35', this)">Show Answer</button>
+        
+        <div id="np-task35" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+arr = np.array([1, 3, 5, 7])
+
+<span class="comment"># Find insertion points for multiple values</span>
+x = np.searchsorted(arr, [2, 4, 6])
+
+print(x)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out35', this)">Show Output</button>
+            <div id="out35" class="output-container">
+[1 2 3]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">np.searchsorted(arr, [2, 4, 6])</span> - Finds insertion points for <strong>all values at once</strong>:
+                        <ul>
+                            <li><code>2</code> → index <strong>1</strong> (between 1 and 3)</li>
+                            <li><code>4</code> → index <strong>2</strong> (between 3 and 5)</li>
+                            <li><code>6</code> → index <strong>3</strong> (between 5 and 7)</li>
+                        </ul>
+                    </li>
+                    <li><strong>💡 Side parameter:</strong> Use <code>side='right'</code> to insert <em>after</em> existing equal values instead of before.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="module-title">Module 10: Filtering Arrays</h2>
+
+    <div class="storybook-intro">
+        <h2>🎯 Filtering Arrays</h2>
+        <p>Getting some elements out of an existing array and creating a new array from them is called <span class="highlight-term">filtering</span>.</p>
+        <p>In NumPy, you filter using a <strong>boolean index list</strong> — a list of booleans corresponding to indexes in the array.</p>
+        <p>If the value at an index is <code>True</code>, that element is <strong>included</strong>. If <code>False</code>, it's <strong>excluded</strong>.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 36: Filter with Boolean Index</h3>
+        <p class="task-desc">Create a boolean index list to select only <strong>specific elements</strong> from an array.</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task36', this)">Show Answer</button>
+        
+        <div id="np-task36" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+arr = np.array([41, 42, 43, 44])
+
+<span class="comment"># Boolean index: True = keep, False = skip</span>
+x = [True, False, True, False]
+
+newarr = arr[x]
+
+print(newarr)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out36', this)">Show Output</button>
+            <div id="out36" class="output-container">
+[41 43]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">arr[x]</span> - The boolean list <code>[True, False, True, False]</code> acts as a <strong>mask</strong>: only elements at <code>True</code> positions (index 0 and 2) are returned → <code>[41, 43]</code>.</li>
+                    <li><strong>💡 This is called "Boolean Indexing"</strong> — one of NumPy's most powerful features! Instead of writing loops, you use True/False masks to select data instantly.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 37: Create Filter from Condition</h3>
+        <p class="task-desc">Instead of manually creating a boolean list, let NumPy <strong>generate one from a condition</strong>!</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task37', this)">Show Answer</button>
+        
+        <div id="np-task37" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+arr = np.array([41, 42, 43, 44])
+
+<span class="comment"># Create a filter: keep only values > 42</span>
+filter_arr = arr > 42
+
+newarr = arr[filter_arr]
+
+print(<span class="string">"Filter:"</span>, filter_arr)
+print(<span class="string">"Result:"</span>, newarr)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out37', this)">Show Output</button>
+            <div id="out37" class="output-container">
+Filter: [False False  True  True]<br>
+Result: [43 44]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">arr > 42</span> - NumPy compares <strong>every element</strong> to 42 and returns a boolean array: <code>[False, False, True, True]</code>. This is <strong>vectorized comparison</strong> — no loops needed!</li>
+                    <li><span class="code-snippet">arr[filter_arr]</span> - Uses the boolean array as a mask to extract only elements where the condition is True → <code>[43, 44]</code>.</li>
+                    <li><strong>🤖 ML Powerhouse:</strong> This is how you <strong>clean data</strong> in ML! Examples:
+                        <ul>
+                            <li><code>data[data['age'] > 18]</code> — filter adults only</li>
+                            <li><code>arr[arr != 0]</code> — remove zeros</li>
+                            <li><code>predictions[predictions > 0.5]</code> — filter high-confidence predictions</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Task 38: Filter Even Numbers</h3>
+        <p class="task-desc">Create a filter that returns <strong>only even numbers</strong> from the array.</p>
+        <button class="btn-toggle" onclick="toggleCode('np-task38', this)">Show Answer</button>
+        
+        <div id="np-task38" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+arr = np.array([1, 2, 3, 4, 5, 6, 7])
+
+<span class="comment"># Filter: keep only even numbers</span>
+filter_arr = arr % 2 == 0
+
+newarr = arr[filter_arr]
+
+print(<span class="string">"Filter:"</span>, filter_arr)
+print(<span class="string">"Even numbers:"</span>, newarr)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out38', this)">Show Output</button>
+            <div id="out38" class="output-container">
+Filter: [False  True False  True False  True False]<br>
+Even numbers: [2 4 6]
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">arr % 2 == 0</span> - Checks each element: is the remainder when divided by 2 equal to 0? If yes → even → <code>True</code>!</li>
+                    <li><strong>⚡ One-liner shortcut:</strong> You can skip the filter variable entirely: <code>arr[arr % 2 == 0]</code> — this is the most common pattern you'll see in real code!</li>
+                    <li><strong>🤖 ML Example:</strong> Filtering is used in <strong>feature selection</strong>:
+                        <ul>
+                            <li><code>features[importances > threshold]</code> — keep only important features</li>
+                            <li><code>samples[~np.isnan(data)]</code> — remove NaN (missing) values</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="storybook-intro" style="margin-top: 20px;">
+        <h2>🎯 Quick Filter Cheat Sheet</h2>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.2);">
+                <th style="text-align: left; padding: 8px; color: #00ff88;">What You Want</th>
+                <th style="text-align: left; padding: 8px; color: #00ff88;">Code</th>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;">Values greater than 5</td><td style="padding: 6px;"><code>arr[arr > 5]</code></td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;">Values equal to 3</td><td style="padding: 6px;"><code>arr[arr == 3]</code></td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;">Values NOT equal to 0</td><td style="padding: 6px;"><code>arr[arr != 0]</code></td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;">Even values</td><td style="padding: 6px;"><code>arr[arr % 2 == 0]</code></td></tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="padding: 6px;">Values between 3 and 7</td><td style="padding: 6px;"><code>arr[(arr >= 3) & (arr <= 7)]</code></td></tr>
+            <tr><td style="padding: 6px;">Remove NaN values</td><td style="padding: 6px;"><code>arr[~np.isnan(arr)]</code></td></tr>
+        </table>
+    </div>
+
     </div><!-- .container -->
 
     <script src="script.js?v=2"></script>

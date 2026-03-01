@@ -20,6 +20,8 @@
     --code-bg: #0c1222;
     --radius: 16px;
     --radius-sm: 10px;
+    --mouse-x: 50%;
+    --mouse-y: 50%;
 }
 
 /* Canvas Background */
