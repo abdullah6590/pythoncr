@@ -7,7 +7,8 @@
 // Format: 'YYYY-MM-DDTHH:MM:SS'
 const UNLOCK_DATES = {
     'oop.html': new Date('2026-02-23T13:30:00').getTime(),
-    'numpy.html': new Date('2026-02-25T13:30:00').getTime()
+    'matplotlib.html': new Date('2026-03-03T13:30:00').getTime(),
+    'pandas.html': new Date('2026-03-02T13:30:00').getTime()
 };
 
 // --- INSTANT LOCK REDIRECT (runs before ANYTHING loads) ---
