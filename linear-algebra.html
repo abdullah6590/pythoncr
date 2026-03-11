@@ -100,9 +100,30 @@ print(my_scalar)</code>
             <div class="line-by-line mt-3">
                 <strong>📝 Line-by-Line Explanation:</strong>
                 <ul>
-                    <li><span class="code-snippet">my_scalar = 1</span> - We define a single number `1` and store it in a variable. This single numeric value is a scalar.</li>
-                    <li><span class="code-snippet">x = 1</span> - Scalars are basic Python variables that hold primitive numbers like integers and floats.</li>
-                    <li><strong>🤖 ML Connection:</strong> In Machine Learning, a scalar is typically a 0-dimensional tensor. It represents a single quantifiable value, like a learning rate, a loss value at a specific epoch, or a single weight before it's organized into a matrix.</li>
+                    <li><span class="code-snippet"># In Python it can be written...</span> — This line starts with a <code>#</code> symbol. In Python, anything after <code>#</code> is a <strong>comment</strong>. Comments are notes for humans — the computer completely ignores them. Think of it like writing a sticky note on your notebook!</li>
+                    <li><span class="code-snippet">my_scalar = 1</span> — Let's break this down:
+                        <div class="step-visual">
+                            <strong>🔍 What is happening here?</strong>
+                            <div class="step-flow">
+                                <span class="step-box">my_scalar</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">1</span>
+                            </div>
+                            <p>We are creating a <strong>variable</strong> called <code>my_scalar</code>. A variable is like a labeled box — you give it a name and put a value inside. Here, we put the number <code>1</code> inside a box labeled <code>my_scalar</code>.</p>
+                            <p>This number <code>1</code> is a <strong>scalar</strong> — it is just ONE single number. Not a list, not a group, just one lonely number all by itself. Like saying "I have 1 apple."</p>
+                        </div>
+                    </li>
+                    <li><span class="code-snippet">x = 1</span> and <span class="code-snippet">y = 1</span> — We create two more variables. <code>x</code> holds the number 1, and <code>y</code> also holds the number 1. Each one is its own scalar. Think of them as separate labeled jars, each containing a single marble.</li>
+                    <li><span class="code-snippet">print(my_scalar)</span> — The <code>print()</code> function tells Python: "Show me what's inside this variable on the screen!" Since <code>my_scalar</code> contains <code>1</code>, it prints <code>1</code>.</li>
+                    <li><strong>🧠 Real-World Analogy:</strong> Imagine you step on a weighing scale. The number it shows — for example, <code>65</code> — that single number is a scalar. It's just one value that tells you one piece of information (your weight).</li>
+                    <li><strong>🤖 ML Connection:</strong> In Machine Learning, a scalar is a <strong>0-dimensional tensor</strong> (the simplest possible data). Scalars appear everywhere:
+                        <div class="step-visual">
+                            <strong>Where scalars appear in ML:</strong>
+                            <div class="step-flow"><span class="step-box">Learning Rate = 0.01</span><span class="step-label">← controls how fast a model learns</span></div>
+                            <div class="step-flow"><span class="step-box">Loss = 2.45</span><span class="step-label">← how wrong the model's prediction is</span></div>
+                            <div class="step-flow"><span class="step-box">Accuracy = 0.97</span><span class="step-label">← how correct the model is (97%)</span></div>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -149,8 +170,48 @@ Vector: [3 4]
             <div class="line-by-line mt-3">
                 <strong>📝 Line-by-Line Explanation:</strong>
                 <ul>
-                    <li><span class="code-snippet">import numpy as np</span> - NumPy is the standard library for creating and manipulating arrays in Python.</li>
-                    <li><span class="code-snippet">v = np.array([3, 4])</span> - We define a standard vector using a NumPy array.</li>
+                    <li><span class="code-snippet">import numpy as np</span> — Let's understand each word:
+                        <div class="step-visual">
+                            <strong>🔍 Breaking down the import:</strong>
+                            <div class="step-flow">
+                                <span class="step-box accent">import</span>
+                                <span class="step-label">"Go get this toolbox"</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">numpy</span>
+                                <span class="step-label">"The toolbox is called NumPy" (it does math with numbers)</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box accent">as np</span>
+                                <span class="step-label">"Let me call it 'np' for short" (so we don't type 'numpy' every time)</span>
+                            </div>
+                        </div>
+                        <p>NumPy is a library (a collection of ready-made tools) that makes Python amazing at math. Without NumPy, Python doesn't know what a "vector" or "matrix" is!</p>
+                    </li>
+                    <li><span class="code-snippet">v = np.array([3, 4])</span> — This creates our vector:
+                        <div class="step-visual">
+                            <strong>🔍 Step-by-step:</strong>
+                            <div class="step-flow">
+                                <span class="step-box">np.array()</span>
+                                <span class="step-arrow">→</span>
+                                <span class="step-label">"NumPy, please create an array (a list of numbers)"</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">[3, 4]</span>
+                                <span class="step-arrow">→</span>
+                                <span class="step-label">"Put the numbers 3 and 4 inside it"</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">v = ...</span>
+                                <span class="step-arrow">→</span>
+                                <span class="step-label">"Store this array in a variable called v"</span>
+                            </div>
+                            <div class="step-result">v = [3, 4]  ← This is a vector with 2 numbers!</div>
+                        </div>
+                        <p>Think of a vector as a list of numbers that go together. Imagine someone says "Walk 3 steps right, then 4 steps up." That pair of instructions <code>(3, 4)</code> IS a vector! It has a direction AND a size.</p>
+                    </li>
+                    <li><span class="code-snippet">print("Vector:", v)</span> — This shows the vector on screen. Python prints the text <code>"Vector:"</code> first, then the contents of <code>v</code> which is <code>[3 4]</code>. (NumPy removes the comma when displaying!)</li>
+                    <li><strong>🤖 ML Connection:</strong> In Machine Learning, every data point is a vector! If you have a student with Height=170, Weight=65, Age=25, that student is the vector <span class="step-box">[170, 65, 25]</span>. The entire ML model learns by doing math on thousands of these vectors.</li>
                 </ul>
             </div>
         </div>
@@ -192,9 +253,79 @@ Scalar Multiplication: [2 4]
             <div class="line-by-line mt-3">
                 <strong>📝 Line-by-Line Explanation:</strong>
                 <ul>
-                    <li><span class="code-snippet">a + b</span> - Geometric meaning: Head-to-tail addition. `[1+3, 2+4] = [4, 6]`.</li>
-                    <li><span class="code-snippet">a - b</span> - Subtracts elements one by one. `[1-3, 2-4] = [-2, -2]`.</li>
-                    <li><span class="code-snippet">2 * a</span> - Geometric meaning: Stretching or shrinking the vector. `[2*1, 2*2] = [2, 4]`.</li>
+                    <li><span class="code-snippet">import numpy as np</span> — We bring in the NumPy toolbox (same as before — we always need this for vector math).</li>
+                    <li><span class="code-snippet">a = np.array([1, 2])</span> — We create vector <code>a</code> with two numbers: <code>1</code> and <code>2</code>.</li>
+                    <li><span class="code-snippet">b = np.array([3, 4])</span> — We create vector <code>b</code> with two numbers: <code>3</code> and <code>4</code>.</li>
+                    <li><span class="code-snippet">a + b</span> — <strong>Vector Addition</strong>: We add matching positions one by one:
+                        <div class="step-visual">
+                            <strong>📐 Addition — Step by Step:</strong>
+                            <div class="step-flow">
+                                <span class="step-box">Position 1:</span>
+                                <span class="step-box">a[0] = 1</span>
+                                <span class="step-arrow">+</span>
+                                <span class="step-box">b[0] = 3</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">4</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">Position 2:</span>
+                                <span class="step-box">a[1] = 2</span>
+                                <span class="step-arrow">+</span>
+                                <span class="step-box">b[1] = 4</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">6</span>
+                            </div>
+                            <div class="step-result">Result: [4, 6]</div>
+                        </div>
+                        <p>🧠 <strong>Real-world analogy:</strong> Imagine you walk 1 step right and 2 steps up (vector a). Then your friend says "also walk 3 more right and 4 more up" (vector b). Total: 4 right, 6 up!</p>
+                    </li>
+                    <li><span class="code-snippet">a - b</span> — <strong>Vector Subtraction</strong>: Same idea, but we subtract:
+                        <div class="step-visual">
+                            <strong>📐 Subtraction — Step by Step:</strong>
+                            <div class="step-flow">
+                                <span class="step-box">Position 1:</span>
+                                <span class="step-box">a[0] = 1</span>
+                                <span class="step-arrow">−</span>
+                                <span class="step-box">b[0] = 3</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">-2</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">Position 2:</span>
+                                <span class="step-box">a[1] = 2</span>
+                                <span class="step-arrow">−</span>
+                                <span class="step-box">b[1] = 4</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">-2</span>
+                            </div>
+                            <div class="step-result">Result: [-2, -2]</div>
+                        </div>
+                        <p>The negative numbers mean "go in the opposite direction." Vector a is smaller than b, so the result points backwards!</p>
+                    </li>
+                    <li><span class="code-snippet">2 * a</span> — <strong>Scalar Multiplication</strong>: We multiply EVERY number in the vector by the scalar (single number) 2:
+                        <div class="step-visual">
+                            <strong>📐 Scalar Multiplication — Step by Step:</strong>
+                            <div class="step-flow">
+                                <span class="step-box">Position 1:</span>
+                                <span class="step-box accent">2</span>
+                                <span class="step-arrow">×</span>
+                                <span class="step-box">a[0] = 1</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">2</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">Position 2:</span>
+                                <span class="step-box accent">2</span>
+                                <span class="step-arrow">×</span>
+                                <span class="step-box">a[1] = 2</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">4</span>
+                            </div>
+                            <div class="step-result">Result: [2, 4]</div>
+                        </div>
+                        <p>🧠 <strong>Geometric meaning:</strong> Multiplying by 2 makes the vector TWICE as long — it stretches! If you multiplied by 0.5, it would shrink to half. If by -1, it would flip direction!</p>
+                    </li>
+                    <li><strong>🤖 ML Connection:</strong> In Neural Networks, every single weight update uses vector operations! When the model learns, it adjusts its weight vector using: <span class="step-box">w_new = w_old − learning_rate × gradient</span>. That's subtraction + scalar multiplication on vectors — exactly what we did here!</li>
                 </ul>
             </div>
         </div>
@@ -226,9 +357,57 @@ Dot Product: 11
             <div class="line-by-line mt-3">
                 <strong>📝 Line-by-Line Explanation:</strong>
                 <ul>
-                    <li><span class="code-snippet">np.dot(a, b)</span> - NumPy's built-in function to compute the dot product of two arrays.</li>
-                    <li><strong>Geometric Meaning:</strong> <code>a · b = |a||b| cos(θ)</code>. If the dot product is 0, the vectors are perpendicular!</li>
-                    <li><strong>🤖 ML Connection:</strong> Essential in Linear Regression, Neural Networks, Attention mechanisms, and Similarity measurement (Cosine Similarity). Standard example: <code>prediction = w^T * x</code>.</li>
+                    <li><span class="code-snippet">import numpy as np</span> — We import the NumPy toolbox (we need it for its <code>dot()</code> function).</li>
+                    <li><span class="code-snippet">a = np.array([1, 2])</span> — Vector <code>a</code> has two numbers: <code>1</code> at position 0, <code>2</code> at position 1.</li>
+                    <li><span class="code-snippet">b = np.array([3, 4])</span> — Vector <code>b</code> has two numbers: <code>3</code> at position 0, <code>4</code> at position 1.</li>
+                    <li><span class="code-snippet">np.dot(a, b)</span> — The dot product is done in <strong>3 mini-steps</strong>:
+                        <div class="step-visual">
+                            <strong>📐 Dot Product — Step by Step:</strong>
+                            <p><strong>Step 1:</strong> Multiply matching positions:</p>
+                            <div class="step-flow">
+                                <span class="step-box">Position 1:</span>
+                                <span class="step-box">a[0] = 1</span>
+                                <span class="step-arrow">×</span>
+                                <span class="step-box">b[0] = 3</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">3</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">Position 2:</span>
+                                <span class="step-box">a[1] = 2</span>
+                                <span class="step-arrow">×</span>
+                                <span class="step-box">b[1] = 4</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">8</span>
+                            </div>
+                            <p><strong>Step 2:</strong> Add all the products together:</p>
+                            <div class="step-flow">
+                                <span class="step-box">3</span>
+                                <span class="step-arrow">+</span>
+                                <span class="step-box">8</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">11</span>
+                            </div>
+                            <div class="step-result">✅ Dot Product = 11 (a single number, NOT a vector!)</div>
+                        </div>
+                        <p>💡 <strong>Key Insight:</strong> The dot product takes two vectors and gives you back a <strong>single number</strong> (a scalar). Two vectors go in, one number comes out!</p>
+                    </li>
+                    <li><strong>🧠 Geometric Meaning:</strong> The formula is <code>a · b = |a||b| cos(θ)</code>. In simple words: the dot product tells you <strong>how much two vectors point in the same direction</strong>.
+                        <div class="step-visual">
+                            <strong>What the dot product value tells you:</strong>
+                            <div class="step-flow"><span class="step-box highlight">Positive number</span><span class="step-label">→ vectors point in a similar direction</span></div>
+                            <div class="step-flow"><span class="step-box">Zero</span><span class="step-label">→ vectors are perpendicular (90° angle)!</span></div>
+                            <div class="step-flow"><span class="step-box accent">Negative number</span><span class="step-label">→ vectors point in opposite directions</span></div>
+                        </div>
+                    </li>
+                    <li><strong>🤖 ML Connection:</strong> The dot product is the <strong>single most important operation</strong> in all of Machine Learning!
+                        <div class="step-visual">
+                            <strong>Where dot products appear in ML:</strong>
+                            <div class="step-flow"><span class="step-box">Neural Network: prediction = w · x</span><span class="step-label">← weights · inputs</span></div>
+                            <div class="step-flow"><span class="step-box">Cosine Similarity = (a · b) / (|a||b|)</span><span class="step-label">← how similar are two items?</span></div>
+                            <div class="step-flow"><span class="step-box">Attention (Transformers) = Q · K</span><span class="step-label">← query · key in ChatGPT!</span></div>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -270,9 +449,74 @@ L1 Norm: 7.0
             <div class="line-by-line mt-3">
                 <strong>📝 Line-by-Line Explanation:</strong>
                 <ul>
-                    <li><span class="code-snippet">np.linalg.norm(v)</span> - Computes the <strong>L2 Norm (Euclidean norm)</strong>. Formula: <code>√(v₁² + v₂²)</code>. Example: <code>√(3² + 4²) = 5</code>.</li>
-                    <li><span class="code-snippet">np.linalg.norm(v, 1)</span> - Computes the <strong>L1 Norm</strong>. Formula: <code>|v₁| + |v₂|</code>. Example: <code>|3| + |4| = 7</code>.</li>
-                    <li><strong>🤖 ML Connection:</strong> Norms are used in <strong>Regularization</strong>. L2 is used in Ridge regression, while L1 is used in Lasso regression to prevent overfitting.</li>
+                    <li><span class="code-snippet">v = np.array([3, 4])</span> — Our vector has two numbers: <code>3</code> and <code>4</code>. We want to find its "length" (how long it is).</li>
+                    <li><span class="code-snippet">np.linalg.norm(v)</span> — <strong>L2 Norm (Euclidean Norm)</strong>: This measures the <em>straight-line distance</em> from the origin (0,0) to the point (3,4).
+                        <div class="step-visual">
+                            <strong>📐 L2 Norm — Step by Step:</strong>
+                            <p><strong>Formula:</strong> <code>√(v₁² + v₂²)</code></p>
+                            <p><strong>Step 1:</strong> Square each number:</p>
+                            <div class="step-flow">
+                                <span class="step-box">3² = 3 × 3</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">9</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">4² = 4 × 4</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">16</span>
+                            </div>
+                            <p><strong>Step 2:</strong> Add the squared values:</p>
+                            <div class="step-flow">
+                                <span class="step-box">9</span>
+                                <span class="step-arrow">+</span>
+                                <span class="step-box">16</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">25</span>
+                            </div>
+                            <p><strong>Step 3:</strong> Take the square root:</p>
+                            <div class="step-flow">
+                                <span class="step-box">√25</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">5.0</span>
+                            </div>
+                            <div class="step-result">✅ L2 Norm = 5.0 (the vector is 5 units long!)</div>
+                        </div>
+                        <p>🧠 <strong>Real-world analogy:</strong> This is the Pythagorean theorem! If you walk 3 blocks east and 4 blocks north, the straight-line distance back to your starting point is exactly 5 blocks.</p>
+                    </li>
+                    <li><span class="code-snippet">np.linalg.norm(v, 1)</span> — <strong>L1 Norm (Manhattan Norm)</strong>: Instead of the straight-line distance, this adds up the <em>absolute values</em> of each number.
+                        <div class="step-visual">
+                            <strong>📐 L1 Norm — Step by Step:</strong>
+                            <p><strong>Formula:</strong> <code>|v₁| + |v₂|</code></p>
+                            <p><strong>Step 1:</strong> Take the absolute value of each number (remove any negative sign):</p>
+                            <div class="step-flow">
+                                <span class="step-box">|3|</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">3</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">|4|</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">4</span>
+                            </div>
+                            <p><strong>Step 2:</strong> Add them up:</p>
+                            <div class="step-flow">
+                                <span class="step-box">3</span>
+                                <span class="step-arrow">+</span>
+                                <span class="step-box">4</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">7</span>
+                            </div>
+                            <div class="step-result">✅ L1 Norm = 7.0</div>
+                        </div>
+                        <p>🧠 <strong>Why "Manhattan"?</strong> In Manhattan (New York), you can't walk diagonally through buildings. You must walk along the streets (right/left) and avenues (up/down). So the total distance is 3 + 4 = 7 blocks, not 5!</p>
+                    </li>
+                    <li><strong>🤖 ML Connection:</strong> Norms are essential in <strong>Regularization</strong> (preventing models from overfitting):
+                        <div class="step-visual">
+                            <strong>How norms help ML models:</strong>
+                            <div class="step-flow"><span class="step-box">L2 Norm → Ridge Regression</span><span class="step-label">← shrinks all weights a little bit</span></div>
+                            <div class="step-flow"><span class="step-box">L1 Norm → Lasso Regression</span><span class="step-label">← pushes unimportant weights to exactly 0 (feature selection!)</span></div>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -305,8 +549,56 @@ Distance: 5.0
             <div class="line-by-line mt-3">
                 <strong>📝 Line-by-Line Explanation:</strong>
                 <ul>
-                    <li><span class="code-snippet">np.linalg.norm(a - b)</span> - Formula is <code>√((4 - 1)² + (6 - 2)²) = √(3² + 4²) = 5</code>. First we subtract the vectors, then compute the L2 norm of the resulting difference vector!</li>
-                    <li><strong>🤖 ML Connection:</strong> Heavily used in <strong>KNN (K-Nearest Neighbors)</strong>, <strong>Clustering (e.g., K-Means)</strong>, and measuring <strong>Similarity</strong> between embeddings.</li>
+                    <li><span class="code-snippet">a = np.array([1, 2])</span> — Point A is at position (1, 2) in 2D space. Think of this as a dot on graph paper at x=1, y=2.</li>
+                    <li><span class="code-snippet">b = np.array([4, 6])</span> — Point B is at position (4, 6). Another dot on the graph paper.</li>
+                    <li><span class="code-snippet">np.linalg.norm(a - b)</span> — This does TWO things. Let's go step by step:
+                        <div class="step-visual">
+                            <strong>📐 Step 1: Subtract the vectors (find the difference)</strong>
+                            <div class="step-flow">
+                                <span class="step-box">Position 1:</span>
+                                <span class="step-box">a[0] = 1</span>
+                                <span class="step-arrow">−</span>
+                                <span class="step-box">b[0] = 4</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">-3</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">Position 2:</span>
+                                <span class="step-box">a[1] = 2</span>
+                                <span class="step-arrow">−</span>
+                                <span class="step-box">b[1] = 6</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">-4</span>
+                            </div>
+                            <div class="step-result">Difference vector: [-3, -4]</div>
+                        </div>
+                        <div class="step-visual">
+                            <strong>📐 Step 2: Find the L2 Norm of [-3, -4]</strong>
+                            <div class="step-flow">
+                                <span class="step-box">(-3)² = 9</span>
+                                <span class="step-arrow">+</span>
+                                <span class="step-box">(-4)² = 16</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box">25</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">√25</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">5.0</span>
+                            </div>
+                            <div class="step-result">✅ Distance = 5.0 units apart!</div>
+                        </div>
+                        <p>🧠 <strong>Real-world analogy:</strong> Imagine two friends standing on a field. Friend A is at position (1,2) and Friend B is at position (4,6). The straight-line distance between them is 5 steps. That's exactly what we calculated!</p>
+                    </li>
+                    <li><strong>✅ Verification:</strong> Let's check! The difference is 3 units apart horizontally (4−1) and 4 units vertically (6−2). By Pythagoras: √(3² + 4²) = √25 = 5. ✔️ Correct!</li>
+                    <li><strong>🤖 ML Connection:</strong> Distance is the heart of many ML algorithms:
+                        <div class="step-visual">
+                            <strong>Where distance is used in ML:</strong>
+                            <div class="step-flow"><span class="step-box">KNN (K-Nearest Neighbors)</span><span class="step-label">← finds the closest data points to make predictions</span></div>
+                            <div class="step-flow"><span class="step-box">K-Means Clustering</span><span class="step-label">← groups data by finding nearest cluster center</span></div>
+                            <div class="step-flow"><span class="step-box">Embedding Similarity</span><span class="step-label">← how close are two words/images/sentences?</span></div>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -360,8 +652,42 @@ Shape: (2, 3)
             <div class="line-by-line mt-3">
                 <strong>📝 Line-by-Line Explanation:</strong>
                 <ul>
-                    <li><span class="code-snippet">X = np.array([[...], [...]])</span> - Creates a 2D grouping of numbers. This is our matrix `X`.</li>
-                    <li><span class="code-snippet">X.shape</span> - NumPy uses the `.shape` attribute to return a tuple `(rows, columns)`. Here we see 2 rows and 3 columns!</li>
+                    <li><span class="code-snippet">import numpy as np</span> — Import the NumPy toolbox (always needed for matrix work).</li>
+                    <li><span class="code-snippet">X = np.array([[170, 65, 25], [180, 75, 30]])</span> — Let’s understand this matrix:
+                        <div class="step-visual">
+                            <strong>🔍 Visualizing the Matrix X:</strong>
+                            <p>This is a table of student data. Each row = one student, each column = one feature:</p>
+                            <div class="step-flow">
+                                <span class="step-box">Row 0 (Student 1):</span>
+                                <span class="step-box">Height=170</span>
+                                <span class="step-box">Weight=65</span>
+                                <span class="step-box">Age=25</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">Row 1 (Student 2):</span>
+                                <span class="step-box">Height=180</span>
+                                <span class="step-box">Weight=75</span>
+                                <span class="step-box">Age=30</span>
+                            </div>
+                            <p>Notice: The outer <code>[ ]</code> wraps the entire matrix. Each inner <code>[170, 65, 25]</code> is one row. Two inner lists = 2 rows. Three numbers per list = 3 columns.</p>
+                        </div>
+                    </li>
+                    <li><span class="code-snippet">X.shape</span> — The <code>.shape</code> attribute asks: "How many rows and columns does this matrix have?"
+                        <div class="step-visual">
+                            <strong>📐 Understanding the shape (2, 3):</strong>
+                            <div class="step-flow">
+                                <span class="step-box accent">2</span>
+                                <span class="step-label">← First number = number of ROWS (2 students)</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box accent">3</span>
+                                <span class="step-label">← Second number = number of COLUMNS (3 features)</span>
+                            </div>
+                            <div class="step-result">Shape = (2, 3) means "2 rows by 3 columns"</div>
+                        </div>
+                        <p>🧠 <strong>Easy trick to remember:</strong> Shape always goes <strong>(Rows, Columns)</strong> — like reading a book: <em>rows go down, columns go across</em>.</p>
+                    </li>
+                    <li><strong>🤖 ML Connection:</strong> In Machine Learning, the shape tells you: (number of data samples, number of features). If your dataset has 10,000 images with 784 pixels each, the shape is <span class="step-box">(10000, 784)</span>. Knowing the shape is critical for building neural network layers!</li>
                 </ul>
             </div>
         </div>
@@ -408,7 +734,54 @@ Identity Matrix:<br>
             <div class="line-by-line mt-3">
                 <strong>📝 Line-by-Line Explanation:</strong>
                 <ul>
-                    <li><span class="code-snippet">np.eye(3)</span> - `eye` is a clever naming convention in NumPy (sounds like 'I' for Identity). It returns a 2-D array with ones on the diagonal and zeros elsewhere.</li>
+                    <li><span class="code-snippet"># Create a 3x3 Identity Matrix</span> — A comment telling us what the next line will do.</li>
+                    <li><span class="code-snippet">I = np.eye(3)</span> — Let’s break this down:
+                        <div class="step-visual">
+                            <strong>🔍 Understanding np.eye(3):</strong>
+                            <div class="step-flow">
+                                <span class="step-box">np.eye</span>
+                                <span class="step-arrow">→</span>
+                                <span class="step-label">"eye" sounds like the letter "I" — stands for Identity!</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">(3)</span>
+                                <span class="step-arrow">→</span>
+                                <span class="step-label">"Make it 3 rows by 3 columns"</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li><strong>What does the result look like?</strong> Let’s map out every position:
+                        <div class="step-visual">
+                            <strong>📐 Where are the 1s and 0s?</strong>
+                            <div class="step-flow">
+                                <span class="step-box">Row 0, Col 0 →</span>
+                                <span class="step-box highlight">1</span>
+                                <span class="step-box">Row 0, Col 1 →</span>
+                                <span class="step-box">0</span>
+                                <span class="step-box">Row 0, Col 2 →</span>
+                                <span class="step-box">0</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">Row 1, Col 0 →</span>
+                                <span class="step-box">0</span>
+                                <span class="step-box">Row 1, Col 1 →</span>
+                                <span class="step-box highlight">1</span>
+                                <span class="step-box">Row 1, Col 2 →</span>
+                                <span class="step-box">0</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">Row 2, Col 0 →</span>
+                                <span class="step-box">0</span>
+                                <span class="step-box">Row 2, Col 1 →</span>
+                                <span class="step-box">0</span>
+                                <span class="step-box">Row 2, Col 2 →</span>
+                                <span class="step-box highlight">1</span>
+                            </div>
+                            <p>See the pattern? The <strong>1s only appear on the diagonal</strong> (where row number = column number). Everything else is 0!</p>
+                        </div>
+                    </li>
+                    <li><strong>🧠 Why is it called "Identity"?</strong> Because multiplying any matrix by the Identity matrix gives back the SAME matrix: <code>A × I = A</code>. It's like multiplying a number by 1 — nothing changes! It's the "do nothing" matrix.</li>
+                    <li><strong>🤖 ML Connection:</strong> The Identity matrix appears in: regularization formulas (<code>(XᵀX + λI)⁻¹</code> in Ridge regression), weight initialization in neural networks, and as a reference point for measuring how far a matrix deviates from "normal."</li>
                 </ul>
             </div>
         </div>
@@ -454,8 +827,82 @@ A + B =<br>
             <div class="line-by-line mt-3">
                 <strong>📝 Line-by-Line Explanation:</strong>
                 <ul>
-                    <li><span class="code-snippet">A + B</span> - At row 0 col 0: 1 + 5 = 6. At row 0 col 1: 2 + 6 = 8. And so on.</li>
-                    <li><span class="code-snippet">2 * A</span> - Every element is multiplied by 2: 1->2, 2->4, 3->6, 4->8.</li>
+                    <li><span class="code-snippet">A = np.array([[1, 2], [3, 4]])</span> — Matrix A is a 2×2 grid: Row 0 = [1, 2], Row 1 = [3, 4].</li>
+                    <li><span class="code-snippet">B = np.array([[5, 6], [7, 8]])</span> — Matrix B is also 2×2: Row 0 = [5, 6], Row 1 = [7, 8].</li>
+                    <li><span class="code-snippet">A + B</span> — <strong>Matrix Addition</strong>: We add MATCHING positions, one by one:
+                        <div class="step-visual">
+                            <strong>📐 Addition — Every Single Element:</strong>
+                            <div class="step-flow">
+                                <span class="step-box">Row 0, Col 0:</span>
+                                <span class="step-box">1</span>
+                                <span class="step-arrow">+</span>
+                                <span class="step-box">5</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">6</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">Row 0, Col 1:</span>
+                                <span class="step-box">2</span>
+                                <span class="step-arrow">+</span>
+                                <span class="step-box">6</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">8</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">Row 1, Col 0:</span>
+                                <span class="step-box">3</span>
+                                <span class="step-arrow">+</span>
+                                <span class="step-box">7</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">10</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">Row 1, Col 1:</span>
+                                <span class="step-box">4</span>
+                                <span class="step-arrow">+</span>
+                                <span class="step-box">8</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">12</span>
+                            </div>
+                            <div class="step-result">Result: [[6, 8], [10, 12]]</div>
+                        </div>
+                        <p>⚠️ <strong>Important rule:</strong> You can ONLY add matrices that have the SAME shape! A 2×2 can be added to a 2×2, but NOT to a 3×2.</p>
+                    </li>
+                    <li><span class="code-snippet">2 * A</span> — <strong>Scalar Multiplication</strong>: The number 2 multiplies EVERY element inside the matrix:
+                        <div class="step-visual">
+                            <strong>📐 Scalar Multiplication — Every Element:</strong>
+                            <div class="step-flow">
+                                <span class="step-box accent">2</span>
+                                <span class="step-arrow">×</span>
+                                <span class="step-box">1</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">2</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box accent">2</span>
+                                <span class="step-arrow">×</span>
+                                <span class="step-box">2</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">4</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box accent">2</span>
+                                <span class="step-arrow">×</span>
+                                <span class="step-box">3</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">6</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box accent">2</span>
+                                <span class="step-arrow">×</span>
+                                <span class="step-box">4</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">8</span>
+                            </div>
+                            <div class="step-result">Result: [[2, 4], [6, 8]]</div>
+                        </div>
+                    </li>
+                    <li><strong>🤖 ML Connection:</strong> In gradient descent, weights are updated as: <span class="step-box">W = W − learning_rate × gradient_matrix</span>. That's scalar multiplication (learning_rate) + matrix subtraction, happening every training step!</li>
                 </ul>
             </div>
         </div>
@@ -491,9 +938,83 @@ A @ B =<br>
             <div class="line-by-line mt-3">
                 <strong>📝 Line-by-Line Explanation:</strong>
                 <ul>
-                    <li><span class="code-snippet">A @ B</span> - The `@` operator in Python (or `np.matmul()`) performs matrix multiplication.</li>
-                    <li><strong>Math Behind It:</strong> Row 1 of A * Col 1 of B: (1*5) + (2*6) = 5 + 12 = 17. Row 2 of A * Col 1 of B: (3*5) + (4*6) = 15 + 24 = 39.</li>
-                    <li><strong>🤖 ML Connection:</strong> In Neural Networks, a layer performs a Forward Propagation operation: <code>Z = X @ W + b</code> (Inputs * Weights Matrix + Bias). Deep learning is essentially repeated matrix multiplication!</li>
+                    <li><span class="code-snippet">A = np.array([[1, 2], [3, 4]])</span> — Matrix A is 2×2 (2 rows, 2 columns).</li>
+                    <li><span class="code-snippet">B = np.array([[5], [6]])</span> — Matrix B is 2×1 (2 rows, 1 column). This is a column vector!</li>
+                    <li><strong>❓ Can we multiply A × B?</strong> Let’s check the dimension rule:
+                        <div class="step-visual">
+                            <strong>📐 Dimension Check:</strong>
+                            <div class="step-flow">
+                                <span class="step-box">A is (2 × 2)</span>
+                                <span class="step-arrow">×</span>
+                                <span class="step-box">B is (2 × 1)</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">Inner numbers:</span>
+                                <span class="step-box highlight">2 = 2 ✅ They match!</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">Result shape:</span>
+                                <span class="step-box accent">(2 × 1)</span>
+                                <span class="step-label">← outer numbers: 2 rows, 1 column</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li><span class="code-snippet">A @ B</span> — Matrix multiplication is <strong>NOT</strong> like addition (element-by-element). Instead, each result cell is a <strong>dot product</strong> of a row from A and a column from B:
+                        <div class="step-visual">
+                            <strong>📐 Result[0,0]: Row 0 of A · Column 0 of B</strong>
+                            <div class="step-flow">
+                                <span class="step-box">Row 0 of A = [1, 2]</span>
+                                <span class="step-box">Col 0 of B = [5, 6]</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">1 × 5 = 5</span>
+                                <span class="step-arrow">+</span>
+                                <span class="step-box">2 × 6 = 12</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">17</span>
+                            </div>
+                        </div>
+                        <div class="step-visual">
+                            <strong>📐 Result[1,0]: Row 1 of A · Column 0 of B</strong>
+                            <div class="step-flow">
+                                <span class="step-box">Row 1 of A = [3, 4]</span>
+                                <span class="step-box">Col 0 of B = [5, 6]</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">3 × 5 = 15</span>
+                                <span class="step-arrow">+</span>
+                                <span class="step-box">4 × 6 = 24</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">39</span>
+                            </div>
+                        </div>
+                        <div class="step-result">✅ Final Result: [[17], [39]]</div>
+                    </li>
+                    <li><strong>🧠 Key Insight:</strong> Matrix multiplication is just doing <strong>many dot products</strong> organized in a grid! Each answer is one dot product of a row and a column.</li>
+                    <li><strong>🤖 ML Connection:</strong> This is the CORE of neural networks! Every layer does exactly this:
+                        <div class="step-visual">
+                            <strong>Neural Network Forward Pass:</strong>
+                            <div class="step-flow">
+                                <span class="step-box">Z = X @ W + b</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">X</span>
+                                <span class="step-label">← your input data (matrix)</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">W</span>
+                                <span class="step-label">← weight matrix (what the model learns)</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">b</span>
+                                <span class="step-label">← bias vector (a small adjustment)</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box highlight">Z</span>
+                                <span class="step-label">← the output! Deep learning = many of these stacked!</span>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -543,7 +1064,34 @@ Transposed:<br>
             <div class="line-by-line mt-3">
                 <strong>📝 Line-by-Line Explanation:</strong>
                 <ul>
-                    <li><span class="code-snippet">A.T</span> - The `.T` attribute in NumPy instantly returns the transpose. What was row 1 (`1, 2`) becomes column 1!</li>
+                    <li><span class="code-snippet">A = np.array([[1, 2], [3, 4]])</span> — A standard 2×2 matrix.</li>
+                    <li><span class="code-snippet">A.T</span> — The <code>.T</code> property gives you the <strong>Transpose</strong> of the matrix.
+                        <div class="step-visual">
+                            <strong>📐 Transpose — Step by Step:</strong>
+                            <p>Rule: Rows become Columns!</p>
+                            <div class="step-flow">
+                                <span class="step-box">Old Row 0: [1, 2]</span>
+                                <span class="step-arrow">becomes</span>
+                                <span class="step-box highlight">New Column 0:</span>
+                                <div style="display:inline-block; vertical-align:middle; text-align:center;">
+                                    <span class="step-box">1</span><br>
+                                    <span class="step-box">2</span>
+                                </div>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">Old Row 1: [3, 4]</span>
+                                <span class="step-arrow">becomes</span>
+                                <span class="step-box highlight">New Column 1:</span>
+                                <div style="display:inline-block; vertical-align:middle; text-align:center;">
+                                    <span class="step-box">3</span><br>
+                                    <span class="step-box">4</span>
+                                </div>
+                            </div>
+                            <div class="step-result">Result: [[1, 3], [2, 4]]</div>
+                        </div>
+                        <p>🧠 <strong>Visual trick:</strong> Imagine grabbing the top-right and bottom-left corners of the matrix and flipping it diagonally. The numbers on the main diagonal (1 and 4) stay completely still!</p>
+                    </li>
+                    <li><strong>🤖 ML Connection:</strong> When you need to multiply matrices (Topic 10), the inner dimensions MUST match! If you have weights `W` of shape (10, 5) and input `x` of shape (10, 1), you cannot multiply them. So, you transpose `W` to become shape (5, 10). Now `Wᵀ × x` works perfectly!</li>
                 </ul>
             </div>
         </div>
@@ -574,7 +1122,40 @@ Determinant: -2.0000000000000004
             <div class="line-by-line mt-3">
                 <strong>📝 Line-by-Line Explanation:</strong>
                 <ul>
-                    <li><span class="code-snippet">np.linalg.det(A)</span> - Uses NumPy's linear algebra (`linalg`) module to compute the determinant. The tiny float rounding error is standard in binary floating-point computation.</li>
+                    <li><span class="code-snippet">np.linalg.det(A)</span> — Finds the Determinant. Let's do the math manually for our 2×2 Matrix <code>[[a, b], [c, d]]</code>:
+                        <div class="step-visual">
+                            <strong>📐 Determinant of 2x2 — Step by Step:</strong>
+                            <p><strong>Formula:</strong> <code>(a × d) − (b × c)</code> (Top-Left to Bottom-Right MINUS Top-Right to Bottom-Left)</p>
+                            <div class="step-flow">
+                                <span class="step-box">a=1, b=2</span>
+                                <span class="step-box">c=3, d=4</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">Main diagonal (ad):</span>
+                                <span class="step-box">1 × 4</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">4</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">Other diagonal (bc):</span>
+                                <span class="step-box">2 × 3</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">6</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">Subtract:</span>
+                                <span class="step-box">4</span>
+                                <span class="step-arrow">−</span>
+                                <span class="step-box">6</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box accent">-2</span>
+                            </div>
+                            <div class="step-result">✅ Determinant = -2</div>
+                        </div>
+                    </li>
+                    <li>🧠 <strong>Why does Python say -2.0000000000000004?</strong> Computers use binary (0s and 1s) to represent decimal numbers, which sometimes causes tiny rounding errors! To humans, the answer is precisely -2.</li>
+                    <li><strong>🧠 Geometric Meaning:</strong> The determinant measures <strong>area scaling</strong>. If a matrix transforms a 1×1 square, the determinant tells you the area of the new shape. If det = 0, the shape was squashed into a flat line (area 0)!</li>
+                    <li><strong>🤖 ML Connection:</strong> If determinant = 0, the matrix is "singular" (broken) and you absolutely <strong>cannot calculate its inverse</strong>. Many old-school ML algorithms crash if their internal matrices have a determinant of 0.</li>
                 </ul>
             </div>
         </div>
@@ -607,8 +1188,41 @@ Inverse of A:<br>
             <div class="line-by-line mt-3">
                 <strong>📝 Line-by-Line Explanation:</strong>
                 <ul>
-                    <li><span class="code-snippet">np.linalg.inv(A)</span> - Computes the multiplicative inverse of a matrix.</li>
-                    <li><strong>🤖 ML Connection:</strong> Finding the exact "closed-form" solution to Linear Regression relies heavily on the inverse: `w = (XᵀX)⁻¹ Xᵀy`. For large datasets, taking the inverse is computationally expensive so we use Gradient Descent instead!</li>
+                    <li><span class="code-snippet">np.linalg.inv(A)</span> — Finds the Inverse. Let's look at the formula for a 2×2 matrix:
+                        <div class="step-visual">
+                            <strong>📐 Calculating the Inverse (2x2):</strong>
+                            <p><strong>Formula:</strong> <code>(1 / Determinant) × [Swap a & d, Make b & c negative]</code></p>
+                            <p><strong>Step 1: Get the Determinant (We did this in Topic 12!)</strong></p>
+                            <div class="step-flow"><span class="step-box">det = -2</span></div>
+                            <p><strong>Step 2: Rearrange the matrix <code>[[1, 2], [3, 4]]</code></strong></p>
+                            <div class="step-flow">
+                                <span class="step-box">Swap 1 and 4:</span>
+                                <span class="step-arrow">→</span>
+                                <span class="step-box">[[4, 2], [3, 1]]</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">Make 2 and 3 negative:</span>
+                                <span class="step-arrow">→</span>
+                                <span class="step-box">[[4, -2], [-3, 1]]</span>
+                            </div>
+                            <p><strong>Step 3: Multiply by (1 / det)</strong></p>
+                            <div class="step-flow">
+                                <span class="step-box">1 / -2 = -0.5</span>
+                                <span class="step-arrow">×</span>
+                                <span class="step-box">[[4, -2], [-3, 1]]</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">Math:</span>
+                                <span class="step-box">-0.5×4 = -2</span>
+                                <span class="step-box">-0.5×-2 = 1</span>
+                                <span class="step-box">-0.5×-3 = 1.5</span>
+                                <span class="step-box">-0.5×1 = -0.5</span>
+                            </div>
+                            <div class="step-result">✅ Inverse = [[-2.0, 1.0], [1.5, -0.5]]</div>
+                        </div>
+                    </li>
+                    <li><strong>🧠 What does it do?</strong> In regular math, the inverse of 5 is (1/5), because <code>5 × (1/5) = 1</code>. In matrix math, the inverse of A is A⁻¹, because <code>A × A⁻¹ = Identity Matrix</code> (which is the matrix version of the number 1)! It is the matrix equivalent of <strong>division</strong>.</li>
+                    <li><strong>🤖 ML Connection:</strong> Normal Equation in Linear Regression uses the exact formula: <span class="step-box">w = (XᵀX)⁻¹ Xᵀy</span>. However, finding the inverse is VERY slow for large datasets. That's why modern ML uses Gradient Descent instead!</li>
                 </ul>
             </div>
         </div>
@@ -638,8 +1252,22 @@ Rank: 2
             <div class="line-by-line mt-3">
                 <strong>📝 Line-by-Line Explanation:</strong>
                 <ul>
-                    <li><span class="code-snippet">np.linalg.matrix_rank(A)</span> - Calculates rank using singular value decomposition (SVD) under the hood.</li>
-                    <li><strong>🤖 ML Connection:</strong> If the rank of your feature matrix `X` is less than the number of columns, you have a **multicollinearity problem** (some features are perfectly correlated and redundant).</li>
+                    <li><span class="code-snippet">np.linalg.matrix_rank(A)</span> — Calculates the <strong>Rank</strong> of the matrix. Rank = 2.
+                        <div class="step-visual">
+                            <strong>📐 What is Rank?</strong>
+                            <p>Rank asks: "How much <em>truly unique</em> information is in this matrix?"</p>
+                            <div class="step-flow">
+                                <span class="step-box highlight">Example 1 (Rank 2):</span>
+                                <span class="step-label">Row1 = [1, 2], Row2 = [3, 4]. Row2 is NOT just Row1 multiplied by a number. Both rows are unique information! Rank = 2.</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box accent">Example 2 (Rank 1):</span>
+                                <span class="step-label">Row1 = [1, 2], Row2 = [2, 4]. Row2 is just Row1 × 2! It adds NO new info. The matrix is basically a straight line. truly unique rows = 1. Rank = 1.</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li><strong>🧠 The "Full Rank" concept:</strong> A 2×2 matrix has a maximum possible rank of 2. If its rank is 2, it is "Full Rank," meaning it has maximum information and its determinant is not zero. If rank is 1, it's "rank-deficient."</li>
+                    <li><strong>🤖 ML Connection:</strong> If the rank of your data matrix <code>X</code> is less than your number of features, you have <strong>Multicollinearity</strong>. It means some features are completely redundant (e.g., column 1 is "Height in Inches" and column 2 is "Height in Centimeters"). ML models hate this because it breaks their math!</li>
                 </ul>
             </div>
         </div>
@@ -681,9 +1309,50 @@ print(my_tensor[0, 1, 2]) <span class="comment"># Accessing an element deeply ne
             <div class="line-by-line mt-3">
                 <strong>📝 Line-by-Line Explanation:</strong>
                 <ul>
-                    <li><span class="code-snippet">my_tensor = np.array([...])</span> - We create an array containing two 2D matrices. This makes it a 3D tensor with a shape of `(2, 2, 3)` (2 blocks, 2 rows, 3 columns).</li>
-                    <li><span class="code-snippet">my_tensor[0, 1, 2]</span> - Accessing the tensor requires 3 indices! Block 0, Row 1, Column 2. Let's trace it: Block 0 is the first matrix. Row 1 is `[4, 5, 6]`. Column 2 is the 3rd item: `6`!</li>
-                    <li><strong>🤖 ML Connection:</strong> Deep Learning frameworks like TensorFlow and PyTorch are named after Tensors! Images are 3D tensors (Height x Width x Color Channels). Video data is a 4D tensor (Frames x Height x Width x Colors). Tensors elegantly hold exceptionally complex structured data.</li>
+                    <li><span class="code-snippet">my_tensor = np.array([...])</span> — Look at the code carefully. We have one BIG list, containing TWO middle lists, containing smaller lists of numbers.
+                        <div class="step-visual">
+                            <strong>📐 The Shape of a Tensor:</strong>
+                            <p>This data structure has 3 dimensions (like a 3D cube):</p>
+                            <div class="step-flow"><span class="step-box">Dimension 1 (Depth):</span><span class="step-label">2 blocks of data</span></div>
+                            <div class="step-flow"><span class="step-box">Dimension 2 (Rows):</span><span class="step-label">Each block has 2 rows</span></div>
+                            <div class="step-flow"><span class="step-box">Dimension 3 (Cols):</span><span class="step-label">Each row has 3 columns</span></div>
+                            <div class="step-result">Shape = (2, 2, 3)</div>
+                        </div>
+                    </li>
+                    <li><span class="code-snippet">my_tensor[0, 1, 2]</span> — Because it's 3D, we need <strong>three numbers</strong> (coordinates) to find one specific value!
+                        <div class="step-visual">
+                            <strong>📐 Finding data in a Tensor:</strong>
+                            <div class="step-flow">
+                                <span class="step-box">A. Block</span>
+                                <span class="step-box">Index 0</span>
+                                <span class="step-arrow">→</span>
+                                <span class="step-label">Go to the first block: <code>[[1,2,3], [4,5,6]]</code></span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">B. Row</span>
+                                <span class="step-box">Index 1</span>
+                                <span class="step-arrow">→</span>
+                                <span class="step-label">Look at the second row in that block: <code>[4,5,6]</code></span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">C. Column</span>
+                                <span class="step-box">Index 2</span>
+                                <span class="step-arrow">→</span>
+                                <span class="step-label">Look at the third item in that row: <code>6</code></span>
+                            </div>
+                            <div class="step-result">✅ Output = 6</div>
+                        </div>
+                        <p>🧠 <strong>Analogy:</strong> Think of a Tensor like a hotel. <code>[0, 1, 2]</code> means: Go to Building 0 (Depth), Floor 1 (Row), Room 2 (Column).</p>
+                    </li>
+                    <li><strong>🤖 ML Connection:</strong> Why is Google's library called <strong>TensorFlow</strong>? Because modern ML runs entirely on giant Tensors flowing through networks!
+                        <div class="step-visual">
+                            <strong>How ML uses Tensors:</strong>
+                            <div class="step-flow"><span class="step-box">1D Tensor = Vector</span><span class="step-label">← Audio data (waveform over time)</span></div>
+                            <div class="step-flow"><span class="step-box">2D Tensor = Matrix</span><span class="step-label">← Tabular data (Excel spreadsheets), Grayscale images</span></div>
+                            <div class="step-flow"><span class="step-box highlight">3D Tensor</span><span class="step-label">← Color Images (Height x Width x 3 color channels RGB)</span></div>
+                            <div class="step-flow"><span class="step-box accent">4D Tensor</span><span class="step-label">← Videos! (Time/Frames x Height x Width x Colors)</span></div>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -748,8 +1417,46 @@ Solution [x, y]: [2. 1.]
             <div class="line-by-line mt-3">
                 <strong>📝 Line-by-Line Explanation:</strong>
                 <ul>
-                    <li><span class="code-snippet">np.linalg.inv(A) @ B</span> - Computes the inverse of A, then matrix-multiplies it with B. The solution perfectly finds x = 2 and y = 1.</li>
-                    <li><strong>⚠️ Real World ML:</strong> While mathematically correct, using the inverse directly is memory-heavy and slow for huge matrices! Instead, computational algorithms prefer elimination or decomposition.</li>
+                    <li><span class="code-snippet">A = np.array([[2, 1], [1, -1]])</span> — This matrix holds the coefficients (the numbers attached to x and y: 2, 1, 1, -1).</li>
+                    <li><span class="code-snippet">B = np.array([5, 1])</span> — This vector holds the answers on the right side of the equals sign (5 and 1).</li>
+                    <li><span class="code-snippet">X = np.linalg.inv(A) @ B</span> — This is the magic step! Let's break down the algebra:
+                        <div class="step-visual">
+                            <strong>📐 Solving AX = B algebraically:</strong>
+                            <p>We want to get <code>X</code> by itself. In normal math, if <code>2x = 10</code>, we divide by 2. In matrix math, we multiply by the <strong>Inverse</strong>!</p>
+                            <div class="step-flow">
+                                <span class="step-box">Start:</span>
+                                <span class="step-box">A × X = B</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">Multiply both sides by A⁻¹:</span>
+                                <span class="step-box">A⁻¹ × A × X = A⁻¹ × B</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">A⁻¹ × A becomes Identity (I):</span>
+                                <span class="step-box">I × X = A⁻¹ × B</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box highlight">Final Formula:</span>
+                                <span class="step-box highlight">X = A⁻¹ × B</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li><strong>🔍 Verification:</strong> The code outputs <code>[2. 1.]</code>. This means x=2, y=1. Let's check our original equations!
+                        <div class="step-visual">
+                            <strong>📐 Checking our answer:</strong>
+                            <div class="step-flow">
+                                <span class="step-box">Eq 1: 2x + y = 5</span>
+                                <span class="step-arrow">→</span>
+                                <span class="step-label">2(2) + (1) = 4 + 1 = 5. ✅ Correct!</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">Eq 2: x - y = 1</span>
+                                <span class="step-arrow">→</span>
+                                <span class="step-label">(2) - (1) = 1. ✅ Correct!</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li><strong>⚠️ Real World ML:</strong> While <code>X = A⁻¹ @ B</code> is mathematically beautiful, taking the inverse of a massive 100,000 × 100,000 matrix takes way too much computer memory and time! Instead, computational algorithms prefer tools like Gradient Descent or LU Decomposition.</li>
                 </ul>
             </div>
         </div>
@@ -810,8 +1517,48 @@ Matrix([[1, 0, 2], [0, 1, 1]])
             <div class="line-by-line mt-3">
                 <strong>📝 Line-by-Line Explanation:</strong>
                 <ul>
-                    <li><span class="code-snippet">Matrix([...])</span> - SymPy uses exact symbolic calculation. It avoids the rounding errors you often see with standard floating-point representation!</li>
-                    <li><span class="code-snippet">A.rref()</span> - Calculates the Reduced Row Echelon Form. The output matrix tells us perfectly: x=2, y=1.</li>
+                    <li><span class="code-snippet">from sympy import Matrix</span> — We import SymPy, a library that does "Symbolic Math". Unlike NumPy which uses decimals (like 0.3333), SymPy uses exact fractions (like 1/3). This prevents rounding errors!</li>
+                    <li><span class="code-snippet">A = Matrix([[2, 1, 5], [1, -1, 1]])</span> — We create an "Augmented Matrix". We literally glued the coefficients <code>[2,1]</code> and <code>[1,-1]</code> together with the answers <code>[5]</code> and <code>[1]</code>.</li>
+                    <li><span class="code-snippet">A.rref()</span> — This calculates the Reduced Row Echelon Form.
+                        <div class="step-visual">
+                            <strong>📐 What RREF actually does:</strong>
+                            <p>It does algebra line-by-line automatically to isolate our variables!</p>
+                            <div class="step-flow">
+                                <span class="step-box">Start:</span>
+                                <span class="step-box">[[2, 1, 5], [1, -1, 1]]</span>
+                                <span class="step-label">← 2x + 1y = 5 AND 1x - 1y = 1</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">Math happens...</span>
+                                <span class="step-arrow">⬇️</span>
+                                <span class="step-label">(Add/subtract rows from each other)</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box highlight">RREF Result:</span>
+                                <span class="step-box highlight">[[1, 0, 2], [0, 1, 1]]</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li><strong>🔍 Reading the Answer:</strong>
+                        <div class="step-visual">
+                            <strong>📐 Translating RREF back to equations:</strong>
+                            <div class="step-flow">
+                                <span class="step-box">Row 1: 1 0 2</span>
+                                <span class="step-arrow">→</span>
+                                <span class="step-label">1x + 0y = 2</span>
+                                <span class="step-arrow">→</span>
+                                <span class="step-label"><strong>x = 2</strong></span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">Row 2: 0 1 1</span>
+                                <span class="step-arrow">→</span>
+                                <span class="step-label">0x + 1y = 1</span>
+                                <span class="step-arrow">→</span>
+                                <span class="step-label"><strong>y = 1</strong></span>
+                            </div>
+                        </div>
+                        <p>It's the exact same answer we got using the Inverse, but calculated in a much more stable way!</p>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -856,8 +1603,36 @@ U (Upper):<br>
             <div class="line-by-line mt-3">
                 <strong>📝 Line-by-Line Explanation:</strong>
                 <ul>
-                    <li><span class="code-snippet">scipy.linalg.lu(A)</span> - SciPy is designed for deep scientific computing. `la.lu` decomposes `A` structurally and returns a Permutation matrix (P), Lower triangular matrix (L), and Upper triangular matrix (U).</li>
-                    <li><strong>🧠 Why Important in ML?</strong> LU decomposition is heavily used in super-fast linear solvers, advanced modeling, scientific simulations, and <strong>Model Predictive Control (MPC) problems!</strong></li>
+                    <li><span class="code-snippet">import scipy.linalg as la</span> — We use SciPy, which holds advanced scientific computing tools.</li>
+                    <li><span class="code-snippet">P, L, U = la.lu(A)</span> — This completely breaks apart matrix A into three pieces: <code>P × L × U = A</code>.
+                        <div class="step-visual">
+                            <strong>📐 Meet the three pieces (P, L, and U):</strong>
+                            <div class="step-flow">
+                                <span class="step-box">L (Lower Matrix)</span>
+                                <span class="step-arrow">→</span>
+                                <span class="step-label">Has 1s on the diagonal, numbers below it, and <strong>all Zeros above it!</strong> <code>[[1, 0], [0.5, 1]]</code></span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">U (Upper Matrix)</span>
+                                <span class="step-arrow">→</span>
+                                <span class="step-label">Has numbers on the diagonal, numbers above it, and <strong>all Zeros below it!</strong> <code>[[2, 1], [0, -1.5]]</code></span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">P (Permutation)</span>
+                                <span class="step-arrow">→</span>
+                                <span class="step-label">Just a record of row swaps (keeps things stable).</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li><strong>🤔 Why do we care about all these zeros?</strong> Because solving equations with zeros is incredibly easy!
+                        <div class="step-visual">
+                            <strong>📐 Why triangular matrices are fast:</strong>
+                            <p>Look at the bottom row of our Upper matrix (U): <code>[0, -1.5]</code>. If this was an equation, it would be <code>0x - 1.5y = answer</code>.</p>
+                            <p>Because `x` is zero, we can instantly solve for `y` in our heads! Then we just plug `y` into the row above it to find `x`. This is called <strong>Back Substitution</strong>.</p>
+                        </div>
+                    </li>
+                    <li><strong>🧠 The Strategy:</strong> Instead of taking the painfully slow inverse of A, computers break A into L and U. Then they use L's zeros to solve half the problem instantly (forward substitution), and U's zeros to solve the rest instantly (backward substitution).</li>
+                    <li><strong>🤖 ML Connection:</strong> LU decomposition is heavily used under the hood in super-fast linear solvers, advanced modeling, scientific simulations, and <strong>Model Predictive Control (MPC) problems</strong> where self-driving cars need to solve complex math loops in milliseconds!</li>
                 </ul>
             </div>
         </div>
@@ -994,8 +1769,25 @@ Eigenvectors:<br>
             <div class="line-by-line mt-3">
                 <strong>📝 Line-by-Line Explanation:</strong>
                 <ul>
-                    <li><span class="code-snippet">np.linalg.eig(A)</span> - The NumPy function that returns a tuple of (eigenvalues, eigenvectors).</li>
-                    <li><strong>Geometric Meaning:</strong> By taking the vectors, the eigenvalue `3.` tells us there is strong stretching in that specific direction. The corresponding eigenvector `[0.707, 0.707]` indicates a 45-degree diagonal. The `1.` eigenvalue implies no stretching, just preserving length in the orthogonal direction `[-0.707, 0.707]`.</li>
+                    <li><span class="code-snippet">eigenvalues, eigenvectors = np.linalg.eig(A)</span> — Finds both standard eigenvalues and their paired eigenvectors in a split second!
+                        <div class="step-visual">
+                            <strong>📐 Analyzing the Output:</strong>
+                            <div class="step-flow">
+                                <span class="step-box highlight">Eigenvalue 1: <code>3.0</code></span>
+                                <span class="step-arrow">Paired with →</span>
+                                <span class="step-box">Eigenvector 1: <code>[0.707, 0.707]</code></span>
+                            </div>
+                            <div class="step-label" style="text-align: left; margin-bottom: 10px;">🧠 <strong>Meaning:</strong> The vector <code>[0.707, 0.707]</code> points perfectly diagonally up and right (a 45° angle). Because its eigenvalue is <code>3.0</code>, this matrix stretches that specific diagonal direction by exactly <strong>3 times its original length!</strong></div>
+                            
+                            <div class="step-flow">
+                                <span class="step-box accent">Eigenvalue 2: <code>1.0</code></span>
+                                <span class="step-arrow">Paired with →</span>
+                                <span class="step-box">Eigenvector 2: <code>[-0.707, 0.707]</code></span>
+                            </div>
+                            <div class="step-label" style="text-align: left;">🧠 <strong>Meaning:</strong> The vector <code>[-0.707, 0.707]</code> points diagonally up and left (orthogonal to the first one). Because its eigenvalue is <code>1.0</code>, this matrix <strong>does nothing</strong> to this direction! It stays exactly the same length.</div>
+                        </div>
+                    </li>
+                    <li><strong>🤖 ML Connection:</strong> By breaking a matrix into its eigenvectors, we understand its true "geometry." If an eigenvalue is `> 1`, the system explodes over time in that direction. If it's `< 1`, the system shrinks to zero. In Recurrent Neural Networks (RNNs), this exact math causes the famous <strong>exploding or vanishing gradient problem</strong>!</li>
                 </ul>
             </div>
         </div>
@@ -1057,10 +1849,37 @@ Eigenvectors:<br>
             <div class="line-by-line mt-3">
                 <strong>📝 Line-by-Line Explanation:</strong>
                 <ul>
-                    <li><span class="code-snippet">X_mean = X - np.mean(...)</span> - We must center data at coordinate (0,0) before analyzing variance.</li>
-                    <li><span class="code-snippet">C = np.cov(X_mean.T)</span> - The Covariance matrix measures how Height and Weight change together. It is symmetric!</li>
-                    <li><span class="code-snippet">np.linalg.eig(C)</span> - We find the eigenvectors. The largest eigenvalue is `50.`! Therefore, the corresponding eigenvector `[0.707, 0.707]` IS the **First Principal Component**. </li>
-                    <li><strong>🤖 Neural Networks Connection:</strong> In deep learning, the eigenvalues of the weight matrices dictate gradient explosion (eigenvalues > 1) and gradient vanishing (eigenvalues < 1), dictating the entire training stability!</li>
+                    <li><span class="code-snippet">X_mean = X - np.mean(X, axis=0)</span> — First, we find the average height and average weight. We subtract those averages from every person.
+                        <div class="step-visual">
+                            <strong>📐 Step 1: Centering the Data</strong>
+                            <p>This shifts the entire cloud of data so that the center point is exactly at coordinate (0,0) on a graph. This is mathematically required before analyzing how the data spreads out!</p>
+                        </div>
+                    </li>
+                    <li><span class="code-snippet">C = np.cov(X_mean.T)</span> — We calculate the <strong>Covariance Matrix</strong>.
+                        <div class="step-visual">
+                            <strong>📐 Step 2: Finding Covariance</strong>
+                            <p>Covariance mathematically asks: "When Height gets bigger, does Weight also get bigger?" (Yes, usually!). The resulting 2×2 matrix holds the variance of Height, the variance of Weight, and how they covary together.</p>
+                        </div>
+                    </li>
+                    <li><span class="code-snippet">eigenvalues, eigenvectors = np.linalg.eig(C)</span> — We perform Eigen Decomposition on the Covariance matrix!
+                        <div class="step-visual">
+                            <strong>📐 Step 3: Finding Principal Components</strong>
+                            <div class="step-flow">
+                                <span class="step-box">Largest Eigenvalue: <code>50.0</code></span>
+                                <span class="step-arrow">→</span>
+                                <span class="step-box highlight">PC1: <code>[0.707, 0.707]</code></span>
+                            </div>
+                            <div class="step-label" style="text-align: left; margin-bottom: 10px;">🧠 <strong>Meaning:</strong> `50.0` is huge! All the "action" (variance) in the data is happening along the diagonal line `[0.707, 0.707]`. This is our <strong>First Principal Component (PC1)</strong>!</div>
+                            
+                            <div class="step-flow">
+                                <span class="step-box">Smallest Eigenvalue: <code>0.0</code></span>
+                                <span class="step-arrow">→</span>
+                                <span class="step-box accent">PC2: <code>[-0.707, 0.707]</code></span>
+                            </div>
+                            <div class="step-label" style="text-align: left;">🧠 <strong>Meaning:</strong> `0.0` means there is absolutely NO variance in this orthogonal direction. The data is completely flat along this line. We can safely throw PC2 in the trash!</div>
+                        </div>
+                    </li>
+                    <li><strong>🤖 ML Connection:</strong> We just took 2D Data (Height and Weight), found that PC2 has a `0` eigenvalue, and realized we can mathematically represent the entire dataset perfectly using only 1 Dimension (PC1)! <strong>We just performed Dimensionality Reduction!</strong></li>
                 </ul>
             </div>
         </div>
@@ -1118,8 +1937,41 @@ Projection: [2.2 4.4]
             <div class="line-by-line mt-3">
                 <strong>📝 Line-by-Line Explanation:</strong>
                 <ul>
-                    <li><span class="code-snippet">(np.dot(y, x) / np.dot(x, x)) * x</span> - First computes the scalar mapping ratio (dot product), divides by the length of `x` squared, and then multiplies that scalar back against vector `x`.</li>
-                    <li><strong>🤖 ML Connection:</strong> Linear regression finds the mathematical projection of the Target vector <code>y</code> directly onto the Column space of <code>X</code>. Because projection perfectly minimizes distance, it minimizes error. That is why Least Squares Regression works conceptually!</li>
+                    <li><span class="code-snippet">proj = (np.dot(y, x) / np.dot(x, x)) * x</span> — This formula looks scary, but it's just 3 simple steps!
+                        <div class="step-visual">
+                            <strong>📐 Calculating Projection Step-by-Step:</strong>
+                            <p>We want to find the shadow of <code>y=[3, 4]</code> sitting on top of <code>x=[1, 2]</code>.</p>
+                            
+                            <p><strong>Step 1: Get the Dot Product (y · x)</strong></p>
+                            <div class="step-flow">
+                                <span class="step-box">y · x</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box">(3×1) + (4×2)</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">11</span>
+                            </div>
+                            
+                            <p><strong>Step 2: Get the Dot Product of (x · x)</strong></p>
+                            <div class="step-flow">
+                                <span class="step-box">x · x</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box">(1×1) + (2×2)</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">5</span>
+                            </div>
+
+                            <p><strong>Step 3: Divide them and multiply by vector x</strong></p>
+                            <div class="step-flow">
+                                <span class="step-box">11 / 5 = 2.2</span>
+                                <span class="step-arrow">×</span>
+                                <span class="step-box">[1, 2]</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box accent">[2.2, 4.4]</span>
+                            </div>
+                            <div class="step-result">✅ Projection = [2.2, 4.4]</div>
+                        </div>
+                    </li>
+                    <li><strong>🤖 ML Connection:</strong> Linear regression finds the mathematical projection of the Target vector <code>y</code> directly onto the Column space of <code>X</code>. Because a 90-degree projection perfectly minimizes distance, it minimizes the error (loss)! That is exactly why "Least Squares" Regression works conceptually!</li>
                 </ul>
             </div>
         </div>
@@ -1178,8 +2030,46 @@ u2:<br>
             <div class="line-by-line mt-3">
                 <strong>📝 Line-by-Line Explanation:</strong>
                 <ul>
-                    <li><span class="code-snippet">u2 = v2 - proj</span> - The core magic. We take `v2` and cleanly subtract the "shadow" it casts onto `u1`. The remaining vector `u2` is mathematically guaranteed to be orthogonal to `u1`! (Notice the dot product of `[1, 1]` and `[0.5, -0.5]` is zero).</li>
-                    <li><strong>🧠 Why Important?</strong> Gram-Schmidt is historically foundational to creating QR Decomposition algorithms!</li>
+                    <li><span class="code-snippet">u1 = v1</span> — Gram-Schmidt starts by just picking the first vector as the anchor. <code>u1 = [1, 1]</code>.</li>
+                    <li><span class="code-snippet">u2 = v2 - proj</span> — The core magic! How do we make `v2` perfectly orthogonal to `u1`?
+                        <div class="step-visual">
+                            <strong>📐 Gram-Schmidt Step-by-Step:</strong>
+                            <p><strong>Goal:</strong> Make <code>v2=[1, 0]</code> orthogonal to <code>u1=[1, 1]</code>.</p>
+                            
+                            <p><strong>Step 1: Find the projection (shadow) of v2 onto u1</strong></p>
+                            <p>We use the formula from Topic 21! <code>(v2·u1) / (u1·u1) * u1</code></p>
+                            <div class="step-flow">
+                                <span class="step-box">v2·u1 = (1×1)+(0×1) = 1</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">u1·u1 = (1×1)+(1×1) = 2</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">Ratio = 1/2 = 0.5</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">proj = 0.5 × [1, 1] = [0.5, 0.5]</span>
+                            </div>
+
+                            <p><strong>Step 2: Subtraction!</strong></p>
+                            <div class="step-flow">
+                                <span class="step-box">u2 = v2 - proj</span>
+                                <span class="step-arrow">→</span>
+                                <span class="step-box">[1, 0] - [0.5, 0.5]</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">[0.5, -0.5]</span>
+                            </div>
+
+                            <p><strong>Step 3: Verification</strong></p>
+                            <div class="step-flow">
+                                <span class="step-label">Does u1·u2 = 0?</span>
+                                <span class="step-box">[1, 1] · [0.5, -0.5]</span>
+                                <span class="step-arrow">→</span>
+                                <span class="step-box">(0.5) + (-0.5) = 0! ✅</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li><strong>🧠 Why Important?</strong> We just mathematically forced two vectors to become perfectly independent of each other! This process is historically foundational to creating QR Decomposition algorithms!</li>
                 </ul>
             </div>
         </div>
@@ -1224,8 +2114,22 @@ R:<br>
             <div class="line-by-line mt-3">
                 <strong>📝 Line-by-Line Explanation:</strong>
                 <ul>
-                    <li><span class="code-snippet">np.linalg.qr(A)</span> - High-performance algorithm computing the decomposition.</li>
-                    <li><strong>🤖 ML Connection:</strong> When solving big Machine Learning Least Squares problems `Xw = y`, directly computing `(XᵀX)⁻¹` leads to severe mathematical instability with large floating-point datasets. Advanced solvers heavily utilize QR Decomposition instead because matrix <code>Q</code> has a perfect condition number (stability) of 1!</li>
+                    <li><span class="code-snippet">Q, R = np.linalg.qr(A)</span> — High-performance algorithm that computes the decomposition. It rips <code>A</code> apart into <code>Q × R</code>.
+                        <div class="step-visual">
+                            <strong>📐 Analyzing Q and R:</strong>
+                            <div class="step-flow">
+                                <span class="step-box highlight">Matrix Q (Orthogonal):</span>
+                                <span class="step-arrow">→</span>
+                                <span class="step-label">Made using Gram-Schmidt! All its columns are perfectly at 90-degree angles to each other, and all have exactly length 1.</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box accent">Matrix R (Upper Triangular):</span>
+                                <span class="step-arrow">→</span>
+                                <span class="step-label">Has all zeros below the diagonal. (Look at the output: the bottom left number is `0.`). This makes solving equations super fast!</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li><strong>🤖 ML Connection:</strong> When solving big Machine Learning Least Squares problems `Xw = y`, directly calculating the inverse `(XᵀX)⁻¹` leads to severe mathematical instability with large floating-point datasets. Advanced solvers heavily utilize QR Decomposition instead! Why? Because finding the inverse of matrix <code>Q</code> is free—its inverse is just its Transpose (`Qᵀ`)! This makes algorithms ridiculously fast and stable.</li>
                 </ul>
             </div>
         </div>
@@ -1317,8 +2221,45 @@ Loss Gradient Vector: [ -9 -20]
             <div class="line-by-line mt-3">
                 <strong>📝 Line-by-Line Explanation:</strong>
                 <ul>
-                    <li><span class="code-snippet">X.T @ (X @ w - y)</span> - This mathematical vector perfectly tells the network exactly how to adjust the weights to reduce error.</li>
-                    <li><strong>🤖 Gradient Descent Rule:</strong> <code>w_new = w - η∇J</code> (where <code>η</code> is the learning rate). If the gradient is large, the update is fast. If small, learning slows down!</li>
+                    <li><span class="code-snippet">X = np.array([[1,1], [1,2], [1,3]])</span> — Our dataset has an intercept block (1s) and a feature (1, 2, 3).</li>
+                    <li><span class="code-snippet">w = np.array([0, 0])</span> — We start our model with completely random/zero weights.</li>
+                    <li><span class="code-snippet">gradient = X.T @ (X @ w - y)</span> — This is the Calculus derivative of the Mean Squared Error loss function! Let's break it down:
+                        <div class="step-visual">
+                            <strong>📐 Calculating the Gradient:</strong>
+                            <p><strong>Step 1: Make Predictions (X @ w)</strong></p>
+                            <div class="step-flow">
+                                <span class="step-box">Predictions:</span>
+                                <span class="step-label">Because weights are `[0,0]`, `X @ w` just outputs `[0, 0, 0]`. Our model is guessing zero for everything!</span>
+                            </div>
+
+                            <p><strong>Step 2: Calculate the Error (Predictions - y)</strong></p>
+                            <div class="step-flow">
+                                <span class="step-box">True y: [2, 3, 4]</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">Error = [0, 0, 0] - [2, 3, 4]</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box accent">[-2, -3, -4]</span>
+                            </div>
+
+                            <p><strong>Step 3: Multiply by X Transposed (X.T @ Error)</strong></p>
+                            <p>We multiply the Transposed features by the errors to see how each weight contributed to the mistake!</p>
+                            <div class="step-flow">
+                                <span class="step-box">Weight 0 Gradient:</span>
+                                <span class="step-box">(1×-2) + (1×-3) + (1×-4)</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">-9</span>
+                            </div>
+                            <div class="step-flow">
+                                <span class="step-box">Weight 1 Gradient:</span>
+                                <span class="step-box">(1×-2) + (2×-3) + (3×-4)</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">-20</span>
+                            </div>
+                            <div class="step-result">✅ Gradient Vector = [-9, -20]</div>
+                        </div>
+                    </li>
+                    <li><strong>🤖 Gradient Descent Rule:</strong> The gradient `[-9, -20]` points UP the hill. To minimize error, we go DOWN the hill. So we subtract! <code>w_new = w - (Learning_Rate × Gradient)</code>. If the gradient is large (-20), the update is fast. If small, learning slows down!</li>
                 </ul>
             </div>
         </div>
