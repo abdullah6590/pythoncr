@@ -30,46 +30,62 @@
     </header>
 
     <div class="storybook-intro">
-        <h2>🤖 Essential for Machine Learning</h2>
-        <p>The purpose of this chapter is to highlight the parts of linear algebra that are used in data science projects like machine learning and deep learning.</p>
-        <ul>
-            <li><span class="highlight-term">Scalars</span> : ML makes heavy use of Scalars</li>
-            <li><span class="highlight-term">Vectors</span> : ML makes heavy use of Vectors</li>
-            <li><span class="highlight-term">Matrices</span> : ML makes heavy use of Matrices</li>
-            <li><span class="highlight-term">Tensors</span> : ML makes heavy use of Tensors</li>
-        </ul>
-
-        <h3 style="margin-top: 2rem;">📊 Visual Overview</h3>
-        <table style="width: 100%; border-collapse: collapse; margin-top: 10px; text-align: center;">
-            <tr style="border-bottom: 1px solid rgba(255,255,255,0.2);">
-                <th style="padding: 8px; color: #38bdf8;">Scalar</th>
-                <th style="padding: 8px; color: #38bdf8;">Vector(s)</th>
-            </tr>
-            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
-                <td style="padding: 10px;">1</td>
-                <td style="padding: 10px;">[1]<br>[2]<br>[3]<br><br>[1 2 3]</td>
-            </tr>
-            <tr style="border-bottom: 1px solid rgba(255,255,255,0.2);">
-                <th style="padding: 8px; color: #38bdf8; margin-top:10px;">Matrix</th>
-                <th style="padding: 8px; color: #38bdf8; margin-top:10px;">Tensor</th>
-            </tr>
-            <tr>
-                <td style="padding: 10px;">
-                    [1 2 3]<br>
-                    [4 5 6]
-                </td>
-                <td style="padding: 10px;">
-                    [[1 2 3]<br>
-                     [4 5 6]]<br>
-                    <br>
-                    [[4 5 6]<br>
-                     [1 2 3]]
-                </td>
-            </tr>
-        </table>
+        <h2 style="font-size: 2.5rem; text-align: center; margin-bottom: 20px; background: linear-gradient(135deg, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">🤖 Essential for Machine Learning</h2>
         
-        <h3 style="margin-top: 2rem;">🗣️ The Language of Data</h3>
-        <p><strong>Vectors and Matrices are the languages of data.</strong> With ML, most things are done with vectors and matrices. With vectors and matrices, you can Discover Secrets.</p>
+        <p style="font-size: 1.15rem; text-align: center; color: var(--text-muted); margin-bottom: 40px; line-height: 1.6;">Deep Learning, Artificial Intelligence, and Data Science are essentially just <strong>applied Linear Algebra</strong>. A computer does not truly understand what an image, an audio file, or a word is. It only understands numbers. Linear Algebra provides the exact mathematical structures needed to transform the physical world into a format the computer can learn from.</p>
+
+        <div class="step-visual" style="margin-bottom: 25px;">
+            <h3 style="color: #cbd5e1; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; margin-bottom: 12px; font-size: 1.2rem;">1️⃣ Scalars (0D Tensors)</h3>
+            <p style="margin-bottom: 10px;"><strong>What it is:</strong> A single standalone number. (Magnitude only).</p>
+            <div class="step-flow" style="margin-top: 10px; margin-bottom: 15px;">
+                <span class="step-box highlight" style="width: 60px; font-size: 1.2rem;">42</span>
+            </div>
+            <p style="margin-top: 10px; font-size: 0.95rem; color: #94a3b8; line-height: 1.5;"><strong>🧠 ML Connection:</strong> Used to represent simple hyperparameters or final outputs. Examples include the <strong>Learning Rate</strong> <code>(e.g., 0.001)</code>, the final calculated <strong>Loss/Error</strong> <code>(e.g., 1.45)</code>, or the total <strong>Epoch Count</strong> <code>(e.g., 100)</code>.</p>
+        </div>
+
+        <div class="step-visual" style="margin-bottom: 25px;">
+            <h3 style="color: #cbd5e1; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; margin-bottom: 12px; font-size: 1.2rem;">2️⃣ Vectors (1D Tensors)</h3>
+            <p style="margin-bottom: 10px;"><strong>What it is:</strong> A 1-dimensional array or list of numbers. (Magnitude + Direction).</p>
+            <div class="step-flow" style="margin-top: 10px; margin-bottom: 15px;">
+                <span class="step-box" style="flex-direction: column; padding: 10px;">
+                    <span style="border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 5px;">1.5</span>
+                    <span style="border-bottom: 1px solid rgba(255,255,255,0.2); padding: 5px 0;">3.2</span>
+                    <span style="padding-top: 5px;">-0.8</span>
+                </span>
+            </div>
+            <p style="margin-top: 10px; font-size: 0.95rem; color: #94a3b8; line-height: 1.5;"><strong>🧠 ML Connection:</strong> A Vector represents a <strong>single data point</strong> (like one patient's medical stats) or a <strong>single continuous sequence</strong> (like a time-series or an audio wave). For example, a single Word is mathematically embedded into the computer as a Vector of 300 floating point numbers in NLP models!</p>
+        </div>
+
+        <div class="step-visual" style="margin-bottom: 25px;">
+            <h3 style="color: #cbd5e1; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; margin-bottom: 12px; font-size: 1.2rem;">3️⃣ Matrices (2D Tensors)</h3>
+            <p style="margin-bottom: 10px;"><strong>What it is:</strong> A 2-dimensional grid of numbers (Rows and Columns).</p>
+            <div class="step-flow" style="margin-top: 10px; margin-bottom: 15px;">
+                <span class="step-box accent" style="flex-direction: column; padding: 10px;">
+                    <span style="font-family: monospace; letter-spacing: 5px; font-size: 1.1rem; color: #fff;">1 2 3</span>
+                    <span style="font-family: monospace; letter-spacing: 5px; font-size: 1.1rem; color: #fff;">4 5 6</span>
+                    <span style="font-family: monospace; letter-spacing: 5px; font-size: 1.1rem; color: #fff;">7 8 9</span>
+                </span>
+            </div>
+            <p style="margin-top: 10px; font-size: 0.95rem; color: #94a3b8; line-height: 1.5;"><strong>🧠 ML Connection:</strong> This is the workhorse of AI. A matrix usually represents an <strong>entire Dataset</strong> (where each row is a patient and each column is a feature) or the <strong>Weights of a Neural Network Layer</strong>. Grayscale Images are precisely 2D matrices where each number represents pixel brightness (0 to 255)!</p>
+        </div>
+
+        <div class="step-visual" style="margin-bottom: 30px;">
+            <h3 style="color: #cbd5e1; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; margin-bottom: 12px; font-size: 1.2rem;">4️⃣ Tensors (3D+ Tensors)</h3>
+            <p style="margin-bottom: 10px;"><strong>What it is:</strong> An N-dimensional grid of numbers. An array of matrices.</p>
+            <div class="step-flow" style="margin-top: 25px; margin-bottom: 25px; perspective: 500px;">
+                <div style="position: relative; width: 80px; height: 80px;">
+                    <span class="step-box" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 3; font-size: 0.8rem; border-color: #38bdf8;">[1 2]<br>[3 4]</span>
+                    <span class="step-box" style="position: absolute; top: 15px; left: 15px; width: 100%; height: 100%; z-index: 2; opacity: 0.8; font-size: 0.8rem; border-color: #f472b6;">[5 6]<br>[7 8]</span>
+                    <span class="step-box" style="position: absolute; top: 30px; left: 30px; width: 100%; height: 100%; z-index: 1; opacity: 0.5; font-size: 0.8rem; border-color: #4ade80;">[1 0]<br>[0 1]</span>
+                </div>
+            </div>
+            <p style="margin-top: 35px; font-size: 0.95rem; color: #94a3b8; line-height: 1.5;"><strong>🧠 ML Connection:</strong> Used to represent highly complex, multi-dimensional data. A Color Image is a 3D Tensor (Height × Width × 3 Color Channels: RGB). Video is a 4D Tensor (Frames × Height × Width × Color Channels). This is exactly why Google's flagship AI programming library is proudly named <strong>TensorFlow</strong>!</p>
+        </div>
+
+        <div style="margin-top: 3rem; background: rgba(56, 189, 248, 0.05); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 12px; padding: 25px; text-align: center;">
+            <h3 style="color: #38bdf8; margin-bottom: 15px;">🗣️ The Deep Learning Philosophy</h3>
+            <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.6; margin: 0;">Every breakthrough in modern AI—from ChatGPT generating complex language to Midjourney drawing beautiful art—is fundamentally just billions of <strong>Vectors</strong> being sequentially multiplied by gigantic <strong>Matrices</strong> inside massive, high-dimensional mathematical <strong>Tensors</strong>. Once you understand the underlying geometric structure of Linear Algebra, the "magic" of AI disappears and elegantly transforms into pure, understandable logic.</p>
+        </div>
     </div>
 
     <h2 class="module-title">Module 1: Deep Dive into Components</h2>
@@ -124,6 +140,74 @@ print(my_scalar)</code>
                             <div class="step-flow"><span class="step-box">Accuracy = 0.97</span><span class="step-label">← how correct the model is (97%)</span></div>
                         </div>
                     </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Topic 1 (Part 2): Operations on Scalars</h3>
+        <p class="task-desc">Just like regular numbers, you can add, subtract, multiply, and divide scalars.</p>
+        <button class="btn-toggle" onclick="toggleCode('la-task1b', this)">Show Answer</button>
+        
+        <div id="la-task1b" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="comment"># Let's try some basic math with our scalars</span>
+base_price = 100
+discount = 20
+
+<span class="comment"># Subtracting scalars</span>
+final_price = base_price - discount
+
+<span class="comment"># Multiplying scalars</span>
+tax_rate = 1.05
+price_with_tax = final_price * tax_rate
+
+print("Final price after discount:", final_price)
+print("Total with tax:", price_with_tax)</code>
+            </div>
+            <button class="btn-output" onclick="toggleOutput('out1b', this)">Show Output</button>
+            <div id="out1b" class="output-container">
+Final price after discount: 80<br>
+Total with tax: 84.0
+            </div>
+            <div class="line-by-line mt-3">
+                <strong>📝 Line-by-Line Explanation:</strong>
+                <ul>
+                    <li><span class="code-snippet">base_price = 100</span> and <span class="code-snippet">discount = 20</span> — We create two scalar variables to represent a starting price and a discount amount.</li>
+                    <li><span class="code-snippet">final_price = base_price - discount</span> — Here we do our first operation: <strong>Subtraction</strong>.
+                        <div class="step-visual">
+                            <strong>📐 Subtracting Scalars:</strong>
+                            <div class="step-flow">
+                                <span class="step-box">100</span>
+                                <span class="step-arrow">−</span>
+                                <span class="step-box">20</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">80</span>
+                            </div>
+                            <p>We take the value <code>100</code>, subtract <code>20</code>, and get <code>80</code>. We then store that result in a new variable called <code>final_price</code>.</p>
+                        </div>
+                    </li>
+                    <li><span class="code-snippet">tax_rate = 1.05</span> — We create a new scalar representing a 5% tax rate. <em>Note: Scalars can be decimals (floats) or whole numbers (integers)!</em></li>
+                    <li><span class="code-snippet">price_with_tax = final_price * tax_rate</span> — This is <strong>Multiplication</strong>!
+                        <div class="step-visual">
+                            <strong>📐 Multiplying Scalars:</strong>
+                            <div class="step-flow">
+                                <span class="step-box">80</span>
+                                <span class="step-arrow">×</span>
+                                <span class="step-box">1.05</span>
+                                <span class="step-arrow">=</span>
+                                <span class="step-box highlight">84.0</span>
+                            </div>
+                            <p>We take our <code>80</code>, multiply it by <code>1.05</code>, and store the result (<code>84.0</code>) into <code>price_with_tax</code>.</p>
+                        </div>
+                    </li>
+                    <li><span class="code-snippet">print(...)</span> — Finally, we print out the results so we can see them.</li>
+                    <li><strong>🤖 ML Connection:</strong> Why do we care about simple math? Because adjusting a learning rate during training involves scalar multiplication! (e.g., <code>new_learning_rate = old_learning_rate * 0.9</code>). Every time an AI trains, millions of these tiny scalar operations happen every second!</li>
                 </ul>
             </div>
         </div>
