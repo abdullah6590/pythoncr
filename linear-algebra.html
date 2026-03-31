@@ -12,16 +12,31 @@
     <div class="container">
 
     <nav class="top-nav">
-        <!-- Active item acts as the dropdown toggle on mobile -->
-        <a href="#" class="nav-link active">📐 Linear Algebra</a>
-        
-        <!-- Other links to show when toggled -->
-        <a href="basics.html" class="nav-link">🐍 Basics</a>
-        <a href="index.html" class="nav-link">🚀 Functions</a>
-        <a href="oop.html" class="nav-link">🏗️ OOP</a>
-        <a href="numpy.html" class="nav-link">🧮 NumPy</a>
-        <a href="pandas.html" class="nav-link">🐼 Pandas</a>
-        <a href="matplotlib.html" class="nav-link">📊 Matplotlib</a>
+        <div class="dropdown">
+            <button class="dropbtn">🐍 Python <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="basics.html">📘 Basics</a>
+                <a href="index.html">🐍 Functions</a>
+                <a href="oop.html">🏗️ OOP</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">📚 Libraries <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="numpy.html">🧮 NumPy</a>
+                <a href="pandas.html">🐼 Pandas</a>
+                <a href="matplotlib.html">📊 Matplotlib</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">🤖 Machine Learning <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="ml-intro.html">🚀 Introduction</a>
+                <a href="ml-supervised.html">📊 Supervised Learning</a>
+                <a href="ml-classification-regression.html">🎯 Classification / Regression</a>
+            </div>
+        </div>
+        <a href="linear-algebra.html" class="nav-link active">📐 Linear Algebra</a>
     </nav>
 
     <header>
@@ -30,7 +45,7 @@
     </header>
 
     <div class="storybook-intro">
-        <h2 style="font-size: 2.5rem; text-align: center; margin-bottom: 20px; background: linear-gradient(135deg, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">🤖 Essential for Machine Learning</h2>
+        <h2 style="font-size: 2.5rem; text-align: center; margin-bottom: 20px; background: linear-gradient(135deg, #38bdf8, #818cf8); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">🤖 Essential for Machine Learning</h2>
         
         <p style="font-size: 1.15rem; text-align: center; color: var(--text-muted); margin-bottom: 40px; line-height: 1.6;">Deep Learning, Artificial Intelligence, and Data Science are essentially just <strong>applied Linear Algebra</strong>. A computer does not truly understand what an image, an audio file, or a word is. It only understands numbers. Linear Algebra provides the exact mathematical structures needed to transform the physical world into a format the computer can learn from.</p>
 

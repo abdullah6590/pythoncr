@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classification & Regression — Machine Learning Models</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="container">
+
+    <nav class="top-nav">
+        <div class="dropdown">
+            <button class="dropbtn">🐍 Python <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="basics.html">📘 Basics</a>
+                <a href="index.html">🐍 Functions</a>
+                <a href="oop.html">🏗️ OOP</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">📚 Libraries <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="numpy.html">🧮 NumPy</a>
+                <a href="pandas.html">🐼 Pandas</a>
+                <a href="matplotlib.html">📊 Matplotlib</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">🤖 Machine Learning <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="ml-intro.html">🚀 Introduction</a>
+                <a href="ml-supervised.html">📊 Supervised Learning</a>
+                <a href="ml-classification-regression.html" class="active">🎯 Classification / Regression</a>
+            </div>
+        </div>
+        <a href="linear-algebra.html" class="nav-link">📐 Linear Algebra</a>
+    </nav>
+
+    <header>
+        <h1>🎯 Classification & Regression</h1>
+        <p>The two pillars of Supervised Learning — one predicts labels, the other predicts numbers. Master them both and you can solve almost any prediction problem!</p>
+    </header>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- THE BIG PICTURE                             -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">🌍 The Big Picture</h2>
+
+    <div class="storybook-intro">
+        <p>Every supervised learning problem boils down to one fundamental question: <strong>What are you trying to predict?</strong></p>
+        <ul>
+            <li>If the answer is a <strong>category</strong> (like "spam" or "not spam") → it's <span class="highlight-term">Classification</span></li>
+            <li>If the answer is a <strong>number</strong> (like "$350,000" or "28.5°C") → it's <span class="highlight-term">Regression</span></li>
+        </ul>
+        <p>That's it! This single distinction determines which algorithms you choose, how you evaluate your model, and how you interpret results.</p>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- CLASSIFICATION                              -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">🏷️ What is Classification?</h2>
+
+    <div class="storybook-intro">
+        <p>Imagine a bouncer at a club. They look at each person and decide: <strong>"You're in"</strong> or <strong>"You're out."</strong> No middle ground — just a clear label. That's classification!</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📖 Definition</h3>
+        <p class="task-desc">
+            <strong>Classification</strong> is a supervised learning task where the model predicts a <span class="highlight-term">discrete label</span> or <span class="highlight-term">category</span>. The output belongs to a finite set of classes.
+        </p>
+        <div class="ml-formula-card">
+            <div class="ml-formula">f(x) → Category</div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📂 Types of Classification</h3>
+        <div class="ml-comparison-grid">
+            <div class="ml-compare-box" style="background: rgba(56, 189, 248, 0.06); border-color: rgba(56, 189, 248, 0.2);">
+                <h4>✌️ Binary Classification</h4>
+                <p style="font-size: 0.9rem; font-weight: 700; color: var(--accent-cyan); margin-bottom: 0.75rem;">Only 2 possible classes</p>
+                <div class="ml-example-box">
+                    <p>▸ Email → <code>Spam</code> / <code>Not Spam</code></p>
+                    <p>▸ Patient → <code>Sick</code> / <code>Healthy</code></p>
+                    <p>▸ Transaction → <code>Fraud</code> / <code>Legit</code></p>
+                </div>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(167, 139, 250, 0.06); border-color: rgba(167, 139, 250, 0.2);">
+                <h4>🎨 Multi-class Classification</h4>
+                <p style="font-size: 0.9rem; font-weight: 700; color: var(--accent-purple); margin-bottom: 0.75rem;">3 or more possible classes</p>
+                <div class="ml-example-box">
+                    <p>▸ Animal → <code>Cat</code> / <code>Dog</code> / <code>Bird</code></p>
+                    <p>▸ Digit → <code>0</code> through <code>9</code></p>
+                    <p>▸ Sentiment → <code>Positive</code> / <code>Neutral</code> / <code>Negative</code></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📊 Evaluation Metrics for Classification</h3>
+        <div class="ml-reason-grid">
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🎯</div>
+                <h4>Accuracy</h4>
+                <p>Percentage of correct predictions out of all predictions made.</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🔍</div>
+                <h4>Precision</h4>
+                <p>Of all positive predictions, how many were actually correct?</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">📡</div>
+                <h4>Recall</h4>
+                <p>Of all actual positives, how many did the model catch?</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">⚖️</div>
+                <h4>F1-Score</h4>
+                <p>Harmonic mean of Precision & Recall — balances both.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- REGRESSION                                  -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">📈 What is Regression?</h2>
+
+    <div class="storybook-intro">
+        <p>Now imagine you're an appraiser valuing a house. You don't say "expensive" or "cheap" — you give an <strong>exact number</strong>: "$350,000". The answer could be any value on a continuous scale. That's regression!</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📖 Definition</h3>
+        <p class="task-desc">
+            <strong>Regression</strong> is a supervised learning task where the model predicts a <span class="highlight-term">continuous numerical value</span>. The output can be any real number (or range of numbers).
+        </p>
+        <div class="ml-formula-card">
+            <div class="ml-formula">f(x) → Number</div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🌡️ Real-World Regression Examples</h3>
+        <div class="ml-reason-grid">
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🏠</div>
+                <h4>House Price Prediction</h4>
+                <p>Input: area, bedrooms, location → Output: <code>$350,000</code></p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🌡️</div>
+                <h4>Temperature Forecasting</h4>
+                <p>Input: humidity, wind, date → Output: <code>28.5°C</code></p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">📈</div>
+                <h4>Stock Price Prediction</h4>
+                <p>Input: market data, news → Output: <code>$142.67</code></p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">👤</div>
+                <h4>Age Estimation</h4>
+                <p>Input: face image features → Output: <code>25.3 years</code></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📊 Evaluation Metrics for Regression</h3>
+        <div class="ml-reason-grid">
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">📏</div>
+                <h4>MAE (Mean Absolute Error)</h4>
+                <p>Average of the absolute differences between predictions and actual values.</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">📐</div>
+                <h4>MSE (Mean Squared Error)</h4>
+                <p>Average of squared errors — penalizes large errors more heavily.</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🎯</div>
+                <h4>R² Score</h4>
+                <p>How much of the variance in data the model explains. 1.0 = perfect fit.</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">📉</div>
+                <h4>RMSE (Root Mean Squared Error)</h4>
+                <p>Square root of MSE — gives error in the same units as the output.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SIDE-BY-SIDE COMPARISON                     -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">⚔️ Classification vs Regression — Head to Head</h2>
+
+    <div class="task-card">
+        <div class="ml-data-table-wrapper">
+            <table class="ml-data-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>🏷️ Classification</th>
+                        <th>📈 Regression</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Output Type</strong></td>
+                        <td>Discrete / Categorical</td>
+                        <td>Continuous / Numerical</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Example Output</strong></td>
+                        <td><code>Spam</code>, <code>Cat</code>, <code>Positive</code></td>
+                        <td><code>350000</code>, <code>28.5</code>, <code>92.3</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Goal</strong></td>
+                        <td>Assign a label / class</td>
+                        <td>Predict an exact value</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Evaluation</strong></td>
+                        <td>Accuracy, Precision, Recall, F1</td>
+                        <td>MAE, MSE, RMSE, R²</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Analogy</strong></td>
+                        <td>Sorting items into boxes 📦</td>
+                        <td>Putting a price tag on items 💰</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Decision Boundary</strong></td>
+                        <td>Draws lines to separate classes</td>
+                        <td>Fits a curve through data points</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- ALL ML MODELS                               -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">🧠 Machine Learning Models — The Complete Guide</h2>
+
+    <div class="storybook-intro">
+        <p>Now for the exciting part! Here's every major ML model you need to know, with details on whether it's used for <span class="highlight-term">Classification</span>, <span class="highlight-term">Regression</span>, or <strong>Both</strong>. Think of this as your <strong>ML model cheat sheet!</strong> 🗺️</p>
+    </div>
+
+    <!-- Model 1: Linear Regression -->
+    <div class="task-card">
+        <div class="ml-model-header">
+            <span class="ml-model-badge ml-badge-regression">Regression</span>
+            <h3 class="task-title" style="margin-bottom: 0;">1. Linear Regression</h3>
+        </div>
+        <p class="task-desc">The simplest and most interpretable model. Fits a straight line through data points to predict continuous values.</p>
+        <div class="ml-compare-flow" style="margin: 1rem 0;">
+            <span class="ml-flow-item">📐 y = mx + b</span>
+            <span class="ml-flow-arrow">→</span>
+            <span class="ml-flow-item ml-flow-output">Predicts a number</span>
+        </div>
+        <p class="task-desc"><strong>Use cases:</strong> House price prediction, salary estimation, sales forecasting</p>
+    </div>
+
+    <!-- Model 2: Logistic Regression -->
+    <div class="task-card">
+        <div class="ml-model-header">
+            <span class="ml-model-badge ml-badge-classification">Classification</span>
+            <h3 class="task-title" style="margin-bottom: 0;">2. Logistic Regression</h3>
+        </div>
+        <p class="task-desc">Despite the name, it's a classification algorithm! Uses a sigmoid function to output probability between 0 and 1, then classifies based on a threshold.</p>
+        <div class="ml-compare-flow" style="margin: 1rem 0;">
+            <span class="ml-flow-item">📊 σ(z) = 1 / (1 + e⁻ᶻ)</span>
+            <span class="ml-flow-arrow">→</span>
+            <span class="ml-flow-item ml-flow-output">Predicts a class (0 or 1)</span>
+        </div>
+        <p class="task-desc"><strong>Use cases:</strong> Spam detection, disease diagnosis, customer churn</p>
+    </div>
+
+    <!-- Model 3: Decision Tree -->
+    <div class="task-card">
+        <div class="ml-model-header">
+            <span class="ml-model-badge ml-badge-both">Both</span>
+            <h3 class="task-title" style="margin-bottom: 0;">3. Decision Tree</h3>
+        </div>
+        <p class="task-desc">Works like a flowchart! Splits data based on feature values using if/else rules. Highly interpretable — you can actually visualize the decision process.</p>
+        <div class="ml-compare-flow" style="margin: 1rem 0;">
+            <span class="ml-flow-item">🌳 If age > 30 AND income > 50K</span>
+            <span class="ml-flow-arrow">→</span>
+            <span class="ml-flow-item ml-flow-output">Approve Loan ✅</span>
+        </div>
+        <p class="task-desc"><strong>Use cases:</strong> Loan approval, medical diagnosis, customer segmentation</p>
+    </div>
+
+    <!-- Model 4: Random Forest -->
+    <div class="task-card">
+        <div class="ml-model-header">
+            <span class="ml-model-badge ml-badge-both">Both</span>
+            <h3 class="task-title" style="margin-bottom: 0;">4. Random Forest</h3>
+        </div>
+        <p class="task-desc">An ensemble of hundreds of decision trees that "vote" on the answer. Like asking 100 experts and going with the majority — reduces overfitting dramatically!</p>
+        <div class="ml-compare-flow" style="margin: 1rem 0;">
+            <span class="ml-flow-item">🌲🌲🌲 100 Trees Vote</span>
+            <span class="ml-flow-arrow">→</span>
+            <span class="ml-flow-item ml-flow-output">Majority wins!</span>
+        </div>
+        <p class="task-desc"><strong>Use cases:</strong> Feature importance, fraud detection, stock prediction</p>
+    </div>
+
+    <!-- Model 5: SVM -->
+    <div class="task-card">
+        <div class="ml-model-header">
+            <span class="ml-model-badge ml-badge-both">Both</span>
+            <h3 class="task-title" style="margin-bottom: 0;">5. Support Vector Machine (SVM)</h3>
+        </div>
+        <p class="task-desc">Finds the optimal hyperplane that separates classes with the maximum margin. Can handle non-linear data using the "kernel trick" to project data into higher dimensions.</p>
+        <div class="ml-compare-flow" style="margin: 1rem 0;">
+            <span class="ml-flow-item">📏 Max Margin Hyperplane</span>
+            <span class="ml-flow-arrow">→</span>
+            <span class="ml-flow-item ml-flow-output">Clear class separation</span>
+        </div>
+        <p class="task-desc"><strong>Use cases:</strong> Text classification, image recognition, bioinformatics</p>
+    </div>
+
+    <!-- Model 6: KNN -->
+    <div class="task-card">
+        <div class="ml-model-header">
+            <span class="ml-model-badge ml-badge-both">Both</span>
+            <h3 class="task-title" style="margin-bottom: 0;">6. K-Nearest Neighbors (KNN)</h3>
+        </div>
+        <p class="task-desc">The laziest algorithm (literally — it's called "lazy learning")! Doesn't train at all. At prediction time, it finds the K closest data points and takes a vote or average.</p>
+        <div class="ml-compare-flow" style="margin: 1rem 0;">
+            <span class="ml-flow-item">🎯 Find K nearest neighbors</span>
+            <span class="ml-flow-arrow">→</span>
+            <span class="ml-flow-item ml-flow-output">Vote / Average</span>
+        </div>
+        <p class="task-desc"><strong>Use cases:</strong> Recommendation systems, anomaly detection, pattern recognition</p>
+    </div>
+
+    <!-- Model 7: Naive Bayes -->
+    <div class="task-card">
+        <div class="ml-model-header">
+            <span class="ml-model-badge ml-badge-classification">Classification</span>
+            <h3 class="task-title" style="margin-bottom: 0;">7. Naive Bayes</h3>
+        </div>
+        <p class="task-desc">Based on Bayes' Theorem with the "naive" assumption that features are independent. Surprisingly powerful despite this simplification, especially for text data!</p>
+        <div class="ml-compare-flow" style="margin: 1rem 0;">
+            <span class="ml-flow-item">📊 P(class | features)</span>
+            <span class="ml-flow-arrow">→</span>
+            <span class="ml-flow-item ml-flow-output">Most probable class</span>
+        </div>
+        <p class="task-desc"><strong>Use cases:</strong> Spam filtering, sentiment analysis, document classification</p>
+    </div>
+
+    <!-- Model 8: Gradient Boosting -->
+    <div class="task-card">
+        <div class="ml-model-header">
+            <span class="ml-model-badge ml-badge-both">Both</span>
+            <h3 class="task-title" style="margin-bottom: 0;">8. Gradient Boosting (XGBoost / LightGBM / CatBoost)</h3>
+        </div>
+        <p class="task-desc">The Kaggle competition champion! 🏆 Builds trees sequentially — each new tree corrects errors of the previous ones. Extremely powerful and widely used in industry.</p>
+        <div class="ml-compare-flow" style="margin: 1rem 0;">
+            <span class="ml-flow-item">🌲 → 🌲 → 🌲 Sequential Learning</span>
+            <span class="ml-flow-arrow">→</span>
+            <span class="ml-flow-item ml-flow-output">State-of-the-art results</span>
+        </div>
+        <p class="task-desc"><strong>Use cases:</strong> Click prediction, ranking, fraud detection, any tabular data</p>
+    </div>
+
+    <!-- Model 9: Neural Networks -->
+    <div class="task-card">
+        <div class="ml-model-header">
+            <span class="ml-model-badge ml-badge-both">Both</span>
+            <h3 class="task-title" style="margin-bottom: 0;">9. Neural Networks (Deep Learning)</h3>
+        </div>
+        <p class="task-desc">Inspired by the human brain! Layers of interconnected neurons learn complex patterns automatically. Powers modern AI breakthroughs in vision, language, and beyond.</p>
+        <div class="ml-compare-flow" style="margin: 1rem 0;">
+            <span class="ml-flow-item">🧠 Input → Hidden Layers → Output</span>
+            <span class="ml-flow-arrow">→</span>
+            <span class="ml-flow-item ml-flow-output">Learns anything!</span>
+        </div>
+        <p class="task-desc"><strong>Use cases:</strong> Image recognition, NLP, speech, self-driving cars, ChatGPT</p>
+    </div>
+
+    <!-- Model 10: Ridge / Lasso -->
+    <div class="task-card">
+        <div class="ml-model-header">
+            <span class="ml-model-badge ml-badge-regression">Regression</span>
+            <h3 class="task-title" style="margin-bottom: 0;">10. Ridge & Lasso Regression</h3>
+        </div>
+        <p class="task-desc">Linear Regression with regularization (a penalty term) to prevent overfitting. Ridge uses L2 penalty (shrinks coefficients), Lasso uses L1 penalty (can eliminate features entirely).</p>
+        <div class="ml-compare-flow" style="margin: 1rem 0;">
+            <span class="ml-flow-item">📐 Linear Regression + Penalty</span>
+            <span class="ml-flow-arrow">→</span>
+            <span class="ml-flow-item ml-flow-output">Prevents overfitting</span>
+        </div>
+        <p class="task-desc"><strong>Use cases:</strong> High-dimensional data, feature selection (Lasso), regularized predictions</p>
+    </div>
+
+    <!-- Model 11: Polynomial Regression -->
+    <div class="task-card">
+        <div class="ml-model-header">
+            <span class="ml-model-badge ml-badge-regression">Regression</span>
+            <h3 class="task-title" style="margin-bottom: 0;">11. Polynomial Regression</h3>
+        </div>
+        <p class="task-desc">Extensions of linear regression that fits curves instead of straight lines. Useful when the relationship between variables is non-linear.</p>
+        <div class="ml-compare-flow" style="margin: 1rem 0;">
+            <span class="ml-flow-item">📐 y = ax² + bx + c</span>
+            <span class="ml-flow-arrow">→</span>
+            <span class="ml-flow-item ml-flow-output">Fits curves to data</span>
+        </div>
+        <p class="task-desc"><strong>Use cases:</strong> Growth curves, scientific experiments, non-linear trends</p>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- MASTER COMPARISON TABLE                     -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">📋 The Ultimate Model Comparison Table</h2>
+
+    <div class="storybook-intro">
+        <p>Here's your <strong>complete cheat sheet</strong> — every major ML model at a glance. Bookmark this page! 🔖</p>
+    </div>
+
+    <div class="task-card">
+        <div class="ml-data-table-wrapper">
+            <table class="ml-data-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Model Name</th>
+                        <th>Classification</th>
+                        <th>Regression</th>
+                        <th>Best For</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td style="text-align: left;"><strong>Linear Regression</strong></td>
+                        <td>❌</td>
+                        <td>✅</td>
+                        <td style="text-align: left;">Simple numeric predictions</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td style="text-align: left;"><strong>Logistic Regression</strong></td>
+                        <td>✅</td>
+                        <td>❌</td>
+                        <td style="text-align: left;">Binary classification</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td style="text-align: left;"><strong>Decision Tree</strong></td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td style="text-align: left;">Interpretable decisions</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td style="text-align: left;"><strong>Random Forest</strong></td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td style="text-align: left;">Robust ensemble predictions</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td style="text-align: left;"><strong>SVM</strong></td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td style="text-align: left;">Complex decision boundaries</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td style="text-align: left;"><strong>KNN</strong></td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td style="text-align: left;">Small datasets, similarity-based</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td style="text-align: left;"><strong>Naive Bayes</strong></td>
+                        <td>✅</td>
+                        <td>❌</td>
+                        <td style="text-align: left;">Text / document classification</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td style="text-align: left;"><strong>Gradient Boosting</strong></td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td style="text-align: left;">Competitions, tabular data</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td style="text-align: left;"><strong>Neural Networks</strong></td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td style="text-align: left;">Images, text, complex patterns</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td style="text-align: left;"><strong>Ridge / Lasso</strong></td>
+                        <td>❌</td>
+                        <td>✅</td>
+                        <td style="text-align: left;">Regularized regression</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td style="text-align: left;"><strong>Polynomial Regression</strong></td>
+                        <td>❌</td>
+                        <td>✅</td>
+                        <td style="text-align: left;">Non-linear trends</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- VISUAL SUMMARY CARD                         -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <div class="task-card" style="margin-top: 2rem;">
+        <h3 class="task-title">📊 Models by Category — Visual Summary</h3>
+        <div class="ml-model-summary-grid">
+            <div class="ml-model-summary-box ml-summary-classification">
+                <h4>🏷️ Classification Only</h4>
+                <div class="ml-model-chip-list">
+                    <span class="ml-model-chip">Logistic Regression</span>
+                    <span class="ml-model-chip">Naive Bayes</span>
+                </div>
+            </div>
+            <div class="ml-model-summary-box ml-summary-regression">
+                <h4>📈 Regression Only</h4>
+                <div class="ml-model-chip-list">
+                    <span class="ml-model-chip">Linear Regression</span>
+                    <span class="ml-model-chip">Ridge / Lasso</span>
+                    <span class="ml-model-chip">Polynomial Regression</span>
+                </div>
+            </div>
+            <div class="ml-model-summary-box ml-summary-both">
+                <h4>⚡ Both (Classification & Regression)</h4>
+                <div class="ml-model-chip-list">
+                    <span class="ml-model-chip">Decision Tree</span>
+                    <span class="ml-model-chip">Random Forest</span>
+                    <span class="ml-model-chip">SVM</span>
+                    <span class="ml-model-chip">KNN</span>
+                    <span class="ml-model-chip">Gradient Boosting</span>
+                    <span class="ml-model-chip">Neural Networks</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- HOW TO CHOOSE                               -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">🗺️ How to Choose the Right Model?</h2>
+
+    <div class="task-card">
+        <h3 class="task-title">🧭 The Decision Flowchart</h3>
+        <div class="ml-workflow-pipeline">
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">1</div>
+                <div class="ml-step-content">
+                    <h4>❓ What are you predicting?</h4>
+                    <p><strong>Category</strong> → Classification &nbsp; | &nbsp; <strong>Number</strong> → Regression</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">2</div>
+                <div class="ml-step-content">
+                    <h4>📏 How big is your dataset?</h4>
+                    <p><strong>Small</strong> (&lt;1000) → KNN, Decision Tree &nbsp; | &nbsp; <strong>Large</strong> → Random Forest, Neural Network</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">3</div>
+                <div class="ml-step-content">
+                    <h4>🔍 Need interpretability?</h4>
+                    <p><strong>Yes</strong> → Linear/Logistic Regression, Decision Tree &nbsp; | &nbsp; <strong>No</strong> → Random Forest, Neural Network</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step ml-workflow-step-final">
+                <div class="ml-step-number">4</div>
+                <div class="ml-step-content">
+                    <h4>🏆 Want best accuracy?</h4>
+                    <p><strong>Tabular data</strong> → Gradient Boosting (XGBoost) &nbsp; | &nbsp; <strong>Images/Text</strong> → Neural Networks</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- KEY TAKEAWAY -->
+    <div class="task-card" style="margin-top: 3rem; text-align: center;">
+        <h3 class="task-title">🎓 Key Takeaway</h3>
+        <p class="task-desc">
+            <strong>Classification</strong> sorts data into categories. <strong>Regression</strong> predicts numerical values. Many models can do both!
+            The right model depends on your data size, problem type, and need for interpretability.
+        </p>
+        <div class="ml-paradigm-tags">
+            <span class="ml-tag ml-tag-supervised">Classification = Labels 🏷️</span>
+            <span class="ml-tag ml-tag-rl">Regression = Numbers 📈</span>
+            <span class="ml-tag ml-tag-semi">6 Models Do Both ⚡</span>
+        </div>
+    </div>
+
+    </div><!-- .container -->
+
+    <script src="script.js?v=2"></script>
+</body>
+</html>

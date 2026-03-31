@@ -182,19 +182,36 @@ function toggleOutput(id, btn) {
     }
 }
 
-// --- Mobile Navigation Toggle ---
+// --- Dropdown Navigation Toggle ---
 document.addEventListener('DOMContentLoaded', () => {
-    const nav = document.querySelector('.top-nav');
-    const navLinks = document.querySelectorAll('.nav-link');
-    
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            // Mobile menu toggle (Only applies if it's the active toggle button)
-            if (link.classList.contains('active') && window.innerWidth <= 640 && nav) {
-                e.preventDefault();
-                nav.classList.toggle('open');
-            }
+    const dropdowns = document.querySelectorAll('.dropdown');
+
+    // Toggle dropdown on button click
+    dropdowns.forEach(dropdown => {
+        const btn = dropdown.querySelector('.dropbtn');
+        if (!btn) return;
+
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const isOpen = dropdown.classList.contains('open');
+            // Close all dropdowns first
+            dropdowns.forEach(d => d.classList.remove('open'));
+            // Toggle the clicked one
+            if (!isOpen) dropdown.classList.add('open');
         });
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', () => {
+        dropdowns.forEach(d => d.classList.remove('open'));
+    });
+
+    // Mark parent dropdown as active if it contains an active child link
+    dropdowns.forEach(dropdown => {
+        if (dropdown.querySelector('.dropdown-content a.active')) {
+            dropdown.classList.add('active');
+        }
     });
 });
 

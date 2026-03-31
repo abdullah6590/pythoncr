@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supervised Learning — Machine Learning</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="container">
+
+    <nav class="top-nav">
+        <div class="dropdown">
+            <button class="dropbtn">🐍 Python <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="basics.html">📘 Basics</a>
+                <a href="index.html">🐍 Functions</a>
+                <a href="oop.html">🏗️ OOP</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">📚 Libraries <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="numpy.html">🧮 NumPy</a>
+                <a href="pandas.html">🐼 Pandas</a>
+                <a href="matplotlib.html">📊 Matplotlib</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">🤖 Machine Learning <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="ml-intro.html">🚀 Introduction</a>
+                <a href="ml-supervised.html" class="active">📊 Supervised Learning</a>
+                <a href="ml-classification-regression.html">🎯 Classification / Regression</a>
+            </div>
+        </div>
+        <a href="linear-algebra.html" class="nav-link">📐 Linear Algebra</a>
+    </nav>
+
+    <header>
+        <h1>📊 Supervised Learning</h1>
+        <p>The most intuitive way machines learn — just like a student studying with an answer key. Give examples, let the model learn, and watch it predict!</p>
+    </header>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- WHAT IS SUPERVISED LEARNING?                -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">🎓 What is Supervised Learning?</h2>
+
+    <div class="storybook-intro">
+        <p>Imagine you're a teacher grading exams. You show a student <strong>questions along with their correct answers</strong>. The student practices, learns the patterns, and eventually can answer <em>new questions</em> on their own. That's <strong>Supervised Learning</strong> in a nutshell!</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📖 The Definition</h3>
+        <p class="task-desc">
+            <strong>Supervised Learning</strong> is a type of machine learning where the model is trained using <span class="highlight-term">labeled data</span>. In this approach, both the <strong>input</strong> and the <strong>corresponding correct output</strong> are provided during training.
+        </p>
+        <p class="task-desc">
+            The model learns by comparing its predictions with the actual answers, adjusting itself until it minimizes the error. Once trained, it can predict outputs for <strong>completely new, unseen inputs</strong>.
+        </p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🔬 The Math Behind It</h3>
+        <p class="task-desc">The goal is to learn a mapping function:</p>
+        <div class="ml-formula-card">
+            <div class="ml-formula">y = f(x)</div>
+        </div>
+        <div class="ml-variable-grid">
+            <div class="ml-variable-item">
+                <span class="ml-var">x</span>
+                <span class="ml-var-desc">Input data (features like study hours, age, etc.)</span>
+            </div>
+            <div class="ml-variable-item">
+                <span class="ml-var">y</span>
+                <span class="ml-var-desc">Predicted output (exam score, category, etc.)</span>
+            </div>
+            <div class="ml-variable-item">
+                <span class="ml-var">f</span>
+                <span class="ml-var-desc">The learned mapping function (the "brain")</span>
+            </div>
+        </div>
+        <p class="task-desc" style="margin-top: 1.5rem;">
+            The model adjusts <span class="highlight-term">f</span> during training to minimize the difference between predicted <code>ŷ</code> and actual <code>y</code>. This difference is called the <span class="highlight-term">loss</span> — and we want it as small as possible!
+        </p>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- KEY CHARACTERISTICS                         -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">🔑 Key Characteristics</h2>
+
+    <div class="task-card">
+        <div class="ml-reason-grid">
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🏷️</div>
+                <h4>Labeled Dataset Required</h4>
+                <p>Every training example comes with a <strong>correct answer</strong> (label). The model learns from these input-output pairs.</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🧭</div>
+                <h4>Guided Learning</h4>
+                <p>Learning is <strong>supervised</strong> by known outputs — like a teacher checking every answer and correcting mistakes.</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🎯</div>
+                <h4>Prediction Tasks</h4>
+                <p>Used when we want to <strong>predict an outcome</strong> — whether it's a number (regression) or a category (classification).</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- TYPES OF SUPERVISED LEARNING                -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">📦 Types of Supervised Learning</h2>
+
+    <div class="storybook-intro">
+        <p>Supervised learning comes in two flavors, depending on what you're trying to predict. <strong>Is it a number or a category?</strong> That's the key question!</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🎯 Regression vs Classification</h3>
+        <div class="ml-comparison-grid">
+            <div class="ml-compare-box ml-compare-ml">
+                <h4>📈 Regression</h4>
+                <p style="font-size: 0.9rem; font-weight: 700; color: var(--accent-green); margin-bottom: 0.5rem;">Output is <strong>continuous</strong> (a number)</p>
+                <div class="ml-example-box" style="margin-top: 0.75rem;">
+                    <p><strong>Examples:</strong></p>
+                    <p>▸ Predicting house prices → <code>$350,000</code></p>
+                    <p>▸ Predicting temperature → <code>28.5°C</code></p>
+                    <p>▸ Predicting stock prices → <code>$142.67</code></p>
+                </div>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(167, 139, 250, 0.06); border-color: rgba(167, 139, 250, 0.2);">
+                <h4>🏷️ Classification</h4>
+                <p style="font-size: 0.9rem; font-weight: 700; color: var(--accent-purple); margin-bottom: 0.5rem;">Output is <strong>categorical</strong> (a label)</p>
+                <div class="ml-example-box" style="margin-top: 0.75rem;">
+                    <p><strong>Examples:</strong></p>
+                    <p>▸ Email → <code>Spam</code> or <code>Not Spam</code></p>
+                    <p>▸ Tumor → <code>Malignant</code> or <code>Benign</code></p>
+                    <p>▸ Image → <code>Cat</code>, <code>Dog</code>, or <code>Bird</code></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- HOW IT WORKS — VISUAL FLOW                  -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">⚙️ How Supervised Learning Works</h2>
+
+    <div class="storybook-intro">
+        <p>Think of it like cooking with a recipe. You have the <strong>ingredients</strong> (input data), the <strong>expected dish</strong> (labels), and you keep adjusting your technique until the result matches perfectly!</p>
+    </div>
+
+    <div class="ml-workflow-pipeline">
+        <div class="ml-workflow-step">
+            <div class="ml-step-number">1</div>
+            <div class="ml-step-content">
+                <h4>📥 Collect Labeled Data</h4>
+                <p>Gather a dataset where each example has both input features and the correct answer (label).</p>
+            </div>
+        </div>
+
+        <div class="ml-workflow-connector"></div>
+
+        <div class="ml-workflow-step">
+            <div class="ml-step-number">2</div>
+            <div class="ml-step-content">
+                <h4>✂️ Split the Data</h4>
+                <p>Divide into <span class="highlight-term">Training Set</span> (to learn from) and <span class="highlight-term">Test Set</span> (to evaluate on unseen data).</p>
+            </div>
+        </div>
+
+        <div class="ml-workflow-connector"></div>
+
+        <div class="ml-workflow-step">
+            <div class="ml-step-number">3</div>
+            <div class="ml-step-content">
+                <h4>🧠 Train the Model</h4>
+                <p>Feed training data to the algorithm. The model learns patterns and adjusts its internal parameters.</p>
+            </div>
+        </div>
+
+        <div class="ml-workflow-connector"></div>
+
+        <div class="ml-workflow-step">
+            <div class="ml-step-number">4</div>
+            <div class="ml-step-content">
+                <h4>📊 Evaluate Performance</h4>
+                <p>Test the model on unseen data and measure accuracy, precision, recall, or mean squared error.</p>
+            </div>
+        </div>
+
+        <div class="ml-workflow-connector"></div>
+
+        <div class="ml-workflow-step ml-workflow-step-final">
+            <div class="ml-step-number">5</div>
+            <div class="ml-step-content">
+                <h4>🚀 Make Predictions</h4>
+                <p>Use the trained model to predict outputs for brand new, never-before-seen input data!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- REAL-WORLD EXAMPLE                          -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">📘 Example: Study Hours → Exam Score</h2>
+
+    <div class="storybook-intro">
+        <p>Let's make it concrete. Imagine you have data from students — how many <strong>hours they studied</strong> and what <strong>exam score</strong> they got. Can we predict a new student's score from their study hours? <strong>Yes! That's regression.</strong></p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📋 The Dataset</h3>
+        <p class="task-desc">Here's our labeled training data:</p>
+        <div class="ml-data-table-wrapper">
+            <table class="ml-data-table">
+                <thead>
+                    <tr>
+                        <th>📚 Study Hours (x)</th>
+                        <th>📝 Exam Score (y)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>35</td></tr>
+                    <tr><td>2</td><td>45</td></tr>
+                    <tr><td>3</td><td>55</td></tr>
+                    <tr><td>4</td><td>60</td></tr>
+                    <tr><td>5</td><td>70</td></tr>
+                    <tr><td>6</td><td>80</td></tr>
+                    <tr><td>7</td><td>85</td></tr>
+                    <tr><td>8</td><td>90</td></tr>
+                    <tr><td>9</td><td>92</td></tr>
+                    <tr><td>10</td><td>95</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="task-desc" style="margin-top: 1rem; font-style: italic; color: var(--accent-cyan);">
+            🤔 Question: If a student studies for <strong>6.5 hours</strong>, what will their score be?
+        </p>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- COLAB CODE — LINEAR REGRESSION              -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">💻 Hands-On Code — Run in Google Colab!</h2>
+
+    <div class="storybook-intro">
+        <p>Time to get your hands dirty! 🧑‍💻 Copy each code block below and run it in <a href="https://colab.research.google.com" target="_blank" style="color: var(--accent-cyan); text-decoration: underline;">Google Colab</a>. We'll build a <strong>Linear Regression</strong> model step by step.</p>
+    </div>
+
+    <!-- Code Block 1: Import & Data -->
+    <div class="task-card">
+        <h3 class="task-title">Step 1: Import Libraries & Create Dataset</h3>
+        <p class="task-desc">First, let's import what we need and create our study-hours dataset.</p>
+        <button class="btn-toggle" onclick="toggleCode('sl-code1', this)">Show Code</button>
+
+        <div id="sl-code1" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="comment"># Step 1: Import required libraries</span>
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression
+<span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split
+
+<span class="comment"># Step 2: Create our dataset</span>
+<span class="comment"># X = Study Hours, y = Exam Scores</span>
+X = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).reshape(-1, 1)
+y = np.array([35, 45, 55, 60, 70, 80, 85, 90, 92, 95])
+
+print(<span class="string">"✅ Dataset created!"</span>)
+print(f<span class="string">"Number of samples: {len(X)}"</span>)
+print(f<span class="string">"Features (Study Hours): {X.flatten()}"</span>)
+print(f<span class="string">"Labels (Exam Scores):   {y}"</span>)</code>
+            </div>
+        </div>
+    </div>
+
+    <!-- Code Block 2: Train/Test Split -->
+    <div class="task-card">
+        <h3 class="task-title">Step 2: Split Data into Training & Testing Sets</h3>
+        <p class="task-desc">We keep 80% for training and 20% for testing — so the model is evaluated on data it has <strong>never seen before</strong>.</p>
+        <button class="btn-toggle" onclick="toggleCode('sl-code2', this)">Show Code</button>
+
+        <div id="sl-code2" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="comment"># Split: 80% training, 20% testing</span>
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+print(f<span class="string">"🏋️ Training samples: {len(X_train)}"</span>)
+print(f<span class="string">"🧪 Testing samples:  {len(X_test)}"</span>)
+print()
+print(<span class="string">"Training Data:"</span>)
+<span class="keyword">for</span> hours, score <span class="keyword">in</span> zip(X_train.flatten(), y_train):
+    print(f<span class="string">"  📚 {hours} hours → 📝 {score} marks"</span>)</code>
+            </div>
+        </div>
+    </div>
+
+    <!-- Code Block 3: Train Model -->
+    <div class="task-card">
+        <h3 class="task-title">Step 3: Train the Linear Regression Model</h3>
+        <p class="task-desc">This is where the magic happens! The model learns the relationship between study hours and exam scores.</p>
+        <button class="btn-toggle" onclick="toggleCode('sl-code3', this)">Show Code</button>
+
+        <div id="sl-code3" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="comment"># Create and train the model</span>
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+<span class="comment"># The model has learned these parameters:</span>
+print(<span class="string">"🧠 Model Training Complete!"</span>)
+print(f<span class="string">"   Slope (coefficient): {model.coef_[0]:.2f}"</span>)
+print(f<span class="string">"   Intercept:           {model.intercept_:.2f}"</span>)
+print()
+print(f<span class="string">"📐 Learned equation: Score = {model.coef_[0]:.2f} × Hours + {model.intercept_:.2f}"</span>)</code>
+            </div>
+        </div>
+    </div>
+
+    <!-- Code Block 4: Evaluate -->
+    <div class="task-card">
+        <h3 class="task-title">Step 4: Evaluate the Model</h3>
+        <p class="task-desc">How well does our model predict? Let's check its accuracy using the R² score and test data.</p>
+        <button class="btn-toggle" onclick="toggleCode('sl-code4', this)">Show Code</button>
+
+        <div id="sl-code4" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="comment"># Evaluate on test data</span>
+<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> r2_score, mean_absolute_error
+
+y_pred = model.predict(X_test)
+r2 = r2_score(y_test, y_pred)
+mae = mean_absolute_error(y_test, y_pred)
+
+print(<span class="string">"📊 Model Evaluation Results:"</span>)
+print(f<span class="string">"   R² Score:            {r2:.4f}"</span>)
+print(f<span class="string">"   Mean Absolute Error: {mae:.2f} marks"</span>)
+print()
+print(<span class="string">"🔍 Predictions vs Actual:"</span>)
+<span class="keyword">for</span> actual, predicted <span class="keyword">in</span> zip(y_test, y_pred):
+    print(f<span class="string">"   Actual: {actual} | Predicted: {predicted:.1f}"</span>)</code>
+            </div>
+        </div>
+    </div>
+
+    <!-- Code Block 5: Predict New Data -->
+    <div class="task-card">
+        <h3 class="task-title">Step 5: Make New Predictions! 🚀</h3>
+        <p class="task-desc">Now let's predict scores for students who studied different amounts — including our mystery 6.5-hour student!</p>
+        <button class="btn-toggle" onclick="toggleCode('sl-code5', this)">Show Code</button>
+
+        <div id="sl-code5" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="comment"># Predict for new students!</span>
+new_hours = np.array([2.5, 4.5, 6.5, 8.5, 11]).reshape(-1, 1)
+predictions = model.predict(new_hours)
+
+print(<span class="string">"🔮 Predictions for New Students:"</span>)
+print(<span class="string">"="</span> * 40)
+<span class="keyword">for</span> hours, score <span class="keyword">in</span> zip(new_hours.flatten(), predictions):
+    emoji = <span class="string">"🌟"</span> <span class="keyword">if</span> score >= 80 <span class="keyword">else</span> <span class="string">"📚"</span> <span class="keyword">if</span> score >= 60 <span class="keyword">else</span> <span class="string">"⚠️"</span>
+    print(f<span class="string">"  {emoji} {hours} hours → Predicted Score: {score:.1f}"</span>)
+
+print()
+print(f<span class="string">"💡 Answer: A student who studies 6.5 hours will likely score {predictions[2]:.1f}!"</span>)</code>
+            </div>
+        </div>
+    </div>
+
+    <!-- Code Block 6: Visualization -->
+    <div class="task-card">
+        <h3 class="task-title">Step 6: Visualize the Results 📊</h3>
+        <p class="task-desc">A picture is worth a thousand words! Let's plot our data points and the learned regression line.</p>
+        <button class="btn-toggle" onclick="toggleCode('sl-code6', this)">Show Code</button>
+
+        <div id="sl-code6" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="comment"># Beautiful visualization!</span>
+plt.figure(figsize=(10, 6))
+plt.style.use(<span class="string">'dark_background'</span>)
+
+<span class="comment"># Plot training data</span>
+plt.scatter(X_train, y_train, color=<span class="string">'#38bdf8'</span>, s=100,
+            label=<span class="string">'Training Data'</span>, zorder=5, edgecolors=<span class="string">'white'</span>)
+
+<span class="comment"># Plot test data</span>
+plt.scatter(X_test, y_test, color=<span class="string">'#a78bfa'</span>, s=100,
+            label=<span class="string">'Test Data'</span>, zorder=5, edgecolors=<span class="string">'white'</span>, marker=<span class="string">'s'</span>)
+
+<span class="comment"># Plot the regression line</span>
+X_line = np.linspace(0, 11, 100).reshape(-1, 1)
+y_line = model.predict(X_line)
+plt.plot(X_line, y_line, color=<span class="string">'#34d399'</span>, linewidth=2.5,
+         label=<span class="string">'Learned Model'</span>, linestyle=<span class="string">'--'</span>)
+
+<span class="comment"># Highlight the 6.5-hour prediction</span>
+plt.scatter([6.5], model.predict([[6.5]]), color=<span class="string">'#fbbf24'</span>, s=200,
+            zorder=6, edgecolors=<span class="string">'white'</span>, marker=<span class="string">'*'</span>, label=<span class="string">'Prediction (6.5h)'</span>)
+
+plt.xlabel(<span class="string">'Study Hours'</span>, fontsize=13, color=<span class="string">'white'</span>)
+plt.ylabel(<span class="string">'Exam Score'</span>, fontsize=13, color=<span class="string">'white'</span>)
+plt.title(<span class="string">'📊 Supervised Learning: Study Hours vs Exam Score'</span>, fontsize=15, color=<span class="string">'white'</span>)
+plt.legend(fontsize=11)
+plt.grid(alpha=0.2)
+plt.tight_layout()
+plt.show()
+
+print(<span class="string">"🎉 Beautiful! The green line is what the model learned!"</span>)</code>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- CLASSIFICATION EXAMPLE                      -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">🏷️ Bonus: Classification Example</h2>
+
+    <div class="storybook-intro">
+        <p>Regression predicts numbers, but what about <strong>categories</strong>? Let's build an email spam classifier — one of the most common ML applications!</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">Step 7: Simple Spam Classifier</h3>
+        <p class="task-desc">We'll use a basic classifier to predict whether an email is spam or not, based on word features.</p>
+        <button class="btn-toggle" onclick="toggleCode('sl-code7', this)">Show Code</button>
+
+        <div id="sl-code7" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="comment"># Classification Example: Spam Detection</span>
+<span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> DecisionTreeClassifier
+<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score
+
+<span class="comment"># Features: [contains_free, contains_win, has_link, exclamation_count]</span>
+X_emails = np.array([
+    [1, 1, 1, 5],   <span class="comment"># Spam</span>
+    [1, 0, 1, 3],   <span class="comment"># Spam</span>
+    [0, 1, 1, 4],   <span class="comment"># Spam</span>
+    [1, 1, 0, 6],   <span class="comment"># Spam</span>
+    [0, 0, 0, 1],   <span class="comment"># Not Spam</span>
+    [0, 0, 1, 0],   <span class="comment"># Not Spam</span>
+    [0, 0, 0, 0],   <span class="comment"># Not Spam</span>
+    [1, 0, 0, 1],   <span class="comment"># Not Spam</span>
+])
+y_labels = np.array([1, 1, 1, 1, 0, 0, 0, 0])  <span class="comment"># 1=Spam, 0=Not Spam</span>
+
+<span class="comment"># Train classifier</span>
+clf = DecisionTreeClassifier(random_state=42)
+clf.fit(X_emails, y_labels)
+
+<span class="comment"># Test on new emails</span>
+new_emails = np.array([
+    [1, 1, 1, 4],  <span class="comment"># Suspicious...</span>
+    [0, 0, 0, 1],  <span class="comment"># Looks clean</span>
+])
+
+predictions = clf.predict(new_emails)
+<span class="keyword">for</span> i, pred <span class="keyword">in</span> enumerate(predictions):
+    status = <span class="string">"🚫 SPAM"</span> <span class="keyword">if</span> pred == 1 <span class="keyword">else</span> <span class="string">"✅ NOT SPAM"</span>
+    print(f<span class="string">"Email {i+1}: {status}"</span>)
+
+print()
+print(<span class="string">"🎉 Your spam classifier is working!"</span>)</code>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- APPLICATIONS                                -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">🌍 Real-World Applications</h2>
+
+    <div class="ml-apps-grid">
+        <div class="task-card ml-app-card">
+            <div class="ml-app-icon">📧</div>
+            <h3 class="task-title">Email Spam Filtering</h3>
+            <ul class="ml-app-list">
+                <li>Gmail filters billions of spam daily</li>
+                <li>Learns from user-marked spam</li>
+                <li>Gets smarter over time</li>
+            </ul>
+        </div>
+
+        <div class="task-card ml-app-card">
+            <div class="ml-app-icon">🏥</div>
+            <h3 class="task-title">Disease Prediction</h3>
+            <ul class="ml-app-list">
+                <li>Predicts diabetes, heart disease</li>
+                <li>Learns from patient records</li>
+                <li>Assists doctors in diagnosis</li>
+            </ul>
+        </div>
+
+        <div class="task-card ml-app-card">
+            <div class="ml-app-icon">🖼️</div>
+            <h3 class="task-title">Image Classification</h3>
+            <ul class="ml-app-list">
+                <li>Identifies objects in photos</li>
+                <li>Powers Google Photos search</li>
+                <li>Used in medical imaging</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- What's Next -->
+    <div class="task-card" style="margin-top: 3rem; text-align: center;">
+        <h3 class="task-title">🎓 Key Takeaway</h3>
+        <p class="task-desc">
+            Supervised Learning is about learning from <strong>labeled examples</strong>. You give the model inputs and correct answers, it learns the pattern, and then predicts answers for new data it hasn't seen before.
+        </p>
+        <div class="ml-paradigm-tags">
+            <span class="ml-tag ml-tag-supervised">Regression → Predicts Numbers</span>
+            <span class="ml-tag" style="background: rgba(167, 139, 250, 0.12); color: var(--accent-purple); border: 1px solid rgba(167, 139, 250, 0.3);">Classification → Predicts Categories</span>
+        </div>
+        <p class="task-desc" style="margin-top: 1.5rem; font-style: italic; color: var(--accent-cyan);">
+            Next up: Unsupervised Learning — what happens when there are <strong>no labels</strong> at all? 🤔
+        </p>
+    </div>
+
+    </div><!-- .container -->
+
+    <script src="script.js?v=2"></script>
+</body>
+</html>

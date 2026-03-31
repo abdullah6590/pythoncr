@@ -12,15 +12,30 @@
     <div class="container">
 
     <nav class="top-nav">
-        <!-- Active item acts as the dropdown toggle on mobile -->
-        <a href="#" class="nav-link active">🧮 NumPy</a>
-        
-        <!-- Other links to show when toggled -->
-        <a href="basics.html" class="nav-link">� Basics</a>
-        <a href="index.html" class="nav-link">🐍 Functions</a>
-        <a href="oop.html" class="nav-link">🏗️ OOP</a>
-        <a href="pandas.html" class="nav-link">🐼 Pandas</a>
-        <a href="matplotlib.html" class="nav-link">📊 Matplotlib</a>
+        <div class="dropdown">
+            <button class="dropbtn">🐍 Python <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="basics.html">📘 Basics</a>
+                <a href="index.html">🐍 Functions</a>
+                <a href="oop.html">🏗️ OOP</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">📚 Libraries <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="numpy.html" class="active">🧮 NumPy</a>
+                <a href="pandas.html">🐼 Pandas</a>
+                <a href="matplotlib.html">📊 Matplotlib</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">🤖 Machine Learning <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="ml-intro.html">🚀 Introduction</a>
+                <a href="ml-supervised.html">📊 Supervised Learning</a>
+                <a href="ml-classification-regression.html">🎯 Classification / Regression</a>
+            </div>
+        </div>
         <a href="linear-algebra.html" class="nav-link">📐 Linear Algebra</a>
     </nav>
 

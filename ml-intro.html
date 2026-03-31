@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to Machine Learning</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="container">
+
+    <nav class="top-nav">
+        <div class="dropdown">
+            <button class="dropbtn">🐍 Python <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="basics.html">📘 Basics</a>
+                <a href="index.html">🐍 Functions</a>
+                <a href="oop.html">🏗️ OOP</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">📚 Libraries <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="numpy.html">🧮 NumPy</a>
+                <a href="pandas.html">🐼 Pandas</a>
+                <a href="matplotlib.html">📊 Matplotlib</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">🤖 Machine Learning <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="ml-intro.html" class="active">🚀 Introduction</a>
+                <a href="ml-supervised.html">📊 Supervised Learning</a>
+                <a href="ml-classification-regression.html">🎯 Classification / Regression</a>
+            </div>
+        </div>
+        <a href="linear-algebra.html" class="nav-link">📐 Linear Algebra</a>
+    </nav>
+
+    <header>
+        <h1>🤖 Introduction to Machine Learning</h1>
+        <p>Discover how machines learn from data, recognize patterns, and make intelligent decisions — without being explicitly programmed.</p>
+    </header>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SECTION 1.1 — DEFINITION                   -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">1.1 🧠 What is Machine Learning?</h2>
+
+    <div class="storybook-intro">
+        <p>Imagine teaching a child to recognize cats. You don't give them a manual with 500 rules — you show them <em>thousands of pictures</em> and let their brain figure out the patterns. <strong>Machine Learning works the same way.</strong></p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📖 The Formal Definition</h3>
+        <p class="task-desc">
+            <strong>Machine Learning (ML)</strong> is a subfield of <span class="highlight-term">Artificial Intelligence (AI)</span> that focuses on designing algorithms and statistical models that enable computers to <strong>learn patterns from data</strong> and make decisions or predictions — without being explicitly programmed.
+        </p>
+        <p class="task-desc">
+            Unlike traditional programming, where a programmer writes fixed rules, machine learning allows systems to <strong>automatically discover relationships and patterns</strong> within data. The system improves its performance as it is exposed to more data.
+        </p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🔬 The Math Behind It</h3>
+        <p class="task-desc">Formally, machine learning can be represented as learning a <strong>mapping function</strong>:</p>
+        <div class="ml-formula-card">
+            <div class="ml-formula">y = f(x)</div>
+        </div>
+        <div class="ml-variable-grid">
+            <div class="ml-variable-item">
+                <span class="ml-var">x</span>
+                <span class="ml-var-desc">Input data (features / independent variables)</span>
+            </div>
+            <div class="ml-variable-item">
+                <span class="ml-var">y</span>
+                <span class="ml-var-desc">Output (target / dependent variable)</span>
+            </div>
+            <div class="ml-variable-item">
+                <span class="ml-var">f</span>
+                <span class="ml-var-desc">The learned function or model</span>
+            </div>
+        </div>
+        <p class="task-desc" style="margin-top: 1.5rem;">
+            The goal is to find an optimal function <span class="highlight-term">f</span> such that it <strong>minimizes prediction error on unseen data</strong>. This ability to perform well on new data is called <span class="highlight-term">generalization</span>.
+        </p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🎯 Traditional Programming vs Machine Learning</h3>
+        <div class="ml-comparison-grid">
+            <div class="ml-compare-box ml-compare-traditional">
+                <h4>👨‍💻 Traditional Programming</h4>
+                <div class="ml-compare-flow">
+                    <span class="ml-flow-item">Data + Rules</span>
+                    <span class="ml-flow-arrow">→</span>
+                    <span class="ml-flow-item ml-flow-output">Output</span>
+                </div>
+                <p>You write the rules manually. The computer just follows instructions.</p>
+            </div>
+            <div class="ml-compare-box ml-compare-ml">
+                <h4>🤖 Machine Learning</h4>
+                <div class="ml-compare-flow">
+                    <span class="ml-flow-item">Data + Output</span>
+                    <span class="ml-flow-arrow">→</span>
+                    <span class="ml-flow-item ml-flow-output">Rules (Model)</span>
+                </div>
+                <p>You give examples. The computer <strong>discovers</strong> the rules!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SECTION 1.2 — WHY ML?                       -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">1.2 💡 Why Machine Learning?</h2>
+
+    <div class="storybook-intro">
+        <p>Traditional programming hits a wall when problems become too complex for handwritten rules. How do you write rules to recognize a face? Translate poetry? Detect fraud among billions of transactions? <strong>You can't — but ML can learn these from data.</strong></p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🔑 Why ML Matters</h3>
+        <div class="ml-reason-grid">
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🧩</div>
+                <h4>Handles Complex Problems</h4>
+                <p>Image recognition, speech processing, and natural language understanding — tasks impossible to solve with rule-based programming.</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">⚡</div>
+                <h4>Automation</h4>
+                <p>Automates decision-making by learning from data instead of requiring manual rule definition.</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🔄</div>
+                <h4>Adaptability</h4>
+                <p>Models continuously improve as new data becomes available, making them perfect for dynamic environments.</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">📈</div>
+                <h4>Scalability</h4>
+                <p>ML algorithms process massive datasets efficiently — essential for Big Data applications.</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🎯</div>
+                <h4>Improved Accuracy</h4>
+                <p>Data-driven models often outperform traditional methods in prediction accuracy.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📧 Real-World Example: Spam Detection</h3>
+        <div class="ml-example-box">
+            <p>In <strong>spam email detection</strong>, it is nearly impossible to manually define every rule for identifying spam. New spam tactics change daily!</p>
+            <div class="ml-compare-flow" style="margin: 1.5rem 0;">
+                <span class="ml-flow-item">📬 Thousands of Emails</span>
+                <span class="ml-flow-arrow">→</span>
+                <span class="ml-flow-item">🤖 ML Model Learns Patterns</span>
+                <span class="ml-flow-arrow">→</span>
+                <span class="ml-flow-item ml-flow-output">✅ Spam / Not Spam</span>
+            </div>
+            <p>The model learns patterns from thousands of labeled emails and automatically classifies new emails — getting smarter over time!</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SECTION 1.3 — APPLICATIONS                  -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">1.3 🌍 Applications of Machine Learning</h2>
+
+    <div class="storybook-intro">
+        <p>Machine learning isn't just an academic concept — it's the engine behind <strong>the apps you use every day</strong>. From Netflix recommendations to self-driving cars, ML is everywhere.</p>
+    </div>
+
+    <div class="ml-apps-grid">
+        <div class="task-card ml-app-card">
+            <div class="ml-app-icon">🏥</div>
+            <h3 class="task-title">Healthcare</h3>
+            <ul class="ml-app-list">
+                <li>Disease prediction & diagnosis</li>
+                <li>Medical image analysis (tumor detection)</li>
+                <li>Drug discovery & personalized medicine</li>
+            </ul>
+        </div>
+
+        <div class="task-card ml-app-card">
+            <div class="ml-app-icon">💰</div>
+            <h3 class="task-title">Finance</h3>
+            <ul class="ml-app-list">
+                <li>Fraud detection in transactions</li>
+                <li>Credit scoring & risk analysis</li>
+                <li>Stock market prediction</li>
+            </ul>
+        </div>
+
+        <div class="task-card ml-app-card">
+            <div class="ml-app-icon">🛒</div>
+            <h3 class="task-title">E-commerce</h3>
+            <ul class="ml-app-list">
+                <li>Recommendation systems (Amazon, Netflix)</li>
+                <li>Customer behavior analysis</li>
+                <li>Personalized advertisements</li>
+            </ul>
+        </div>
+
+        <div class="task-card ml-app-card">
+            <div class="ml-app-icon">🚗</div>
+            <h3 class="task-title">Autonomous Systems</h3>
+            <ul class="ml-app-list">
+                <li>Self-driving cars</li>
+                <li>Robotics & automation</li>
+                <li>Drone navigation</li>
+            </ul>
+        </div>
+
+        <div class="task-card ml-app-card">
+            <div class="ml-app-icon">💬</div>
+            <h3 class="task-title">Natural Language Processing</h3>
+            <ul class="ml-app-list">
+                <li>Chatbots & virtual assistants</li>
+                <li>Language translation systems</li>
+                <li>Sentiment analysis</li>
+            </ul>
+        </div>
+
+        <div class="task-card ml-app-card">
+            <div class="ml-app-icon">👁️</div>
+            <h3 class="task-title">Computer Vision</h3>
+            <ul class="ml-app-list">
+                <li>Face recognition systems</li>
+                <li>Object detection & tracking</li>
+                <li>Image classification</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SECTION 1.4 — WORKFLOW                      -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">1.4 ⚙️ Basic Workflow of Machine Learning</h2>
+
+    <div class="storybook-intro">
+        <p>Every ML project follows a <strong>structured pipeline</strong> — think of it like a recipe. Each step builds on the last, transforming raw data into powerful predictions.</p>
+    </div>
+
+    <div class="ml-workflow-pipeline">
+        <div class="ml-workflow-step">
+            <div class="ml-step-number">1</div>
+            <div class="ml-step-content">
+                <h4>📥 Data Collection</h4>
+                <p>Gathering raw data from sensors, databases, APIs, or user inputs. The fuel for every ML system.</p>
+            </div>
+        </div>
+
+        <div class="ml-workflow-connector"></div>
+
+        <div class="ml-workflow-step">
+            <div class="ml-step-number">2</div>
+            <div class="ml-step-content">
+                <h4>🧹 Data Preprocessing</h4>
+                <ul>
+                    <li>Handling missing values</li>
+                    <li>Removing noise and inconsistencies</li>
+                    <li>Normalizing or scaling data</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="ml-workflow-connector"></div>
+
+        <div class="ml-workflow-step">
+            <div class="ml-step-number">3</div>
+            <div class="ml-step-content">
+                <h4>🔧 Feature Engineering</h4>
+                <ul>
+                    <li>Selecting the most important features</li>
+                    <li>Creating new features to improve performance</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="ml-workflow-connector"></div>
+
+        <div class="ml-workflow-step">
+            <div class="ml-step-number">4</div>
+            <div class="ml-step-content">
+                <h4>🧠 Model Selection</h4>
+                <p>Choosing the right algorithm — regression, decision tree, neural network, SVM — based on the problem type.</p>
+            </div>
+        </div>
+
+        <div class="ml-workflow-connector"></div>
+
+        <div class="ml-workflow-step">
+            <div class="ml-step-number">5</div>
+            <div class="ml-step-content">
+                <h4>🏋️ Model Training</h4>
+                <p>Feeding training data to the model so it can learn patterns and adjust its internal parameters.</p>
+            </div>
+        </div>
+
+        <div class="ml-workflow-connector"></div>
+
+        <div class="ml-workflow-step">
+            <div class="ml-step-number">6</div>
+            <div class="ml-step-content">
+                <h4>📊 Model Evaluation</h4>
+                <p>Measuring performance with metrics like <span class="highlight-term">accuracy</span>, <span class="highlight-term">precision</span>, <span class="highlight-term">recall</span>, and <span class="highlight-term">F1-score</span>.</p>
+            </div>
+        </div>
+
+        <div class="ml-workflow-connector"></div>
+
+        <div class="ml-workflow-step ml-workflow-step-final">
+            <div class="ml-step-number">7</div>
+            <div class="ml-step-content">
+                <h4>🚀 Deployment</h4>
+                <p>Integrating the trained model into real-world applications for live predictions. <strong>Your model is now in production!</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Learning Paradigms Teaser -->
+    <div class="task-card" style="margin-top: 3rem; text-align: center;">
+        <h3 class="task-title">🎓 What's Next?</h3>
+        <p class="task-desc">
+            Machine learning models are trained using historical data and can be categorized into different <strong>learning paradigms</strong>:
+        </p>
+        <div class="ml-paradigm-tags">
+            <span class="ml-tag ml-tag-supervised">Supervised Learning</span>
+            <span class="ml-tag ml-tag-unsupervised">Unsupervised Learning</span>
+            <span class="ml-tag ml-tag-semi">Semi-Supervised Learning</span>
+            <span class="ml-tag ml-tag-rl">Reinforcement Learning</span>
+        </div>
+        <p class="task-desc" style="margin-top: 1.5rem; font-style: italic; color: var(--accent-cyan);">
+            Stay tuned — these will be covered in upcoming chapters! 🚀
+        </p>
+    </div>
+
+    </div><!-- .container -->
+
+    <script src="script.js?v=2"></script>
+</body>
+</html>
