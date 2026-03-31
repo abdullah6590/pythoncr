@@ -153,26 +153,314 @@
     </div>
 
     <div class="task-card">
-        <h3 class="task-title">🎯 The Three Types</h3>
+        <h3 class="task-title">🎯 The Three Types — Overview</h3>
         <div class="ml-reason-grid">
             <div class="ml-reason-card">
                 <div class="ml-reason-icon">🫧</div>
                 <h4>Clustering</h4>
-                <p>Group similar data points together. Like sorting fruits into baskets without knowing their names!</p>
-                <p style="margin-top: 0.5rem;"><strong>Examples:</strong> K-Means, DBSCAN, Hierarchical</p>
+                <p>Group similar data points together automatically</p>
             </div>
             <div class="ml-reason-card">
                 <div class="ml-reason-icon">📉</div>
                 <h4>Dimensionality Reduction</h4>
-                <p>Simplify complex data by reducing features while keeping the important information.</p>
-                <p style="margin-top: 0.5rem;"><strong>Examples:</strong> PCA, t-SNE, UMAP</p>
+                <p>Simplify complex data while keeping the essence</p>
             </div>
             <div class="ml-reason-card">
                 <div class="ml-reason-icon">🔗</div>
                 <h4>Association Rule Learning</h4>
-                <p>Find relationships between items. "People who buy X also buy Y!"</p>
-                <p style="margin-top: 0.5rem;"><strong>Examples:</strong> Apriori, FP-Growth</p>
+                <p>Discover hidden relationships between items</p>
             </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- TYPE 1: CLUSTERING (DETAILED)              -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">🫧 Type 1: Clustering</h2>
+
+    <div class="storybook-intro">
+        <p>Imagine you're a librarian who just received <strong>1000 new books with no labels</strong>. No genre, no category — just books. What do you do? You start grouping them: romance novels together, science books together, cookbooks together. <strong>You just performed clustering!</strong> 📚</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📖 What is Clustering?</h3>
+        <p class="task-desc">
+            <strong>Clustering</strong> is the task of dividing data into <span class="highlight-term">natural groups (clusters)</span> where points <em>within a group are similar</em> to each other, and points <em>in different groups are different</em>.
+        </p>
+        <p class="task-desc">
+            The key idea: <strong>maximize similarity within clusters</strong> and <strong>maximize differences between clusters</strong>. The algorithm doesn't know the group names — it just finds the structure!
+        </p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🏗️ Types of Clustering Algorithms</h3>
+        <div class="ml-comparison-grid">
+            <div class="ml-compare-box" style="background: rgba(56, 189, 248, 0.06); border-color: rgba(56, 189, 248, 0.2);">
+                <h4>🎯 K-Means (Centroid-Based)</h4>
+                <p>You pick how many groups (K). The algorithm finds <strong>center points</strong> and assigns each data point to the nearest center.</p>
+                <p style="margin-top: 0.5rem; color: var(--accent-cyan); font-size: 0.85rem;">Like choosing 3 team captains, then every player joins their nearest captain's team!</p>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(167, 139, 250, 0.06); border-color: rgba(167, 139, 250, 0.2);">
+                <h4>🔬 DBSCAN (Density-Based)</h4>
+                <p>Finds clusters based on <strong>dense regions</strong> in the data. No need to specify K — it discovers groups automatically!</p>
+                <p style="margin-top: 0.5rem; color: var(--accent-purple); font-size: 0.85rem;">Like finding groups of friends at a party — dense crowds are clusters, lone people are outliers!</p>
+            </div>
+        </div>
+        <div class="ml-comparison-grid" style="margin-top: 1rem;">
+            <div class="ml-compare-box" style="background: rgba(52, 211, 153, 0.06); border-color: rgba(52, 211, 153, 0.2);">
+                <h4>🌳 Hierarchical (Tree-Based)</h4>
+                <p>Builds a <strong>tree of clusters</strong> (dendrogram). Starts with every point as its own cluster, then keeps merging closest pairs.</p>
+                <p style="margin-top: 0.5rem; color: var(--accent-green); font-size: 0.85rem;">Like a family tree — siblings merge into families, families merge into clans, clans merge into nations!</p>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(251, 191, 36, 0.06); border-color: rgba(251, 191, 36, 0.2);">
+                <h4>📊 Gaussian Mixture (Probability-Based)</h4>
+                <p>Assumes data comes from a <strong>mixture of probability distributions</strong>. Assigns soft probabilities instead of hard labels.</p>
+                <p style="margin-top: 0.5rem; color: #fbbf24; font-size: 0.85rem;">Like saying "this email is 80% spam and 20% not" instead of "this IS spam"!</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🌍 Real-World Clustering Examples</h3>
+        <div class="ml-reason-grid">
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🛍️</div>
+                <h4>Customer Segmentation</h4>
+                <p>Amazon groups customers into segments like "budget shoppers", "premium buyers", "occasional visitors" — <strong>without anyone labeling them</strong>. This helps target ads!</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🏥</div>
+                <h4>Patient Grouping</h4>
+                <p>Hospitals cluster patients with similar symptoms to discover <strong>new disease subtypes</strong>. COVID variants were discovered this way!</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🎵</div>
+                <h4>Spotify Playlists</h4>
+                <p>Spotify clusters songs by tempo, energy, mood, and style to create <strong>Discover Weekly playlists</strong> that match your taste!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- TYPE 2: DIMENSIONALITY REDUCTION (DETAILED)-->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">📉 Type 2: Dimensionality Reduction</h2>
+
+    <div class="storybook-intro">
+        <p>Imagine describing a person. You could list 100 features: height, weight, shoe size, hair length, eye color, nose width... But most of that is <strong>redundant</strong>! You can describe someone with just 3-4 features and still recognize them. That's <strong>Dimensionality Reduction</strong> — keeping what matters, removing what doesn't! 🎯</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📖 What is Dimensionality Reduction?</h3>
+        <p class="task-desc">
+            <strong>Dimensionality Reduction</strong> is the process of <span class="highlight-term">reducing the number of features (dimensions)</span> in your data while preserving as much important information as possible.
+        </p>
+        <p class="task-desc">
+            Think of it like <strong>compressing a photo</strong>: a 10MB photo can be compressed to 500KB — it looks almost the same, but takes up much less space. Same idea with data!
+        </p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🛠️ Why Do We Need It?</h3>
+        <div class="ml-reason-grid">
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">👁️</div>
+                <h4>Visualization</h4>
+                <p>We can only see in 2D/3D. Reducing 100 features to 2 lets us <strong>actually plot and see</strong> the data patterns!</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">⚡</div>
+                <h4>Speed Up ML Models</h4>
+                <p>Fewer features = faster training. A model with 10 features trains much faster than one with 10,000!</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🛡️</div>
+                <h4>Remove Noise</h4>
+                <p>Extra features often contain noise. Reducing dimensions removes irrelevant data and <strong>improves accuracy</strong>!</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🏗️ Popular Algorithms</h3>
+        <div class="ml-comparison-grid">
+            <div class="ml-compare-box" style="background: rgba(56, 189, 248, 0.06); border-color: rgba(56, 189, 248, 0.2);">
+                <h4>📐 PCA (Principal Component Analysis)</h4>
+                <p>The most popular! Finds the <strong>directions of maximum variance</strong> in data and projects onto them.</p>
+                <div class="ml-example-box" style="margin-top: 0.75rem;">
+                    <p><strong>Analogy:</strong> You have a 3D object. You shine a light on it and look at the <strong>shadow</strong> (2D). PCA finds the best angle to cast the most informative shadow!</p>
+                </div>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(167, 139, 250, 0.06); border-color: rgba(167, 139, 250, 0.2);">
+                <h4>🗺️ t-SNE</h4>
+                <p>Designed specifically for <strong>visualization</strong>. Keeps nearby points close and separates distant points.</p>
+                <div class="ml-example-box" style="margin-top: 0.75rem;">
+                    <p><strong>Analogy:</strong> t-SNE is like making a <strong>2D map</strong> of a country. Cities that are close stay close, but the exact distances might change!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🌍 Real-World DR Examples</h3>
+        <div class="ml-reason-grid">
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">📸</div>
+                <h4>Face Recognition</h4>
+                <p>A face image has millions of pixels (features). PCA reduces them to ~100 "eigenfaces" that still <strong>uniquely identify</strong> each person!</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🧬</div>
+                <h4>Genomics</h4>
+                <p>The human genome has 20,000+ genes. PCA reduces them to find the key genes that differentiate <strong>cancer types</strong>!</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">📊</div>
+                <h4>Data Visualization</h4>
+                <p>Visualizing a dataset with 50 features is impossible. t-SNE creates a stunning <strong>2D map</strong> where you can see clusters with your own eyes!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- TYPE 3: ASSOCIATION RULE LEARNING (DETAILED)-->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">🔗 Type 3: Association Rule Learning</h2>
+
+    <div class="storybook-intro">
+        <p>Ever noticed how Amazon says <strong>"Customers who bought this also bought..."</strong>? Or how grocery stores place chips next to the soda aisle? That's <strong>Association Rule Learning</strong> — finding hidden relationships between items! 🛒</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📖 What is Association Rule Learning?</h3>
+        <p class="task-desc">
+            <strong>Association Rule Learning</strong> is a technique to find <span class="highlight-term">interesting relationships (rules) between variables</span> in large datasets. It answers the question: <strong>"If someone buys X, are they likely to buy Y?"</strong>
+        </p>
+        <p class="task-desc">
+            The classic example is called <strong>Market Basket Analysis</strong> — analyzing shopping carts to find items that are frequently purchased together.
+        </p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📊 Key Concepts — The Metrics!</h3>
+        <p class="task-desc">Association rules are measured by three important metrics. Let's use a grocery store example:</p>
+        <div class="ml-variable-grid" style="margin-top: 1rem;">
+            <div class="ml-variable-item">
+                <span class="ml-var">Support</span>
+                <span class="ml-var-desc"><strong>How often</strong> the items appear together. Example: "Bread & Butter appear together in 30% of carts" → Support = 0.30</span>
+            </div>
+            <div class="ml-variable-item">
+                <span class="ml-var">Confidence</span>
+                <span class="ml-var-desc"><strong>If someone buys X, how likely they buy Y</strong>. "Of people who buy bread, 70% also buy butter" → Confidence = 0.70</span>
+            </div>
+            <div class="ml-variable-item">
+                <span class="ml-var">Lift</span>
+                <span class="ml-var-desc"><strong>Is this rule better than random chance?</strong> Lift &gt; 1 means real association. Lift = 1 means no relationship.</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🏗️ Popular Algorithms</h3>
+        <div class="ml-comparison-grid">
+            <div class="ml-compare-box" style="background: rgba(56, 189, 248, 0.06); border-color: rgba(56, 189, 248, 0.2);">
+                <h4>🔍 Apriori Algorithm</h4>
+                <p>The classic! Starts with single items, then builds pairs, triples, etc. Prunes infrequent combinations early to save time.</p>
+                <div class="ml-example-box" style="margin-top: 0.75rem;">
+                    <p><strong>Rule found:</strong> {Bread, Eggs} → {Milk} with 80% confidence</p>
+                    <p>Meaning: "80% of people who buy bread AND eggs also buy milk!"</p>
+                </div>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(167, 139, 250, 0.06); border-color: rgba(167, 139, 250, 0.2);">
+                <h4>🌳 FP-Growth Algorithm</h4>
+                <p>Much faster than Apriori! Builds a special tree structure (FP-tree) to find patterns without generating candidate sets.</p>
+                <div class="ml-example-box" style="margin-top: 0.75rem;">
+                    <p><strong>Rule found:</strong> {Diapers} → {Beer} (Lift = 3.5!)</p>
+                    <p>Famous real discovery: dads buying diapers often grab beer too! 🍺</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🌍 Real-World Association Rule Examples</h3>
+        <div class="ml-reason-grid">
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🛒</div>
+                <h4>Supermarket Layouts</h4>
+                <p>Stores arrange products based on association rules. <strong>Chips near salsa, bread near butter</strong> — all discovered by algorithms!</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🎬</div>
+                <h4>Netflix Recommendations</h4>
+                <p>"People who watched Breaking Bad also watched Better Call Saul." Netflix uses these rules for their <strong>recommendation engine</strong>!</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">💊</div>
+                <h4>Medical Diagnosis</h4>
+                <p>Finding that patients with symptoms A and B often develop disease C helps doctors make <strong>faster, more accurate diagnoses</strong>!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- COMPARISON TABLE OF ALL THREE TYPES        -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <div class="task-card" style="margin-top: 2rem;">
+        <h3 class="task-title">📋 Comparison: All Three Types at a Glance</h3>
+        <div class="ml-data-table-wrapper">
+            <table class="ml-data-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>🫧 Clustering</th>
+                        <th>📉 Dimensionality Reduction</th>
+                        <th>🔗 Association Rules</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Goal</strong></td>
+                        <td>Group similar items</td>
+                        <td>Reduce features</td>
+                        <td>Find item relationships</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Input</strong></td>
+                        <td>Feature vectors</td>
+                        <td>High-dimensional data</td>
+                        <td>Transaction records</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Output</strong></td>
+                        <td>Cluster labels (0, 1, 2...)</td>
+                        <td>Fewer features</td>
+                        <td>Rules (If X → then Y)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Analogy</strong></td>
+                        <td>Sorting a messy closet</td>
+                        <td>Summarizing a book</td>
+                        <td>Noticing shopping patterns</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Algorithms</strong></td>
+                        <td>K-Means, DBSCAN, Hierarchical</td>
+                        <td>PCA, t-SNE, UMAP</td>
+                        <td>Apriori, FP-Growth</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Real Example</strong></td>
+                        <td>Customer segments</td>
+                        <td>Face recognition</td>
+                        <td>Amazon recommendations</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
