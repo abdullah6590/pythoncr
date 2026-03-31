@@ -347,18 +347,25 @@
     <div class="task-card">
         <h3 class="task-title">📊 Key Concepts — The Metrics!</h3>
         <p class="task-desc">Association rules are measured by three important metrics. Let's use a grocery store example:</p>
-        <div class="ml-variable-grid" style="margin-top: 1rem;">
-            <div class="ml-variable-item">
-                <span class="ml-var">Support</span>
-                <span class="ml-var-desc"><strong>How often</strong> the items appear together. Example: "Bread & Butter appear together in 30% of carts" → Support = 0.30</span>
+
+        <div class="ml-reason-grid" style="margin-top: 1rem;">
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">📈</div>
+                <h4>Support</h4>
+                <p><strong>How often</strong> the items appear together in all transactions.</p>
+                <p style="margin-top: 0.5rem; color: var(--accent-cyan); font-size: 0.85rem;">Example: "Bread &amp; Butter appear together in 30% of carts" → Support = 0.30</p>
             </div>
-            <div class="ml-variable-item">
-                <span class="ml-var">Confidence</span>
-                <span class="ml-var-desc"><strong>If someone buys X, how likely they buy Y</strong>. "Of people who buy bread, 70% also buy butter" → Confidence = 0.70</span>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🎯</div>
+                <h4>Confidence</h4>
+                <p><strong>If someone buys X, how likely</strong> they also buy Y.</p>
+                <p style="margin-top: 0.5rem; color: var(--accent-cyan); font-size: 0.85rem;">Example: "Of people who buy bread, 70% also buy butter" → Confidence = 0.70</p>
             </div>
-            <div class="ml-variable-item">
-                <span class="ml-var">Lift</span>
-                <span class="ml-var-desc"><strong>Is this rule better than random chance?</strong> Lift &gt; 1 means real association. Lift = 1 means no relationship.</span>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🚀</div>
+                <h4>Lift</h4>
+                <p><strong>Is this rule better than random chance?</strong> Measures how much more likely items appear together vs independently.</p>
+                <p style="margin-top: 0.5rem; color: var(--accent-cyan); font-size: 0.85rem;">Lift &gt; 1 = real association. Lift = 1 = no relationship. Lift &lt; 1 = negative.</p>
             </div>
         </div>
     </div>
