@@ -254,178 +254,735 @@
     </div>
 
     <!-- ═══════════════════════════════════════════ -->
-    <!-- ALL ML MODELS                               -->
+    <!-- ALL ML MODELS — DETAILED WITH CODE          -->
     <!-- ═══════════════════════════════════════════ -->
 
-    <h2 class="module-title">🧠 Machine Learning Models — The Complete Guide</h2>
+    <h2 class="module-title">🧠 Machine Learning Models — Deep Dive with Code</h2>
 
     <div class="storybook-intro">
-        <p>Now for the exciting part! Here's every major ML model you need to know, with details on whether it's used for <span class="highlight-term">Classification</span>, <span class="highlight-term">Regression</span>, or <strong>Both</strong>. Think of this as your <strong>ML model cheat sheet!</strong> 🗺️</p>
+        <p>Now for the exciting part! Below, every major ML model is explained in detail with <strong>real code you can run in Google Colab</strong>. Copy, paste, run, and <strong>see the magic happen</strong>! 🚀</p>
     </div>
 
-    <!-- Model 1: Linear Regression -->
+    <!-- ════════════════════════════════════════════════ -->
+    <!-- MODEL 1: LINEAR REGRESSION                       -->
+    <!-- ════════════════════════════════════════════════ -->
+
     <div class="task-card">
         <div class="ml-model-header">
             <span class="ml-model-badge ml-badge-regression">Regression</span>
             <h3 class="task-title" style="margin-bottom: 0;">1. Linear Regression</h3>
         </div>
-        <p class="task-desc">The simplest and most interpretable model. Fits a straight line through data points to predict continuous values.</p>
-        <div class="ml-compare-flow" style="margin: 1rem 0;">
-            <span class="ml-flow-item">📐 y = mx + b</span>
-            <span class="ml-flow-arrow">→</span>
-            <span class="ml-flow-item ml-flow-output">Predicts a number</span>
+        <p class="task-desc">Imagine drawing the <strong>best straight line</strong> through a scatter plot. That line is your model! Linear Regression finds the line that minimizes the distance between itself and all data points.</p>
+
+        <div class="ml-formula-card">
+            <div class="ml-formula">y = mx + b</div>
         </div>
-        <p class="task-desc"><strong>Use cases:</strong> House price prediction, salary estimation, sales forecasting</p>
+        <div class="ml-variable-grid">
+            <div class="ml-variable-item"><span class="ml-var">m</span><span class="ml-var-desc">Slope — how steep the line rises</span></div>
+            <div class="ml-variable-item"><span class="ml-var">b</span><span class="ml-var-desc">Intercept — where line crosses y-axis</span></div>
+        </div>
+
+        <h4 style="color: var(--text-heading); margin: 1.5rem 0 0.5rem;">🎯 How It Works</h4>
+        <p class="task-desc">The model tries every possible line and picks the one with the <span class="highlight-term">smallest total error</span> (sum of squared distances from each point to the line). This is called <strong>Ordinary Least Squares (OLS)</strong>.</p>
+
+        <div class="ml-reason-grid" style="margin: 1rem 0;">
+            <div class="ml-reason-card"><div class="ml-reason-icon">✅</div><h4>Pros</h4><p>Simple, fast, interpretable, works great for linear relationships</p></div>
+            <div class="ml-reason-card"><div class="ml-reason-icon">❌</div><h4>Cons</h4><p>Can't capture curved/non-linear patterns, sensitive to outliers</p></div>
+        </div>
+
+        <h4 style="color: var(--text-heading); margin: 1.5rem 0 0.5rem;">💻 Try It in Colab — Predict House Prices!</h4>
+        <button class="btn-toggle" onclick="toggleCode('lr-code', this)">Show Code</button>
+        <div id="lr-code" class="answer-container">
+            <div class="code-header"><div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div><button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button></div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression
+<span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split
+<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> mean_squared_error, r2_score
+
+<span class="comment"># 🏠 Dataset: House size (sq ft) → Price ($)</span>
+X = np.array([600, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2500]).reshape(-1, 1)
+y = np.array([150000, 180000, 220000, 260000, 310000, 350000, 390000, 430000, 470000, 540000])
+
+<span class="comment"># Split data</span>
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+<span class="comment"># Train model</span>
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+<span class="comment"># Predict & evaluate</span>
+y_pred = model.predict(X_test)
+print(f<span class="string">"📐 Equation: Price = {model.coef_[0]:.0f} × Size + {model.intercept_:.0f}"</span>)
+print(f<span class="string">"📊 R² Score: {r2_score(y_test, y_pred):.4f}"</span>)
+
+<span class="comment"># 🔮 Predict for a new house</span>
+new_house = [[1750]]
+print(f<span class="string">"\n🏠 A 1750 sq ft house costs: ${model.predict(new_house)[0]:,.0f}"</span>)
+
+<span class="comment"># Visualize</span>
+plt.figure(figsize=(8, 5))
+plt.scatter(X, y, color=<span class="string">'#38bdf8'</span>, s=100, label=<span class="string">'Actual Data'</span>)
+plt.plot(X, model.predict(X), color=<span class="string">'#34d399'</span>, linewidth=2, label=<span class="string">'Best Fit Line'</span>)
+plt.xlabel(<span class="string">'House Size (sq ft)'</span>); plt.ylabel(<span class="string">'Price ($)'</span>)
+plt.title(<span class="string">'📈 Linear Regression: House Price Prediction'</span>)
+plt.legend(); plt.grid(alpha=0.3); plt.show()</code>
+            </div>
+        </div>
     </div>
 
-    <!-- Model 2: Logistic Regression -->
+    <!-- ════════════════════════════════════════════════ -->
+    <!-- MODEL 2: LOGISTIC REGRESSION                     -->
+    <!-- ════════════════════════════════════════════════ -->
+
     <div class="task-card">
         <div class="ml-model-header">
             <span class="ml-model-badge ml-badge-classification">Classification</span>
             <h3 class="task-title" style="margin-bottom: 0;">2. Logistic Regression</h3>
         </div>
-        <p class="task-desc">Despite the name, it's a classification algorithm! Uses a sigmoid function to output probability between 0 and 1, then classifies based on a threshold.</p>
-        <div class="ml-compare-flow" style="margin: 1rem 0;">
-            <span class="ml-flow-item">📊 σ(z) = 1 / (1 + e⁻ᶻ)</span>
-            <span class="ml-flow-arrow">→</span>
-            <span class="ml-flow-item ml-flow-output">Predicts a class (0 or 1)</span>
+        <p class="task-desc">Don't let the name fool you — despite being called "regression", it's actually a <strong>classification algorithm</strong>! Think of it like a <strong>probability calculator</strong>. It takes features and outputs the probability that something belongs to a class.</p>
+
+        <div class="ml-formula-card">
+            <div class="ml-formula">σ(z) = 1 / (1 + e⁻ᶻ)</div>
         </div>
-        <p class="task-desc"><strong>Use cases:</strong> Spam detection, disease diagnosis, customer churn</p>
+        <p class="task-desc">This <span class="highlight-term">sigmoid function</span> squashes any number into a 0-1 range. If the output is ≥ 0.5, predict class 1. Otherwise, predict class 0.</p>
+
+        <h4 style="color: var(--text-heading); margin: 1.5rem 0 0.5rem;">🎯 How It Works</h4>
+        <p class="task-desc">Instead of fitting a straight line, Logistic Regression fits an <strong>S-shaped curve</strong>. The curve gives the probability of belonging to the positive class. It draws a <span class="highlight-term">decision boundary</span> — a line (or surface) that separates the two classes.</p>
+
+        <div class="ml-reason-grid" style="margin: 1rem 0;">
+            <div class="ml-reason-card"><div class="ml-reason-icon">✅</div><h4>Pros</h4><p>Fast, outputs probabilities, great baseline, works well with linearly separable data</p></div>
+            <div class="ml-reason-card"><div class="ml-reason-icon">❌</div><h4>Cons</h4><p>Only linear boundaries, struggles with complex non-linear patterns</p></div>
+        </div>
+
+        <h4 style="color: var(--text-heading); margin: 1.5rem 0 0.5rem;">💻 Try It in Colab — Predict Diabetes!</h4>
+        <button class="btn-toggle" onclick="toggleCode('logr-code', this)">Show Code</button>
+        <div id="logr-code" class="answer-container">
+            <div class="code-header"><div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div><button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button></div>
+            <div class="code-container">
+<code><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_breast_cancer
+<span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression
+<span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split
+<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score, classification_report
+
+<span class="comment"># 🏥 Load breast cancer dataset (built-in!)</span>
+data = load_breast_cancer()
+X, y = data.data, data.target
+print(f<span class="string">"📋 Features: {data.feature_names[:5]}..."</span>)
+print(f<span class="string">"🎯 Classes: {data.target_names}"</span>)
+
+<span class="comment"># Split data</span>
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+<span class="comment"># Train Logistic Regression</span>
+model = LogisticRegression(max_iter=10000)
+model.fit(X_train, y_train)
+
+<span class="comment"># Evaluate</span>
+y_pred = model.predict(X_test)
+print(f<span class="string">"\n🎯 Accuracy: {accuracy_score(y_test, y_pred):.2%}"</span>)
+print(f<span class="string">"\n📊 Detailed Report:"</span>)
+print(classification_report(y_test, y_pred, target_names=data.target_names))
+
+<span class="comment"># Predict probability for first test sample</span>
+prob = model.predict_proba(X_test[:1])
+print(f<span class="string">"🔮 Sample prediction: {prob[0][1]:.1%} chance of being benign"</span>)</code>
+            </div>
+        </div>
     </div>
 
-    <!-- Model 3: Decision Tree -->
+    <!-- ════════════════════════════════════════════════ -->
+    <!-- MODEL 3: DECISION TREE                           -->
+    <!-- ════════════════════════════════════════════════ -->
+
     <div class="task-card">
         <div class="ml-model-header">
             <span class="ml-model-badge ml-badge-both">Both</span>
             <h3 class="task-title" style="margin-bottom: 0;">3. Decision Tree</h3>
         </div>
-        <p class="task-desc">Works like a flowchart! Splits data based on feature values using if/else rules. Highly interpretable — you can actually visualize the decision process.</p>
-        <div class="ml-compare-flow" style="margin: 1rem 0;">
-            <span class="ml-flow-item">🌳 If age > 30 AND income > 50K</span>
-            <span class="ml-flow-arrow">→</span>
-            <span class="ml-flow-item ml-flow-output">Approve Loan ✅</span>
+        <p class="task-desc">Imagine playing <strong>20 Questions</strong>. You ask yes/no questions that gradually narrow down the answer. That's exactly what a Decision Tree does! It builds a flowchart of questions about your data features.</p>
+
+        <h4 style="color: var(--text-heading); margin: 1.5rem 0 0.5rem;">🎯 How It Works</h4>
+        <p class="task-desc">The tree picks the <strong>best feature to split on</strong> at each level (using Gini Impurity or Information Gain). It keeps splitting until each "leaf" node contains a pure group or reaches a stopping point.</p>
+
+        <div class="ml-comparison-grid" style="margin: 1rem 0;">
+            <div class="ml-compare-box" style="background: rgba(56, 189, 248, 0.06); border-color: rgba(56, 189, 248, 0.2);">
+                <h4>🌳 For Classification</h4>
+                <p>Each leaf = a class label. The tree sorts data into categories.</p>
+                <p><code>DecisionTreeClassifier</code></p>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(167, 139, 250, 0.06); border-color: rgba(167, 139, 250, 0.2);">
+                <h4>📈 For Regression</h4>
+                <p>Each leaf = an average value. The tree predicts numbers.</p>
+                <p><code>DecisionTreeRegressor</code></p>
+            </div>
         </div>
-        <p class="task-desc"><strong>Use cases:</strong> Loan approval, medical diagnosis, customer segmentation</p>
+
+        <div class="ml-reason-grid" style="margin: 1rem 0;">
+            <div class="ml-reason-card"><div class="ml-reason-icon">✅</div><h4>Pros</h4><p>Super interpretable, handles any data type, no scaling needed, can visualize the tree!</p></div>
+            <div class="ml-reason-card"><div class="ml-reason-icon">❌</div><h4>Cons</h4><p>Overfits easily (solves: pruning or use Random Forest), unstable with small changes</p></div>
+        </div>
+
+        <h4 style="color: var(--text-heading); margin: 1.5rem 0 0.5rem;">💻 Try It in Colab — Classify Iris Flowers + Visualize the Tree!</h4>
+        <button class="btn-toggle" onclick="toggleCode('dt-code', this)">Show Code</button>
+        <div id="dt-code" class="answer-container">
+            <div class="code-header"><div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div><button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button></div>
+            <div class="code-container">
+<code><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_iris
+<span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> DecisionTreeClassifier, plot_tree
+<span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split
+<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+
+<span class="comment"># 🌸 Load the famous Iris dataset</span>
+iris = load_iris()
+X, y = iris.data, iris.target
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+<span class="comment"># Train Decision Tree (max_depth=3 to keep it readable)</span>
+tree = DecisionTreeClassifier(max_depth=3, random_state=42)
+tree.fit(X_train, y_train)
+
+y_pred = tree.predict(X_test)
+print(f<span class="string">"🎯 Accuracy: {accuracy_score(y_test, y_pred):.2%}"</span>)
+
+<span class="comment"># 🌳 VISUALIZE THE TREE — this is the cool part!</span>
+plt.figure(figsize=(16, 8))
+plot_tree(tree, feature_names=iris.feature_names, class_names=iris.target_names,
+          filled=True, rounded=True, fontsize=10)
+plt.title(<span class="string">"🌳 Decision Tree — Iris Flower Classification"</span>, fontsize=14)
+plt.tight_layout(); plt.show()
+
+<span class="comment"># Predict a new flower</span>
+new_flower = [[5.1, 3.5, 1.4, 0.2]]
+pred = tree.predict(new_flower)
+print(f<span class="string">"\n🌸 New flower is: {iris.target_names[pred[0]]}"</span>)</code>
+            </div>
+        </div>
     </div>
 
-    <!-- Model 4: Random Forest -->
+    <!-- ════════════════════════════════════════════════ -->
+    <!-- MODEL 4: RANDOM FOREST                           -->
+    <!-- ════════════════════════════════════════════════ -->
+
     <div class="task-card">
         <div class="ml-model-header">
             <span class="ml-model-badge ml-badge-both">Both</span>
             <h3 class="task-title" style="margin-bottom: 0;">4. Random Forest</h3>
         </div>
-        <p class="task-desc">An ensemble of hundreds of decision trees that "vote" on the answer. Like asking 100 experts and going with the majority — reduces overfitting dramatically!</p>
-        <div class="ml-compare-flow" style="margin: 1rem 0;">
-            <span class="ml-flow-item">🌲🌲🌲 100 Trees Vote</span>
-            <span class="ml-flow-arrow">→</span>
-            <span class="ml-flow-item ml-flow-output">Majority wins!</span>
+        <p class="task-desc">One tree can be wrong. But what if you asked <strong>100 trees</strong> and let them vote? That's <strong>Random Forest</strong>! It creates many decision trees, each trained on a random subset of data, and combines their answers. Like a <strong>wisdom of the crowd</strong> 🗳️</p>
+
+        <h4 style="color: var(--text-heading); margin: 1.5rem 0 0.5rem;">🎯 How It Works</h4>
+        <p class="task-desc"><strong>Bagging</strong> = Bootstrap Aggregating. Each tree gets a random sample of the data AND random features. This diversity makes the forest robust. For classification, trees <em>vote</em>. For regression, they <em>average</em>.</p>
+
+        <div class="ml-reason-grid" style="margin: 1rem 0;">
+            <div class="ml-reason-card"><div class="ml-reason-icon">✅</div><h4>Pros</h4><p>Very accurate, handles overfitting, shows feature importance, works out-of-the-box</p></div>
+            <div class="ml-reason-card"><div class="ml-reason-icon">❌</div><h4>Cons</h4><p>Less interpretable than single tree, slower to train, uses more memory</p></div>
         </div>
-        <p class="task-desc"><strong>Use cases:</strong> Feature importance, fraud detection, stock prediction</p>
+
+        <h4 style="color: var(--text-heading); margin: 1.5rem 0 0.5rem;">💻 Try It in Colab — Wine Quality + Feature Importance!</h4>
+        <button class="btn-toggle" onclick="toggleCode('rf-code', this)">Show Code</button>
+        <div id="rf-code" class="answer-container">
+            <div class="code-header"><div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div><button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button></div>
+            <div class="code-container">
+<code><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_wine
+<span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier
+<span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split
+<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+<span class="comment"># 🍷 Load wine dataset</span>
+wine = load_wine()
+X, y = wine.data, wine.target
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+<span class="comment"># Train Random Forest with 100 trees</span>
+forest = RandomForestClassifier(n_estimators=100, random_state=42)
+forest.fit(X_train, y_train)
+
+y_pred = forest.predict(X_test)
+print(f<span class="string">"🎯 Accuracy: {accuracy_score(y_test, y_pred):.2%}"</span>)
+
+<span class="comment"># 📊 Feature Importance — which features matter most?</span>
+importances = forest.feature_importances_
+indices = np.argsort(importances)[::-1]
+
+plt.figure(figsize=(10, 5))
+plt.bar(range(len(importances)), importances[indices], color=<span class="string">'#38bdf8'</span>)
+plt.xticks(range(len(importances)), [wine.feature_names[i] <span class="keyword">for</span> i <span class="keyword">in</span> indices], rotation=45, ha=<span class="string">'right'</span>)
+plt.title(<span class="string">"🌲 Random Forest — Feature Importance (Wine)"</span>)
+plt.ylabel(<span class="string">'Importance'</span>); plt.tight_layout(); plt.show()
+
+print(f<span class="string">"\n🏆 Most important feature: {wine.feature_names[indices[0]]}"</span>)</code>
+            </div>
+        </div>
     </div>
 
-    <!-- Model 5: SVM -->
+    <!-- ════════════════════════════════════════════════ -->
+    <!-- MODEL 5: SVM                                     -->
+    <!-- ════════════════════════════════════════════════ -->
+
     <div class="task-card">
         <div class="ml-model-header">
             <span class="ml-model-badge ml-badge-both">Both</span>
             <h3 class="task-title" style="margin-bottom: 0;">5. Support Vector Machine (SVM)</h3>
         </div>
-        <p class="task-desc">Finds the optimal hyperplane that separates classes with the maximum margin. Can handle non-linear data using the "kernel trick" to project data into higher dimensions.</p>
-        <div class="ml-compare-flow" style="margin: 1rem 0;">
-            <span class="ml-flow-item">📏 Max Margin Hyperplane</span>
-            <span class="ml-flow-arrow">→</span>
-            <span class="ml-flow-item ml-flow-output">Clear class separation</span>
+        <p class="task-desc">Imagine two groups of colored balls on a table. SVM finds the <strong>widest possible gap</strong> (margin) between them by placing a dividing line. The balls closest to the line are called <strong>support vectors</strong> — they define the boundary!</p>
+
+        <h4 style="color: var(--text-heading); margin: 1.5rem 0 0.5rem;">🎯 How It Works</h4>
+        <p class="task-desc">SVM maximizes the <span class="highlight-term">margin</span> between classes. For non-linear data, it uses the <strong>kernel trick</strong> — projecting data into higher dimensions where a linear separator exists. It's like lifting tangled strings off a table so you can cut between them!</p>
+
+        <div class="ml-reason-grid" style="margin: 1rem 0;">
+            <div class="ml-reason-card"><div class="ml-reason-icon">✅</div><h4>Pros</h4><p>Excellent for high-dimensional data, kernel trick handles non-linearity, memory efficient</p></div>
+            <div class="ml-reason-card"><div class="ml-reason-icon">❌</div><h4>Cons</h4><p>Slow on large datasets, sensitive to feature scaling, hard to interpret</p></div>
         </div>
-        <p class="task-desc"><strong>Use cases:</strong> Text classification, image recognition, bioinformatics</p>
+
+        <h4 style="color: var(--text-heading); margin: 1.5rem 0 0.5rem;">💻 Try It in Colab — Classify Digits with SVM!</h4>
+        <button class="btn-toggle" onclick="toggleCode('svm-code', this)">Show Code</button>
+        <div id="svm-code" class="answer-container">
+            <div class="code-header"><div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div><button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button></div>
+            <div class="code-container">
+<code><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_digits
+<span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC
+<span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split
+<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score, confusion_matrix
+<span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+<span class="comment"># 🔢 Load handwritten digits (8x8 images)</span>
+digits = load_digits()
+X, y = digits.data, digits.target
+
+<span class="comment"># Scale features (important for SVM!)</span>
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
+
+<span class="comment"># Train SVM with RBF kernel</span>
+svm = SVC(kernel=<span class="string">'rbf'</span>, C=10, gamma=<span class="string">'scale'</span>)
+svm.fit(X_train, y_train)
+
+y_pred = svm.predict(X_test)
+print(f<span class="string">"🎯 Accuracy: {accuracy_score(y_test, y_pred):.2%}"</span>)
+
+<span class="comment"># Show some predictions</span>
+fig, axes = plt.subplots(2, 5, figsize=(12, 5))
+<span class="keyword">for</span> i, ax <span class="keyword">in</span> enumerate(axes.flat):
+    ax.imshow(digits.images[i], cmap=<span class="string">'Blues'</span>)
+    ax.set_title(f<span class="string">"Pred: {svm.predict(scaler.transform([digits.data[i]]))[0]}"</span>)
+    ax.axis(<span class="string">'off'</span>)
+plt.suptitle(<span class="string">"🔢 SVM Digit Recognition"</span>, fontsize=14)
+plt.tight_layout(); plt.show()</code>
+            </div>
+        </div>
     </div>
 
-    <!-- Model 6: KNN -->
+    <!-- ════════════════════════════════════════════════ -->
+    <!-- MODEL 6: KNN                                     -->
+    <!-- ════════════════════════════════════════════════ -->
+
     <div class="task-card">
         <div class="ml-model-header">
             <span class="ml-model-badge ml-badge-both">Both</span>
             <h3 class="task-title" style="margin-bottom: 0;">6. K-Nearest Neighbors (KNN)</h3>
         </div>
-        <p class="task-desc">The laziest algorithm (literally — it's called "lazy learning")! Doesn't train at all. At prediction time, it finds the K closest data points and takes a vote or average.</p>
-        <div class="ml-compare-flow" style="margin: 1rem 0;">
-            <span class="ml-flow-item">🎯 Find K nearest neighbors</span>
-            <span class="ml-flow-arrow">→</span>
-            <span class="ml-flow-item ml-flow-output">Vote / Average</span>
+        <p class="task-desc">The <strong>laziest algorithm</strong> (literally "lazy learning")! KNN doesn't train at all — it memorizes the data. At prediction time, it finds the <strong>K closest data points</strong> to the new input and lets them vote. Like asking your 5 nearest neighbors what to eat for dinner! 🍕</p>
+
+        <h4 style="color: var(--text-heading); margin: 1.5rem 0 0.5rem;">🎯 How It Works</h4>
+        <p class="task-desc">1. Choose K (e.g., 5). 2. Calculate distance from the new point to ALL existing points. 3. Find the K nearest. 4. For classification: <em>majority vote</em>. For regression: <em>take the average</em>.</p>
+
+        <div class="ml-reason-grid" style="margin: 1rem 0;">
+            <div class="ml-reason-card"><div class="ml-reason-icon">✅</div><h4>Pros</h4><p>No training needed, simple to understand, works for any problem type</p></div>
+            <div class="ml-reason-card"><div class="ml-reason-icon">❌</div><h4>Cons</h4><p>Slow on large datasets (checks every point), sensitive to irrelevant features, must scale data</p></div>
         </div>
-        <p class="task-desc"><strong>Use cases:</strong> Recommendation systems, anomaly detection, pattern recognition</p>
+
+        <h4 style="color: var(--text-heading); margin: 1.5rem 0 0.5rem;">💻 Try It in Colab — Classify Iris with KNN!</h4>
+        <button class="btn-toggle" onclick="toggleCode('knn-code', this)">Show Code</button>
+        <div id="knn-code" class="answer-container">
+            <div class="code-header"><div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div><button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button></div>
+            <div class="code-container">
+<code><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_iris
+<span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsClassifier
+<span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split
+<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+
+<span class="comment"># 🌸 Load Iris dataset</span>
+iris = load_iris()
+X, y = iris.data, iris.target
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+<span class="comment"># Try different values of K to find the best one!</span>
+k_values = range(1, 21)
+accuracies = []
+
+<span class="keyword">for</span> k <span class="keyword">in</span> k_values:
+    knn = KNeighborsClassifier(n_neighbors=k)
+    knn.fit(X_train, y_train)
+    acc = accuracy_score(y_test, knn.predict(X_test))
+    accuracies.append(acc)
+    <span class="keyword">if</span> k <= 5:
+        print(f<span class="string">"K={k}: Accuracy = {acc:.2%}"</span>)
+
+<span class="comment"># 📊 Plot accuracy vs K value</span>
+plt.figure(figsize=(8, 4))
+plt.plot(k_values, accuracies, marker=<span class="string">'o'</span>, color=<span class="string">'#38bdf8'</span>, linewidth=2)
+plt.xlabel(<span class="string">'K (Number of Neighbors)'</span>)
+plt.ylabel(<span class="string">'Accuracy'</span>)
+plt.title(<span class="string">'🎯 KNN: Finding the Best K Value'</span>)
+plt.grid(alpha=0.3); plt.show()
+
+best_k = k_values[accuracies.index(max(accuracies))]
+print(f<span class="string">"\n🏆 Best K = {best_k} with accuracy {max(accuracies):.2%}"</span>)</code>
+            </div>
+        </div>
     </div>
 
-    <!-- Model 7: Naive Bayes -->
+    <!-- ════════════════════════════════════════════════ -->
+    <!-- MODEL 7: NAIVE BAYES                             -->
+    <!-- ════════════════════════════════════════════════ -->
+
     <div class="task-card">
         <div class="ml-model-header">
             <span class="ml-model-badge ml-badge-classification">Classification</span>
             <h3 class="task-title" style="margin-bottom: 0;">7. Naive Bayes</h3>
         </div>
-        <p class="task-desc">Based on Bayes' Theorem with the "naive" assumption that features are independent. Surprisingly powerful despite this simplification, especially for text data!</p>
-        <div class="ml-compare-flow" style="margin: 1rem 0;">
-            <span class="ml-flow-item">📊 P(class | features)</span>
-            <span class="ml-flow-arrow">→</span>
-            <span class="ml-flow-item ml-flow-output">Most probable class</span>
+        <p class="task-desc">Based on <strong>Bayes' Theorem</strong> — a 250-year-old probability formula! It's called "naive" because it assumes all features are <em>independent</em> (which is rarely true, but it works surprisingly well anyway!). Think of it as a <strong>probability scorecard</strong>.</p>
+
+        <div class="ml-formula-card">
+            <div class="ml-formula">P(class | features) = P(features | class) × P(class) / P(features)</div>
         </div>
-        <p class="task-desc"><strong>Use cases:</strong> Spam filtering, sentiment analysis, document classification</p>
+
+        <h4 style="color: var(--text-heading); margin: 1.5rem 0 0.5rem;">🎯 How It Works</h4>
+        <p class="task-desc">For each class, it calculates "how likely are these features if the data belongs to this class?" Then it picks the class with the <strong>highest probability</strong>. It's incredibly fast because it just multiplies probabilities!</p>
+
+        <div class="ml-reason-grid" style="margin: 1rem 0;">
+            <div class="ml-reason-card"><div class="ml-reason-icon">✅</div><h4>Pros</h4><p>Blazing fast, works great with text/NLP, handles high dimensions, needs little data</p></div>
+            <div class="ml-reason-card"><div class="ml-reason-icon">❌</div><h4>Cons</h4><p>Assumes feature independence (rarely true), can be outperformed by complex models</p></div>
+        </div>
+
+        <h4 style="color: var(--text-heading); margin: 1.5rem 0 0.5rem;">💻 Try It in Colab — Text Sentiment Classification!</h4>
+        <button class="btn-toggle" onclick="toggleCode('nb-code', this)">Show Code</button>
+        <div id="nb-code" class="answer-container">
+            <div class="code-header"><div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div><button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button></div>
+            <div class="code-container">
+<code><span class="keyword">from</span> sklearn.feature_extraction.text <span class="keyword">import</span> CountVectorizer
+<span class="keyword">from</span> sklearn.naive_bayes <span class="keyword">import</span> MultinomialNB
+<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score
+
+<span class="comment"># 📧 Movie review dataset</span>
+reviews = [
+    <span class="string">"This movie was amazing and fantastic"</span>,
+    <span class="string">"Great film with excellent acting"</span>,
+    <span class="string">"Wonderful story, loved every minute"</span>,
+    <span class="string">"Best movie I have ever seen"</span>,
+    <span class="string">"Terrible movie, waste of time"</span>,
+    <span class="string">"Boring and awful, very bad film"</span>,
+    <span class="string">"Worst acting ever, hated it"</span>,
+    <span class="string">"Disappointing and dull, terrible plot"</span>,
+]
+labels = [1, 1, 1, 1, 0, 0, 0, 0]  <span class="comment"># 1=Positive, 0=Negative</span>
+
+<span class="comment"># Convert text to numbers (word counts)</span>
+vectorizer = CountVectorizer()
+X = vectorizer.fit_transform(reviews)
+
+<span class="comment"># Train Naive Bayes</span>
+model = MultinomialNB()
+model.fit(X, labels)
+
+<span class="comment"># 🔮 Predict new reviews!</span>
+new_reviews = [
+    <span class="string">"This was a great and amazing experience"</span>,
+    <span class="string">"Terrible and boring waste of time"</span>,
+    <span class="string">"The acting was excellent and the story was fantastic"</span>,
+]
+
+X_new = vectorizer.transform(new_reviews)
+predictions = model.predict(X_new)
+
+<span class="keyword">for</span> review, pred <span class="keyword">in</span> zip(new_reviews, predictions):
+    emoji = <span class="string">"😍"</span> <span class="keyword">if</span> pred == 1 <span class="keyword">else</span> <span class="string">"😞"</span>
+    sentiment = <span class="string">"POSITIVE"</span> <span class="keyword">if</span> pred == 1 <span class="keyword">else</span> <span class="string">"NEGATIVE"</span>
+    print(f<span class="string">"{emoji} '{review[:40]}...' → {sentiment}"</span>)</code>
+            </div>
+        </div>
     </div>
 
-    <!-- Model 8: Gradient Boosting -->
+    <!-- ════════════════════════════════════════════════ -->
+    <!-- MODEL 8: GRADIENT BOOSTING                       -->
+    <!-- ════════════════════════════════════════════════ -->
+
     <div class="task-card">
         <div class="ml-model-header">
             <span class="ml-model-badge ml-badge-both">Both</span>
-            <h3 class="task-title" style="margin-bottom: 0;">8. Gradient Boosting (XGBoost / LightGBM / CatBoost)</h3>
+            <h3 class="task-title" style="margin-bottom: 0;">8. Gradient Boosting (XGBoost / LightGBM)</h3>
         </div>
-        <p class="task-desc">The Kaggle competition champion! 🏆 Builds trees sequentially — each new tree corrects errors of the previous ones. Extremely powerful and widely used in industry.</p>
-        <div class="ml-compare-flow" style="margin: 1rem 0;">
-            <span class="ml-flow-item">🌲 → 🌲 → 🌲 Sequential Learning</span>
-            <span class="ml-flow-arrow">→</span>
-            <span class="ml-flow-item ml-flow-output">State-of-the-art results</span>
+        <p class="task-desc">The <strong>Kaggle competition champion</strong> 🏆! While Random Forest builds trees in parallel, Gradient Boosting builds them <strong>one after another</strong>. Each new tree focuses on correcting the mistakes of the previous one. Like a student who keeps retaking an exam, studying only the questions they got wrong!</p>
+
+        <h4 style="color: var(--text-heading); margin: 1.5rem 0 0.5rem;">🎯 How It Works</h4>
+        <p class="task-desc">1. Build a weak tree. 2. Calculate errors (residuals). 3. Build next tree to predict those errors. 4. Add the correction. 5. Repeat! Each iteration makes the model slightly better. The "gradient" part means it uses <span class="highlight-term">gradient descent</span> to minimize the loss function.</p>
+
+        <div class="ml-reason-grid" style="margin: 1rem 0;">
+            <div class="ml-reason-card"><div class="ml-reason-icon">✅</div><h4>Pros</h4><p>State-of-the-art for tabular data, handles missing values, feature importance built-in</p></div>
+            <div class="ml-reason-card"><div class="ml-reason-icon">❌</div><h4>Cons</h4><p>Can overfit if too many trees, slower training than Random Forest, many hyperparameters</p></div>
         </div>
-        <p class="task-desc"><strong>Use cases:</strong> Click prediction, ranking, fraud detection, any tabular data</p>
+
+        <h4 style="color: var(--text-heading); margin: 1.5rem 0 0.5rem;">💻 Try It in Colab — Breast Cancer with Gradient Boosting!</h4>
+        <button class="btn-toggle" onclick="toggleCode('gb-code', this)">Show Code</button>
+        <div id="gb-code" class="answer-container">
+            <div class="code-header"><div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div><button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button></div>
+            <div class="code-container">
+<code><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_breast_cancer
+<span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> GradientBoostingClassifier
+<span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split
+<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score, classification_report
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+<span class="comment"># 🏥 Load breast cancer data</span>
+data = load_breast_cancer()
+X, y = data.data, data.target
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+<span class="comment"># Train Gradient Boosting</span>
+gb = GradientBoostingClassifier(n_estimators=100, learning_rate=0.1,
+                                 max_depth=3, random_state=42)
+gb.fit(X_train, y_train)
+
+y_pred = gb.predict(X_test)
+print(f<span class="string">"🎯 Accuracy: {accuracy_score(y_test, y_pred):.2%}"</span>)
+print(f<span class="string">"\n📊 Classification Report:"</span>)
+print(classification_report(y_test, y_pred, target_names=data.target_names))
+
+<span class="comment"># 📊 Top 10 feature importance</span>
+importances = gb.feature_importances_
+top10 = np.argsort(importances)[-10:]
+plt.figure(figsize=(8, 5))
+plt.barh(range(10), importances[top10], color=<span class="string">'#a78bfa'</span>)
+plt.yticks(range(10), [data.feature_names[i] <span class="keyword">for</span> i <span class="keyword">in</span> top10])
+plt.title(<span class="string">"🏆 Gradient Boosting — Top 10 Features"</span>)
+plt.xlabel(<span class="string">'Importance'</span>); plt.tight_layout(); plt.show()</code>
+            </div>
+        </div>
     </div>
 
-    <!-- Model 9: Neural Networks -->
+    <!-- ════════════════════════════════════════════════ -->
+    <!-- MODEL 9: NEURAL NETWORKS                         -->
+    <!-- ════════════════════════════════════════════════ -->
+
     <div class="task-card">
         <div class="ml-model-header">
             <span class="ml-model-badge ml-badge-both">Both</span>
             <h3 class="task-title" style="margin-bottom: 0;">9. Neural Networks (Deep Learning)</h3>
         </div>
-        <p class="task-desc">Inspired by the human brain! Layers of interconnected neurons learn complex patterns automatically. Powers modern AI breakthroughs in vision, language, and beyond.</p>
-        <div class="ml-compare-flow" style="margin: 1rem 0;">
-            <span class="ml-flow-item">🧠 Input → Hidden Layers → Output</span>
-            <span class="ml-flow-arrow">→</span>
-            <span class="ml-flow-item ml-flow-output">Learns anything!</span>
+        <p class="task-desc">Inspired by the <strong>human brain</strong>! 🧠 A neural network is made of layers of interconnected "neurons". Data enters from the left (input layer), passes through hidden layers where magic happens, and exits as a prediction. This is the technology behind <strong>ChatGPT, self-driving cars, and image recognition</strong>!</p>
+
+        <h4 style="color: var(--text-heading); margin: 1.5rem 0 0.5rem;">🎯 How It Works</h4>
+        <p class="task-desc"><strong>Forward pass:</strong> Data flows through layers, each neuron applies weights + bias + activation function. <strong>Backpropagation:</strong> The model calculates the error, then goes backwards adjusting all the weights to reduce that error. Repeat thousands of times = a trained model!</p>
+
+        <div class="ml-reason-grid" style="margin: 1rem 0;">
+            <div class="ml-reason-card"><div class="ml-reason-icon">✅</div><h4>Pros</h4><p>Can learn ANY pattern, powers modern AI, handles images/text/audio, highly flexible</p></div>
+            <div class="ml-reason-card"><div class="ml-reason-icon">❌</div><h4>Cons</h4><p>Needs lots of data & compute, hard to interpret ("black box"), many hyperparameters</p></div>
         </div>
-        <p class="task-desc"><strong>Use cases:</strong> Image recognition, NLP, speech, self-driving cars, ChatGPT</p>
+
+        <h4 style="color: var(--text-heading); margin: 1.5rem 0 0.5rem;">💻 Try It in Colab — Classify Digits with a Neural Network!</h4>
+        <button class="btn-toggle" onclick="toggleCode('nn-code', this)">Show Code</button>
+        <div id="nn-code" class="answer-container">
+            <div class="code-header"><div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div><button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button></div>
+            <div class="code-container">
+<code><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_digits
+<span class="keyword">from</span> sklearn.neural_network <span class="keyword">import</span> MLPClassifier
+<span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split
+<span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler
+<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+
+<span class="comment"># 🔢 Load digits dataset</span>
+digits = load_digits()
+X, y = digits.data, digits.target
+
+<span class="comment"># Scale features (crucial for neural networks!)</span>
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
+
+<span class="comment"># Build a neural network: 64 inputs → 128 neurons → 64 neurons → 10 outputs</span>
+nn = MLPClassifier(hidden_layer_sizes=(128, 64), max_iter=500,
+                   activation=<span class="string">'relu'</span>, random_state=42)
+nn.fit(X_train, y_train)
+
+y_pred = nn.predict(X_test)
+print(f<span class="string">"🧠 Neural Network Accuracy: {accuracy_score(y_test, y_pred):.2%}"</span>)
+
+<span class="comment"># 📉 Plot training loss curve</span>
+plt.figure(figsize=(8, 4))
+plt.plot(nn.loss_curve_, color=<span class="string">'#38bdf8'</span>, linewidth=2)
+plt.xlabel(<span class="string">'Epochs'</span>); plt.ylabel(<span class="string">'Loss'</span>)
+plt.title(<span class="string">'🧠 Neural Network Training — Loss Over Time'</span>)
+plt.grid(alpha=0.3); plt.show()
+
+<span class="comment"># Show predictions on sample digits</span>
+fig, axes = plt.subplots(2, 5, figsize=(12, 5))
+<span class="keyword">for</span> i, ax <span class="keyword">in</span> enumerate(axes.flat):
+    ax.imshow(digits.images[-(i+1)], cmap=<span class="string">'Blues'</span>)
+    pred = nn.predict(scaler.transform([digits.data[-(i+1)]]))[0]
+    actual = digits.target[-(i+1)]
+    color = <span class="string">'green'</span> <span class="keyword">if</span> pred == actual <span class="keyword">else</span> <span class="string">'red'</span>
+    ax.set_title(f<span class="string">"Pred:{pred} Real:{actual}"</span>, color=color)
+    ax.axis(<span class="string">'off'</span>)
+plt.suptitle(<span class="string">"🧠 Neural Network Predictions"</span>); plt.tight_layout(); plt.show()</code>
+            </div>
+        </div>
     </div>
 
-    <!-- Model 10: Ridge / Lasso -->
+    <!-- ════════════════════════════════════════════════ -->
+    <!-- MODEL 10: RIDGE & LASSO                          -->
+    <!-- ════════════════════════════════════════════════ -->
+
     <div class="task-card">
         <div class="ml-model-header">
             <span class="ml-model-badge ml-badge-regression">Regression</span>
             <h3 class="task-title" style="margin-bottom: 0;">10. Ridge & Lasso Regression</h3>
         </div>
-        <p class="task-desc">Linear Regression with regularization (a penalty term) to prevent overfitting. Ridge uses L2 penalty (shrinks coefficients), Lasso uses L1 penalty (can eliminate features entirely).</p>
-        <div class="ml-compare-flow" style="margin: 1rem 0;">
-            <span class="ml-flow-item">📐 Linear Regression + Penalty</span>
-            <span class="ml-flow-arrow">→</span>
-            <span class="ml-flow-item ml-flow-output">Prevents overfitting</span>
+        <p class="task-desc">Linear Regression's <strong>smarter siblings</strong>! They add a <span class="highlight-term">penalty term</span> that prevents the model from becoming too complex. Imagine telling a student: "You can study ANY topic, but if you try to memorize everything, you get penalized." This forces the model to focus on what truly matters.</p>
+
+        <h4 style="color: var(--text-heading); margin: 1.5rem 0 0.5rem;">🎯 How They Differ</h4>
+        <div class="ml-comparison-grid" style="margin: 1rem 0;">
+            <div class="ml-compare-box" style="background: rgba(56, 189, 248, 0.06); border-color: rgba(56, 189, 248, 0.2);">
+                <h4>🏔️ Ridge (L2)</h4>
+                <p><strong>Shrinks</strong> coefficients toward zero but never eliminates them. Good when all features might be relevant.</p>
+                <p style="font-family: monospace; color: var(--accent-cyan);">Loss + λ × Σ(w²)</p>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(167, 139, 250, 0.06); border-color: rgba(167, 139, 250, 0.2);">
+                <h4>🗡️ Lasso (L1)</h4>
+                <p><strong>Eliminates</strong> some coefficients entirely (sets to 0). Acts as automatic <span class="highlight-term">feature selection</span>!</p>
+                <p style="font-family: monospace; color: var(--accent-purple);">Loss + λ × Σ|w|</p>
+            </div>
         </div>
-        <p class="task-desc"><strong>Use cases:</strong> High-dimensional data, feature selection (Lasso), regularized predictions</p>
+
+        <div class="ml-reason-grid" style="margin: 1rem 0;">
+            <div class="ml-reason-card"><div class="ml-reason-icon">✅</div><h4>Pros</h4><p>Prevents overfitting, handles multicollinearity, Lasso does feature selection</p></div>
+            <div class="ml-reason-card"><div class="ml-reason-icon">❌</div><h4>Cons</h4><p>Still linear models, need to tune λ (alpha) parameter</p></div>
+        </div>
+
+        <h4 style="color: var(--text-heading); margin: 1.5rem 0 0.5rem;">💻 Try It in Colab — Ridge vs Lasso Comparison!</h4>
+        <button class="btn-toggle" onclick="toggleCode('rl-code', this)">Show Code</button>
+        <div id="rl-code" class="answer-container">
+            <div class="code-header"><div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div><button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button></div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+<span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression, Ridge, Lasso
+<span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split
+<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> r2_score
+<span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> make_regression
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+
+<span class="comment"># Generate data with 20 features (some are noise!)</span>
+X, y = make_regression(n_samples=100, n_features=20, n_informative=5,
+                       noise=10, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+<span class="comment"># Train all three models</span>
+models = {
+    <span class="string">"Linear Regression"</span>: LinearRegression(),
+    <span class="string">"Ridge (L2)"</span>: Ridge(alpha=1.0),
+    <span class="string">"Lasso (L1)"</span>: Lasso(alpha=1.0),
+}
+
+print(<span class="string">"📊 Model Comparison:"</span>)
+<span class="keyword">for</span> name, model <span class="keyword">in</span> models.items():
+    model.fit(X_train, y_train)
+    score = r2_score(y_test, model.predict(X_test))
+    n_features = np.sum(model.coef_ != 0)
+    print(f<span class="string">"  {name}: R²={score:.4f}, Features used: {n_features}/20"</span>)
+
+<span class="comment"># 📊 Visualize coefficients</span>
+fig, axes = plt.subplots(1, 3, figsize=(15, 4))
+<span class="keyword">for</span> ax, (name, model) <span class="keyword">in</span> zip(axes, models.items()):
+    ax.bar(range(20), model.coef_, color=<span class="string">'#38bdf8'</span>)
+    ax.set_title(name)
+    ax.set_xlabel(<span class="string">'Feature'</span>); ax.set_ylabel(<span class="string">'Coefficient'</span>)
+plt.suptitle(<span class="string">"🔍 Coefficient Comparison — Notice Lasso sets many to 0!"</span>)
+plt.tight_layout(); plt.show()</code>
+            </div>
+        </div>
     </div>
 
-    <!-- Model 11: Polynomial Regression -->
+    <!-- ════════════════════════════════════════════════ -->
+    <!-- MODEL 11: POLYNOMIAL REGRESSION                  -->
+    <!-- ════════════════════════════════════════════════ -->
+
     <div class="task-card">
         <div class="ml-model-header">
             <span class="ml-model-badge ml-badge-regression">Regression</span>
             <h3 class="task-title" style="margin-bottom: 0;">11. Polynomial Regression</h3>
         </div>
-        <p class="task-desc">Extensions of linear regression that fits curves instead of straight lines. Useful when the relationship between variables is non-linear.</p>
-        <div class="ml-compare-flow" style="margin: 1rem 0;">
-            <span class="ml-flow-item">📐 y = ax² + bx + c</span>
-            <span class="ml-flow-arrow">→</span>
-            <span class="ml-flow-item ml-flow-output">Fits curves to data</span>
+        <p class="task-desc">What if your data follows a <strong>curve</strong> instead of a straight line? Linear Regression can't handle that, but Polynomial Regression can! It adds <strong>polynomial terms</strong> (x², x³, etc.) to capture non-linear relationships. Like bending a straight ruler to fit a curve! 📐</p>
+
+        <div class="ml-formula-card">
+            <div class="ml-formula">y = a₀ + a₁x + a₂x² + a₃x³ + ...</div>
         </div>
-        <p class="task-desc"><strong>Use cases:</strong> Growth curves, scientific experiments, non-linear trends</p>
+
+        <h4 style="color: var(--text-heading); margin: 1.5rem 0 0.5rem;">🎯 How It Works</h4>
+        <p class="task-desc">It transforms the input features into polynomial features (e.g., x → [x, x², x³]) and then applies regular Linear Regression on these expanded features. The <span class="highlight-term">degree</span> controls the curve complexity: degree 2 = parabola, degree 3 = cubic curve, etc.</p>
+
+        <div class="ml-reason-grid" style="margin: 1rem 0;">
+            <div class="ml-reason-card"><div class="ml-reason-icon">✅</div><h4>Pros</h4><p>Captures non-linear patterns, simple extension of linear regression, flexible</p></div>
+            <div class="ml-reason-card"><div class="ml-reason-icon">❌</div><h4>Cons</h4><p>High degree = overfitting risk, sensitive to outliers, extrapolation is dangerous</p></div>
+        </div>
+
+        <h4 style="color: var(--text-heading); margin: 1.5rem 0 0.5rem;">💻 Try It in Colab — Fit Curves to Data!</h4>
+        <button class="btn-toggle" onclick="toggleCode('poly-code', this)">Show Code</button>
+        <div id="poly-code" class="answer-container">
+            <div class="code-header"><div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div><button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button></div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> PolynomialFeatures
+<span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression
+<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> r2_score
+
+<span class="comment"># 📊 Generate curved data (not linear!)</span>
+np.random.seed(42)
+X = np.sort(np.random.uniform(0, 10, 50)).reshape(-1, 1)
+y = 3 * X.flatten()**2 - 10 * X.flatten() + 20 + np.random.normal(0, 15, 50)
+
+<span class="comment"># Compare: Linear vs Polynomial (degree 2 vs degree 4)</span>
+plt.figure(figsize=(12, 4))
+X_plot = np.linspace(0, 10, 100).reshape(-1, 1)
+
+degrees = [1, 2, 4]
+colors = [<span class="string">'#ef4444'</span>, <span class="string">'#34d399'</span>, <span class="string">'#a78bfa'</span>]
+titles = [<span class="string">'Linear (Degree 1)'</span>, <span class="string">'Polynomial (Degree 2)'</span>, <span class="string">'Polynomial (Degree 4)'</span>]
+
+<span class="keyword">for</span> i, (degree, color, title) <span class="keyword">in</span> enumerate(zip(degrees, colors, titles)):
+    plt.subplot(1, 3, i + 1)
+    poly = PolynomialFeatures(degree=degree)
+    X_poly = poly.fit_transform(X)
+    X_plot_poly = poly.transform(X_plot)
+
+    model = LinearRegression()
+    model.fit(X_poly, y)
+
+    plt.scatter(X, y, color=<span class="string">'#38bdf8'</span>, s=30, alpha=0.7)
+    plt.plot(X_plot, model.predict(X_plot_poly), color=color, linewidth=2.5)
+    r2 = r2_score(y, model.predict(X_poly))
+    plt.title(f<span class="string">"{title}\nR² = {r2:.4f}"</span>)
+    plt.grid(alpha=0.2)
+
+plt.suptitle(<span class="string">"📐 Linear vs Polynomial Regression"</span>, fontsize=14)
+plt.tight_layout(); plt.show()
+print(<span class="string">"💡 Notice: Degree 2 fits perfectly because our data IS quadratic!"</span>)</code>
+            </div>
+        </div>
     </div>
 
     <!-- ═══════════════════════════════════════════ -->
