@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unsupervised Learning — Machine Learning</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="container">
+
+    <nav class="top-nav">
+        <div class="dropdown">
+            <button class="dropbtn">🐍 Python <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="basics.html">📘 Basics</a>
+                <a href="index.html">🐍 Functions</a>
+                <a href="oop.html">🏗️ OOP</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">📚 Libraries <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="numpy.html">🧮 NumPy</a>
+                <a href="pandas.html">🐼 Pandas</a>
+                <a href="matplotlib.html">📊 Matplotlib</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">🤖 Machine Learning <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="ml-intro.html">🚀 Introduction</a>
+                <a href="ml-supervised.html">📊 Supervised Learning</a>
+                <a href="ml-classification-regression.html">🎯 Classification / Regression</a>
+                <a href="ml-unsupervised.html" class="active">🔍 Unsupervised Learning</a>
+            </div>
+        </div>
+        <a href="linear-algebra.html" class="nav-link">📐 Linear Algebra</a>
+    </nav>
+
+    <header>
+        <h1>🔍 Unsupervised Learning</h1>
+        <p>What happens when data has no labels? The machine finds hidden patterns, groups, and structures all by itself — like a detective solving a mystery without witnesses!</p>
+    </header>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- WHAT IS UNSUPERVISED LEARNING?             -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">🎓 What is Unsupervised Learning?</h2>
+
+    <div class="storybook-intro">
+        <p>Imagine you're given a bag of 1000 mixed candies — no labels, no categories. You start <strong>sorting them by color, shape, and size</strong> on your own. Nobody told you how to group them — you just <em>discovered the patterns yourself</em>. That's <strong>Unsupervised Learning</strong>!</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📖 The Definition</h3>
+        <p class="task-desc">
+            <strong>Unsupervised Learning</strong> is a type of machine learning where the model is trained using <span class="highlight-term">unlabeled data</span>. There are <strong>no correct answers</strong> provided — the algorithm must discover hidden patterns, structures, and relationships on its own.
+        </p>
+        <p class="task-desc">
+            Unlike supervised learning where we say "this is a cat, this is a dog," here we just throw all the data in and say: <strong>"Find something interesting!"</strong>
+        </p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🔬 The Math Behind It</h3>
+        <p class="task-desc">The goal is to discover hidden structure in data:</p>
+        <div class="ml-formula-card">
+            <div class="ml-formula">Find patterns in X (no y!)</div>
+        </div>
+        <div class="ml-variable-grid">
+            <div class="ml-variable-item">
+                <span class="ml-var">X</span>
+                <span class="ml-var-desc">Input data only — features without any labels</span>
+            </div>
+            <div class="ml-variable-item">
+                <span class="ml-var">No y</span>
+                <span class="ml-var-desc">No target variable — the model discovers structure itself</span>
+            </div>
+            <div class="ml-variable-item">
+                <span class="ml-var">f</span>
+                <span class="ml-var-desc">The learned function that groups, reduces, or finds patterns</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SUPERVISED vs UNSUPERVISED                 -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">⚔️ Supervised vs Unsupervised — Key Difference</h2>
+
+    <div class="task-card">
+        <div class="ml-comparison-grid">
+            <div class="ml-compare-box" style="background: rgba(56, 189, 248, 0.06); border-color: rgba(56, 189, 248, 0.2);">
+                <h4>📊 Supervised Learning</h4>
+                <p style="font-size: 0.9rem; font-weight: 700; color: var(--accent-cyan); margin-bottom: 0.5rem;">Has labels (answers)</p>
+                <div class="ml-example-box" style="margin-top: 0.75rem;">
+                    <p>▸ Input: Photo → Label: <code>Cat</code></p>
+                    <p>▸ Input: Email → Label: <code>Spam</code></p>
+                    <p>▸ Goal: <strong>Predict</strong> the correct label</p>
+                </div>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(167, 139, 250, 0.06); border-color: rgba(167, 139, 250, 0.2);">
+                <h4>🔍 Unsupervised Learning</h4>
+                <p style="font-size: 0.9rem; font-weight: 700; color: var(--accent-purple); margin-bottom: 0.5rem;">No labels at all!</p>
+                <div class="ml-example-box" style="margin-top: 0.75rem;">
+                    <p>▸ Input: 1000 photos → Groups: ???</p>
+                    <p>▸ Input: Customer data → Segments: ???</p>
+                    <p>▸ Goal: <strong>Discover</strong> hidden patterns</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- KEY CHARACTERISTICS                        -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">🔑 Key Characteristics</h2>
+
+    <div class="task-card">
+        <div class="ml-reason-grid">
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🚫</div>
+                <h4>No Labels Required</h4>
+                <p>The data has <strong>no correct answers</strong> — the model must figure out the structure on its own.</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🕵️</div>
+                <h4>Self-Discovery</h4>
+                <p>Learning is <strong>unsupervised</strong> — like a detective finding clues without witnesses.</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🧩</div>
+                <h4>Pattern & Structure Tasks</h4>
+                <p>Used to <strong>find groups, reduce dimensions, and detect anomalies</strong> in data.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- TYPES OF UNSUPERVISED LEARNING             -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">📦 Types of Unsupervised Learning</h2>
+
+    <div class="storybook-intro">
+        <p>Unsupervised learning comes in three main flavors. Each solves a different kind of problem!</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🎯 The Three Types</h3>
+        <div class="ml-reason-grid">
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🫧</div>
+                <h4>Clustering</h4>
+                <p>Group similar data points together. Like sorting fruits into baskets without knowing their names!</p>
+                <p style="margin-top: 0.5rem;"><strong>Examples:</strong> K-Means, DBSCAN, Hierarchical</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">📉</div>
+                <h4>Dimensionality Reduction</h4>
+                <p>Simplify complex data by reducing features while keeping the important information.</p>
+                <p style="margin-top: 0.5rem;"><strong>Examples:</strong> PCA, t-SNE, UMAP</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🔗</div>
+                <h4>Association Rule Learning</h4>
+                <p>Find relationships between items. "People who buy X also buy Y!"</p>
+                <p style="margin-top: 0.5rem;"><strong>Examples:</strong> Apriori, FP-Growth</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- HOW IT WORKS — VISUAL FLOW                 -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">⚙️ How Unsupervised Learning Works</h2>
+
+    <div class="storybook-intro">
+        <p>Think of it like organizing your messy closet. You don't have instructions — you just look at the items and <strong>create your own categories</strong>: shirts here, pants there, winter stuff in the back!</p>
+    </div>
+
+    <div class="ml-workflow-pipeline">
+        <div class="ml-workflow-step">
+            <div class="ml-step-number">1</div>
+            <div class="ml-step-content">
+                <h4>📥 Collect Unlabeled Data</h4>
+                <p>Gather data without any labels or categories — just raw features and measurements.</p>
+            </div>
+        </div>
+
+        <div class="ml-workflow-connector"></div>
+
+        <div class="ml-workflow-step">
+            <div class="ml-step-number">2</div>
+            <div class="ml-step-content">
+                <h4>🔧 Preprocess & Clean</h4>
+                <p>Scale features, handle missing values. Clean data = better patterns discovered.</p>
+            </div>
+        </div>
+
+        <div class="ml-workflow-connector"></div>
+
+        <div class="ml-workflow-step">
+            <div class="ml-step-number">3</div>
+            <div class="ml-step-content">
+                <h4>🧠 Apply Algorithm</h4>
+                <p>Choose a clustering or reduction algorithm. The model finds hidden patterns automatically.</p>
+            </div>
+        </div>
+
+        <div class="ml-workflow-connector"></div>
+
+        <div class="ml-workflow-step">
+            <div class="ml-step-number">4</div>
+            <div class="ml-step-content">
+                <h4>📊 Analyze Results</h4>
+                <p>Examine the groups, patterns, or reduced dimensions the model discovered.</p>
+            </div>
+        </div>
+
+        <div class="ml-workflow-connector"></div>
+
+        <div class="ml-workflow-step ml-workflow-step-final">
+            <div class="ml-step-number">5</div>
+            <div class="ml-step-content">
+                <h4>💡 Extract Insights</h4>
+                <p>Use the discovered structure for business decisions, visualization, or as input to other models!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- HANDS-ON CODE                              -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">💻 Hands-On Code — Run in Google Colab!</h2>
+
+    <div class="storybook-intro">
+        <p>Time to see unsupervised learning in action! 🧑‍💻 Copy each code block and run it in <a href="https://colab.research.google.com" target="_blank" style="color: var(--accent-cyan); text-decoration: underline;">Google Colab</a>. We'll build clustering and dimensionality reduction models step by step.</p>
+    </div>
+
+    <!-- Code Block 1: K-Means Clustering -->
+    <div class="task-card">
+        <h3 class="task-title">Step 1: K-Means Clustering — Group Customers! 🫧</h3>
+        <p class="task-desc">K-Means is the most popular clustering algorithm. It divides data into <strong>K groups</strong> by finding cluster centers. Like sorting students into study groups based on their skills!</p>
+
+        <h4 style="color: var(--text-heading); margin: 1rem 0 0.5rem;">🎯 How K-Means Works</h4>
+        <p class="task-desc">1. Pick K random centers. 2. Assign each point to nearest center. 3. Move centers to the average of their group. 4. Repeat until centers stop moving!</p>
+
+        <button class="btn-toggle" onclick="toggleCode('us-code1', this)">Show Code</button>
+
+        <div id="us-code1" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">from</span> sklearn.cluster <span class="keyword">import</span> KMeans
+<span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> make_blobs
+
+<span class="comment"># 🎨 Generate sample customer data (spending habits)</span>
+X, y_true = make_blobs(n_samples=300, centers=4, cluster_std=0.8, random_state=42)
+
+<span class="comment"># Apply K-Means with 4 clusters</span>
+kmeans = KMeans(n_clusters=4, random_state=42, n_init=10)
+labels = kmeans.fit_predict(X)
+centers = kmeans.cluster_centers_
+
+<span class="comment"># 📊 Visualize the clusters!</span>
+plt.figure(figsize=(10, 6))
+colors = [<span class="string">'#38bdf8'</span>, <span class="string">'#a78bfa'</span>, <span class="string">'#34d399'</span>, <span class="string">'#fbbf24'</span>]
+<span class="keyword">for</span> i <span class="keyword">in</span> range(4):
+    mask = labels == i
+    plt.scatter(X[mask, 0], X[mask, 1], c=colors[i], s=50, alpha=0.7, label=f<span class="string">'Cluster {i+1}'</span>)
+
+<span class="comment"># Mark cluster centers</span>
+plt.scatter(centers[:, 0], centers[:, 1], c=<span class="string">'red'</span>, s=200, marker=<span class="string">'X'</span>,
+            edgecolors=<span class="string">'white'</span>, linewidths=2, label=<span class="string">'Centers'</span>, zorder=5)
+
+plt.title(<span class="string">'🫧 K-Means Clustering — Customer Segments'</span>, fontsize=14)
+plt.xlabel(<span class="string">'Feature 1 (e.g., Annual Income)'</span>)
+plt.ylabel(<span class="string">'Feature 2 (e.g., Spending Score)'</span>)
+plt.legend(); plt.grid(alpha=0.2); plt.tight_layout(); plt.show()
+
+print(f<span class="string">"✅ Found {len(set(labels))} customer segments!"</span>)
+print(f<span class="string">"📊 Cluster sizes: {[sum(labels == i) for i in range(4)]}"</span>)</code>
+            </div>
+        </div>
+    </div>
+
+    <!-- Code Block 2: Finding Optimal K (Elbow Method) -->
+    <div class="task-card">
+        <h3 class="task-title">Step 2: Finding the Best K — Elbow Method 📐</h3>
+        <p class="task-desc">How do you know how many clusters to use? The <span class="highlight-term">Elbow Method</span>! Plot the "inertia" (total distance from points to their cluster center) for different K values. The "elbow" in the curve = optimal K!</p>
+
+        <button class="btn-toggle" onclick="toggleCode('us-code2', this)">Show Code</button>
+
+        <div id="us-code2" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="comment"># 📐 Elbow Method — find the optimal number of clusters</span>
+inertias = []
+K_range = range(1, 11)
+
+<span class="keyword">for</span> k <span class="keyword">in</span> K_range:
+    km = KMeans(n_clusters=k, random_state=42, n_init=10)
+    km.fit(X)
+    inertias.append(km.inertia_)
+
+plt.figure(figsize=(8, 5))
+plt.plot(K_range, inertias, marker=<span class="string">'o'</span>, color=<span class="string">'#38bdf8'</span>, linewidth=2, markersize=8)
+plt.axvline(x=4, color=<span class="string">'#ef4444'</span>, linestyle=<span class="string">'--'</span>, alpha=0.7, label=<span class="string">'Elbow at K=4'</span>)
+plt.xlabel(<span class="string">'Number of Clusters (K)'</span>, fontsize=12)
+plt.ylabel(<span class="string">'Inertia (Within-cluster distance)'</span>, fontsize=12)
+plt.title(<span class="string">'📐 Elbow Method — Finding Optimal K'</span>, fontsize=14)
+plt.legend(); plt.grid(alpha=0.3); plt.tight_layout(); plt.show()
+
+print(<span class="string">"💡 The 'elbow' is at K=4 — that's our optimal number of clusters!"</span>)</code>
+            </div>
+        </div>
+    </div>
+
+    <!-- Code Block 3: DBSCAN -->
+    <div class="task-card">
+        <h3 class="task-title">Step 3: DBSCAN — Density-Based Clustering 🔬</h3>
+        <p class="task-desc">K-Means needs you to specify K upfront. But <strong>DBSCAN</strong> finds clusters automatically based on <span class="highlight-term">density</span>! It can even find oddly-shaped clusters and detect <strong>outliers</strong> (noise points). Think of it like finding groups of people at a party — dense groups are clusters, isolated people are outliers!</p>
+
+        <button class="btn-toggle" onclick="toggleCode('us-code3', this)">Show Code</button>
+
+        <div id="us-code3" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">from</span> sklearn.cluster <span class="keyword">import</span> DBSCAN
+<span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> make_moons
+
+<span class="comment"># 🌙 Generate crescent-shaped data — K-Means can't handle this!</span>
+X_moons, _ = make_moons(n_samples=300, noise=0.08, random_state=42)
+
+<span class="comment"># DBSCAN finds clusters by density</span>
+dbscan = DBSCAN(eps=0.2, min_samples=5)
+labels_db = dbscan.fit_predict(X_moons)
+
+<span class="comment"># Compare K-Means vs DBSCAN</span>
+fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+<span class="comment"># K-Means (fails with crescent shapes!)</span>
+km = KMeans(n_clusters=2, random_state=42, n_init=10)
+labels_km = km.fit_predict(X_moons)
+axes[0].scatter(X_moons[:, 0], X_moons[:, 1], c=[colors[l] <span class="keyword">for</span> l <span class="keyword">in</span> labels_km], s=40)
+axes[0].set_title(<span class="string">'❌ K-Means (Fails!)'</span>, fontsize=13)
+
+<span class="comment"># DBSCAN (handles it perfectly!)</span>
+scatter_colors = [<span class="string">'#38bdf8'</span> <span class="keyword">if</span> l == 0 <span class="keyword">else</span> <span class="string">'#a78bfa'</span> <span class="keyword">if</span> l == 1 <span class="keyword">else</span> <span class="string">'#ef4444'</span> <span class="keyword">for</span> l <span class="keyword">in</span> labels_db]
+axes[1].scatter(X_moons[:, 0], X_moons[:, 1], c=scatter_colors, s=40)
+axes[1].set_title(<span class="string">'✅ DBSCAN (Perfect!)'</span>, fontsize=13)
+
+plt.suptitle(<span class="string">'🔬 K-Means vs DBSCAN on Crescent Data'</span>, fontsize=15)
+plt.tight_layout(); plt.show()
+
+n_clusters = len(set(labels_db)) - (1 <span class="keyword">if</span> -1 <span class="keyword">in</span> labels_db <span class="keyword">else</span> 0)
+n_noise = sum(labels_db == -1)
+print(f<span class="string">"✅ DBSCAN found {n_clusters} clusters and {n_noise} noise points!"</span>)</code>
+            </div>
+        </div>
+    </div>
+
+    <!-- Code Block 4: Hierarchical Clustering -->
+    <div class="task-card">
+        <h3 class="task-title">Step 4: Hierarchical Clustering — Dendrogram Tree 🌳</h3>
+        <p class="task-desc"><strong>Hierarchical Clustering</strong> builds a tree of clusters called a <span class="highlight-term">dendrogram</span>. It starts with each point as its own cluster, then keeps merging the closest pairs. You can "cut" the tree at any level to get different numbers of clusters! Like a family tree for your data 🌳</p>
+
+        <button class="btn-toggle" onclick="toggleCode('us-code4', this)">Show Code</button>
+
+        <div id="us-code4" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">from</span> scipy.cluster.hierarchy <span class="keyword">import</span> dendrogram, linkage
+<span class="keyword">from</span> sklearn.cluster <span class="keyword">import</span> AgglomerativeClustering
+
+<span class="comment"># 🌳 Generate sample data</span>
+X_hier, _ = make_blobs(n_samples=50, centers=3, cluster_std=1.0, random_state=42)
+
+<span class="comment"># Create linkage matrix for dendrogram</span>
+linkage_matrix = linkage(X_hier, method=<span class="string">'ward'</span>)
+
+<span class="comment"># Plot dendrogram</span>
+fig, axes = plt.subplots(1, 2, figsize=(15, 5))
+
+<span class="comment"># Dendrogram view</span>
+dendrogram(linkage_matrix, ax=axes[0], color_threshold=7,
+           above_threshold_color=<span class="string">'#636e72'</span>)
+axes[0].set_title(<span class="string">'🌳 Dendrogram (Cut at height ≈ 7)'</span>, fontsize=13)
+axes[0].set_xlabel(<span class="string">'Sample Index'</span>); axes[0].set_ylabel(<span class="string">'Distance'</span>)
+axes[0].axhline(y=7, color=<span class="string">'#ef4444'</span>, linestyle=<span class="string">'--'</span>, label=<span class="string">'Cut line (3 clusters)'</span>)
+axes[0].legend()
+
+<span class="comment"># Cluster visualization</span>
+agg = AgglomerativeClustering(n_clusters=3)
+labels_agg = agg.fit_predict(X_hier)
+scatter_colors = [<span class="string">'#38bdf8'</span>, <span class="string">'#a78bfa'</span>, <span class="string">'#34d399'</span>]
+<span class="keyword">for</span> i <span class="keyword">in</span> range(3):
+    mask = labels_agg == i
+    axes[1].scatter(X_hier[mask, 0], X_hier[mask, 1], c=scatter_colors[i], s=80, label=f<span class="string">'Cluster {i+1}'</span>)
+axes[1].set_title(<span class="string">'📊 Resulting 3 Clusters'</span>, fontsize=13)
+axes[1].legend(); axes[1].grid(alpha=0.2)
+
+plt.suptitle(<span class="string">'🌳 Hierarchical Clustering with Dendrogram'</span>, fontsize=15)
+plt.tight_layout(); plt.show()</code>
+            </div>
+        </div>
+    </div>
+
+    <!-- Code Block 5: PCA Dimensionality Reduction -->
+    <div class="task-card">
+        <h3 class="task-title">Step 5: PCA — Dimensionality Reduction 📉</h3>
+        <p class="task-desc"><strong>Principal Component Analysis (PCA)</strong> is like summarizing a 500-page book into a 1-page summary — you keep the most important information while removing the noise. It reduces the number of features while preserving maximum variance!</p>
+
+        <h4 style="color: var(--text-heading); margin: 1rem 0 0.5rem;">🎯 Why PCA?</h4>
+        <p class="task-desc">Imagine a dataset with 100 features. Hard to visualize, right? PCA squashes it down to 2-3 dimensions so you can <strong>see</strong> the patterns. It's also great for speeding up other ML algorithms!</p>
+
+        <button class="btn-toggle" onclick="toggleCode('us-code5', this)">Show Code</button>
+
+        <div id="us-code5" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">from</span> sklearn.decomposition <span class="keyword">import</span> PCA
+<span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_iris
+<span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler
+
+<span class="comment"># 🌸 Load Iris dataset (4 features)</span>
+iris = load_iris()
+X_iris = StandardScaler().fit_transform(iris.data)
+
+print(f<span class="string">"📋 Original shape: {X_iris.shape} (150 samples × 4 features)"</span>)
+
+<span class="comment"># Reduce from 4 dimensions to 2!</span>
+pca = PCA(n_components=2)
+X_reduced = pca.fit_transform(X_iris)
+print(f<span class="string">"📉 Reduced shape:  {X_reduced.shape} (150 samples × 2 features)"</span>)
+print(f<span class="string">"📊 Variance retained: {sum(pca.explained_variance_ratio_):.1%}"</span>)
+
+<span class="comment"># 📊 Visualize 4D data in 2D!</span>
+plt.figure(figsize=(10, 6))
+colors = [<span class="string">'#38bdf8'</span>, <span class="string">'#a78bfa'</span>, <span class="string">'#34d399'</span>]
+<span class="keyword">for</span> i, name <span class="keyword">in</span> enumerate(iris.target_names):
+    mask = iris.target == i
+    plt.scatter(X_reduced[mask, 0], X_reduced[mask, 1],
+                c=colors[i], s=60, label=name, alpha=0.8)
+
+plt.xlabel(f<span class="string">'PC1 ({pca.explained_variance_ratio_[0]:.1%} variance)'</span>)
+plt.ylabel(f<span class="string">'PC2 ({pca.explained_variance_ratio_[1]:.1%} variance)'</span>)
+plt.title(<span class="string">'📉 PCA: 4D Iris Data → 2D Visualization'</span>, fontsize=14)
+plt.legend(); plt.grid(alpha=0.2); plt.tight_layout(); plt.show()
+
+print(<span class="string">"💡 Even in 2D, the species are clearly separable!"</span>)</code>
+            </div>
+        </div>
+    </div>
+
+    <!-- Code Block 6: Silhouette Score -->
+    <div class="task-card">
+        <h3 class="task-title">Step 6: Measuring Clustering Quality — Silhouette Score 📊</h3>
+        <p class="task-desc">Since there are no labels, how do we know if our clusters are good? The <span class="highlight-term">Silhouette Score</span> measures how similar points are to their own cluster vs. neighboring clusters. Score = 1 is perfect, 0 is random, -1 is wrong clustering.</p>
+
+        <button class="btn-toggle" onclick="toggleCode('us-code6', this)">Show Code</button>
+
+        <div id="us-code6" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> silhouette_score
+
+<span class="comment"># Generate data</span>
+X_eval, _ = make_blobs(n_samples=300, centers=4, cluster_std=0.8, random_state=42)
+
+<span class="comment"># Test different K values</span>
+K_range = range(2, 8)
+silhouette_scores = []
+
+print(<span class="string">"📊 Silhouette Scores for different K:"</span>)
+<span class="keyword">for</span> k <span class="keyword">in</span> K_range:
+    km = KMeans(n_clusters=k, random_state=42, n_init=10)
+    labels = km.fit_predict(X_eval)
+    score = silhouette_score(X_eval, labels)
+    silhouette_scores.append(score)
+    emoji = <span class="string">"🏆"</span> <span class="keyword">if</span> score > 0.7 <span class="keyword">else</span> <span class="string">"✅"</span> <span class="keyword">if</span> score > 0.5 <span class="keyword">else</span> <span class="string">"⚠️"</span>
+    print(f<span class="string">"  {emoji} K={k}: Silhouette Score = {score:.4f}"</span>)
+
+<span class="comment"># Plot Silhouette Scores</span>
+plt.figure(figsize=(8, 5))
+plt.bar(K_range, silhouette_scores, color=[<span class="string">'#38bdf8'</span> <span class="keyword">if</span> s == max(silhouette_scores)
+        <span class="keyword">else</span> <span class="string">'#636e72'</span> <span class="keyword">for</span> s <span class="keyword">in</span> silhouette_scores])
+plt.xlabel(<span class="string">'Number of Clusters (K)'</span>, fontsize=12)
+plt.ylabel(<span class="string">'Silhouette Score'</span>, fontsize=12)
+plt.title(<span class="string">'📊 Silhouette Score — Finding Best K'</span>, fontsize=14)
+plt.xticks(list(K_range)); plt.grid(alpha=0.2, axis=<span class="string">'y'</span>)
+plt.tight_layout(); plt.show()
+
+best_k = list(K_range)[silhouette_scores.index(max(silhouette_scores))]
+print(f<span class="string">"\n🏆 Best K = {best_k} (Silhouette Score = {max(silhouette_scores):.4f})"</span>)</code>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- REAL-WORLD APPLICATIONS                    -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">🌍 Real-World Applications</h2>
+
+    <div class="ml-apps-grid">
+        <div class="task-card ml-app-card">
+            <div class="ml-app-icon">🛍️</div>
+            <h3 class="task-title">Customer Segmentation</h3>
+            <ul class="ml-app-list">
+                <li>Group customers by behavior</li>
+                <li>Personalize marketing campaigns</li>
+                <li>Used by Amazon, Netflix, Spotify</li>
+            </ul>
+        </div>
+
+        <div class="task-card ml-app-card">
+            <div class="ml-app-icon">🔒</div>
+            <h3 class="task-title">Anomaly Detection</h3>
+            <ul class="ml-app-list">
+                <li>Find unusual credit card transactions</li>
+                <li>Detect network intrusions</li>
+                <li>Identify manufacturing defects</li>
+            </ul>
+        </div>
+
+        <div class="task-card ml-app-card">
+            <div class="ml-app-icon">🧬</div>
+            <h3 class="task-title">Gene Expression Analysis</h3>
+            <ul class="ml-app-list">
+                <li>Group similar genes together</li>
+                <li>Discover new disease subtypes</li>
+                <li>Drug discovery research</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Algorithm Comparison Table -->
+    <div class="task-card" style="margin-top: 2rem;">
+        <h3 class="task-title">📋 Unsupervised Learning Algorithm Comparison</h3>
+        <div class="ml-data-table-wrapper">
+            <table class="ml-data-table">
+                <thead>
+                    <tr>
+                        <th>Algorithm</th>
+                        <th>Type</th>
+                        <th>Needs K?</th>
+                        <th>Handles Noise?</th>
+                        <th>Best For</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>K-Means</strong></td>
+                        <td>Clustering</td>
+                        <td>✅ Yes</td>
+                        <td>❌ No</td>
+                        <td style="text-align: left;">Round, well-separated clusters</td>
+                    </tr>
+                    <tr>
+                        <td><strong>DBSCAN</strong></td>
+                        <td>Clustering</td>
+                        <td>❌ No</td>
+                        <td>✅ Yes</td>
+                        <td style="text-align: left;">Irregular shapes, noise detection</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Hierarchical</strong></td>
+                        <td>Clustering</td>
+                        <td>Optional</td>
+                        <td>❌ No</td>
+                        <td style="text-align: left;">Nested clusters, dendrogram</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PCA</strong></td>
+                        <td>Dim. Reduction</td>
+                        <td>—</td>
+                        <td>—</td>
+                        <td style="text-align: left;">Visualization, feature compression</td>
+                    </tr>
+                    <tr>
+                        <td><strong>t-SNE</strong></td>
+                        <td>Dim. Reduction</td>
+                        <td>—</td>
+                        <td>—</td>
+                        <td style="text-align: left;">2D/3D visualization of high-dim data</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- What's Next -->
+    <div class="task-card" style="margin-top: 3rem; text-align: center;">
+        <h3 class="task-title">🎓 Key Takeaway</h3>
+        <p class="task-desc">
+            Unsupervised Learning discovers <strong>hidden patterns in unlabeled data</strong>. It groups similar items (clustering), simplifies complex data (dimensionality reduction), and finds relationships (association rules) — all without being told the answers!
+        </p>
+        <div class="ml-paradigm-tags">
+            <span class="ml-tag ml-tag-supervised">Clustering → Groups 🫧</span>
+            <span class="ml-tag" style="background: rgba(167, 139, 250, 0.12); color: var(--accent-purple); border: 1px solid rgba(167, 139, 250, 0.3);">Dim. Reduction → Simplify 📉</span>
+            <span class="ml-tag ml-tag-rl">Association → Rules 🔗</span>
+        </div>
+    </div>
+
+    </div><!-- .container -->
+
+    <script src="script.js?v=2"></script>
+</body>
+</html>
