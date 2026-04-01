@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics — Data's Story Teller</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .math-expr { font-family: 'Fira Code', monospace; color: var(--accent-cyan); font-weight: bold; background: rgba(56, 189, 248, 0.1); padding: 0.2rem 0.4rem; border-radius: 4px;}
+        .highlight-box { background: rgba(167, 139, 250, 0.05); border-left: 4px solid var(--accent-purple); padding: 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem; }
+    </style>
+</head>
+<body>
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="container">
+
+    <nav class="top-nav">
+        <div class="dropdown">
+            <button class="dropbtn">🐍 Python <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="basics.html">📘 Basics</a>
+                <a href="index.html">🐍 Functions</a>
+                <a href="oop.html">🏗️ OOP</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">📚 Libraries <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="numpy.html">🧮 NumPy</a>
+                <a href="pandas.html">🐼 Pandas</a>
+                <a href="matplotlib.html">�� Matplotlib</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">🤖 Machine Learning <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="ml-intro.html">🚀 Introduction</a>
+                <a href="ml-supervised.html">📊 Supervised Learning</a>
+                <a href="ml-classification-regression.html">🎯 Classification / Regression</a>
+                <a href="ml-unsupervised.html">🔍 Unsupervised Learning</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn active">➗ Mathematics <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="linear-algebra.html">📐 Linear Algebra</a>
+                <a href="probability.html">🎲 Probability</a>
+                <a href="statistics.html" class="active">📊 Statistics</a>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <h1>📊 Statistics for Machine Learning</h1>
+        <p>While probability tells us what <em>might</em> happen, statistics helps us understand what <em>has</em> happened — turning raw data into powerful insights!</p>
+    </header>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 1. INTRODUCTION                            -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">1️⃣ Introduction — Why Statistics?</h2>
+
+    <div class="storybook-intro">
+        <p>Imagine you have a pile of 10,000 exam scores. Just staring at them tells you nothing. But with statistics, you can instantly answer: <strong>"What was the average score? How spread out were the results? Did boys score differently from girls?"</strong> Statistics turns chaos into clarity! 🔍</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📖 The Big Picture</h3>
+        <p class="task-desc"><strong>Statistics</strong> is the science of <span class="highlight-term">collecting, analyzing, interpreting, and presenting data</span>. In machine learning, it's the bridge between raw data and intelligent models.</p>
+
+        <div class="ml-comparison-grid" style="margin-top: 1.5rem;">
+            <div class="ml-compare-box" style="background: rgba(56, 189, 248, 0.06); border-color: rgba(56, 189, 248, 0.2);">
+                <h4 style="color: var(--accent-cyan);">🎲 Probability</h4>
+                <p>Models <strong>uncertainty</strong> — what <em>might</em> happen.</p>
+                <p style="font-size: 0.85rem; color: var(--accent-cyan); margin-top: 0.5rem;">"There's a 70% chance of rain tomorrow."</p>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(167, 139, 250, 0.06); border-color: rgba(167, 139, 250, 0.2);">
+                <h4 style="color: var(--accent-purple);">📊 Statistics</h4>
+                <p>Analyzes <strong>data</strong> — what <em>has</em> happened.</p>
+                <p style="font-size: 0.85rem; color: var(--accent-purple); margin-top: 0.5rem;">"It rained on 70% of the days last month."</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🤖 Statistics in ML — Where It's Used</h3>
+        <div class="ml-reason-grid">
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🔬</div>
+                <h4>Understand Datasets</h4>
+                <p>Before building any model, you <strong>explore</strong> the data — mean, spread, correlations. This is called EDA (Exploratory Data Analysis)!</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">��</div>
+                <h4>Evaluate Models</h4>
+                <p>Is your model good? Statistics gives you metrics like <strong>accuracy, precision, recall, p-values</strong> to measure performance.</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">✅</div>
+                <h4>Validate Results</h4>
+                <p>Is the improvement real or just luck? <strong>Hypothesis testing</strong> and confidence intervals help you decide!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 2. TYPES OF STATISTICS                     -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">2️⃣ Types of Statistics</h2>
+
+    <div class="storybook-intro">
+        <p>Statistics comes in two big flavors — one <strong>describes</strong> your data, the other <strong>predicts</strong> from it! Think of it as the difference between reading a map vs. predicting where you'll be tomorrow.</p>
+    </div>
+
+    <div class="task-card">
+        <div class="ml-comparison-grid">
+            <div class="ml-compare-box" style="background: rgba(52, 211, 153, 0.06); border-color: rgba(52, 211, 153, 0.2);">
+                <h4 style="color: var(--accent-green);">📋 Descriptive Statistics</h4>
+                <p><strong>Summarizes and describes</strong> what data looks like.</p>
+                <ul style="margin-top: 1rem; color: var(--text-secondary); line-height: 1.8; padding-left: 1.5rem; font-size: 0.9rem;">
+                    <li><strong>Mean</strong> — Average value</li>
+                    <li><strong>Median</strong> — Middle value</li>
+                    <li><strong>Mode</strong> — Most frequent value</li>
+                    <li><strong>Variance</strong> — How spread out the data is</li>
+                </ul>
+                <p style="font-size: 0.85rem; color: var(--accent-green); margin-top: 1rem;">"The average student scored 72 marks, and scores ranged from 40 to 98."</p>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(251, 191, 36, 0.06); border-color: rgba(251, 191, 36, 0.2);">
+                <h4 style="color: #fbbf24;">🔮 Inferential Statistics</h4>
+                <p><strong>Makes predictions</strong> about a large population from a small sample.</p>
+                <ul style="margin-top: 1rem; color: var(--text-secondary); line-height: 1.8; padding-left: 1.5rem; font-size: 0.9rem;">
+                    <li><strong>Hypothesis Testing</strong> — Is a claim true?</li>
+                    <li><strong>Confidence Intervals</strong> — Range of true value</li>
+                    <li><strong>Regression Analysis</strong> — Predict trends</li>
+                    <li><strong>p-values</strong> — Measure significance</li>
+                </ul>
+                <p style="font-size: 0.85rem; color: #fbbf24; margin-top: 1rem;">"Based on 500 students, we estimate the national average is between 70-74."</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 3. CENTRAL TENDENCY                        -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">3️⃣ Measures of Central Tendency</h2>
+
+    <div class="storybook-intro">
+        <p>If someone asks "How did the class perform?", you don't recite 100 scores — you say <strong>"The average was 75."</strong> Central tendency gives you that <strong>one number</strong> that represents the entire dataset!</p>
+    </div>
+
+    <div class="task-card">
+        <div class="ml-reason-grid">
+            <div class="ml-reason-card" style="border-top: 3px solid #38bdf8;">
+                <div class="ml-reason-icon">📐</div>
+                <h4 style="color: #38bdf8;">Mean (Average)</h4>
+                <p>Sum all values, divide by count.</p>
+                <div style="text-align: center; margin: 1rem 0;"><span class="math-expr">μ = (1/n) Σxᵢ</span></div>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">Data: [2, 4, 6, 8] → Mean = 20/4 = <strong>5</strong></p>
+                <p style="font-size: 0.85rem; color: #38bdf8; margin-top: 0.5rem;">⚠️ Sensitive to outliers! One billionaire walks into a bar and the "average" wealth skyrockets.</p>
+            </div>
+            <div class="ml-reason-card" style="border-top: 3px solid #a78bfa;">
+                <div class="ml-reason-icon">📊</div>
+                <h4 style="color: #a78bfa;">Median (Middle)</h4>
+                <p>Sort the data, pick the middle value.</p>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem;">Data: [1, 3, <strong>5</strong>, 7, 9] → Median = <strong>5</strong></p>
+                <p style="font-size: 0.85rem; color: #a78bfa; margin-top: 0.5rem;">✅ Robust to outliers! Perfect for skewed data like house prices or salaries.</p>
+            </div>
+            <div class="ml-reason-card" style="border-top: 3px solid #34d399;">
+                <div class="ml-reason-icon">🏆</div>
+                <h4 style="color: #34d399;">Mode (Most Frequent)</h4>
+                <p>The value that appears the most often.</p>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem;">Data: [1, 2, 2, 3, 2, 4] → Mode = <strong>2</strong></p>
+                <p style="font-size: 0.85rem; color: #34d399; margin-top: 0.5rem;">Great for categorical data! "The most popular shoe size is 42."</p>
+            </div>
+        </div>
+
+        <div class="highlight-box" style="margin-top: 1.5rem; border-left-color: var(--accent-cyan); background: rgba(56, 189, 248, 0.05);">
+            <h4 style="color: var(--accent-cyan); margin-bottom: 0.5rem;">🤖 Use in ML:</h4>
+            <p>Mean and median are used for <strong>data preprocessing</strong> — especially for <strong>filling in missing values</strong> (imputation). If a column has missing entries, you can replace them with the column's mean or median!</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 4. MEASURES OF SPREAD                      -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">4️⃣ Measures of Spread</h2>
+
+    <div class="storybook-intro">
+        <p>Two classes both have an average score of 70. But in Class A, everyone scored between 68-72. In Class B, scores ranged from 20 to 100! Same mean, <strong>totally different stories</strong>. Spread tells you how <em>spread out</em> the data is! 📏</p>
+    </div>
+
+    <div class="task-card">
+        <div class="ml-comparison-grid">
+            <div class="ml-compare-box" style="background: rgba(56, 189, 248, 0.06); border-color: rgba(56, 189, 248, 0.2);">
+                <h4 style="color: var(--accent-cyan);">�� Variance (σ²)</h4>
+                <p>The <strong>average of the squared differences</strong> from the mean. Measures how far data points are from the mean.</p>
+                <div style="text-align: center; margin: 1rem 0;"><span class="math-expr">σ² = (1/n) Σ(xᵢ − μ)²</span></div>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">Why squared? To avoid positives and negatives canceling each other out!</p>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(167, 139, 250, 0.06); border-color: rgba(167, 139, 250, 0.2);">
+                <h4 style="color: var(--accent-purple);">📏 Standard Deviation (σ)</h4>
+                <p>The <strong>square root of variance</strong>. Brings the unit back to the original scale so it's easier to interpret.</p>
+                <div style="text-align: center; margin: 1rem 0;"><span class="math-expr">σ = √(σ²)</span></div>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">"Student scores have a std dev of 15 points" — easy to understand!</p>
+            </div>
+        </div>
+
+        <div class="ml-reason-grid" style="margin-top: 1.5rem;">
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">📌</div>
+                <h4>Low Variance</h4>
+                <p>Data is <strong>clustered close</strong> to the mean. Very consistent. Like a sharpshooter hitting the bullseye every time!</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">💥</div>
+                <h4>High Variance</h4>
+                <p>Data is <strong>spread far out</strong>. Very inconsistent. Like a beginner whose shots go everywhere!</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🤖</div>
+                <h4>Use in ML</h4>
+                <p><strong>Feature Scaling:</strong> StandardScaler uses mean & std dev. <strong>Outlier Detection:</strong> Points beyond 3σ from mean are suspicious!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 5. COVARIANCE & CORRELATION                -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">5️⃣ Covariance & Correlation</h2>
+
+    <div class="storybook-intro">
+        <p>Does studying more lead to higher grades? Does ice cream sales increase with temperature? These questions are about <strong>relationships between two variables</strong> — and that's exactly what covariance and correlation measure! 🔗</p>
+    </div>
+
+    <div class="task-card">
+        <div class="ml-comparison-grid">
+            <div class="ml-compare-box" style="background: rgba(56, 189, 248, 0.06); border-color: rgba(56, 189, 248, 0.2);">
+                <h4 style="color: var(--accent-cyan);">📊 Covariance</h4>
+                <p>Measures if two variables <strong>move together</strong>. Positive = same direction, Negative = opposite.</p>
+                <div style="text-align: center; margin: 1rem 0;"><span class="math-expr">Cov(X,Y) = E[(X−μₓ)(Y−μᵧ)]</span></div>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">⚠️ Problem: The scale depends on the units! Hard to compare across datasets.</p>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(167, 139, 250, 0.06); border-color: rgba(167, 139, 250, 0.2);">
+                <h4 style="color: var(--accent-purple);">📐 Correlation (ρ)</h4>
+                <p><strong>Normalized covariance</strong> — always between -1 and +1. Easy to interpret!</p>
+                <div style="text-align: center; margin: 1rem 0;"><span class="math-expr">ρ = Cov(X,Y) / (σₓ σᵧ)</span></div>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">✅ Scale-free! ρ = +1 means perfect positive, ρ = -1 means perfect negative, ρ = 0 means no correlation.</p>
+            </div>
+        </div>
+
+        <div class="ml-reason-grid" style="margin-top: 1.5rem;">
+            <div class="ml-reason-card" style="border-top: 3px solid #34d399;">
+                <div class="ml-reason-icon">📈</div>
+                <h4 style="color: #34d399;">Positive Correlation</h4>
+                <p>Variables move <strong>together</strong>. More study hours → higher grades! Temperature↑ → Ice cream sales↑</p>
+            </div>
+            <div class="ml-reason-card" style="border-top: 3px solid #ef4444;">
+                <div class="ml-reason-icon">📉</div>
+                <h4 style="color: #ef4444;">Negative Correlation</h4>
+                <p>Variables move in <strong>opposite directions</strong>. More screen time → lower grades! Speed↑ → Travel time↓</p>
+            </div>
+            <div class="ml-reason-card" style="border-top: 3px solid #fbbf24;">
+                <div class="ml-reason-icon">🤷</div>
+                <h4 style="color: #fbbf24;">No Correlation</h4>
+                <p>No relationship at all. Shoe size has <strong>nothing to do</strong> with intelligence! ρ ≈ 0</p>
+            </div>
+        </div>
+
+        <div class="highlight-box" style="margin-top: 1.5rem; border-left-color: var(--accent-cyan); background: rgba(56, 189, 248, 0.05);">
+            <h4 style="color: var(--accent-cyan); margin-bottom: 0.5rem;">🤖 Use in ML:</h4>
+            <p><strong>Feature Selection:</strong> Highly correlated features carry the same info — remove duplicates! <strong>PCA:</strong> Uses the covariance matrix to find the most important directions in data.</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 6. SAMPLING                                -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">6️⃣ Sampling</h2>
+
+    <div class="task-card">
+        <h3 class="task-title">🌍 Population vs Sample</h3>
+        <div class="ml-comparison-grid">
+            <div class="ml-compare-box" style="background: rgba(56, 189, 248, 0.06); border-color: rgba(56, 189, 248, 0.2);">
+                <h4 style="color: var(--accent-cyan);">🌍 Population</h4>
+                <p>The <strong>entire set</strong> of data — every single data point.</p>
+                <p style="font-size: 0.85rem; color: var(--accent-cyan); margin-top: 0.5rem;">"ALL 8 billion people on Earth."</p>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(167, 139, 250, 0.06); border-color: rgba(167, 139, 250, 0.2);">
+                <h4 style="color: var(--accent-purple);">📋 Sample</h4>
+                <p>A <strong>representative subset</strong> of the population.</p>
+                <p style="font-size: 0.85rem; color: var(--accent-purple); margin-top: 0.5rem;">"A survey of 10,000 randomly selected people."</p>
+            </div>
+        </div>
+        <p class="task-desc" style="margin-top: 1rem;"><strong>Why sampling?</strong> You can't interview all 8 billion people! A good sample gives you 95%+ accurate conclusions at a fraction of the cost and time. In ML, we sample data for training/testing splits!</p>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 7. CLT                                     -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">7️⃣ Central Limit Theorem (CLT)</h2>
+
+    <div class="storybook-intro">
+        <p>This is one of the <strong>most powerful theorems</strong> in all of statistics! It explains why the normal distribution (bell curve) shows up everywhere in nature and data science. 🔔</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🎯 The Magic Rule</h3>
+        <div style="font-size: 1.1rem; text-align: center; margin: 1.5rem 0; padding: 1.5rem; background: rgba(56, 189, 248, 0.1); border-radius: 8px; border: 1px dashed var(--accent-cyan); color: #fff;">
+            As the <strong>sample size increases</strong>, the distribution of <strong>sample means</strong> approaches a <span class="math-expr">Normal Distribution</span> — regardless of the population's original distribution!
+        </div>
+
+        <p class="task-desc">In simple terms: <strong>Take enough samples from ANY distribution, and their averages will form a bell curve!</strong> Even if the original data is weird, skewed, or random.</p>
+
+        <div class="ml-reason-grid" style="margin-top: 1.5rem;">
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">📏</div>
+                <h4>Rule of Thumb</h4>
+                <p>Sample size <span class="math-expr">n ≥ 30</span> is generally enough for CLT to work. The larger, the better!</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🤖</div>
+                <h4>Why It Matters in ML</h4>
+                <p>Justifies the <strong>normal distribution assumption</strong> used in many ML algorithms. Also enables confidence intervals and hypothesis testing!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 8 & 9. HYPOTHESIS TESTING & P-VALUE        -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">8️⃣ 9️⃣ Hypothesis Testing & p-Value</h2>
+
+    <div class="storybook-intro">
+        <p>Imagine you build a new ML model and it gets 85% accuracy vs. the old model's 82%. Is that improvement <strong>real</strong> or just <strong>random luck</strong>? Hypothesis testing is your scientific jury! ⚖️</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📋 The 5-Step Process</h3>
+        <div class="ml-workflow-pipeline">
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">1</div>
+                <div class="ml-step-content">
+                    <h4>🎯 Define H₀ (Null Hypothesis)</h4>
+                    <p>The "boring" claim: <strong>"Nothing special is happening."</strong> Example: "The new model is NOT better than the old one."</p>
+                </div>
+            </div>
+
+            <div class="ml-workflow-connector"></div>
+
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">2</div>
+                <div class="ml-step-content">
+                    <h4>🔥 Define H₁ (Alternative Hypothesis)</h4>
+                    <p>What you're trying to prove: <strong>"Something IS happening!"</strong> Example: "The new model IS better."</p>
+                </div>
+            </div>
+
+            <div class="ml-workflow-connector"></div>
+
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">3</div>
+                <div class="ml-step-content">
+                    <h4>📏 Choose Significance Level (α)</h4>
+                    <p>Usually <span class="math-expr">α = 0.05</span> (5%). This is the threshold — how much risk of being wrong are you willing to accept?</p>
+                </div>
+            </div>
+
+            <div class="ml-workflow-connector"></div>
+
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">4</div>
+                <div class="ml-step-content">
+                    <h4>🧮 Compute the Test Statistic & p-Value</h4>
+                    <p>Run the statistical test (t-test, chi-square, etc.) and get a <span class="math-expr">p-value</span> — the probability of seeing these results IF H₀ were true.</p>
+                </div>
+            </div>
+
+            <div class="ml-workflow-connector"></div>
+
+            <div class="ml-workflow-step ml-workflow-step-final">
+                <div class="ml-step-number">5</div>
+                <div class="ml-step-content">
+                    <h4>⚖️ Make the Decision!</h4>
+                    <p>If <span class="math-expr">p &lt; 0.05</span> → <strong style="color:#34d399;">Reject H₀</strong> (the result is statistically significant!). If <span class="math-expr">p &gt; 0.05</span> → <strong style="color:#ef4444;">Fail to reject H₀</strong> (not enough evidence).</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📊 Understanding p-Value — The Intuition</h3>
+        <div class="ml-reason-grid" style="grid-template-columns: 1fr 1fr;">
+            <div class="ml-reason-card" style="border-top: 3px solid #34d399;">
+                <div class="ml-reason-icon">✅</div>
+                <h4 style="color: #34d399;">p &lt; 0.05 → Reject H₀</h4>
+                <p>"This result is so unlikely under H₀ that <strong>H₀ is probably wrong.</strong> Our new model really IS better!"</p>
+            </div>
+            <div class="ml-reason-card" style="border-top: 3px solid #ef4444;">
+                <div class="ml-reason-icon">❌</div>
+                <h4 style="color: #ef4444;">p &gt; 0.05 → Keep H₀</h4>
+                <p>"The result could easily happen by random chance. <strong>Not enough evidence</strong> to claim the new model is better."</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 10. CONFIDENCE INTERVAL                    -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">🔟 Confidence Interval</h2>
+
+    <div class="task-card">
+        <h3 class="task-title">�� A Range, Not a Single Number</h3>
+        <p class="task-desc">Instead of saying "the average is 75," a confidence interval says: <strong>"We are 95% confident the true average is between 72 and 78."</strong> It captures uncertainty!</p>
+
+        <div style="font-size: 1.1rem; text-align: center; margin: 1.5rem 0; padding: 1.5rem; background: rgba(56, 189, 248, 0.1); border-radius: 8px; border: 1px dashed var(--accent-cyan); color: #fff;">
+            <span class="math-expr" style="font-size: 1.3rem;">CI = x̄ ± z × (σ / √n)</span>
+        </div>
+
+        <div class="ml-reason-grid" style="margin-top: 1.5rem;">
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">📐</div>
+                <h4>x̄ = Sample Mean</h4>
+                <p>The center of our estimate.</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">📊</div>
+                <h4>z = Z-Score (e.g. 1.96)</h4>
+                <p>For 95% confidence, z = 1.96.</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🤖</div>
+                <h4>Use in ML</h4>
+                <p><strong>Model evaluation:</strong> "Model accuracy is 85% ± 3%" gives a much more honest picture than just "85%"!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 11 & 12. BIAS-VARIANCE & OVERFITTING       -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">1️⃣1️⃣ 1️⃣2️⃣ Bias-Variance Tradeoff <span style="color:#ef4444; font-size: 1rem; vertical-align:middle; background:rgba(239, 68, 68, 0.1); padding: 4px 8px; border-radius: 4px; border: 1px solid #ef4444;">CRUCIAL FOR ML 🔥</span></h2>
+
+    <div class="storybook-intro">
+        <p>Imagine an archer shooting arrows. <strong>Bias</strong> = how far from the bullseye the arrows land on average. <strong>Variance</strong> = how spread out the arrows are. The best archer has <em>low bias AND low variance</em> — but achieving both is the eternal struggle of ML! 🎯</p>
+    </div>
+
+    <div class="task-card">
+        <div class="ml-comparison-grid">
+            <div class="ml-compare-box" style="background: rgba(239, 68, 68, 0.06); border-color: rgba(239, 68, 68, 0.2);">
+                <h4 style="color: #ef4444;">🎯 Bias (Error from wrong assumptions)</h4>
+                <p>A model with <strong>high bias</strong> makes strong assumptions about the data and misses important patterns.</p>
+                <p style="font-size: 0.9rem; margin-top: 1rem; color: var(--text-secondary);">→ <strong>High bias = Underfitting</strong>: The model is too simple. Like drawing a straight line through curved data!</p>
+                <p style="font-size: 0.85rem; color: #ef4444; margin-top: 0.5rem;">Symptoms: Low accuracy on BOTH training AND test data.</p>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(56, 189, 248, 0.06); border-color: rgba(56, 189, 248, 0.2);">
+                <h4 style="color: var(--accent-cyan);">💥 Variance (Error from data sensitivity)</h4>
+                <p>A model with <strong>high variance</strong> memorizes the training data, including noise.</p>
+                <p style="font-size: 0.9rem; margin-top: 1rem; color: var(--text-secondary);">→ <strong>High variance = Overfitting</strong>: The model is too complex. Like memorizing all exam answers instead of understanding the concepts!</p>
+                <p style="font-size: 0.85rem; color: var(--accent-cyan); margin-top: 0.5rem;">Symptoms: Great accuracy on training data, terrible on new (test) data.</p>
+            </div>
+        </div>
+
+        <div class="highlight-box" style="margin-top: 1.5rem; border-left-color: #34d399; background: rgba(52, 211, 153, 0.05);">
+            <h4 style="color: #34d399; margin-bottom: 0.5rem;">🛠️ Solutions:</h4>
+            <ul style="color: var(--text-secondary); line-height: 1.8; padding-left: 1.5rem; font-size: 0.9rem;">
+                <li><strong>Underfitting fix:</strong> Use a more complex model, add more features, reduce regularization.</li>
+                <li><strong>Overfitting fix:</strong> Use regularization (L1/L2), get more training data, use dropout (in neural networks), cross-validation.</li>
+            </ul>
+        </div>
+
+        <div class="ml-data-table-wrapper" style="margin-top: 1.5rem;">
+            <table class="ml-data-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Underfitting (High Bias)</th>
+                        <th>Good Fit ✅</th>
+                        <th>Overfitting (High Variance)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Model Complexity</strong></td>
+                        <td>Too simple</td>
+                        <td>Just right</td>
+                        <td>Too complex</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Training Accuracy</strong></td>
+                        <td>Low ❌</td>
+                        <td>High ✅</td>
+                        <td>Very High ✅</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Test Accuracy</strong></td>
+                        <td>Low ❌</td>
+                        <td>High ✅</td>
+                        <td>Low ❌</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Analogy</strong></td>
+                        <td>Not studying at all</td>
+                        <td>Understanding concepts</td>
+                        <td>Memorizing answers</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 13. PYTHON CODE                            -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">1️⃣3️⃣ Python Implementation</h2>
+
+    <div class="storybook-intro">
+        <p>Let's bring statistics to life with code! 🧑‍💻 Try these in <a href="https://colab.research.google.com" target="_blank" style="color: var(--accent-cyan); text-decoration: underline;">Google Colab</a>.</p>
+    </div>
+
+    <!-- Code 1: Mean & Variance -->
+    <div class="task-card">
+        <h3 class="task-title">📐 13.1 Mean & Variance</h3>
+        <p class="task-desc">Calculate the central tendency and spread of a dataset.</p>
+        <button class="btn-toggle" onclick="toggleCode('stat-code1', this)">Show Code</button>
+        <div id="stat-code1" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+data = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+
+mean = np.mean(data)
+median = np.median(data)
+variance = np.var(data)
+std_dev = np.std(data)
+
+print(f<span class="string">"📐 Mean:     {mean}"</span>)
+print(f<span class="string">"📊 Median:   {median}"</span>)
+print(f<span class="string">"📏 Variance: {variance}"</span>)
+print(f<span class="string">"📏 Std Dev:  {std_dev}"</span>)
+print(f<span class="string">"\n💡 Interpretation:"</span>)
+print(f<span class="string">"  Data is centered around {mean}"</span>)
+print(f<span class="string">"  Average deviation from mean: ±{std_dev:.2f}"</span>)</code>
+            </div>
+        </div>
+    </div>
+
+    <!-- Code 2: Correlation -->
+    <div class="task-card">
+        <h3 class="task-title">🔗 13.2 Correlation</h3>
+        <p class="task-desc">See how two variables relate to each other.</p>
+        <button class="btn-toggle" onclick="toggleCode('stat-code2', this)">Show Code</button>
+        <div id="stat-code2" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+
+<span class="comment"># Study hours vs Exam scores</span>
+study_hours = [1, 2, 3, 4, 5, 6, 7, 8]
+exam_scores = [35, 45, 50, 60, 65, 75, 80, 90]
+
+<span class="comment"># Correlation matrix</span>
+corr_matrix = np.corrcoef(study_hours, exam_scores)
+print(f<span class="string">"📊 Correlation: {corr_matrix[0,1]:.4f}"</span>)
+
+<span class="comment"># Visualize</span>
+plt.figure(figsize=(8,5))
+plt.scatter(study_hours, exam_scores, c=<span class="string">'#38bdf8'</span>, s=100, zorder=5)
+plt.plot(study_hours, np.poly1d(np.polyfit(study_hours, exam_scores, 1))(study_hours),
+         <span class="string">'--'</span>, color=<span class="string">'#a78bfa'</span>, linewidth=2, label=<span class="string">'Trend line'</span>)
+plt.xlabel(<span class="string">'Study Hours'</span>); plt.ylabel(<span class="string">'Exam Score'</span>)
+plt.title(<span class="string">'📈 Positive Correlation: Study Hours vs Exam Scores'</span>)
+plt.legend(); plt.grid(alpha=0.2); plt.tight_layout(); plt.show()
+
+<span class="keyword">if</span> corr_matrix[0,1] > 0.8:
+    print(<span class="string">"✅ Strong positive correlation! More study → Higher scores!"</span>)</code>
+            </div>
+        </div>
+    </div>
+
+    <!-- Code 3: Confidence Interval -->
+    <div class="task-card">
+        <h3 class="task-title">📏 13.3 Confidence Interval</h3>
+        <p class="task-desc">Calculate the 95% confidence interval for a dataset.</p>
+        <button class="btn-toggle" onclick="toggleCode('stat-code3', this)">Show Code</button>
+        <div id="stat-code3" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+data = np.array([72, 68, 75, 80, 65, 78, 82, 70, 74, 76])
+
+mean = np.mean(data)
+std = np.std(data, ddof=1)   <span class="comment"># ddof=1 for sample std</span>
+n = len(data)
+
+<span class="comment"># 95% Confidence Interval (z = 1.96)</span>
+margin = 1.96 * (std / np.sqrt(n))
+
+lower = mean - margin
+upper = mean + margin
+
+print(f<span class="string">"📐 Sample Mean: {mean:.2f}"</span>)
+print(f<span class="string">"📏 Std Dev:     {std:.2f}"</span>)
+print(f<span class="string">"📊 95% CI:      [{lower:.2f}, {upper:.2f}]"</span>)
+print(f<span class="string">"\n💡 We are 95% confident the true mean is between {lower:.2f} and {upper:.2f}"</span>)</code>
+            </div>
+        </div>
+    </div>
+
+    <!-- Code 4: Hypothesis Testing -->
+    <div class="task-card">
+        <h3 class="task-title">⚖️ 13.4 Hypothesis Testing (t-test)</h3>
+        <p class="task-desc">Test if a sample mean is significantly different from a known value.</p>
+        <button class="btn-toggle" onclick="toggleCode('stat-code4', this)">Show Code</button>
+        <div id="stat-code4" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">from</span> scipy <span class="keyword">import</span> stats
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+<span class="comment"># Student scores: Is the average different from 70?</span>
+scores = [72, 68, 75, 80, 65, 78, 82, 70, 74, 76]
+
+<span class="comment"># One-sample t-test</span>
+t_stat, p_value = stats.ttest_1samp(scores, 70)
+
+print(f<span class="string">"📊 t-statistic: {t_stat:.4f}"</span>)
+print(f<span class="string">"📊 p-value:     {p_value:.4f}"</span>)
+
+<span class="keyword">if</span> p_value < 0.05:
+    print(<span class="string">"✅ Reject H₀: The average is significantly different from 70!"</span>)
+<span class="keyword">else</span>:
+    print(<span class="string">"❌ Fail to reject H₀: Not enough evidence that the average differs from 70."</span>)</code>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 14-17 WRAP UP                              -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">Wrap-Up & Review</h2>
+
+    <div class="task-card">
+        <h3 class="task-title">🚀 14. Applications in Machine Learning</h3>
+        <div class="ml-paradigm-tags" style="margin-bottom: 2rem;">
+            <span class="ml-tag ml-tag-supervised">Model Evaluation</span>
+            <span class="ml-tag ml-tag-supervised">A/B Testing</span>
+            <span class="ml-tag" style="background: rgba(167, 139, 250, 0.12); color: var(--accent-purple); border: 1px solid rgba(167, 139, 250, 0.3);">Feature Selection</span>
+            <span class="ml-tag ml-tag-rl">Cross-Validation</span>
+        </div>
+
+        <h3 class="task-title">⚠️ 15. Common Mistakes</h3>
+        <ul style="color: #f87171; line-height: 1.8; margin-left:1.5rem; margin-bottom: 2rem;">
+            <li><strong>Confusing mean and median</strong> — Mean is sensitive to outliers, median is not. Salary data should use median!</li>
+            <li><strong>Ignoring variance</strong> — Two datasets can have the same mean but wildly different spreads.</li>
+            <li><strong>Misinterpreting p-value</strong> — p &lt; 0.05 does NOT mean "it's definitely true." It means the result is unlikely under H₀.</li>
+            <li><strong>Ignoring bias-variance tradeoff</strong> — A model with 99% training accuracy but 60% test accuracy is OVERFITTING, not good!</li>
+        </ul>
+
+        <h3 class="task-title">📝 16. Summary</h3>
+        <div class="highlight-box" style="margin-bottom: 0;">
+            <h4 style="color: #fff; margin-bottom: 1rem; font-size: 1.1rem; text-align: center;">Statistics is the decision-making tool of machine learning.</h4>
+            <ul style="color: var(--text-secondary); line-height: 1.8; margin-left: 1rem;">
+                <li><strong>Mean & Variance</strong> describe your data at a glance.</li>
+                <li><strong>Correlation</strong> reveals relationships between features.</li>
+                <li><strong>Hypothesis Testing</strong> validates whether results are real or random.</li>
+                <li><strong>Confidence Intervals</strong> capture uncertainty honestly.</li>
+                <li><strong>Bias-Variance Tradeoff</strong> is the key to building great ML models.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 17. PRACTICE QUESTIONS -->
+    <div class="task-card" style="margin-top: 3rem; background: rgba(56, 189, 248, 0.05); border-color: rgba(56, 189, 248, 0.3);">
+        <h3 class="task-title" style="color: var(--accent-cyan); text-align: center;">🤔 17. Practice Questions</h3>
+        <ol style="color: var(--text-light); line-height: 2; margin-left: 20px; font-size: 1.1rem; max-width: 600px; margin: 0 auto; padding-left: 20px;">
+            <li>Define mean, median, and variance with examples.</li>
+            <li>What is correlation? How is it different from covariance?</li>
+            <li>Explain the bias-variance tradeoff and its connection to overfitting.</li>
+            <li>What is a p-value? When do you reject H₀?</li>
+            <li>Why is statistics critically important in machine learning?</li>
+        </ol>
+    </div>
+
+    </div><!-- .container -->
+
+    <script src="script.js?v=2"></script>
+</body>
+</html>
