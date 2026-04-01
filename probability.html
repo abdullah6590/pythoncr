@@ -173,7 +173,7 @@
                 <div class="ml-reason-icon">🤝</div>
                 <h4 style="color:#f472b6;">Joint Probability</h4>
                 <p>The probability of two events happening <strong>together</strong>.</p>
-                <div style="margin: 1rem 0 text-align:center;"><span class="math-expr">P(A, B) = P(A ∩ B)</span></div>
+                <div style="margin: 1rem 0; text-align:center;"><span class="math-expr">P(A, B) = P(A ∩ B)</span></div>
                 <div style="font-size:0.85rem; color:var(--text-muted);">"What's the probability of it raining AND being a Tuesday?"</div>
             </div>
             
@@ -181,7 +181,7 @@
                 <div class="ml-reason-icon">🕵️</div>
                 <h4 style="color:#34d399;">Conditional Probability</h4>
                 <p>Probability of A <strong>given that B has already occurred.</strong></p>
-                <div style="margin: 1rem 0 text-align:center;"><span class="math-expr">P(A|B) = \frac{P(A ∩ B)}{P(B)}</span></div>
+                <div style="margin: 1rem 0; text-align:center;"><span class="math-expr">P(A|B) = \frac{P(A ∩ B)}{P(B)}</span></div>
                 <div style="font-size:0.85rem; color:var(--text-muted);">"Probability of lung cancer GIVEN the person is a smoker."</div>
             </div>
 
@@ -189,7 +189,7 @@
                 <div class="ml-reason-icon">🆓</div>
                 <h4 style="color:#fbbf24;">Independence</h4>
                 <p>Events <strong>do not affect each other</strong>. Knowing B happened gives no info about A.</p>
-                <div style="margin: 1rem 0 text-align:center;"><span class="math-expr">P(A ∩ B) = P(A)P(B)</span></div>
+                <div style="margin: 1rem 0; text-align:center;"><span class="math-expr">P(A ∩ B) = P(A)P(B)</span></div>
                 <div style="font-size:0.85rem; color:var(--text-muted);">Like flipping a coin and rolling a die.</div>
             </div>
         </div>
@@ -279,7 +279,7 @@
                 <div class="ml-reason-icon">🌀</div>
                 <h4>Entropy (Uncertainty)</h4>
                 <p>A measure of <strong>uncertainty or randomness</strong> in a system.</p>
-                <div style="margin: 1rem 0 text-align:center;"><span class="math-expr">H(X) = - Σ P(x)\log_2 P(x)</span></div>
+                <div style="margin: 1rem 0; text-align:center;"><span class="math-expr">H(X) = - Σ P(x)\log_2 P(x)</span></div>
                 <div style="font-size:0.85rem; color:var(--text-muted);">
                     <strong>Use in ML:</strong> Core to building <strong>Decision Trees</strong> (we split nodes to minimize entropy/maximize information gain).
                 </div>
@@ -289,7 +289,7 @@
                 <div class="ml-reason-icon">❌</div>
                 <h4>Cross Entropy</h4>
                 <p>Measures the difference between two probability distributions (the true labels vs predicted probabilities).</p>
-                <div style="margin: 1rem 0 text-align:center;"><span class="math-expr">L = - Σ y \log(ŷ)</span></div>
+                <div style="margin: 1rem 0; text-align:center;"><span class="math-expr">L = - Σ y \log(ŷ)</span></div>
                 <div style="font-size:0.85rem; color:var(--text-muted);">
                     <strong>Use in ML:</strong> The most common <strong>loss function</strong> for classification neural networks.
                 </div>
