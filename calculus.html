@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculus — The Engine of Machine Learning</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .math-expr { font-family: 'Fira Code', monospace; color: var(--accent-cyan); font-weight: bold; background: rgba(56, 189, 248, 0.1); padding: 0.2rem 0.4rem; border-radius: 4px;}
+        .highlight-box { background: rgba(167, 139, 250, 0.05); border-left: 4px solid var(--accent-purple); padding: 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem; }
+        .formula-showcase { font-size: 1.3rem; text-align: center; margin: 1.5rem 0; padding: 1.5rem; background: rgba(56, 189, 248, 0.08); border-radius: 8px; border: 1px dashed var(--accent-cyan); color: #fff; }
+    </style>
+</head>
+<body>
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="container">
+
+    <nav class="top-nav">
+        <div class="dropdown">
+            <button class="dropbtn">🐍 Python <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="basics.html">📘 Basics</a>
+                <a href="index.html">🐍 Functions</a>
+                <a href="oop.html">🏗️ OOP</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">📚 Libraries <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="numpy.html">🧮 NumPy</a>
+                <a href="pandas.html">🐼 Pandas</a>
+                <a href="matplotlib.html">📊 Matplotlib</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">🤖 Machine Learning <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="ml-intro.html">🚀 Introduction</a>
+                <a href="ml-supervised.html">📊 Supervised Learning</a>
+                <a href="ml-classification-regression.html">🎯 Classification / Regression</a>
+                <a href="ml-unsupervised.html">🔍 Unsupervised Learning</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn active">➗ Mathematics <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="linear-algebra.html">📐 Linear Algebra</a>
+                <a href="probability.html">🎲 Probability</a>
+                <a href="statistics.html">📊 Statistics</a>
+                <a href="calculus.html" class="active">📈 Calculus</a>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <h1>📈 Calculus for Machine Learning</h1>
+        <p>The engine that powers learning. Without calculus, neural networks can't learn, models can't improve, and AI doesn't exist!</p>
+    </header>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 1. INTRODUCTION                            -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">1️⃣ Introduction — Why Calculus?</h2>
+
+    <div class="storybook-intro">
+        <p>Imagine you're blindfolded on a mountain and you need to reach the lowest valley. You can only feel the slope under your feet. If the ground slopes down to the left, you step left. If it slopes down to the right, you step right. <strong>That's exactly what machine learning does — and calculus is how it "feels" the slope!</strong> ⛰️</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🎯 The Core Goal of ML</h3>
+        <div class="formula-showcase">
+            <strong>Minimize Error → Improve Predictions</strong>
+        </div>
+        <p class="task-desc">To achieve this, we need to know: <strong>"If I change my model's parameters slightly, does the error go up or down?"</strong> That question is answered by calculus — specifically, by <span class="highlight-term">derivatives</span>!</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">�� What Calculus Does in ML</h3>
+        <div class="ml-reason-grid">
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">📐</div>
+                <h4>Measures Change</h4>
+                <p>How does the model's output change when we tweak the input? Derivatives tell us the <strong>rate of change</strong>!</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">📉</div>
+                <h4>Minimizes Error</h4>
+                <p>Loss functions measure how wrong a model is. Calculus helps us find the <strong>minimum error</strong> — the sweet spot!</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🧠</div>
+                <h4>Trains Neural Networks</h4>
+                <p>Backpropagation — the algorithm that makes deep learning work — is <strong>100% built on calculus</strong> (chain rule)!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 2. FUNCTIONS                               -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">2️⃣ Functions — The Building Blocks</h2>
+
+    <div class="task-card">
+        <h3 class="task-title">📖 What is a Function?</h3>
+        <p class="task-desc">A function <strong>maps input to output</strong>. You give it something, it gives you something back — consistently.</p>
+
+        <div class="ml-comparison-grid" style="margin-top: 1.5rem;">
+            <div class="ml-compare-box" style="background: rgba(56, 189, 248, 0.06); border-color: rgba(56, 189, 248, 0.2);">
+                <h4 style="color: var(--accent-cyan);">Math Example</h4>
+                <div class="formula-showcase" style="font-size: 1.1rem; margin: 1rem 0; padding: 1rem;"><span class="math-expr">f(x) = x²</span></div>
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">If x = 3 → f(3) = 9<br>If x = 5 → f(5) = 25</p>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(167, 139, 250, 0.06); border-color: rgba(167, 139, 250, 0.2);">
+                <h4 style="color: var(--accent-purple);">ML Example</h4>
+                <div class="formula-showcase" style="font-size: 1.1rem; margin: 1rem 0; padding: 1rem;"><span class="math-expr">ŷ = wx + b</span></div>
+                <p style="font-size: 0.9rem; color: var(--text-secondary);"><strong>Input</strong> = features (study hours)<br><strong>Output</strong> = prediction (exam score)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 3. LIMITS                                  -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">3️⃣ Limits — The Foundation</h2>
+
+    <div class="storybook-intro">
+        <p>Imagine walking toward a wall but each step you take is <strong>half the distance</strong> remaining. You never actually touch the wall, but you get infinitely close. That's a limit — the value you <em>approach</em> but might never reach! 🧱</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📖 What is a Limit?</h3>
+        <p class="task-desc">A limit tells us what value a function <strong>approaches</strong> as the input gets closer and closer to some number.</p>
+
+        <div class="formula-showcase"><span class="math-expr" style="font-size: 1.5rem;">lim(x→2) x² = 4</span></div>
+
+        <p class="task-desc">As x gets closer and closer to 2, x² gets closer and closer to 4.</p>
+
+        <div class="highlight-box" style="margin-top: 1.5rem; border-left-color: var(--accent-cyan); background: rgba(56, 189, 248, 0.05);">
+            <h4 style="color: var(--accent-cyan); margin-bottom: 0.5rem;">🔑 Why Limits = Derivatives</h4>
+            <p>The derivative is actually <strong>defined</strong> using a limit:</p>
+            <div class="formula-showcase" style="margin: 1rem 0; padding: 1rem;"><span class="math-expr">f'(x) = lim(h→0) [f(x+h) − f(x)] / h</span></div>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">This measures the <strong>instantaneous rate of change</strong> — how fast the function is changing at exactly that point!</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 4. DERIVATIVES (CORE)                      -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">4️⃣ Derivatives — The Core of ML <span style="color:#ef4444; font-size: 1rem; vertical-align:middle; background:rgba(239, 68, 68, 0.1); padding: 4px 8px; border-radius: 4px; border: 1px solid #ef4444;">CRUCIAL 🔥</span></h2>
+
+    <div class="storybook-intro">
+        <p>If you're driving at 60 km/h, your <strong>speed is the derivative of your position</strong>. It tells you how fast your position is changing. In ML, the derivative of the loss function tells us <strong>how fast the error is changing</strong> — and in which direction! 🚗</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📖 Derivative = Rate of Change</h3>
+        <div class="ml-reason-grid" style="grid-template-columns: 1fr 1fr;">
+            <div class="ml-reason-card" style="border-top: 3px solid #38bdf8;">
+                <h4 style="color: #38bdf8;">Real World</h4>
+                <ul style="color: var(--text-secondary); line-height: 1.8; padding-left: 1.5rem; font-size: 0.9rem;">
+                    <li><strong>Speed</strong> = derivative of position</li>
+                    <li><strong>Acceleration</strong> = derivative of speed</li>
+                    <li><strong>Growth rate</strong> = derivative of population</li>
+                </ul>
+            </div>
+            <div class="ml-reason-card" style="border-top: 3px solid #a78bfa;">
+                <h4 style="color: #a78bfa;">In Machine Learning</h4>
+                <ul style="color: var(--text-secondary); line-height: 1.8; padding-left: 1.5rem; font-size: 0.9rem;">
+                    <li><strong>Learning</strong> = derivative of loss</li>
+                    <li><strong>Sensitivity</strong> = derivative of output w.r.t. input</li>
+                    <li><strong>Gradient</strong> = vector of derivatives</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="formula-showcase" style="margin-top: 1.5rem;">
+            <span class="math-expr" style="font-size: 1.3rem;">f(x) = x² → f'(x) = 2x</span>
+        </div>
+        <p class="task-desc" style="text-align: center;">At x = 2: f'(2) = 4 → The slope at that point is 4 (function is increasing steeply)</p>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 5. DERIVATIVE RULES                        -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">5️⃣ Important Derivative Rules</h2>
+
+    <div class="storybook-intro">
+        <p>You don't need to use the limit definition every time! These <strong>shortcut rules</strong> let you find derivatives instantly — like cheat codes for calculus! 🎮</p>
+    </div>
+
+    <div class="task-card">
+        <div class="ml-data-table-wrapper">
+            <table class="ml-data-table">
+                <thead>
+                    <tr>
+                        <th>Rule</th>
+                        <th>Formula</th>
+                        <th>Example</th>
+                        <th>Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>⚡ Power Rule</strong></td>
+                        <td><span class="math-expr">d/dx(xⁿ) = nxⁿ⁻¹</span></td>
+                        <td>d/dx(x³)</td>
+                        <td><strong>3x²</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>🔢 Constant Rule</strong></td>
+                        <td><span class="math-expr">d/dx(c) = 0</span></td>
+                        <td>d/dx(5)</td>
+                        <td><strong>0</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>➕ Sum Rule</strong></td>
+                        <td><span class="math-expr">d/dx(f+g) = f'+g'</span></td>
+                        <td>d/dx(x² + x)</td>
+                        <td><strong>2x + 1</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>✖️ Constant Multiple</strong></td>
+                        <td><span class="math-expr">d/dx(cf) = c·f'</span></td>
+                        <td>d/dx(2x²)</td>
+                        <td><strong>4x</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>🔗 Product Rule</strong></td>
+                        <td><span class="math-expr">d/dx(fg) = f'g + fg'</span></td>
+                        <td>d/dx(x · eˣ)</td>
+                        <td><strong>eˣ + xeˣ</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 6. CHAIN RULE                              -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">6️⃣ Chain Rule <span style="color:#ef4444; font-size: 1rem; vertical-align:middle; background:rgba(239, 68, 68, 0.1); padding: 4px 8px; border-radius: 4px; border: 1px solid #ef4444;">VERY IMPORTANT 🔥</span></h2>
+
+    <div class="storybook-intro">
+        <p>Imagine a <strong>Russian nesting doll</strong> — a function inside a function. To differentiate this, you "peel" from the outside in. The Chain Rule is the most important rule for neural networks — it's literally how <strong>Backpropagation</strong> works! 🪆</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📖 The Rule</h3>
+        <p class="task-desc">If <span class="math-expr">y = f(g(x))</span> — a function inside a function — then:</p>
+        <div class="formula-showcase"><span class="math-expr" style="font-size: 1.5rem;">dy/dx = f'(g(x)) · g'(x)</span></div>
+        <p class="task-desc" style="text-align: center;"><strong>Derivative of outside × Derivative of inside</strong></p>
+
+        <div class="ml-comparison-grid" style="margin-top: 1.5rem;">
+            <div class="ml-compare-box" style="background: rgba(56, 189, 248, 0.06); border-color: rgba(56, 189, 248, 0.2);">
+                <h4 style="color: var(--accent-cyan);">📐 Math Example</h4>
+                <p><span class="math-expr">y = (3x + 2)²</span></p>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);">Let u = 3x + 2</p>
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">dy/dx = 2u · 3 = <strong>6(3x + 2)</strong></p>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(167, 139, 250, 0.06); border-color: rgba(167, 139, 250, 0.2);">
+                <h4 style="color: var(--accent-purple);">🧠 In Neural Networks</h4>
+                <p>Each layer is a function inside another function!</p>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);">Layer 3 → Layer 2 → Layer 1</p>
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">Chain rule lets us compute derivatives through <strong>all layers</strong> = Backpropagation!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 7 & 8. PARTIAL DERIVATIVES & GRADIENT      -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">7️⃣ 8️⃣ Partial Derivatives & Gradient</h2>
+
+    <div class="storybook-intro">
+        <p>In real ML models, the loss function depends on <strong>thousands of parameters</strong> (weights). A partial derivative measures how the loss changes when you tweak <strong>just one</strong> parameter while keeping all others fixed! 🎛️</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📐 Partial Derivatives</h3>
+        <p class="task-desc">For a function of multiple variables, take the derivative with respect to <strong>one variable at a time</strong>:</p>
+
+        <div class="formula-showcase"><span class="math-expr">f(x, y) = x² + y²</span></div>
+
+        <div class="ml-comparison-grid">
+            <div class="ml-compare-box" style="background: rgba(56, 189, 248, 0.06); border-color: rgba(56, 189, 248, 0.2);">
+                <h4 style="color: var(--accent-cyan);">∂f/∂x (w.r.t. x)</h4>
+                <p>Treat y as a <strong>constant</strong>, differentiate only x.</p>
+                <div style="text-align: center; margin: 1rem 0;"><span class="math-expr">∂f/∂x = 2x</span></div>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(167, 139, 250, 0.06); border-color: rgba(167, 139, 250, 0.2);">
+                <h4 style="color: var(--accent-purple);">∂f/∂y (w.r.t. y)</h4>
+                <p>Treat x as a <strong>constant</strong>, differentiate only y.</p>
+                <div style="text-align: center; margin: 1rem 0;"><span class="math-expr">∂f/∂y = 2y</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🧭 The Gradient — All Partials Combined!</h3>
+        <p class="task-desc">The <span class="highlight-term">Gradient</span> is a vector containing ALL partial derivatives. It points in the direction of <strong>steepest increase</strong>.</p>
+
+        <div class="formula-showcase"><span class="math-expr" style="font-size: 1.5rem;">∇f = [∂f/∂x, ∂f/∂y] = [2x, 2y]</span></div>
+
+        <div class="highlight-box" style="margin-top: 1.5rem; border-left-color: #34d399; background: rgba(52, 211, 153, 0.05);">
+            <h4 style="color: #34d399; margin-bottom: 0.5rem;">🔑 The Key Insight</h4>
+            <p>The gradient points <strong>uphill</strong> (direction of maximum increase). To <strong>minimize</strong> the loss, we go in the <strong>opposite direction</strong> — that's Gradient Descent!</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 9 & 10. LOSS FUNCTION & GRADIENT DESCENT   -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">9️⃣ 🔟 Loss Function & Gradient Descent <span style="color:#ef4444; font-size: 1rem; vertical-align:middle; background:rgba(239, 68, 68, 0.1); padding: 4px 8px; border-radius: 4px; border: 1px solid #ef4444;">THE HEART OF ML 🔥</span></h2>
+
+    <div class="storybook-intro">
+        <p>Remember the blindfolded mountain analogy? The <strong>loss function</strong> is the mountain landscape (height = error). <strong>Gradient Descent</strong> is the algorithm that takes small steps downhill until you reach the valley (minimum error)! ⛰️➡️🏔️</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📉 Loss Function = How Wrong Are We?</h3>
+        <p class="task-desc">A loss function measures the <strong>difference between prediction and reality</strong>. The most common one:</p>
+        <div class="formula-showcase"><span class="math-expr" style="font-size: 1.5rem;">MSE = (y − ŷ)²</span></div>
+        <p class="task-desc" style="text-align: center;">Goal: <strong>Make this as small as possible!</strong></p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">⬇️ Gradient Descent — The Learning Algorithm</h3>
+        <p class="task-desc">The core update rule that makes ML models learn:</p>
+        <div class="formula-showcase"><span class="math-expr" style="font-size: 1.8rem;">θ = θ − α · (dJ/dθ)</span></div>
+
+        <div class="ml-reason-grid" style="margin-top: 1.5rem;">
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🎛️</div>
+                <h4>θ = Parameter</h4>
+                <p>The weight or bias we want to optimize (e.g., slope of a line).</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🏃</div>
+                <h4>α = Learning Rate</h4>
+                <p>Size of each step. Too big = overshoot. Too small = takes forever. Typically 0.001 to 0.01.</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🧭</div>
+                <h4>dJ/dθ = Gradient</h4>
+                <p>Direction of steepest ascent. We go <strong>opposite</strong> (subtract) to descend!</p>
+            </div>
+        </div>
+
+        <div class="ml-workflow-pipeline" style="margin-top: 2rem;">
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">1</div>
+                <div class="ml-step-content">
+                    <h4>🎲 Initialize Randomly</h4>
+                    <p>Start with random weights and biases.</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">2</div>
+                <div class="ml-step-content">
+                    <h4>📊 Compute Prediction</h4>
+                    <p>Feed data through the model: ŷ = wx + b</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">3</div>
+                <div class="ml-step-content">
+                    <h4>📉 Calculate Loss</h4>
+                    <p>How wrong were we? MSE = (y − ŷ)²</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">4</div>
+                <div class="ml-step-content">
+                    <h4>🧮 Compute Gradient</h4>
+                    <p>Take derivative of loss w.r.t. each parameter.</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step ml-workflow-step-final">
+                <div class="ml-step-number">5</div>
+                <div class="ml-step-content">
+                    <h4>🔄 Update & Repeat!</h4>
+                    <p>θ = θ − α · gradient. Go back to step 2. Repeat until loss is tiny!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 11. LINEAR REGRESSION USING CALCULUS        -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">1️⃣1️⃣ Linear Regression via Calculus</h2>
+
+    <div class="task-card">
+        <h3 class="task-title">📐 The Full Picture</h3>
+        <p class="task-desc">Let's see calculus in action with the simplest ML model:</p>
+
+        <div class="formula-showcase" style="font-size: 1rem; padding: 1rem;"><span class="math-expr">Model: ŷ = wx + b</span> &nbsp; | &nbsp; <span class="math-expr">Loss: L = (y − (wx + b))²</span></div>
+
+        <div class="ml-comparison-grid" style="margin-top: 1.5rem;">
+            <div class="ml-compare-box" style="background: rgba(56, 189, 248, 0.06); border-color: rgba(56, 189, 248, 0.2);">
+                <h4 style="color: var(--accent-cyan);">∂L/∂w (Derivative w.r.t. weight)</h4>
+                <div style="text-align: center; margin: 1rem 0;"><span class="math-expr">∂L/∂w = −2x(y − ŷ)</span></div>
+                <p style="font-size: 0.85rem;">Update: <span class="math-expr">w = w − α · ∂L/∂w</span></p>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(167, 139, 250, 0.06); border-color: rgba(167, 139, 250, 0.2);">
+                <h4 style="color: var(--accent-purple);">∂L/∂b (Derivative w.r.t. bias)</h4>
+                <div style="text-align: center; margin: 1rem 0;"><span class="math-expr">∂L/∂b = −2(y − ŷ)</span></div>
+                <p style="font-size: 0.85rem;">Update: <span class="math-expr">b = b − α · ∂L/∂b</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 12. NEURAL NETWORKS & CALCULUS              -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">1️⃣2️⃣ Neural Networks & Calculus</h2>
+
+    <div class="storybook-intro">
+        <p>A neural network is just many functions nested inside each other. Each neuron applies a linear transformation followed by an activation function. The chain rule lets us differentiate through <strong>all layers</strong> — that's <strong>Backpropagation</strong>! 🧠</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🧬 Inside a Single Neuron</h3>
+        <div class="formula-showcase" style="font-size: 1rem;"><span class="math-expr">z = wx + b</span> → <span class="math-expr">a = σ(z)</span></div>
+
+        <div class="ml-comparison-grid" style="margin-top: 1.5rem;">
+            <div class="ml-compare-box" style="background: rgba(56, 189, 248, 0.06); border-color: rgba(56, 189, 248, 0.2);">
+                <h4 style="color: var(--accent-cyan);">Sigmoid Function</h4>
+                <div style="text-align: center; margin: 1rem 0;"><span class="math-expr">σ(z) = 1 / (1 + e⁻ᶻ)</span></div>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">Squashes any number into range (0, 1). Perfect for probabilities!</p>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(167, 139, 250, 0.06); border-color: rgba(167, 139, 250, 0.2);">
+                <h4 style="color: var(--accent-purple);">Its Derivative</h4>
+                <div style="text-align: center; margin: 1rem 0;"><span class="math-expr">σ'(z) = σ(z)(1 − σ(z))</span></div>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">Elegant! The derivative is expressed using the function itself!</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🔗 Backpropagation = Chain Rule in Action</h3>
+        <p class="task-desc">To update weights, we need <span class="math-expr">dL/dw</span>. Using the chain rule:</p>
+
+        <div class="formula-showcase"><span class="math-expr" style="font-size: 1.3rem;">dL/dw = (dL/da) · (da/dz) · (dz/dw)</span></div>
+
+        <div class="ml-reason-grid" style="margin-top: 1rem;">
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">📉</div>
+                <h4>dL/da</h4>
+                <p>How does the loss change with the activation? (Loss derivative)</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🔄</div>
+                <h4>da/dz</h4>
+                <p>How does the activation change with z? (Sigmoid derivative)</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🎛️</div>
+                <h4>dz/dw</h4>
+                <p>How does z change with the weight? (= x, the input!)</p>
+            </div>
+        </div>
+
+        <div class="highlight-box" style="margin-top: 1.5rem;">
+            <h4 style="color: var(--accent-purple); margin-bottom: 0.5rem;">💡 This is Backpropagation!</h4>
+            <p>The chain rule lets us compute how each weight in every layer contributes to the final error — then we update all of them! This is how neural networks <strong>learn</strong>.</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 13. PYTHON CODE                            -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">1️⃣3️⃣ Python Implementation</h2>
+
+    <div class="storybook-intro">
+        <p>Let's implement Gradient Descent from scratch! 🧑‍💻 Run this in <a href="https://colab.research.google.com" target="_blank" style="color: var(--accent-cyan); text-decoration: underline;">Google Colab</a> to see a model learning in real time.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">⬇️ Gradient Descent — Linear Regression from Scratch</h3>
+        <p class="task-desc">We'll train a model to learn ŷ = 2x (the true relationship) using only calculus!</p>
+        <button class="btn-toggle" onclick="toggleCode('calc-code1', this)">Show Code</button>
+        <div id="calc-code1" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+
+<span class="comment"># 📊 Training data: y = 2x (true relationship)</span>
+x = np.array([1, 2, 3, 4, 5], dtype=float)
+y = np.array([2, 4, 6, 8, 10], dtype=float)
+
+<span class="comment"># �� Initialize parameters randomly</span>
+w = 0.0   <span class="comment"># weight (slope)</span>
+b = 0.0   <span class="comment"># bias (intercept)</span>
+lr = 0.01 <span class="comment"># learning rate (step size)</span>
+
+<span class="comment"># 📉 Track loss over time</span>
+losses = []
+
+<span class="comment"># 🔄 Gradient Descent Loop</span>
+<span class="keyword">for</span> epoch <span class="keyword">in</span> range(1000):
+    <span class="comment"># Step 1: Forward pass (predict)</span>
+    y_pred = w * x + b
+
+    <span class="comment"># Step 2: Compute loss (MSE)</span>
+    loss = np.mean((y - y_pred) ** 2)
+    losses.append(loss)
+
+    <span class="comment"># Step 3: Compute gradients (calculus!)</span>
+    dw = (-2 / len(x)) * np.sum(x * (y - y_pred))
+    db = (-2 / len(x)) * np.sum(y - y_pred)
+
+    <span class="comment"># Step 4: Update parameters</span>
+    w -= lr * dw
+    b -= lr * db
+
+    <span class="keyword">if</span> epoch % 200 == 0:
+        print(f<span class="string">"Epoch {epoch}: w={w:.4f}, b={b:.4f}, Loss={loss:.4f}"</span>)
+
+print(f<span class="string">"\n✅ Final: w = {w:.4f}, b = {b:.4f}"</span>)
+print(f<span class="string">"🎯 Expected: w = 2.0000, b = 0.0000"</span>)
+
+<span class="comment"># 📊 Plot loss curve</span>
+plt.figure(figsize=(10, 5))
+plt.plot(losses, color=<span class="string">'#38bdf8'</span>, linewidth=2)
+plt.xlabel(<span class="string">'Epoch'</span>); plt.ylabel(<span class="string">'Loss (MSE)'</span>)
+plt.title(<span class="string">'�� Gradient Descent: Loss Decreasing Over Time'</span>)
+plt.grid(alpha=0.2); plt.tight_layout(); plt.show()</code>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 14-16 WRAP UP                              -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">Wrap-Up & Review</h2>
+
+    <div class="task-card">
+        <h3 class="task-title">⚠️ 14. Common Mistakes</h3>
+        <ul style="color: #f87171; line-height: 1.8; margin-left: 1.5rem; margin-bottom: 2rem;">
+            <li><strong>Not understanding what a derivative means</strong> — It's not just a formula, it means "how fast is this changing?"</li>
+            <li><strong>Ignoring the chain rule</strong> — Without it, you can't do backpropagation. Period.</li>
+            <li><strong>Wrong learning rate</strong> — Too big = loss explodes. Too small = training takes forever. Always experiment!</li>
+            <li><strong>Memorizing formulas without intuition</strong> — Understand WHY we subtract the gradient (we want to go downhill, not uphill!).</li>
+        </ul>
+
+        <h3 class="task-title">📝 15. Summary</h3>
+        <div class="highlight-box" style="margin-bottom: 0;">
+            <h4 style="color: #fff; margin-bottom: 1rem; font-size: 1.1rem; text-align: center;">Calculus is the backbone of machine learning.</h4>
+            <ul style="color: var(--text-secondary); line-height: 1.8; margin-left: 1rem;">
+                <li><strong>Derivative</strong> = rate of change (how fast something changes).</li>
+                <li><strong>Gradient</strong> = direction of steepest ascent (vector of partial derivatives).</li>
+                <li><strong>Chain Rule</strong> = backbone of Backpropagation in neural networks.</li>
+                <li><strong>Gradient Descent</strong> = THE learning algorithm (θ = θ − α · gradient).</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 16. PRACTICE QUESTIONS -->
+    <div class="task-card" style="margin-top: 3rem; background: rgba(56, 189, 248, 0.05); border-color: rgba(56, 189, 248, 0.3);">
+        <h3 class="task-title" style="color: var(--accent-cyan); text-align: center;">🤔 16. Practice Questions</h3>
+        <ol style="color: var(--text-light); line-height: 2; margin-left: 20px; font-size: 1.1rem; max-width: 600px; margin: 0 auto; padding-left: 20px;">
+            <li>Find the derivative of x³ + 2x² and evaluate at x = 3.</li>
+            <li>Explain Gradient Descent in your own words (blindfolded mountain analogy).</li>
+            <li>What is the Chain Rule and why is it critical for neural networks?</li>
+            <li>Why is the derivative important in machine learning?</li>
+        </ol>
+    </div>
+
+    </div><!-- .container -->
+
+    <script src="script.js?v=2"></script>
+</body>
+</html>
