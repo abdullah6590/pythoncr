@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reinforcement Learning — Learning by Trial & Error</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .rl-loop-container { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin: 2rem 0; }
+        .rl-loop-step { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1.2rem; text-align: center; flex: 1; min-width: 140px; max-width: 180px; transition: transform 0.3s, box-shadow 0.3s; }
+        .rl-loop-step:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(56, 189, 248, 0.15); }
+        .rl-loop-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+        .rl-loop-arrow { display: flex; align-items: center; font-size: 1.5rem; color: var(--accent-cyan); }
+        .formula-showcase { font-size: 1.3rem; text-align: center; margin: 1.5rem 0; padding: 1.5rem; background: rgba(56, 189, 248, 0.08); border-radius: 8px; border: 1px dashed var(--accent-cyan); color: #fff; }
+        .math-expr { font-family: 'Fira Code', monospace; color: var(--accent-cyan); font-weight: bold; background: rgba(56, 189, 248, 0.1); padding: 0.2rem 0.4rem; border-radius: 4px;}
+        .highlight-box { background: rgba(167, 139, 250, 0.05); border-left: 4px solid var(--accent-purple); padding: 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem; }
+    </style>
+</head>
+<body>
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="container">
+
+    <nav class="top-nav">
+        <div class="dropdown">
+            <button class="dropbtn">🐍 Python <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="basics.html">📘 Basics</a>
+                <a href="index.html">🐍 Functions</a>
+                <a href="oop.html">🏗️ OOP</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">📚 Libraries <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="numpy.html">🧮 NumPy</a>
+                <a href="pandas.html">🐼 Pandas</a>
+                <a href="matplotlib.html">📊 Matplotlib</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn active">🤖 Machine Learning <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="ml-intro.html">🚀 Introduction</a>
+                <a href="ml-supervised.html">📊 Supervised Learning</a>
+                <a href="ml-classification-regression.html">🎯 Classification / Regression</a>
+                <a href="ml-unsupervised.html">🔍 Unsupervised Learning</a>
+                <a href="ml-reinforcement.html" class="active">🎮 Reinforcement Learning</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">➗ Mathematics <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="linear-algebra.html">📐 Linear Algebra</a>
+                <a href="probability.html">🎲 Probability</a>
+                <a href="statistics.html">📊 Statistics</a>
+                <a href="calculus.html">📈 Calculus</a>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <h1>🎮 Reinforcement Learning</h1>
+        <p>Learn by doing! The AI plays the game, makes mistakes, gets rewards, and becomes a master — just like how you learned to ride a bicycle! 🚴</p>
+    </header>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 6.0 INTRODUCTION                          -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">🧠 What is Reinforcement Learning?</h2>
+
+    <div class="storybook-intro">
+        <p>Imagine you're dropped into a new video game with <strong>no instructions, no tutorial, no guide</strong>. You press buttons randomly. Sometimes you score points 🏆, sometimes you lose a life 💀. Over time, you learn which buttons lead to rewards and which lead to disaster. <strong>Congratulations — you just did Reinforcement Learning!</strong> 🎮</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📖 The Definition</h3>
+        <p class="task-desc">
+            <strong>Reinforcement Learning (RL)</strong> is a type of machine learning where an <span class="highlight-term">agent</span> learns to make decisions by <span class="highlight-term">interacting with an environment</span>. It doesn't get labeled data like supervised learning — instead, it learns through <strong>trial and error</strong> by receiving rewards or penalties.
+        </p>
+        <div class="formula-showcase">
+            <strong>Goal: Learn a strategy that maximizes cumulative reward over time! 🏆</strong>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">⚔️ RL vs Other Types of ML</h3>
+        <div class="ml-data-table-wrapper">
+            <table class="ml-data-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>📊 Supervised</th>
+                        <th>🔍 Unsupervised</th>
+                        <th>🎮 Reinforcement</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Data</strong></td>
+                        <td>Labeled (X → Y)</td>
+                        <td>Unlabeled (X only)</td>
+                        <td>No data — learns by acting!</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Feedback</strong></td>
+                        <td>Correct answer given</td>
+                        <td>No feedback</td>
+                        <td>Reward or penalty (delayed)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Goal</strong></td>
+                        <td>Predict labels</td>
+                        <td>Find patterns</td>
+                        <td>Maximize total reward</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Analogy</strong></td>
+                        <td>Learning from a textbook</td>
+                        <td>Sorting a messy closet</td>
+                        <td>Learning to ride a bicycle</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Example</strong></td>
+                        <td>Spam classifier</td>
+                        <td>Customer segmentation</td>
+                        <td>AlphaGo beating world champion</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 6.1 BASIC CONCEPT                         -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">🔄 6.1 The Basic Concept — Learning by Interaction</h2>
+
+    <div class="storybook-intro">
+        <p>Think of training a dog 🐕. You say "sit." If the dog sits, you give it a treat (reward +1). If it jumps, no treat (reward 0). Over time, the dog learns: <strong>"Sitting = treats!"</strong> That's exactly how RL works — except the "dog" is an algorithm.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🔄 The RL Loop</h3>
+        <p class="task-desc">The entire process is a continuous loop:</p>
+
+        <div class="rl-loop-container">
+            <div class="rl-loop-step">
+                <div class="rl-loop-icon">👀</div>
+                <h4>Observe</h4>
+                <p style="font-size:0.8rem; color:var(--text-muted);">Agent sees the current state</p>
+            </div>
+            <div class="rl-loop-arrow">→</div>
+            <div class="rl-loop-step">
+                <div class="rl-loop-icon">🎯</div>
+                <h4>Act</h4>
+                <p style="font-size:0.8rem; color:var(--text-muted);">Agent takes an action</p>
+            </div>
+            <div class="rl-loop-arrow">→</div>
+            <div class="rl-loop-step">
+                <div class="rl-loop-icon">🌍</div>
+                <h4>Environment</h4>
+                <p style="font-size:0.8rem; color:var(--text-muted);">World changes state</p>
+            </div>
+            <div class="rl-loop-arrow">→</div>
+            <div class="rl-loop-step">
+                <div class="rl-loop-icon">🏆</div>
+                <h4>Reward</h4>
+                <p style="font-size:0.8rem; color:var(--text-muted);">Agent gets feedback</p>
+            </div>
+            <div class="rl-loop-arrow">→</div>
+            <div class="rl-loop-step">
+                <div class="rl-loop-icon">📈</div>
+                <h4>Learn</h4>
+                <p style="font-size:0.8rem; color:var(--text-muted);">Agent improves its strategy</p>
+            </div>
+        </div>
+
+        <div class="highlight-box" style="margin-top: 1rem; border-left-color: var(--accent-cyan); background: rgba(56, 189, 248, 0.05);">
+            <p style="text-align: center;"><strong>This loop repeats thousands or millions of times</strong> until the agent masters the task!</p>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🎮 Real Examples of the Loop</h3>
+        <div class="ml-reason-grid">
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🤖</div>
+                <h4>Robot Walking</h4>
+                <p><strong>State:</strong> Position of legs & balance<br><strong>Action:</strong> Move left leg forward<br><strong>Reward:</strong> +1 if stable, -10 if falls</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">♟️</div>
+                <h4>Chess AI</h4>
+                <p><strong>State:</strong> Board position<br><strong>Action:</strong> Move a piece<br><strong>Reward:</strong> +100 if wins, -100 if loses</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🚗</div>
+                <h4>Self-Driving Car</h4>
+                <p><strong>State:</strong> Camera feed, speed, GPS<br><strong>Action:</strong> Turn, brake, accelerate<br><strong>Reward:</strong> +1 per safe mile, -1000 for crash</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 6.2 COMPONENTS                            -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">🧩 6.2 Key Components</h2>
+
+    <div class="storybook-intro">
+        <p>Every RL system has 5 core components. Think of it like a video game: <strong>You</strong> (agent) play in a <strong>world</strong> (environment), see the <strong>screen</strong> (state), press <strong>buttons</strong> (actions), and get <strong>points</strong> (rewards)! 🕹️</p>
+    </div>
+
+    <div class="task-card">
+        <div class="ml-reason-grid">
+            <div class="ml-reason-card" style="border-top: 3px solid #38bdf8;">
+                <div class="ml-reason-icon">🤖</div>
+                <h4 style="color: #38bdf8;">Agent</h4>
+                <p>The <strong>learner and decision-maker</strong>. This is the AI that learns from experience.</p>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Examples: Robot, game-playing AI, trading bot</p>
+            </div>
+            <div class="ml-reason-card" style="border-top: 3px solid #a78bfa;">
+                <div class="ml-reason-icon">🌍</div>
+                <h4 style="color: #a78bfa;">Environment</h4>
+                <p>The <strong>external world</strong> the agent interacts with. It reacts to the agent's actions.</p>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Examples: Game world, road, stock market</p>
+            </div>
+            <div class="ml-reason-card" style="border-top: 3px solid #34d399;">
+                <div class="ml-reason-icon">📍</div>
+                <h4 style="color: #34d399;">State (S<sub>t</sub>)</h4>
+                <p>The <strong>current situation</strong> of the agent. A snapshot of everything the agent can observe.</p>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Examples: Board position, sensor readings, pixel data</p>
+            </div>
+        </div>
+        <div class="ml-comparison-grid" style="margin-top: 1rem;">
+            <div class="ml-compare-box" style="background: rgba(251, 191, 36, 0.06); border-color: rgba(251, 191, 36, 0.2);">
+                <h4 style="color: #fbbf24;">🎯 Action (A<sub>t</sub>)</h4>
+                <p>The <strong>decision</strong> made by the agent at each step.</p>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Can be <strong>discrete</strong> (left/right/jump) or <strong>continuous</strong> (turn steering wheel 15°).</p>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(239, 68, 68, 0.06); border-color: rgba(239, 68, 68, 0.2);">
+                <h4 style="color: #f87171;">🏆 Reward (R<sub>t</sub>)</h4>
+                <p>The <strong>feedback signal</strong> from the environment. Positive = good, Negative = bad.</p>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">The <strong>only teaching signal</strong> the agent gets! No labels, no correct answers — just rewards.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 6.3 LEARNING PROCESS                      -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">📋 6.3 The Learning Process</h2>
+
+    <div class="task-card">
+        <h3 class="task-title">🔄 Step-by-Step Process</h3>
+        <p class="task-desc">The RL process is a continuous cycle that repeats until the agent masters its task:</p>
+
+        <div class="ml-workflow-pipeline" style="margin-top: 1.5rem;">
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">1</div>
+                <div class="ml-step-content">
+                    <h4>👀 Observe State (S<sub>t</sub>)</h4>
+                    <p>The agent looks at its current situation — where am I? What do I see?</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">2</div>
+                <div class="ml-step-content">
+                    <h4>🎯 Select Action (A<sub>t</sub>)</h4>
+                    <p>Based on its current strategy (policy), the agent decides what to do.</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">3</div>
+                <div class="ml-step-content">
+                    <h4>🌍 Environment Transitions (S<sub>t+1</sub>)</h4>
+                    <p>The world changes! The agent lands in a new state as a result of its action.</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">4</div>
+                <div class="ml-step-content">
+                    <h4>🏆 Receive Reward (R<sub>t</sub>)</h4>
+                    <p>The environment gives feedback: +10 for good moves, -5 for bad ones.</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step ml-workflow-step-final">
+                <div class="ml-step-number">5</div>
+                <div class="ml-step-content">
+                    <h4>�� Update Policy & Repeat!</h4>
+                    <p>The agent updates its strategy based on the reward. Go back to step 1!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 6.4 POLICY & OBJECTIVE                    -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">🧭 6.4 Policy, Objective & Key Concepts</h2>
+
+    <div class="task-card">
+        <h3 class="task-title">📜 Policy (π) — The Agent's Strategy</h3>
+        <p class="task-desc">A <span class="highlight-term">policy</span> is the agent's brain — it defines <strong>which action to take in which state</strong>. It's like a rule book:</p>
+
+        <div class="formula-showcase"><span class="math-expr" style="font-size: 1.5rem;">π(a|s) = Probability of action a in state s</span></div>
+
+        <div class="ml-comparison-grid" style="margin-top: 1.5rem;">
+            <div class="ml-compare-box" style="background: rgba(56, 189, 248, 0.06); border-color: rgba(56, 189, 248, 0.2);">
+                <h4 style="color: var(--accent-cyan);">📖 Deterministic Policy</h4>
+                <p>"In state X, <strong>always</strong> do action A."</p>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Like a recipe: "If the light is red, STOP."</p>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(167, 139, 250, 0.06); border-color: rgba(167, 139, 250, 0.2);">
+                <h4 style="color: var(--accent-purple);">🎲 Stochastic Policy</h4>
+                <p>"In state X, do action A with <strong>70% probability</strong> and B with 30%."</p>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Adds randomness — useful for exploration!</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🎯 The Objective — Maximize Total Reward</h3>
+        <p class="task-desc">The agent doesn't just want the next reward — it wants the <strong>maximum total reward over its entire lifetime</strong>:</p>
+
+        <div class="formula-showcase"><span class="math-expr" style="font-size: 1.5rem;">G<sub>t</sub> = R<sub>t</sub> + γR<sub>t+1</sub> + γ²R<sub>t+2</sub> + ...</span></div>
+
+        <div class="ml-reason-grid" style="margin-top: 1.5rem;">
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🏆</div>
+                <h4>G<sub>t</sub> = Total Return</h4>
+                <p>The <strong>cumulative reward</strong> from time t onwards. This is what the agent maximizes!</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">⏳</div>
+                <h4>γ = Discount Factor</h4>
+                <p>Value between 0 and 1. Controls how much the agent cares about <strong>future vs immediate</strong> rewards.</p>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">γ = 0.99 → Long-term thinker<br>γ = 0.1 → Lives in the moment</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">💡</div>
+                <h4>Why Discount?</h4>
+                <p>A reward <strong>now</strong> is worth more than a reward <strong>later</strong> (just like money!). $100 today > $100 next year.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🔬 Exploration vs Exploitation <span style="color:#ef4444; font-size: 0.9rem; vertical-align:middle; background:rgba(239, 68, 68, 0.1); padding: 4px 8px; border-radius: 4px; border: 1px solid #ef4444;">KEY DILEMMA 🔥</span></h3>
+        <p class="task-desc">The most famous tradeoff in RL! Should the agent try something new or stick with what works?</p>
+
+        <div class="ml-comparison-grid" style="margin-top: 1rem;">
+            <div class="ml-compare-box" style="background: rgba(56, 189, 248, 0.06); border-color: rgba(56, 189, 248, 0.2);">
+                <h4 style="color: var(--accent-cyan);">🔍 Exploration</h4>
+                <p><strong>Try new, unknown actions</strong> to discover potentially better strategies.</p>
+                <div class="ml-example-box" style="margin-top: 0.75rem;">
+                    <p>Like trying a new restaurant — you might find your new favorite... or get food poisoning! 🍽️</p>
+                </div>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(167, 139, 250, 0.06); border-color: rgba(167, 139, 250, 0.2);">
+                <h4 style="color: var(--accent-purple);">💰 Exploitation</h4>
+                <p><strong>Use the best known action</strong> to maximize immediate reward.</p>
+                <div class="ml-example-box" style="margin-top: 0.75rem;">
+                    <p>Like always going to your favorite restaurant — safe, reliable, but you might miss better options! 🍕</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="highlight-box" style="margin-top: 1.5rem;">
+            <h4 style="color: var(--accent-purple); margin-bottom: 0.5rem;">💡 The ε-Greedy Strategy</h4>
+            <p>The most common solution! With probability <span class="math-expr">ε</span> (e.g., 10%), explore randomly. With probability <span class="math-expr">1-ε</span> (90%), exploit the best known action. Start with high ε (explore a lot) and decrease it over time (exploit more)!</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- KEY ALGORITHMS                            -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">⚡ Key RL Algorithms</h2>
+
+    <div class="storybook-intro">
+        <p>There are many RL algorithms, but these are the ones every ML student should know! They range from simple table-based methods to powerful deep learning approaches.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📊 Q-Learning — The Classic!</h3>
+        <p class="task-desc">Q-Learning builds a <span class="highlight-term">Q-Table</span> that stores the expected reward for each (state, action) pair. It's like a cheat sheet: "In state X, action A gives reward 10, action B gives reward 3 — so pick A!"</p>
+
+        <div class="formula-showcase"><span class="math-expr">Q(s,a) ← Q(s,a) + α[R + γ·max Q(s',a') − Q(s,a)]</span></div>
+
+        <div class="ml-reason-grid" style="margin-top: 1rem;">
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">📋</div>
+                <h4>Q-Table</h4>
+                <p>A lookup table with rows = states, columns = actions, values = expected rewards.</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🔄</div>
+                <h4>Update Rule</h4>
+                <p>After each action, update the table using the reward received and the best future reward.</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">✅</div>
+                <h4>Convergence</h4>
+                <p>Given enough time, Q-Learning is <strong>guaranteed</strong> to find the optimal policy!</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🧠 Deep Q-Network (DQN) — Q-Learning + Neural Networks</h3>
+        <p class="task-desc">When the state space is too large for a table (e.g., pixels of a game screen), we use a <span class="highlight-term">neural network</span> to approximate the Q-values instead!</p>
+
+        <div class="ml-comparison-grid" style="margin-top: 1rem;">
+            <div class="ml-compare-box" style="background: rgba(56, 189, 248, 0.06); border-color: rgba(56, 189, 248, 0.2);">
+                <h4 style="color: var(--accent-cyan);">Q-Learning (Table)</h4>
+                <p>Works for <strong>small</strong> state spaces (e.g., tic-tac-toe).</p>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">State space: ~10³ states</p>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(167, 139, 250, 0.06); border-color: rgba(167, 139, 250, 0.2);">
+                <h4 style="color: var(--accent-purple);">DQN (Neural Network)</h4>
+                <p>Works for <strong>massive</strong> state spaces (e.g., Atari games, robotics).</p>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">State space: ~10⁷⁰ states! 🤯</p>
+            </div>
+        </div>
+
+        <div class="highlight-box" style="margin-top: 1.5rem; border-left-color: var(--accent-cyan); background: rgba(56, 189, 248, 0.05);">
+            <h4 style="color: var(--accent-cyan); margin-bottom: 0.5rem;">🎮 DeepMind's Breakthrough (2013)</h4>
+            <p>DQN was the algorithm that played <strong>Atari games at superhuman level</strong> using only raw pixel input. It learned to play Breakout, Pong, and Space Invaders better than humans — without being told the rules!</p>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🎯 Policy Gradient Methods</h3>
+        <p class="task-desc">Instead of learning values (Q-table), <strong>Policy Gradient</strong> methods directly learn the <span class="highlight-term">policy</span> (the strategy itself).</p>
+
+        <div class="ml-reason-grid" style="margin-top: 1rem;">
+            <div class="ml-reason-card" style="border-top: 3px solid #38bdf8;">
+                <h4 style="color: #38bdf8;">REINFORCE</h4>
+                <p>The simplest policy gradient. Uses Monte Carlo sampling to estimate gradients. Good for learning but <strong>high variance</strong>.</p>
+            </div>
+            <div class="ml-reason-card" style="border-top: 3px solid #a78bfa;">
+                <h4 style="color: #a78bfa;">Actor-Critic (A2C/A3C)</h4>
+                <p>Combines value learning (critic) and policy learning (actor). <strong>Lower variance</strong>, faster learning!</p>
+            </div>
+            <div class="ml-reason-card" style="border-top: 3px solid #34d399;">
+                <h4 style="color: #34d399;">PPO (Proximal Policy Optimization)</h4>
+                <p>The industry standard! Used by <strong>OpenAI (ChatGPT uses RLHF with PPO!)</strong>. Stable, reliable, and scalable.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 6.5 APPLICATIONS                          -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">🌍 6.5 Real-World Applications</h2>
+
+    <div class="ml-apps-grid">
+        <div class="task-card ml-app-card">
+            <div class="ml-app-icon">🎮</div>
+            <h3 class="task-title">Game Playing</h3>
+            <ul class="ml-app-list">
+                <li><strong>AlphaGo:</strong> Beat world champion at Go</li>
+                <li><strong>OpenAI Five:</strong> Beat pros at Dota 2</li>
+                <li><strong>DQN:</strong> Superhuman at Atari games</li>
+            </ul>
+        </div>
+
+        <div class="task-card ml-app-card">
+            <div class="ml-app-icon">🚗</div>
+            <h3 class="task-title">Autonomous Vehicles</h3>
+            <ul class="ml-app-list">
+                <li>Self-driving cars (Tesla, Waymo)</li>
+                <li>Drone navigation & delivery</li>
+                <li>Traffic signal optimization</li>
+            </ul>
+        </div>
+
+        <div class="task-card ml-app-card">
+            <div class="ml-app-icon">🤖</div>
+            <h3 class="task-title">Robotics</h3>
+            <ul class="ml-app-list">
+                <li>Robot arm manipulation</li>
+                <li>Walking & balancing robots</li>
+                <li>Warehouse automation</li>
+            </ul>
+        </div>
+
+        <div class="task-card ml-app-card">
+            <div class="ml-app-icon">💬</div>
+            <h3 class="task-title">LLMs & ChatGPT</h3>
+            <ul class="ml-app-list">
+                <li>RLHF (RL from Human Feedback)</li>
+                <li>Makes AI responses helpful & safe</li>
+                <li>Used by ChatGPT, Claude, Gemini</li>
+            </ul>
+        </div>
+
+        <div class="task-card ml-app-card">
+            <div class="ml-app-icon">💰</div>
+            <h3 class="task-title">Finance</h3>
+            <ul class="ml-app-list">
+                <li>Portfolio optimization</li>
+                <li>Algorithmic trading</li>
+                <li>Risk management</li>
+            </ul>
+        </div>
+
+        <div class="task-card ml-app-card">
+            <div class="ml-app-icon">🏥</div>
+            <h3 class="task-title">Healthcare</h3>
+            <ul class="ml-app-list">
+                <li>Personalized treatment plans</li>
+                <li>Drug dosage optimization</li>
+                <li>Clinical trial design</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- PYTHON CODE                               -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">💻 Python Implementation</h2>
+
+    <div class="storybook-intro">
+        <p>Let's build a simple Q-Learning agent that navigates a grid world! 🧑‍💻 Run this in <a href="https://colab.research.google.com" target="_blank" style="color: var(--accent-cyan); text-decoration: underline;">Google Colab</a>.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🗺️ Q-Learning: Grid World Navigation</h3>
+        <p class="task-desc">Our agent starts at position (0,0) and must reach the goal at (4,4) in a 5×5 grid. It learns the best path through trial and error!</p>
+        <button class="btn-toggle" onclick="toggleCode('rl-code1', this)">Show Code</button>
+        <div id="rl-code1" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+
+<span class="comment"># 🗺️ Simple Grid World (5x5)</span>
+GRID_SIZE = 5
+ACTIONS = [<span class="string">'up'</span>, <span class="string">'down'</span>, <span class="string">'left'</span>, <span class="string">'right'</span>]  <span class="comment"># 4 possible actions</span>
+GOAL = (4, 4)     <span class="comment"># Goal position</span>
+START = (0, 0)    <span class="comment"># Start position</span>
+
+<span class="comment"># 📊 Initialize Q-Table (states × actions) with zeros</span>
+Q = np.zeros((GRID_SIZE, GRID_SIZE, len(ACTIONS)))
+
+<span class="comment"># ⚙️ Hyperparameters</span>
+alpha = 0.1       <span class="comment"># Learning rate</span>
+gamma = 0.95      <span class="comment"># Discount factor</span>
+epsilon = 1.0     <span class="comment"># Exploration rate (starts high!)</span>
+epsilon_decay = 0.995
+episodes = 1000
+
+<span class="keyword">def</span> get_next_state(state, action):
+    r, c = state
+    <span class="keyword">if</span> action == 0 <span class="keyword">and</span> r > 0: r -= 1          <span class="comment"># up</span>
+    <span class="keyword">elif</span> action == 1 <span class="keyword">and</span> r < GRID_SIZE-1: r += 1  <span class="comment"># down</span>
+    <span class="keyword">elif</span> action == 2 <span class="keyword">and</span> c > 0: c -= 1          <span class="comment"># left</span>
+    <span class="keyword">elif</span> action == 3 <span class="keyword">and</span> c < GRID_SIZE-1: c += 1  <span class="comment"># right</span>
+    <span class="keyword">return</span> (r, c)
+
+<span class="keyword">def</span> get_reward(state):
+    <span class="keyword">if</span> state == GOAL: <span class="keyword">return</span> 100   <span class="comment"># 🏆 Reached the goal!</span>
+    <span class="keyword">return</span> -1                     <span class="comment"># ⏱️ Small penalty per step</span>
+
+<span class="comment"># 🔄 Training Loop</span>
+rewards_per_episode = []
+
+<span class="keyword">for</span> episode <span class="keyword">in</span> range(episodes):
+    state = START
+    total_reward = 0
+
+    <span class="keyword">for</span> step <span class="keyword">in</span> range(100):  <span class="comment"># Max 100 steps per episode</span>
+        <span class="comment"># ε-Greedy: Explore or Exploit?</span>
+        <span class="keyword">if</span> np.random.random() < epsilon:
+            action = np.random.randint(4)      <span class="comment"># 🔍 Explore!</span>
+        <span class="keyword">else</span>:
+            action = np.argmax(Q[state[0], state[1]])  <span class="comment"># 💰 Exploit!</span>
+
+        <span class="comment"># Take action, observe result</span>
+        next_state = get_next_state(state, action)
+        reward = get_reward(next_state)
+        total_reward += reward
+
+        <span class="comment"># 📈 Q-Learning Update!</span>
+        old_q = Q[state[0], state[1], action]
+        next_max = np.max(Q[next_state[0], next_state[1]])
+        Q[state[0], state[1], action] = old_q + alpha * (reward + gamma * next_max - old_q)
+
+        state = next_state
+        <span class="keyword">if</span> state == GOAL: <span class="keyword">break</span>
+
+    rewards_per_episode.append(total_reward)
+    epsilon *= epsilon_decay  <span class="comment"># Decay exploration</span>
+
+<span class="comment"># 📊 Plot learning curve</span>
+plt.figure(figsize=(10, 5))
+plt.plot(rewards_per_episode, alpha=0.3, color=<span class="string">'#38bdf8'</span>)
+plt.plot(np.convolve(rewards_per_episode, np.ones(50)/50, mode=<span class="string">'valid'</span>),
+         color=<span class="string">'#a78bfa'</span>, linewidth=2, label=<span class="string">'Moving Average'</span>)
+plt.xlabel(<span class="string">'Episode'</span>); plt.ylabel(<span class="string">'Total Reward'</span>)
+plt.title(<span class="string">'🎮 Q-Learning: Agent Learning Over Time'</span>)
+plt.legend(); plt.grid(alpha=0.2); plt.tight_layout(); plt.show()
+
+print(f<span class="string">"🏆 Agent learned! Final avg reward: {np.mean(rewards_per_episode[-50:]):.1f}"</span>)</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🗺️ Visualize the Learned Policy</h3>
+        <p class="task-desc">After training, let's see what strategy the agent learned — which direction does it go in each cell?</p>
+        <button class="btn-toggle" onclick="toggleCode('rl-code2', this)">Show Code</button>
+        <div id="rl-code2" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="comment"># 🗺️ Visualize the learned policy!</span>
+arrows = [<span class="string">'↑'</span>, <span class="string">'↓'</span>, <span class="string">'←'</span>, <span class="string">'→'</span>]
+
+print(<span class="string">"🗺️ Learned Policy (Best Action per Cell):"</span>)
+print(<span class="string">"="</span> * 25)
+<span class="keyword">for</span> r <span class="keyword">in</span> range(GRID_SIZE):
+    row = <span class="string">""</span>
+    <span class="keyword">for</span> c <span class="keyword">in</span> range(GRID_SIZE):
+        <span class="keyword">if</span> (r, c) == GOAL:
+            row += <span class="string">" 🏆 "</span>
+        <span class="keyword">else</span>:
+            best = np.argmax(Q[r, c])
+            row += f<span class="string">" {arrows[best]}  "</span>
+    print(row)
+print(<span class="string">"="</span> * 25)
+print(<span class="string">"🎯 The arrows show the optimal path to the goal!"</span>)</code>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- WRAP-UP                                   -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">Wrap-Up & Review</h2>
+
+    <div class="task-card">
+        <h3 class="task-title">⚠️ Common Mistakes</h3>
+        <ul style="color: #f87171; line-height: 1.8; margin-left: 1.5rem; margin-bottom: 2rem;">
+            <li><strong>Not balancing exploration and exploitation</strong> — Too much exploration = never converges. Too much exploitation = gets stuck in local optima.</li>
+            <li><strong>Reward shaping gone wrong</strong> — If the reward function is poorly designed, the agent will find shortcuts! (e.g., a cleaning robot might learn to close its eyes so it can't see dirt).</li>
+            <li><strong>Expecting fast training</strong> — RL agents often need <strong>millions of episodes</strong> to learn. It's computationally expensive!</li>
+            <li><strong>Forgetting the discount factor</strong> — Without γ, the agent can't distinguish between getting a reward now vs in 1000 steps.</li>
+        </ul>
+
+        <h3 class="task-title">📝 Summary</h3>
+        <div class="highlight-box" style="margin-bottom: 0;">
+            <h4 style="color: #fff; margin-bottom: 1rem; font-size: 1.1rem; text-align: center;">RL = An agent learns by interacting with an environment through trial and error.</h4>
+            <ul style="color: var(--text-secondary); line-height: 1.8; margin-left: 1rem;">
+                <li><strong>Agent</strong> takes actions, <strong>Environment</strong> gives rewards.</li>
+                <li><strong>Policy</strong> = the agent's strategy (which action in which state).</li>
+                <li><strong>Q-Learning</strong> builds a cheat-sheet table of best actions.</li>
+                <li><strong>DQN</strong> uses neural networks for massive state spaces.</li>
+                <li><strong>Exploration vs Exploitation</strong> = the fundamental RL tradeoff.</li>
+                <li><strong>PPO</strong> is used in training ChatGPT (RLHF)!</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Practice Questions -->
+    <div class="task-card" style="margin-top: 3rem; background: rgba(56, 189, 248, 0.05); border-color: rgba(56, 189, 248, 0.3);">
+        <h3 class="task-title" style="color: var(--accent-cyan); text-align: center;">🤔 Practice Questions</h3>
+        <ol style="color: var(--text-light); line-height: 2; margin-left: 20px; font-size: 1.1rem; max-width: 600px; margin: 0 auto; padding-left: 20px;">
+            <li>What are the 5 key components of a reinforcement learning system?</li>
+            <li>Explain the Exploration vs Exploitation dilemma with a real-world analogy.</li>
+            <li>What is a Q-Table and how does Q-Learning update it?</li>
+            <li>Why is a discount factor (γ) important? What happens if γ = 0?</li>
+            <li>How does DQN differ from basic Q-Learning?</li>
+            <li>Name 3 real-world applications of reinforcement learning.</li>
+        </ol>
+    </div>
+
+    </div><!-- .container -->
+
+    <script src="script.js?v=2"></script>
+</body>
+</html>
