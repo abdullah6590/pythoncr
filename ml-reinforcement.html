@@ -382,6 +382,250 @@
     </div>
 
     <!-- ═══════════════════════════════════════════ -->
+    <!-- MDP — MARKOV DECISION PROCESS              -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">📐 Markov Decision Process (MDP)</h2>
+
+    <div class="storybook-intro">
+        <p>Before we dive into algorithms, we need the <strong>mathematical framework</strong> behind RL. Every RL problem can be modeled as an <strong>MDP</strong> — it's the language RL speaks! 🧮</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📖 What is an MDP?</h3>
+        <p class="task-desc">
+            A <strong>Markov Decision Process</strong> is a mathematical framework for modeling decision-making where outcomes are partly random and partly under the control of the agent. It's defined by a <span class="highlight-term">tuple of 5 elements</span>:
+        </p>
+        <div class="formula-showcase"><span class="math-expr" style="font-size: 1.5rem;">MDP = (S, A, P, R, γ)</span></div>
+
+        <div class="ml-reason-grid" style="margin-top: 1.5rem;">
+            <div class="ml-reason-card" style="border-top: 3px solid #38bdf8;">
+                <h4 style="color: #38bdf8;">S = State Space</h4>
+                <p>All possible states the agent can be in.</p>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Chess: All possible board positions</p>
+            </div>
+            <div class="ml-reason-card" style="border-top: 3px solid #a78bfa;">
+                <h4 style="color: #a78bfa;">A = Action Space</h4>
+                <p>All possible actions the agent can take.</p>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Chess: All legal moves from current position</p>
+            </div>
+            <div class="ml-reason-card" style="border-top: 3px solid #34d399;">
+                <h4 style="color: #34d399;">P = Transition Probability</h4>
+                <p>P(s'|s,a) — probability of reaching state s' after taking action a in state s.</p>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">The "rules" of the world</p>
+            </div>
+        </div>
+        <div class="ml-comparison-grid" style="margin-top: 1rem;">
+            <div class="ml-compare-box" style="background: rgba(251, 191, 36, 0.06); border-color: rgba(251, 191, 36, 0.2);">
+                <h4 style="color: #fbbf24;">R = Reward Function</h4>
+                <p>R(s, a, s') — reward received after transitioning from state s to s' via action a.</p>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(239, 68, 68, 0.06); border-color: rgba(239, 68, 68, 0.2);">
+                <h4 style="color: #f87171;">γ = Discount Factor</h4>
+                <p>How much to value future rewards (0 to 1). γ=0.99 means future is almost as important as present!</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🔑 The Markov Property</h3>
+        <p class="task-desc">
+            The key assumption: <strong>The future depends only on the present state, not on how you got there.</strong>
+        </p>
+        <div class="formula-showcase"><span class="math-expr">P(S<sub>t+1</sub> | S<sub>t</sub>) = P(S<sub>t+1</sub> | S<sub>1</sub>, S<sub>2</sub>, ..., S<sub>t</sub>)</span></div>
+        <div class="highlight-box" style="margin-top: 1rem; border-left-color: var(--accent-cyan); background: rgba(56, 189, 248, 0.05);">
+            <p><strong>🎮 Analogy:</strong> In chess, the next move only depends on the <em>current board</em> — not the history of moves that led there. The board tells you everything you need to know!</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- VALUE FUNCTIONS + BELLMAN EQUATION          -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">📊 Value Functions & The Bellman Equation</h2>
+
+    <div class="storybook-intro">
+        <p>If the policy is the agent's <em>strategy</em>, then value functions measure <em>how good</em> that strategy is. They answer: <strong>"How valuable is it to be in this state?"</strong> 💰</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📈 Two Types of Value Functions</h3>
+        <div class="ml-comparison-grid">
+            <div class="ml-compare-box" style="background: rgba(56, 189, 248, 0.06); border-color: rgba(56, 189, 248, 0.2);">
+                <h4 style="color: var(--accent-cyan);">V(s) — State-Value Function</h4>
+                <p>"<strong>How good is it to be in state s?</strong>"</p>
+                <p style="margin-top: 0.5rem;">Expected total reward starting from state s, following policy π.</p>
+                <div class="formula-showcase" style="font-size: 1rem; padding: 0.8rem;"><span class="math-expr">V<sup>π</sup>(s) = E[G<sub>t</sub> | S<sub>t</sub> = s]</span></div>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">Example: Being one move from checkmate → V(s) is very high!</p>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(167, 139, 250, 0.06); border-color: rgba(167, 139, 250, 0.2);">
+                <h4 style="color: var(--accent-purple);">Q(s,a) — Action-Value Function</h4>
+                <p>"<strong>How good is it to take action a in state s?</strong>"</p>
+                <p style="margin-top: 0.5rem;">Expected total reward starting from state s, taking action a, then following policy π.</p>
+                <div class="formula-showcase" style="font-size: 1rem; padding: 0.8rem;"><span class="math-expr">Q<sup>π</sup>(s,a) = E[G<sub>t</sub> | S<sub>t</sub> = s, A<sub>t</sub> = a]</span></div>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">This is what Q-Learning learns! The "Q" in Q-Learning = Q-value!</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">⚡ The Bellman Equation <span style="color:#ef4444; font-size: 0.9rem; vertical-align:middle; background:rgba(239, 68, 68, 0.1); padding: 4px 8px; border-radius: 4px; border: 1px solid #ef4444;">FOUNDATION OF RL 🏛️</span></h3>
+        <p class="task-desc">Named after Richard Bellman, this equation is the <strong>mathematical heart of ALL RL</strong>. It breaks down value into <span class="highlight-term">immediate reward + discounted future value</span>:</p>
+
+        <div class="formula-showcase"><span class="math-expr" style="font-size: 1.3rem;">V(s) = R(s) + γ · max V(s')</span></div>
+
+        <p class="task-desc" style="margin-top: 1rem;">In plain English: <em>"The value of a state = the reward you get now + the discounted value of the best next state."</em></p>
+
+        <div class="highlight-box" style="margin-top: 1rem; border-left-color: var(--accent-cyan); background: rgba(56, 189, 248, 0.05);">
+            <h4 style="color: var(--accent-cyan); margin-bottom: 0.5rem;">🎮 Restaurant Analogy</h4>
+            <p>How good is your current seat at a restaurant? It equals: <strong>the appetizer quality (immediate reward)</strong> + <strong>how good the main course will be (future value)</strong>. The Bellman equation says: rate the whole dinner by combining what you have now with what's coming next!</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- MODEL-BASED vs MODEL-FREE                  -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">🗂️ Types of RL: Model-Based vs Model-Free</h2>
+
+    <div class="task-card">
+        <h3 class="task-title">🧭 The Big Picture — RL Algorithm Taxonomy</h3>
+        <div class="ml-comparison-grid">
+            <div class="ml-compare-box" style="background: rgba(56, 189, 248, 0.06); border-color: rgba(56, 189, 248, 0.2);">
+                <h4 style="color: var(--accent-cyan);">🗺️ Model-Based RL</h4>
+                <p>The agent <strong>builds a model of the environment</strong> (learns transition probabilities P and reward R), then plans using that model.</p>
+                <div class="ml-example-box" style="margin-top: 0.75rem;">
+                    <p><strong>Analogy:</strong> Like studying a map before driving. You plan the best route using the map (model).</p>
+                    <p style="margin-top: 0.5rem;"><strong>Algorithms:</strong> Dyna-Q, World Models, MuZero</p>
+                </div>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(167, 139, 250, 0.06); border-color: rgba(167, 139, 250, 0.2);">
+                <h4 style="color: var(--accent-purple);">🎯 Model-Free RL</h4>
+                <p>The agent <strong>doesn't build a model</strong> — it learns directly from experience (trial and error). Most RL you've seen is model-free!</p>
+                <div class="ml-example-box" style="margin-top: 0.75rem;">
+                    <p><strong>Analogy:</strong> Like driving without a map — you learn by exploring roads yourself. Takes longer but works everywhere!</p>
+                    <p style="margin-top: 0.5rem;"><strong>Algorithms:</strong> Q-Learning, SARSA, DQN, PPO</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🔀 On-Policy vs Off-Policy</h3>
+        <p class="task-desc">Within model-free RL, there's another important split:</p>
+        <div class="ml-comparison-grid" style="margin-top: 1rem;">
+            <div class="ml-compare-box" style="background: rgba(52, 211, 153, 0.06); border-color: rgba(52, 211, 153, 0.2);">
+                <h4 style="color: #34d399;">📋 On-Policy (e.g., SARSA)</h4>
+                <p>Learns from the actions the agent <strong>actually takes</strong>. Updates based on the <em>current</em> policy.</p>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Like a student learning from their <em>own</em> exam mistakes.</p>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(251, 191, 36, 0.06); border-color: rgba(251, 191, 36, 0.2);">
+                <h4 style="color: #fbbf24;">🔄 Off-Policy (e.g., Q-Learning)</h4>
+                <p>Learns from the <strong>best possible action</strong>, even if the agent took a different one. Can learn from other agents' experiences!</p>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Like a student learning from <em>someone else's</em> exam solutions.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SARSA + TD LEARNING                        -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <div class="task-card">
+        <h3 class="task-title">🔄 SARSA — The On-Policy Alternative to Q-Learning</h3>
+        <p class="task-desc"><strong>SARSA</strong> stands for <span class="highlight-term">State-Action-Reward-State-Action</span>. Unlike Q-Learning (which uses the best next action), SARSA updates based on the action the agent <em>actually takes</em> next.</p>
+
+        <div class="formula-showcase"><span class="math-expr">Q(s,a) ← Q(s,a) + α[R + γ · Q(s',a') − Q(s,a)]</span></div>
+
+        <div class="ml-comparison-grid" style="margin-top: 1.5rem;">
+            <div class="ml-compare-box" style="background: rgba(56, 189, 248, 0.06); border-color: rgba(56, 189, 248, 0.2);">
+                <h4>Q-Learning Update</h4>
+                <p>Uses <span class="math-expr">max Q(s',a')</span> — the <strong>best</strong> possible next action.</p>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">More optimistic, learns faster, but can be risky.</p>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(167, 139, 250, 0.06); border-color: rgba(167, 139, 250, 0.2);">
+                <h4>SARSA Update</h4>
+                <p>Uses <span class="math-expr">Q(s',a')</span> — the <strong>actual</strong> next action taken.</p>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">More cautious, safer policies (avoids cliffs!).</p>
+            </div>
+        </div>
+
+        <div class="highlight-box" style="margin-top: 1.5rem;">
+            <h4 style="color: var(--accent-purple); margin-bottom: 0.5rem;">🏔️ The Cliff Walking Example</h4>
+            <p>Imagine a grid with a cliff along the edge. <strong>Q-Learning</strong> learns the shortest path (right along the cliff edge — risky!). <strong>SARSA</strong> learns a longer but safer path (away from the cliff). SARSA is more "cautious" because it accounts for its own exploration mistakes!</p>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📈 Temporal Difference (TD) Learning</h3>
+        <p class="task-desc"><strong>TD Learning</strong> is the foundation behind both Q-Learning and SARSA. It combines ideas from <span class="highlight-term">Monte Carlo</span> (learn from experience) and <span class="highlight-term">Dynamic Programming</span> (use the Bellman equation).</p>
+
+        <div class="ml-reason-grid" style="margin-top: 1rem;">
+            <div class="ml-reason-card" style="border-top: 3px solid #38bdf8;">
+                <h4 style="color: #38bdf8;">Monte Carlo</h4>
+                <p>Wait until the <strong>END</strong> of an episode to update. Uses actual total return.</p>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Like grading a student only at the end of the semester.</p>
+            </div>
+            <div class="ml-reason-card" style="border-top: 3px solid #a78bfa;">
+                <h4 style="color: #a78bfa;">TD Learning</h4>
+                <p>Update after <strong>EVERY step</strong> using current reward + estimated future. Much faster!</p>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Like giving feedback after each quiz — learn faster!</p>
+            </div>
+            <div class="ml-reason-card" style="border-top: 3px solid #34d399;">
+                <h4 style="color: #34d399;">Dynamic Programming</h4>
+                <p>Uses the Bellman equation but needs a <strong>complete model</strong> of the environment.</p>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Like having the answer key — great but unrealistic!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- RLHF                                       -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">💬 RLHF — RL from Human Feedback</h2>
+
+    <div class="storybook-intro">
+        <p>This is how <strong>ChatGPT, Claude, and Gemini</strong> are trained! RLHF is the secret sauce that makes AI assistants helpful, harmless, and honest. It's the hottest topic in modern AI! 🔥</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📖 How RLHF Works</h3>
+        <p class="task-desc">Training a language model with RLHF has <span class="highlight-term">3 phases</span>:</p>
+
+        <div class="ml-workflow-pipeline" style="margin-top: 1.5rem;">
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">1</div>
+                <div class="ml-step-content">
+                    <h4>📚 Pre-train the LLM</h4>
+                    <p>Train a large language model on internet text (standard supervised learning). It can now generate text, but it might say anything!</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">2</div>
+                <div class="ml-step-content">
+                    <h4>👩‍⚖️ Train a Reward Model</h4>
+                    <p>Humans rank different AI responses: "Response A is better than Response B." This trains a <strong>reward model</strong> that predicts human preference.</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step ml-workflow-step-final">
+                <div class="ml-step-number">3</div>
+                <div class="ml-step-content">
+                    <h4>🎮 Fine-tune with RL (PPO)</h4>
+                    <p>Use PPO to optimize the LLM's responses to maximize the reward model's score. The LLM = <strong>agent</strong>, text generation = <strong>actions</strong>, human preference score = <strong>reward</strong>!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="highlight-box" style="margin-top: 1.5rem; border-left-color: var(--accent-cyan); background: rgba(56, 189, 248, 0.05);">
+            <h4 style="color: var(--accent-cyan); margin-bottom: 0.5rem;">💡 Why is RLHF Important?</h4>
+            <p>Without RLHF, an LLM can generate harmful, biased, or unhelpful text. RLHF teaches it to be <strong>helpful</strong> (give useful answers), <strong>harmless</strong> (refuse dangerous requests), and <strong>honest</strong> (say "I don't know" when uncertain). It's the reason ChatGPT feels so much better than raw GPT models!</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
     <!-- KEY ALGORITHMS                            -->
     <!-- ═══════════════════════════════════════════ -->
 
@@ -672,11 +916,13 @@ print(<span class="string">"🎯 The arrows show the optimal path to the goal!"<
             <h4 style="color: #fff; margin-bottom: 1rem; font-size: 1.1rem; text-align: center;">RL = An agent learns by interacting with an environment through trial and error.</h4>
             <ul style="color: var(--text-secondary); line-height: 1.8; margin-left: 1rem;">
                 <li><strong>Agent</strong> takes actions, <strong>Environment</strong> gives rewards.</li>
-                <li><strong>Policy</strong> = the agent's strategy (which action in which state).</li>
-                <li><strong>Q-Learning</strong> builds a cheat-sheet table of best actions.</li>
+                <li><strong>MDP</strong> = the mathematical framework (S, A, P, R, γ).</li>
+                <li><strong>Value Functions</strong>: V(s) = state value, Q(s,a) = action value.</li>
+                <li><strong>Bellman Equation</strong> = the mathematical heart of RL.</li>
+                <li><strong>Q-Learning</strong> (off-policy) vs <strong>SARSA</strong> (on-policy).</li>
                 <li><strong>DQN</strong> uses neural networks for massive state spaces.</li>
                 <li><strong>Exploration vs Exploitation</strong> = the fundamental RL tradeoff.</li>
-                <li><strong>PPO</strong> is used in training ChatGPT (RLHF)!</li>
+                <li><strong>RLHF + PPO</strong> = how ChatGPT & Gemini are trained!</li>
             </ul>
         </div>
     </div>
@@ -685,12 +931,16 @@ print(<span class="string">"🎯 The arrows show the optimal path to the goal!"<
     <div class="task-card" style="margin-top: 3rem; background: rgba(56, 189, 248, 0.05); border-color: rgba(56, 189, 248, 0.3);">
         <h3 class="task-title" style="color: var(--accent-cyan); text-align: center;">🤔 Practice Questions</h3>
         <ol style="color: var(--text-light); line-height: 2; margin-left: 20px; font-size: 1.1rem; max-width: 600px; margin: 0 auto; padding-left: 20px;">
-            <li>What are the 5 key components of a reinforcement learning system?</li>
+            <li>What are the 5 elements that define an MDP?</li>
+            <li>Explain the Markov Property in simple words with an example.</li>
+            <li>What is the difference between V(s) and Q(s,a)?</li>
+            <li>Write the Bellman Equation and explain what each part means.</li>
             <li>Explain the Exploration vs Exploitation dilemma with a real-world analogy.</li>
-            <li>What is a Q-Table and how does Q-Learning update it?</li>
-            <li>Why is a discount factor (γ) important? What happens if γ = 0?</li>
+            <li>What is the difference between Q-Learning and SARSA?</li>
+            <li>What is the difference between Model-Based and Model-Free RL?</li>
             <li>How does DQN differ from basic Q-Learning?</li>
-            <li>Name 3 real-world applications of reinforcement learning.</li>
+            <li>Explain the 3 steps of RLHF and why it's important for ChatGPT.</li>
+            <li>Why is a discount factor (γ) important? What happens if γ = 0?</li>
         </ol>
     </div>
 
