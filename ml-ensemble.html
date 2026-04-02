@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ensemble Learning — Power in Numbers</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .formula-showcase { font-size: 1.3rem; text-align: center; margin: 1.5rem 0; padding: 1.5rem; background: rgba(56, 189, 248, 0.08); border-radius: 8px; border: 1px dashed var(--accent-cyan); color: #fff; }
+        .math-expr { font-family: 'Fira Code', monospace; color: var(--accent-cyan); font-weight: bold; background: rgba(56, 189, 248, 0.1); padding: 0.2rem 0.4rem; border-radius: 4px;}
+        .highlight-box { background: rgba(167, 139, 250, 0.05); border-left: 4px solid var(--accent-purple); padding: 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem; }
+    </style>
+</head>
+<body>
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="container">
+
+    <nav class="top-nav">
+        <div class="dropdown">
+            <button class="dropbtn">🐍 Python <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="basics.html">📘 Basics</a>
+                <a href="index.html">🐍 Functions</a>
+                <a href="oop.html">🏗️ OOP</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">📚 Libraries <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="numpy.html">🧮 NumPy</a>
+                <a href="pandas.html">🐼 Pandas</a>
+                <a href="matplotlib.html">📊 Matplotlib</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn active">🤖 Machine Learning <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="ml-intro.html">🚀 Introduction</a>
+                <a href="ml-supervised.html">📊 Supervised Learning</a>
+                <a href="ml-classification-regression.html">🎯 Classification / Regression</a>
+                <a href="ml-semi-supervised.html">🔀 Semi-Supervised Learning</a>
+                <a href="ml-unsupervised.html">🔍 Unsupervised Learning</a>
+                <a href="ml-reinforcement.html">🎮 Reinforcement Learning</a>
+                <a href="ml-ensemble.html" class="active">🤝 Ensemble Learning</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">➗ Mathematics <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="linear-algebra.html">📐 Linear Algebra</a>
+                <a href="probability.html">🎲 Probability</a>
+                <a href="statistics.html">📊 Statistics</a>
+                <a href="calculus.html">📈 Calculus</a>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <h1>🤝 Ensemble Learning</h1>
+        <p>Why rely on one model when you can ask an entire team of experts? Discover how combining multiple "weak learners" creates an unstoppable, highly accurate AI powerhouse! 🚀</p>
+    </header>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 7.1 INTRODUCTION                          -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">🧠 7.1 What is Ensemble Learning?</h2>
+
+    <div class="storybook-intro">
+        <p>Imagine you have a rare medical condition. Would you trust the diagnosis of just <strong>one</strong> doctor, or would you consult a <strong>panel of five experts</strong> and take their majority vote? 🩺 Ensemble Learning is exactly that—combining predictions from multiple models to get a much more accurate and robust result!</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📖 The Core Philosophy</h3>
+        <p class="task-desc">
+            <strong>Ensemble learning</strong> is a powerful machine learning technique where multiple models are combined to improve overall performance.
+        </p>
+        <div class="formula-showcase">
+            <strong>Key Idea: "Combining multiple weak learners results in a strong learner." 💪</strong>
+        </div>
+        
+        <p class="task-desc" style="margin-top: 1rem;">Individual machine learning models may suffer from issues such as overfitting (memorizing data), underfitting (too simple), or high variance. Ensemble methods address these limitations.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🌟 Benefits of Ensemble Learning</h3>
+        <div class="ml-reason-grid">
+            <div class="ml-reason-card" style="border-top: 3px solid #38bdf8;">
+                <div class="ml-reason-icon">🎯</div>
+                <h4 style="color: #38bdf8;">Improves Accuracy</h4>
+                <p>The collective wisdom of many models often catches edge cases that a single model misses.</p>
+            </div>
+            <div class="ml-reason-card" style="border-top: 3px solid #a78bfa;">
+                <div class="ml-reason-icon">🛡️</div>
+                <h4 style="color: #a78bfa;">Reduces Variance & Overfitting</h4>
+                <p>By averaging predictions, the ensemble smooths out extreme errors made by individual models.</p>
+            </div>
+            <div class="ml-reason-card" style="border-top: 3px solid #34d399;">
+                <div class="ml-reason-icon">⚓</div>
+                <h4 style="color: #34d399;">Enhances Stability</h4>
+                <p>An ensemble model isn't easily thrown off by a few noisy data points or strange outliers.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 7.2 BAGGING & RANDOM FOREST               -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">🎒 7.2 Bagging (Bootstrap Aggregation)</h2>
+
+    <div class="storybook-intro">
+        <p><strong>Bagging</strong> is like asking 10 different people to guess the number of jellybeans in a jar. Each person looks at the jar slightly differently. When you average all their guesses, the final answer is surprisingly accurate! 🍬</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">⚙️ How Bagging Works</h3>
+        <p class="task-desc">Bagging involves training multiple models <strong>independently</strong> using different subsets of the training data in parallel.</p>
+
+        <div class="ml-workflow-pipeline" style="margin-top: 1.5rem;">
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">1</div>
+                <div class="ml-step-content">
+                    <h4>Bootstrap Sampling</h4>
+                    <p>Create multiple new datasets by random sampling with replacement from the original data.</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">2</div>
+                <div class="ml-step-content">
+                    <h4>Parallel Training</h4>
+                    <p>Train a separate model (usually a Decision Tree) on each sampled dataset independently.</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step ml-workflow-step-final">
+                <div class="ml-step-number">3</div>
+                <div class="ml-step-content">
+                    <h4>Aggregation (Voting/Averaging)</h4>
+                    <p>Combine results via majority vote (classification) or average value (regression).</p>
+                </div>
+            </div>
+        </div>
+        <div class="highlight-box" style="margin-top: 1rem; border-left-color: var(--accent-cyan); background: rgba(56, 189, 248, 0.05);">
+            <p><strong>Goal:</strong> Reduce variance and improve model stability without increasing bias.</p>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🌳 7.2.1 Random Forest — The King of Bagging</h3>
+        <p class="task-desc"><strong>Random Forest</strong> is the most famous bagging algorithm. Instead of just a single decision tree, it creates an entire "forest" of trees!</p>
+        
+        <div class="ml-reason-grid" style="margin-top: 1.5rem;">
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🎲</div>
+                <h4>Random Data</h4>
+                <p>Each tree trains on a random subset of data (Bootstrap sample).</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🔀</div>
+                <h4>Random Features</h4>
+                <p>At each split, the tree only considers a random subset of features to ensure tree diversity.</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🗳️</div>
+                <h4>Majority Wins</h4>
+                <p>Final output is determined by the majority vote across all the trees.</p>
+            </div>
+        </div>
+
+        <div class="ml-comparison-grid" style="margin-top: 1.5rem;">
+            <div class="ml-compare-box" style="background: rgba(239, 68, 68, 0.06); border-color: rgba(239, 68, 68, 0.2);">
+                <h4 style="color: #f87171;">Single Decision Tree 🌲</h4>
+                <p>Prone to severe overfitting. Memorizes the training data completely.</p>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(52, 211, 153, 0.06); border-color: rgba(52, 211, 153, 0.2);">
+                <h4 style="color: #34d399;">Random Forest 🌲🌲🌲</h4>
+                <p>Extremely robust, reduces overfitting, handles missing data well, and works great on large datasets!</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 7.3 BOOSTING                              -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">🚀 7.3 Boosting</h2>
+
+    <div class="storybook-intro">
+        <p><strong>Boosting</strong> is like taking a difficult exam. You fail some questions. On your next attempt, you study <strong>specifically those questions you failed</strong>. Model after model corrects the mistakes of the previous one! 📚</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">⚙️ How Boosting Works</h3>
+        <p class="task-desc">Instead of training models in parallel, boosting trains them <strong>sequentially</strong>.</p>
+        
+        <div class="ml-workflow-pipeline" style="margin-top: 1.5rem;">
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">1</div>
+                <div class="ml-step-content">
+                    <h4>Train First Model</h4>
+                    <p>Build an initial, simple model on the data.</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">2</div>
+                <div class="ml-step-content">
+                    <h4>Find Errors</h4>
+                    <p>Identify misclassified or high-error data points.</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">3</div>
+                <div class="ml-step-content">
+                    <h4>Increase Weight</h4>
+                    <p>Apply higher weights to the errors so the next model pays more attention to them.</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step ml-workflow-step-final">
+                <div class="ml-step-number">4</div>
+                <div class="ml-step-content">
+                    <h4>Repeat & Combine</h4>
+                    <p>Train the next model. Combine their weighted predictions at the end.</p>
+                </div>
+            </div>
+        </div>
+        <div class="highlight-box" style="margin-top: 1rem; border-left-color: var(--accent-purple); background: rgba(167, 139, 250, 0.05);">
+            <p><strong>Goal:</strong> Reduce bias and significantly improve predictive accuracy.</p>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📉 7.3.1 Gradient Boosting</h3>
+        <p class="task-desc">Instead of tweaking point weights, <strong>Gradient Boosting</strong> trains the next model to predict the <strong>residual errors</strong> of the previous model using gradient descent.</p>
+        
+        <div class="formula-showcase">
+            <span class="math-expr">Residual = y (Actual) − ŷ (Predicted)</span>
+        </div>
+        
+        <ul style="color: var(--text-secondary); line-height: 1.8; margin-left: 1rem;">
+            <li>Each model is deliberately aimed at fixing the exact math error of the previous model's output!</li>
+            <li>Produces very high predictive accuracy and handles complex datasets effectively.</li>
+        </ul>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🔥 7.3.2 XGBoost (Extreme Gradient Boosting)</h3>
+        <p class="task-desc">If Gradient Boosting is a sports car, <strong>XGBoost</strong> is a Formula 1 racer! It's a highly optimized engine that dominates machine learning competitions.</p>
+        
+        <div class="ml-reason-grid" style="margin-top: 1.5rem;">
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">⚡</div>
+                <h4>Lightning Fast</h4>
+                <p>Uses parallel processing to speed up tree building massively.</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🛡️</div>
+                <h4>Built-in Regularization</h4>
+                <p>Extra math built-in (L1/L2) mathematically prevents overfitting.</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🧩</div>
+                <h4>Handles Missing Data</h4>
+                <p>Can intelligently deal with missing values out-of-the-box!</p>
+            </div>
+        </div>
+
+        <div class="highlight-box" style="margin-top: 1.5rem; border-left-color: #fbbf24; background: rgba(251, 191, 36, 0.05);">
+            <h4 style="color: #fbbf24; margin-bottom: 0.5rem;">🏆 Applications of XGBoost:</h4>
+            <p>Winner of countless Kaggle competitions, used in <strong>financial modeling, risk prediction,</strong> and ad-click predictions.</p>
+        </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 7.4 STACKING                              -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">🥞 7.4 Stacking</h2>
+
+    <div class="storybook-intro">
+        <p><strong>Stacking</strong> asks completely different types of models (a decision tree, a support vector machine, and a KNN) for their predictions, and then uses a <strong>"Meta-Model" (boss model)</strong> to figure out who is right! 👔</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">⚙️ How Stacking Works</h3>
+        <p class="task-desc">Unlike Bagging or Boosting (which use many trees), Stacking uses wildly different algorithms.</p>
+
+        <div class="ml-workflow-pipeline" style="margin-top: 1.5rem;">
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">1</div>
+                <div class="ml-step-content">
+                    <h4>Train Base Models</h4>
+                    <p>Train distinct models, e.g., SVM, KNN, Random Forest, on the data.</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">2</div>
+                <div class="ml-step-content">
+                    <h4>Collect Predictions</h4>
+                    <p>Get the predictions from all these "Level-0" base models.</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step ml-workflow-step-final">
+                <div class="ml-step-number">3</div>
+                <div class="ml-step-content">
+                    <h4>Train Meta-Model</h4>
+                    <p>Train a "Level-1" Meta-Model (often Logistic Regression) using those predictions as inputs!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="highlight-box" style="margin-top: 1.5rem; border-left-color: var(--accent-cyan); background: rgba(56, 189, 248, 0.05);">
+            <p><strong>Advantage:</strong> Combines strengths of fundamentally different math algorithms, achieving superior prediction performance.</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- ALGORITHM COMPARISON                      -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <div class="task-card" style="margin-top: 2rem;">
+        <h3 class="task-title">📋 Snapshot: Bagging vs Boosting vs Stacking</h3>
+        <div class="ml-data-table-wrapper">
+            <table class="ml-data-table">
+                <thead>
+                    <tr>
+                        <th>Technique</th>
+                        <th>Models Trained</th>
+                        <th>Model Type</th>
+                        <th>Primary Goal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>🎒 Bagging</strong></td>
+                        <td>Parallel & Independent</td>
+                        <td>Same type (Trees)</td>
+                        <td style="text-align:left;">Reduce Variance (Fix Overfitting)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>🚀 Boosting</strong></td>
+                        <td>Sequential (fixes errors)</td>
+                        <td>Same type (Trees)</td>
+                        <td style="text-align:left;">Reduce Bias (Fix Underfitting)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>🥞 Stacking</strong></td>
+                        <td>Base models + Meta-model</td>
+                        <td>Different types</td>
+                        <td style="text-align:left;">Maximize Predictive Accuracy</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- PYTHON CODE                               -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">💻 Python Implementation</h2>
+
+    <div class="storybook-intro">
+        <p>Let's build ensemble models using Scikit-Learn and XGBoost on a real dataset! 🧑‍💻 Run this in <a href="https://colab.research.google.com" target="_blank" style="color: var(--accent-cyan); text-decoration: underline;">Google Colab</a>.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🌲 Random Forest vs 🚀 XGBoost vs 🥞 Stacking</h3>
+        <p class="task-desc">We will use the Breast Cancer dataset to predict whether a tumor is benign or malignant, comparing a single Decision Tree against the three powerful Ensemble methods.</p>
+        <button class="btn-toggle" onclick="toggleCode('ensemble-code', this)">Show Code</button>
+        <div id="ensemble-code" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="comment"># You may need to run this first: !pip install xgboost</span>
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+<span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_breast_cancer
+<span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split
+<span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> DecisionTreeClassifier
+<span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier, StackingClassifier
+<span class="keyword">from</span> xgboost <span class="keyword">import</span> XGBClassifier
+<span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression
+<span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC
+<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score
+
+<span class="comment"># 1️⃣ Load Data</span>
+data = load_breast_cancer()
+X_train, X_test, y_train, y_test = train_test_split(data.data, data.target, test_size=0.3, random_state=42)
+
+<span class="comment"># 2️⃣ Single Weak Learner (Baseline)</span>
+tree = DecisionTreeClassifier(random_state=42)
+tree.fit(X_train, y_train)
+tree_acc = accuracy_score(y_test, tree.predict(X_test))
+
+<span class="comment"># 3️⃣ BAGGING: Random Forest</span>
+rf = RandomForestClassifier(n_estimators=100, random_state=42)
+rf.fit(X_train, y_train)
+rf_acc = accuracy_score(y_test, rf.predict(X_test))
+
+<span class="comment"># 4️⃣ BOOSTING: XGBoost</span>
+xgb = XGBClassifier(use_label_encoder=<span class="keyword">False</span>, eval_metric=<span class="string">'logloss'</span>)
+xgb.fit(X_train, y_train)
+xgb_acc = accuracy_score(y_test, xgb.predict(X_test))
+
+<span class="comment"># 5️⃣ STACKING</span>
+base_learners = [
+    (<span class="string">'rf'</span>, RandomForestClassifier(n_estimators=50, random_state=42)),
+    (<span class="string">'svc'</span>, SVC(probability=<span class="keyword">True</span>, random_state=42))
+]
+stacker = StackingClassifier(estimators=base_learners, final_estimator=LogisticRegression())
+stacker.fit(X_train, y_train)
+stack_acc = accuracy_score(y_test, stacker.predict(X_test))
+
+<span class="comment"># 6️⃣ Drumroll please... Results! 🥁</span>
+print(<span class="string">"=== Model Accuracy Comparison ==="</span>)
+print(f<span class="string">"🌲 Single Decision Tree : {tree_acc * 100:.2f}%"</span>)
+print(f<span class="string">"🎒 Random Forest        : {rf_acc * 100:.2f}%"</span>)
+print(f<span class="string">"🚀 XGBoost Classifier   : {xgb_acc * 100:.2f}%"</span>)
+print(f<span class="string">"🥞 Stacking Ensemble    : {stack_acc * 100:.2f}%"</span>)
+print(<span class="string">"================================="</span>)
+print(<span class="string">"Ensembles always beat the single 'weak' tree!"</span>)
+</code>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- WRAP-UP                                   -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">Wrap-Up & Review</h2>
+
+    <!-- Common Mistakes -->
+    <div class="task-card">
+        <h3 class="task-title">⚠️ Common Mistakes</h3>
+        <ul style="color: #f87171; line-height: 1.8; margin-left: 1.5rem; margin-bottom: 2rem;">
+            <li><strong>Boosting on noisy data</strong> — Boosting forces the model to focus on misclassified points. If those points are just random noise, boosting will heavily overfit!</li>
+            <li><strong>Not tuning XGBoost</strong> — XGBoost has many parameters (learning rate, depth). Failing to tune them can cause overfitting.</li>
+            <li><strong>Overcomplicating the Stacking Meta-model</strong> — The "boss" model (level-1 classifier) should be kept simple, like Logistic Regression, to avoid massive overfitting.</li>
+            <li><strong>Ignoring CPU/Memory costs</strong> — Random Forests and XGBoost train very fast, but massive Ensembles take a lot of memory and compute time for inference!</li>
+        </ul>
+    </div>
+
+    <!-- Key Takeaway -->
+    <div class="task-card" style="text-align: center;">
+        <h3 class="task-title">🎓 Key Takeaway</h3>
+        <p class="task-desc">
+            Ensemble Learning is the secret behind the world's most accurate machine learning models. Whether you are using parallel voting (<strong>Bagging / Random Forest</strong>), sequential error-correcting (<strong>Boosting / XGBoost</strong>), or algorithmic combinations (<strong>Stacking</strong>), the principle remains: The wisdom of the crowd always outperforms the individual!
+        </p>
+        <div class="ml-paradigm-tags">
+            <span class="ml-tag ml-tag-supervised">Bagging 🎒</span>
+            <span class="ml-tag" style="background: rgba(167, 139, 250, 0.12); color: var(--accent-purple); border: 1px solid rgba(167, 139, 250, 0.3);">Boosting 🚀</span>
+            <span class="ml-tag ml-tag-rl">Stacking 🥞</span>
+        </div>
+    </div>
+
+    <!-- Practice Questions -->
+    <div class="task-card" style="margin-top: 3rem; background: rgba(56, 189, 248, 0.05); border-color: rgba(56, 189, 248, 0.3);">
+        <h3 class="task-title" style="color: var(--accent-cyan); text-align: center;">🤔 Practice Questions</h3>
+        <ol style="color: var(--text-light); line-height: 2; margin-left: 20px; font-size: 1.1rem; max-width: 600px; margin: 0 auto; padding-left: 20px;">
+            <li>What makes Ensemble Learning better than a single model?</li>
+            <li>Describe the difference between Bagging (Parallel) and Boosting (Sequential).</li>
+            <li>Why does Random Forest select random features at each split?</li>
+            <li>What is the core idea behind Gradient Boosting and how does it compute residuals?</li>
+            <li>Why is XGBoost extremely popular in Kaggle competitions?</li>
+            <li>How does Stacking differ from Bagging and Boosting in terms of base models?</li>
+            <li>If your dataset is filled with noise/outliers, should you use Random Forest or Boosting? Why?</li>
+        </ol>
+    </div>
+
+    </div><!-- .container -->
+
+    <script src="script.js?v=2"></script>
+</body>
+</html>
