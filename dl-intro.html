@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Learning — The Brain of Modern AI</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .formula-showcase { font-size: 1.3rem; text-align: center; margin: 1.5rem 0; padding: 1.5rem; background: rgba(167, 139, 250, 0.08); border-radius: 8px; border: 1px dashed var(--accent-purple); color: #fff; }
+        .math-expr { font-family: 'Fira Code', monospace; color: var(--accent-purple); font-weight: bold; background: rgba(167, 139, 250, 0.1); padding: 0.2rem 0.4rem; border-radius: 4px;}
+        .highlight-box { background: rgba(56, 189, 248, 0.05); border-left: 4px solid var(--accent-cyan); padding: 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem; }
+    </style>
+</head>
+<body>
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="container">
+
+        <nav class="top-nav">
+        <div class="dropdown">
+            <button class="dropbtn[]">�� Python <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="basics.html"[]>📘 Basics</a>
+                <a href="index.html"[]>🐍 Functions</a>
+                <a href="oop.html"[]>🏗️ OOP</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn[]">📚 Libraries <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="numpy.html"[]>🧮 NumPy</a>
+                <a href="pandas.html"[]>🐼 Pandas</a>
+                <a href="matplotlib.html"[]>📊 Matplotlib</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn[]">🤖 Machine Learning <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="ml-intro.html"[]>🚀 Introduction</a>
+                <a href="ml-supervised.html"[]>📊 Supervised Learning</a>
+                <a href="ml-classification-regression.html"[]>🎯 Classification / Regression</a>
+                <a href="ml-ensemble.html"[]>🤝 Ensemble Learning</a>
+                <a href="ml-semi-supervised.html"[]>🔀 Semi-Supervised Learning</a>
+                <a href="ml-unsupervised.html"[]>🔍 Unsupervised Learning</a>
+                <a href="ml-dimensionality-reduction.html"[]>📉 Dimensionality Reduction</a>
+                <a href="ml-reinforcement.html"[]>🎮 Reinforcement Learning</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn[ active]">🧠 Deep Learning <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="dl-intro.html"[ class="active"]>🚀 Introduction</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn[]">➗ Mathematics <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="linear-algebra.html"[]>📐 Linear Algebra</a>
+                <a href="probability.html"[]>🎲 Probability</a>
+                <a href="statistics.html"[]>📊 Statistics</a>
+                <a href="calculus.html"[]>📈 Calculus</a>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <h1>🧠 Deep Learning</h1>
+        <p>Welcome to the bleeding edge of AI! Learn how vast networks of artificial neurons power facial recognition, ChatGPT, and self-driving cars. 🚗</p>
+    </header>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 9.1 INTRODUCTION                          -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">🚀 9.1 What is Deep Learning?</h2>
+
+    <div class="storybook-intro">
+        <p><strong>Deep Learning</strong> is a specialized subfield of machine learning that uses Artificial Neural Networks (ANNs) to model complex patterns. Why is it called "Deep"? Because these networks feature <span class="highlight-term">multiple hidden layers</span> between the input and output! 🥞</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🏗️ Hierarchical Learning</h3>
+        <p class="task-desc">Deep learning builds knowledge layer by layer, just like the human brain recognizes objects.</p>
+        
+        <div class="ml-workflow-pipeline" style="margin-top: 1.5rem;">
+            <div class="ml-workflow-step">
+                <div class="ml-step-number" style="background: #38bdf8;">1</div>
+                <div class="ml-step-content">
+                    <h4>Low-Level Features (Layer 1)</h4>
+                    <p>Detects edges, simple lines, and basic colors.</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step">
+                <div class="ml-step-number" style="background: #818cf8;">2</div>
+                <div class="ml-step-content">
+                    <h4>Mid-Level Features (Layer 2-3)</h4>
+                    <p>Combines edges into shapes (circles, squares, corners).</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step ml-workflow-step-final">
+                <div class="ml-step-number" style="background: #a78bfa;">3</div>
+                <div class="ml-step-content">
+                    <h4>High-Level Concepts (Output)</h4>
+                    <p>Combines shapes to recognize complex objects: "Ah, that's a face!" 👤</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="highlight-box" style="margin-top: 1.5rem; border-left-color: #34d399; background: rgba(52, 211, 153, 0.05);">
+            <h4 style="color: #34d399; margin-bottom: 0.5rem;">🪄 Automatic Feature Extraction</h4>
+            <p>In traditional ML, a human has to write code to extract features from an image. Deep Learning does this <strong>automatically</strong>. It learns what features are important directly from the raw data!</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 9.2 ML vs DL                              -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">⚔️ 9.2 Machine Learning vs. Deep Learning</h2>
+
+    <div class="task-card">
+        <h3 class="task-title">⚖️ The Core Differences</h3>
+        <div class="ml-data-table-wrapper">
+            <table class="ml-data-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>🤖 Machine Learning</th>
+                        <th>🧠 Deep Learning</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Feature Extraction</strong></td>
+                        <td>Manual (Human engineered)</td>
+                        <td style="color:#a78bfa; font-weight:bold;">Automatic</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Data Requirement</strong></td>
+                        <td>Small to Medium</td>
+                        <td style="color:#a78bfa; font-weight:bold;">Massive Datasets</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Computation</strong></td>
+                        <td>Low (Runs on CPU)</td>
+                        <td style="color:#a78bfa; font-weight:bold;">High (Requires GPUs/TPUs)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Accuracy</strong></td>
+                        <td>Good (Plateaus quickly)</td>
+                        <td style="color:#a78bfa; font-weight:bold;">Extremely High (Scales with data)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Examples</strong></td>
+                        <td>SVM, KNN, Random Forest</td>
+                        <td style="color:#a78bfa; font-weight:bold;">CNN, RNN, Transformers</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 9.3 DNN                                   -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">🌐 9.3 Deep Neural Networks (DNN)</h2>
+
+    <div class="storybook-intro">
+        <p>A <strong>Deep Neural Network (DNN)</strong> is simply an artificial neural network with multiple hidden layers between the input and output layers.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🧬 Anatomy of a DNN</h3>
+        
+        <div class="ml-reason-grid" style="margin-top: 1rem;">
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🚪</div>
+                <h4>Inputs Layer</h4>
+                <p>Receives raw data (e.g., pixel values of an image).</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🕵️‍♂️</div>
+                <h4>Hidden Layers</h4>
+                <p>Does the heavy lifting. Millions of parameters (weights & biases) learn complex relationships.</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🏁</div>
+                <h4>Output Layer</h4>
+                <p>Generates the final prediction (e.g., "Cat" or "Dog").</p>
+            </div>
+        </div>
+
+        <h4 style="color: var(--accent-cyan); margin-top: 1.5rem;">📐 The Math Behind a Layer</h4>
+        <div class="formula-showcase">
+            <span class="math-expr">A<sup>(l)</sup> = f(W<sup>(l)</sup> · A<sup>(l-1)</sup> + b<sup>(l)</sup>)</span>
+        </div>
+        <p class="task-desc" style="text-align: center;">Where <strong>W</strong> = Weights, <strong>A</strong> = Activations from previous layer, <strong>b</strong> = Bias, and <strong>f</strong> = Activation Function (like ReLU or Sigmoid).</p>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 9.4 CNN                                   -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">📸 9.4 Convolutional Neural Networks (CNN)</h2>
+
+    <div class="storybook-intro">
+        <p>When you look at an image, you don't look at it as a flat list of pixels. You look at 2D space. <strong>Convolutional Neural Networks (CNNs)</strong> are the deep learning gods of computer vision because they preserve spatial relationships! 👁️</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">⚙️ Architecture of a CNN</h3>
+        <p class="task-desc">A CNN uses three specialized types of layers to process images.</p>
+
+        <div class="ml-comparison-grid" style="margin-top: 1.5rem;">
+            <div class="ml-compare-box" style="background: rgba(56, 189, 248, 0.06); border-color: rgba(56, 189, 248, 0.2);">
+                <h4 style="color: var(--accent-cyan);">1️⃣ Convolutional Layer</h4>
+                <p>The "eyes" of the network. It slides small <strong>filters (kernels)</strong> across the image computing a dot product.</p>
+                <div class="formula-showcase" style="font-size: 1rem; padding: 0.5rem;"><span class="math-expr">S(i,j) = (X * K)(i,j)</span></div>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">Creates a "Feature Map" highlighting edges, textures, etc.</p>
+            </div>
+            
+            <div class="ml-compare-box" style="background: rgba(167, 139, 250, 0.06); border-color: rgba(167, 139, 250, 0.2);">
+                <h4 style="color: var(--accent-purple);">2️⃣ Pooling Layer</h4>
+                <p>The "compressor". Reduces the spatial size (width/height) of the image while keeping important info.</p>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;"><strong>Max Pooling:</strong> Keeps only the most prominent features. Prevents overfitting!</p>
+            </div>
+        </div>
+
+        <div class="highlight-box" style="margin-top: 1rem; border-left-color: #f472b6; background: rgba(244, 114, 182, 0.05);">
+            <h4 style="color: #f472b6; margin-bottom: 0.5rem;">3️⃣ Fully Connected Layer (The Brain)</h4>
+            <p>After we extract and compress features using Convolution and Pooling, we <strong>flatten</strong> the 2D maps into a 1D vector and plug them into a standard DNN to classify the image (e.g., Output: "It's a Dog!").</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 9.5 PYTHON CODE                           -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">💻 Code: Build a CNN in TensorFlow!</h2>
+
+    <div class="task-card">
+        <h3 class="task-title">🚀 Classify Images with a CNN</h3>
+        <p class="task-desc">This code builds a classic Convolutional Neural Network using Keras to identify handwritten numbers (MNIST dataset). Run it in <a href="https://colab.research.google.com" target="_blank" style="color: var(--accent-cyan);">Google Colab</a>!</p>
+        <button class="btn-toggle" onclick="toggleCode('cnn-code', this)">Show Code</button>
+        <div id="cnn-code" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf
+<span class="keyword">from</span> tensorflow.keras <span class="keyword">import</span> layers, models
+
+<span class="comment"># 1. Load Data (MNIST: 28x28 grayscale images of handwritten digits 0-9)</span>
+mnist = tf.keras.datasets.mnist
+(train_images, train_labels), (test_images, test_labels) = mnist.load_data()
+
+<span class="comment"># Normalize pixel values to be between 0 and 1</span>
+train_images, test_images = train_images / 255.0, test_images / 255.0
+
+<span class="comment"># Reshape for CNN (add channel dimension: 28, 28, 1)</span>
+train_images = train_images.reshape((60000, 28, 28, 1))
+test_images = test_images.reshape((10000, 28, 28, 1))
+
+<span class="comment"># 2. Build the CNN Architecture! 🏗️</span>
+model = models.Sequential()
+
+<span class="comment"># --- Feature Extraction (Convolution & Pooling) ---</span>
+model.add(layers.Conv2D(32, (3, 3), activation=<span class="string">'relu'</span>, input_shape=(28, 28, 1))) <span class="comment"># First Conv Layer</span>
+model.add(layers.MaxPooling2D((2, 2)))                                        <span class="comment"># First Max Pooling</span>
+model.add(layers.Conv2D(64, (3, 3), activation=<span class="string">'relu'</span>))                       <span class="comment"># Second Conv Layer</span>
+model.add(layers.MaxPooling2D((2, 2)))                                        <span class="comment"># Second Max Pooling</span>
+
+<span class="comment"># --- Classification (Fully Connected) ---</span>
+model.add(layers.Flatten())                 <span class="comment"># Flatten 2D matrices into 1D vector</span>
+model.add(layers.Dense(64, activation=<span class="string">'relu'</span>)) <span class="comment"># Standard Hidden Layer</span>
+model.add(layers.Dense(10))                 <span class="comment"># Output Layer (10 digits: 0-9)</span>
+
+<span class="comment"># View architecture</span>
+model.summary()
+
+<span class="comment"># 3. Compile the Model (Add optimization strategy)</span>
+model.compile(optimizer=<span class="string">'adam'</span>,
+              loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=<span class="keyword">True</span>),
+              metrics=[<span class="string">'accuracy'</span>])
+
+<span class="comment"># 4. Train the Brain! 🧠</span>
+print(<span class="string">"Training starts... buckle up!"</span>)
+history = model.fit(train_images, train_labels, epochs=5, 
+                    validation_data=(test_images, test_labels))
+
+<span class="comment"># 5. Evaluate Accuracy</span>
+test_loss, test_acc = model.evaluate(test_images,  test_labels, verbose=2)
+print(f<span class="string">"\n🎉 Final Test Accuracy: {test_acc * 100:.2f}%"</span>)</code>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- WRAP-UP                                   -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">Wrap-Up & Review</h2>
+
+    <div class="task-card" style="text-align: center;">
+        <h3 class="task-title">🎓 Summary</h3>
+        <p class="task-desc">
+            Deep learning is a massive evolutionary leap from traditional Machine Learning. Using multi-layered networks, it completely automates feature extraction. <strong>CNNs</strong> revolutionized Computer Vision by using <strong>Convolutional</strong> layers to find spatial features and <strong>Pooling</strong> layers to compress them before routing to a <strong>Fully Connected</strong> layer for classification.
+        </p>
+        <div class="ml-paradigm-tags">
+            <span class="ml-tag ml-tag-supervised">Deep Neural Nets 🌐</span>
+            <span class="ml-tag" style="background: rgba(167, 139, 250, 0.12); color: var(--accent-purple); border: 1px solid rgba(167, 139, 250, 0.3);">CNNs 👁️‍🗨️</span>
+            <span class="ml-tag ml-tag-rl">Automatic Features 🪄</span>
+        </div>
+    </div>
+
+    <!-- Practice Questions -->
+    <div class="task-card" style="margin-top: 3rem; background: rgba(56, 189, 248, 0.05); border-color: rgba(56, 189, 248, 0.3);">
+        <h3 class="task-title" style="color: var(--accent-cyan); text-align: center;">🤔 Practice Questions</h3>
+        <ol style="color: var(--text-light); line-height: 2; margin-left: 20px; font-size: 1.1rem; max-width: 600px; margin: 0 auto; padding-left: 20px;">
+            <li>What makes Deep Learning "Deep"?</li>
+            <li>What is the primary difference in feature extraction between ML and DL?</li>
+            <li>Why do deep learning models usually demand Graphics Processing Units (GPUs)?</li>
+            <li>Write down the formula dictating how data transforms from one layer to the next.</li>
+            <li>What happens inside a Convolution layer, and what is its output called?</li>
+            <li>Why use Max Pooling instead of just passing the raw image forward?</li>
+            <li>What is the final process taken by the Fully Connected Layer in a CNN?</li>
+        </ol>
+    </div>
+
+    </div><!-- .container -->
+
+    <script src="script.js?v=2"></script>
+</body>
+</html>

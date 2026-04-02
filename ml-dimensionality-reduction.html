@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dimensionality Reduction — Finding the Signal in the Noise</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .formula-showcase { font-size: 1.3rem; text-align: center; margin: 1.5rem 0; padding: 1.5rem; background: rgba(52, 211, 153, 0.08); border-radius: 8px; border: 1px dashed #34d399; color: #fff; }
+        .math-expr { font-family: 'Fira Code', monospace; color: #34d399; font-weight: bold; background: rgba(52, 211, 153, 0.1); padding: 0.2rem 0.4rem; border-radius: 4px;}
+        .highlight-box { background: rgba(251, 191, 36, 0.05); border-left: 4px solid #fbbf24; padding: 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem; }
+    </style>
+</head>
+<body>
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="container">
+
+        <nav class="top-nav">
+        <div class="dropdown">
+            <button class="dropbtn[]">�� Python <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="basics.html"[]>📘 Basics</a>
+                <a href="index.html"[]>🐍 Functions</a>
+                <a href="oop.html"[]>🏗️ OOP</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn[]">📚 Libraries <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="numpy.html"[]>🧮 NumPy</a>
+                <a href="pandas.html"[]>🐼 Pandas</a>
+                <a href="matplotlib.html"[]>📊 Matplotlib</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn[ active]">🤖 Machine Learning <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="ml-intro.html"[]>🚀 Introduction</a>
+                <a href="ml-supervised.html"[]>📊 Supervised Learning</a>
+                <a href="ml-classification-regression.html"[]>🎯 Classification / Regression</a>
+                <a href="ml-ensemble.html"[]>🤝 Ensemble Learning</a>
+                <a href="ml-semi-supervised.html"[]>🔀 Semi-Supervised Learning</a>
+                <a href="ml-unsupervised.html"[]>🔍 Unsupervised Learning</a>
+                <a href="ml-dimensionality-reduction.html"[ class="active"]>📉 Dimensionality Reduction</a>
+                <a href="ml-reinforcement.html"[]>🎮 Reinforcement Learning</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn[]">🧠 Deep Learning <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="dl-intro.html"[]>🚀 Introduction</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn[]">➗ Mathematics <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="linear-algebra.html"[]>📐 Linear Algebra</a>
+                <a href="probability.html"[]>🎲 Probability</a>
+                <a href="statistics.html"[]>📊 Statistics</a>
+                <a href="calculus.html"[]>📈 Calculus</a>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <h1>📉 Dimensionality Reduction</h1>
+        <p>Too much data can be overwhelming! Learn how to compress 1,000 features into just 5 without losing the most critical information inside. 🗜️</p>
+    </header>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 10.1 OVERVIEW                             -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">⚖️ 10.1 Overview & The Curse of Dimensionality</h2>
+
+    <div class="storybook-intro">
+        <p>In modern ML, a dataset can have hundreds or thousands of features (columns). E.g., a simple 100x100 pixel image has 10,000 features! Processing all this is devastating to computers. We need to <strong>reduce dimensions</strong> while preserving intelligence. 🧠</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">⚠️ The Challenges of Too Many Features</h3>
+        <p class="task-desc">High-dimensional datasets introduce three massive problems:</p>
+        
+        <div class="ml-reason-grid" style="margin-top: 1rem;">
+            <div class="ml-reason-card" style="border-top: 3px solid #ef4444;">
+                <div class="ml-reason-icon">🔥</div>
+                <h4 style="color: #ef4444;">High Computational Cost</h4>
+                <p>More features require exponentially more RAM, CPU power, and processing time.</p>
+            </div>
+            <div class="ml-reason-card" style="border-top: 3px solid #fbbf24;">
+                <div class="ml-reason-icon">🎭</div>
+                <h4 style="color: #fbbf24;">Overfitting</h4>
+                <p>With thousands of features, models get confused and learn noise instead of true patterns.</p>
+            </div>
+            <div class="ml-reason-card" style="border-top: 3px solid #a78bfa;">
+                <div class="ml-reason-icon">🌌</div>
+                <h4 style="color: #a78bfa;">Curse of Dimensionality</h4>
+                <p>As dimensions increase, data gets spaced out and incredibly sparse. Finding patterns becomes mathematically impossible.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">✂️ Types of Dimensionality Reduction</h3>
+        <p class="task-desc">How do we solve it? There are two completely different ways:</p>
+
+        <div class="ml-comparison-grid" style="margin-top: 1rem;">
+            <div class="ml-compare-box" style="background: rgba(56, 189, 248, 0.06); border-color: rgba(56, 189, 248, 0.2);">
+                <h4 style="color: var(--accent-cyan);">1. Feature Selection</h4>
+                <p>Selecting a subset of the most important existing features. <em>(E.g., Out of 10 columns, pick Age and Income, throw the rest away.)</em></p>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(52, 211, 153, 0.06); border-color: rgba(52, 211, 153, 0.2);">
+                <h4 style="color: #34d399;">2. Feature Extraction</h4>
+                <p>Creating completely <strong>new features</strong> mathematically derived from the old ones <em>(e.g., PCA)</em>.</p>
+            </div>
+        </div>
+
+        <div class="highlight-box" style="margin-top: 1.5rem; border-left-color: #38bdf8; background: rgba(56, 189, 248, 0.05);">
+            <h4 style="color: #38bdf8; margin-bottom: 0.5rem;">✨ The Benefits</h4>
+            <ul style="color: var(--text-secondary); line-height: 1.8;">
+                <li>Slashes computation and training time massively.</li>
+                <li>Improves model performance by destroying redundant features and noise.</li>
+                <li>Allows humans to actually visualize data (You can plot 2D/3D graphs, but you can't plot 50D data!).</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 10.2 PCA                                  -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">🧿 10.2 Principal Component Analysis (PCA)</h2>
+
+    <div class="storybook-intro">
+        <p><strong>PCA</strong> is the undisputed king of feature extraction. It mathematically rotates the entire dataset to project the data onto new directions that hold the most information!</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📐 The Geometric Interpretation</h3>
+        <p class="task-desc">Imagine a 3D blob of points shaped like a pancake. PCA rotates the 3D space so that the first axis (<strong>PC1</strong>) shoots directly through the longest spread of the pancake. The second axis (<strong>PC2</strong>) shoots through the second longest spread. It then throws away the 3rd axis (thickness) because it's tiny!</p>
+
+        <div class="formula-showcase">
+            <strong>Key Idea: Identify directions of MAXIMUM VARIANCE.</strong>
+            <p style="font-size: 1rem; color: #cbd5e1; margin-top: 0.5rem;">Principal Component 1 (PC1) captures the most information. PC2 captures the next most, and so on.</p>
+        </div>
+        
+        <h4 style="color: #34d399; margin-top: 1.5rem;">🧮 The Mathematics</h4>
+        <div class="formula-showcase" style="font-size: 1.1rem; padding: 1rem;">
+            <span class="math-expr">Z = XW</span>
+            <p style="text-align: left; margin-top: 1rem; font-size: 0.95rem;">
+                <strong>X</strong> = Original Data Matrix<br>
+                <strong>W</strong> = Matrix of Eigenvectors (The new basis / Principal Components)<br>
+                <strong>Z</strong> = The Transformed Data (Reduced dimensions)
+            </p>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🛠️ The Steps Behind PCA</h3>
+        <div class="ml-workflow-pipeline" style="margin-top: 1.5rem;">
+            <div class="ml-workflow-step">
+                <div class="ml-step-number" style="background: #34d399;">1</div>
+                <div class="ml-step-content">
+                    <h4>Standardize Data</h4>
+                    <p>Force everything to mean=0, variance=1. (Crucial, or PCA breaks!)</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step">
+                <div class="ml-step-number" style="background: #fbbf24;">2</div>
+                <div class="ml-step-content">
+                    <h4>Covariance Matrix</h4>
+                    <p>Compute <code>C = 1/n x X<sup>T</sup> X</code> to find relationships between variables.</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step">
+                <div class="ml-step-number" style="background: #a78bfa;">3</div>
+                <div class="ml-step-content">
+                    <h4>Eigen-Decomposition</h4>
+                    <p>Find Eigenvectors (directions) and Eigenvalues (importance of direction).</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step ml-workflow-step-final">
+                <div class="ml-step-number" style="background: #38bdf8;">4</div>
+                <div class="ml-step-content">
+                    <h4>Select & Project</h4>
+                    <p>Throw away weak PCs, then project data onto the chosen new dimensions! 📉</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🚀 Applications & Pros/Cons</h3>
+        
+        <div class="ml-comparison-grid" style="margin-top: 1rem;">
+            <div class="ml-compare-box" style="background: rgba(52, 211, 153, 0.06); border-color: rgba(52, 211, 153, 0.2);">
+                <h4 style="color: #34d399;">✅ Advantages</h4>
+                <ul>
+                    <li>Extremely efficient at shrinking huge datasets.</li>
+                    <li>Erases correlated/redundant features completely.</li>
+                    <li>Saves massive CPU time during training.</li>
+                </ul>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(239, 68, 68, 0.06); border-color: rgba(239, 68, 68, 0.2);">
+                <h4 style="color: #f87171;">❌ Limitations</h4>
+                <ul>
+                    <li><strong>Loss of interpretability:</strong> A feature isn't "Age" anymore, it's "PC1" (a mix of everything).</li>
+                    <li>Only tracks linear relationships.</li>
+                    <li>Information is eventually lost.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="highlight-box" style="margin-top: 1.5rem; border-left-color: #a78bfa; background: rgba(167, 139, 250, 0.05);">
+            <h4 style="color: #a78bfa; margin-bottom: 0.5rem;">🌍 Real-World Uses</h4>
+            <p>Visualizing DNA sequences, Data compression for Deep Learning, Image Compression (JPEG uses concepts similar to PCA!), and erasing static/noise from signals.</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- PYTHON CODE                               -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">💻 Python PCA Implementation</h2>
+
+    <div class="task-card">
+        <h3 class="task-title">🎨 Visualizing 4D Iris Data in 2D</h3>
+        <p class="task-desc">Humans cannot see in 4D. The Iris dataset has 4 features. By using PCA, we can squash those 4 dimensions into just 2 dimensions and easily plot it! Run this in <a href="https://colab.research.google.com" target="_blank" style="color: var(--accent-cyan);">Google Colab</a>!</p>
+        <button class="btn-toggle" onclick="toggleCode('pca-code', this)">Show Code</button>
+        <div id="pca-code" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_iris
+<span class="keyword">from</span> sklearn.decomposition <span class="keyword">import</span> PCA
+<span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler
+
+<span class="comment"># 1. Load the 4D Dataset</span>
+iris = load_iris()
+X = iris.data
+y = iris.target
+target_names = iris.target_names
+
+print(f<span class="string">"Original Dataset shape: {X.shape} (4 Dimensions!)"</span>)
+
+<span class="comment"># 2. STANDARDIZE THE DATA (Crucial step for PCA)</span>
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+<span class="comment"># 3. Apply PCA -> Squash to 2 Dimensions! (PC1 and PC2)</span>
+pca = PCA(n_components=2)
+X_pca = pca.fit_transform(X_scaled)
+print(f<span class="string">"New Dataset shape: {X_pca.shape} (2 Dimensions!)"</span>)
+
+<span class="comment"># 4. Check how much information we saved</span>
+explained_var = pca.explained_variance_ratio_
+total_var = sum(explained_var) * 100
+print(f<span class="string">"PC1 captures {explained_var[0]*100:.1f}% variance"</span>)
+print(f<span class="string">"PC2 captures {explained_var[1]*100:.1f}% variance"</span>)
+print(f<span class="string">"By using just 2 dimensions, we retained {total_var:.1f}% of the information! 🤯"</span>)
+
+<span class="comment"># 5. Plot the 2D results! 🎨</span>
+plt.figure(figsize=(8, 6))
+colors = [<span class="string">'#38bdf8'</span>, <span class="string">'#a78bfa'</span>, <span class="string">'#34d399'</span>]
+
+<span class="keyword">for</span> color, i, target_name <span class="keyword">in</span> zip(colors, [0, 1, 2], target_names):
+    plt.scatter(X_pca[y == i, 0], X_pca[y == i, 1], color=color, alpha=0.8, 
+                lw=2, label=target_name, s=70, edgecolor=<span class="string">'black'</span>)
+
+plt.title(<span class="string">'PCA of IRIS dataset: 4D Squashed to 2D'</span>, fontsize=14, fontweight=<span class="string">'bold'</span>)
+plt.xlabel(f<span class="string">'Principal Component 1 ({explained_var[0]*100:.1f}%)'</span>, fontsize=12)
+plt.ylabel(f<span class="string">'Principal Component 2 ({explained_var[1]*100:.1f}%)'</span>, fontsize=12)
+plt.legend(loc=<span class="string">'best'</span>, shadow=<span class="keyword">False</span>, scatterpoints=1)
+plt.grid(alpha=0.3)
+plt.show()</code>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- WRAP-UP                                   -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">Wrap-Up & Review</h2>
+
+    <div class="task-card" style="margin-top: 3rem; background: rgba(56, 189, 248, 0.05); border-color: rgba(56, 189, 248, 0.3);">
+        <h3 class="task-title" style="color: var(--accent-cyan); text-align: center;">🤔 Practice Questions</h3>
+        <ol style="color: var(--text-light); line-height: 2; margin-left: 20px; font-size: 1.1rem; max-width: 600px; margin: 0 auto; padding-left: 20px;">
+            <li>What is the Curse of Dimensionality?</li>
+            <li>Explain the difference between Feature Selection and Feature Extraction.</li>
+            <li>Why must you Standardize data before running PCA?</li>
+            <li>If PC1 captures 60% of variance, and PC2 captures 30%, what does that mean?</li>
+            <li>What is the biggest downside of transforming your features using PCA?</li>
+            <li>In PCA math, what dictates the physical direction of the new axes?</li>
+        </ol>
+    </div>
+
+    </div><!-- .container -->
+
+    <script src="script.js?v=2"></script>
+</body>
+</html>
