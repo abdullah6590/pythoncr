@@ -829,6 +829,298 @@ print(f<span class="string">"\n🏆 Best K = {best_k} (Silhouette Score = {max(s
     </div>
 
     <!-- ═══════════════════════════════════════════ -->
+    <!-- ANOMALY DETECTION                          -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">🚨 Anomaly Detection (Outlier Detection)</h2>
+
+    <div class="storybook-intro">
+        <p>Imagine you're a bank security guard watching millions of transactions. Everything looks normal — $20 coffee, $50 groceries, $15 gas — and then suddenly: <strong>$9,000 purchase from a foreign country at 3 AM</strong>. That's an anomaly! 🚩 Anomaly detection finds these unusual data points automatically.</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📖 What is Anomaly Detection?</h3>
+        <p class="task-desc">
+            <strong>Anomaly Detection</strong> identifies data points that are <span class="highlight-term">significantly different</span> from the majority of the data. These outliers could indicate fraud, system failures, diseases, or security threats.
+        </p>
+        <p class="task-desc">
+            It's unsupervised because we usually <strong>don't have labels</strong> for what's "normal" vs "abnormal" — the algorithm learns the normal pattern and flags anything that doesn't fit!
+        </p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🏗️ Anomaly Detection Algorithms</h3>
+        <div class="ml-comparison-grid">
+            <div class="ml-compare-box" style="background: rgba(239, 68, 68, 0.06); border-color: rgba(239, 68, 68, 0.2);">
+                <h4 style="color: #f87171;">🌲 Isolation Forest</h4>
+                <p>The most popular! It works by randomly <strong>isolating data points</strong>. Anomalies are easier to isolate (fewer splits needed), normal points are harder.</p>
+                <div class="ml-example-box" style="margin-top: 0.75rem;">
+                    <p><strong>Analogy:</strong> In a room of 100 people, the tallest person (anomaly) is easy to spot with one question: "Are you taller than 6'5"?" Normal people need many questions!</p>
+                </div>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(56, 189, 248, 0.06); border-color: rgba(56, 189, 248, 0.2);">
+                <h4 style="color: #38bdf8;">🎯 One-Class SVM</h4>
+                <p>Learns the boundary around <strong>normal data</strong>. Anything outside this boundary is flagged as an anomaly.</p>
+                <div class="ml-example-box" style="margin-top: 0.75rem;">
+                    <p><strong>Analogy:</strong> Like drawing a fence around a sheep herd. Anything outside the fence (wolves!) is an outlier!</p>
+                </div>
+            </div>
+        </div>
+        <div class="ml-comparison-grid" style="margin-top: 1rem;">
+            <div class="ml-compare-box" style="background: rgba(167, 139, 250, 0.06); border-color: rgba(167, 139, 250, 0.2);">
+                <h4 style="color: #a78bfa;">📊 Local Outlier Factor (LOF)</h4>
+                <p>Measures the <strong>local density</strong> of each point compared to its neighbors. If a point has much lower density, it's an outlier.</p>
+                <div class="ml-example-box" style="margin-top: 0.75rem;">
+                    <p><strong>Best for:</strong> Detecting anomalies that are only unusual in their local context (e.g., a luxury car in a budget neighborhood).</p>
+                </div>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(52, 211, 153, 0.06); border-color: rgba(52, 211, 153, 0.2);">
+                <h4 style="color: #34d399;">📈 Statistical Methods (Z-Score)</h4>
+                <p>Uses statistics! If a data point is more than <strong>3 standard deviations</strong> from the mean, it's flagged as an anomaly.</p>
+                <div class="ml-example-box" style="margin-top: 0.75rem;">
+                    <p><strong>Simple rule:</strong> Z-Score > 3 or < -3 → Anomaly! Works best for normally distributed data.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🌍 Real-World Anomaly Detection</h3>
+        <div class="ml-reason-grid">
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">💳</div>
+                <h4>Credit Card Fraud</h4>
+                <p>Banks use Isolation Forest to detect <strong>fraudulent transactions</strong> in real-time. Your card gets blocked? An anomaly detector flagged it!</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🏭</div>
+                <h4>Manufacturing Defects</h4>
+                <p>Sensors detect when a product deviates from normal — catching <strong>defective items</strong> before they ship to customers!</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🛡️</div>
+                <h4>Cybersecurity</h4>
+                <p>Network traffic is monitored 24/7. Unusual patterns (e.g., massive data downloads at 3 AM) trigger <strong>security alerts</strong>!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Anomaly Detection Code -->
+    <div class="task-card">
+        <h3 class="task-title">💻 Code: Isolation Forest — Detect Fraud! 🌲</h3>
+        <p class="task-desc">Let's build a fraud detector using Isolation Forest. It learns what "normal" transactions look like and flags anything suspicious!</p>
+        <button class="btn-toggle" onclick="toggleCode('us-code7', this)">Show Code</button>
+
+        <div id="us-code7" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> IsolationForest
+
+<span class="comment"># 💳 Generate normal transaction data</span>
+np.random.seed(42)
+normal = np.random.randn(300, 2) * 1 + [5, 5]
+
+<span class="comment"># 🚩 Add some "fraudulent" transactions (outliers)</span>
+fraud = np.array([[10, 10], [0, 0], [10, 0], [0, 10],
+                  [12, 8], [-2, 8], [8, -1]])
+
+X_all = np.vstack([normal, fraud])
+
+<span class="comment"># 🌲 Isolation Forest</span>
+iso_forest = IsolationForest(contamination=0.03, random_state=42)
+predictions = iso_forest.fit_predict(X_all)
+
+<span class="comment"># 1 = Normal, -1 = Anomaly</span>
+normal_mask = predictions == 1
+anomaly_mask = predictions == -1
+
+<span class="comment"># 📊 Visualize!</span>
+plt.figure(figsize=(10, 6))
+plt.scatter(X_all[normal_mask, 0], X_all[normal_mask, 1],
+            c=<span class="string">'#38bdf8'</span>, s=40, alpha=0.6, label=<span class="string">'Normal'</span>)
+plt.scatter(X_all[anomaly_mask, 0], X_all[anomaly_mask, 1],
+            c=<span class="string">'#ef4444'</span>, s=150, marker=<span class="string">'X'</span>, edgecolors=<span class="string">'white'</span>,
+            linewidths=2, label=<span class="string">'🚨 Anomaly (Fraud!)'</span>, zorder=5)
+
+plt.title(<span class="string">'🌲 Isolation Forest — Fraud Detection'</span>, fontsize=14)
+plt.xlabel(<span class="string">'Transaction Amount'</span>); plt.ylabel(<span class="string">'Transaction Frequency'</span>)
+plt.legend(fontsize=11); plt.grid(alpha=0.2); plt.tight_layout(); plt.show()
+
+print(f<span class="string">"✅ Normal transactions: {sum(normal_mask)}"</span>)
+print(f<span class="string">"🚨 Anomalies detected:  {sum(anomaly_mask)}"</span>)</code>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- AUTOENCODERS                               -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">🧬 Autoencoders — Neural Network Approach</h2>
+
+    <div class="storybook-intro">
+        <p>What if we could teach a neural network to <strong>compress</strong> data into a tiny representation, then <strong>reconstruct</strong> it back? If it can rebuild the data accurately, it has learned the essential patterns! That's an <strong>Autoencoder</strong> — an unsupervised deep learning technique! 🧠</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📖 What is an Autoencoder?</h3>
+        <p class="task-desc">
+            An <strong>Autoencoder</strong> is a neural network that learns to <span class="highlight-term">compress (encode) and decompress (decode)</span> data. The goal is to make the output as similar to the input as possible — but through a tight <strong>bottleneck</strong> that forces the network to learn only the most important features.
+        </p>
+
+        <div class="ml-workflow-pipeline" style="margin-top: 1.5rem;">
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">1</div>
+                <div class="ml-step-content">
+                    <h4>📥 Input</h4>
+                    <p>Original data (e.g., an image of 784 pixels)</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">2</div>
+                <div class="ml-step-content">
+                    <h4>🔽 Encoder</h4>
+                    <p>Compresses to fewer dimensions (784 → 32)</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">3</div>
+                <div class="ml-step-content">
+                    <h4>🎯 Bottleneck</h4>
+                    <p>Compact representation (just 32 features!)</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">4</div>
+                <div class="ml-step-content">
+                    <h4>🔼 Decoder</h4>
+                    <p>Reconstructs back to original size (32 → 784)</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step ml-workflow-step-final">
+                <div class="ml-step-number">5</div>
+                <div class="ml-step-content">
+                    <h4>📤 Output</h4>
+                    <p>Reconstructed data (should look like input!)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🛠️ Types of Autoencoders</h3>
+        <div class="ml-reason-grid">
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">📦</div>
+                <h4>Vanilla Autoencoder</h4>
+                <p>Basic version. Just compress and reconstruct. Used for <strong>dimensionality reduction</strong> — like a neural network version of PCA!</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🧹</div>
+                <h4>Denoising Autoencoder</h4>
+                <p>Input is <strong>corrupted with noise</strong>, but the network learns to output the clean version. Amazing for <strong>image denoising</strong>!</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🎨</div>
+                <h4>Variational Autoencoder (VAE)</h4>
+                <p>The bottleneck is a <strong>probability distribution</strong>. Can generate entirely new data! Used to <strong>create new faces, music, and art</strong>!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- UMAP                                       -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <div class="task-card">
+        <h3 class="task-title">🗺️ UMAP — Modern Dimensionality Reduction</h3>
+        <p class="task-desc">
+            <strong>UMAP (Uniform Manifold Approximation and Projection)</strong> is the modern successor to t-SNE. It's <span class="highlight-term">faster</span>, preserves <span class="highlight-term">global structure</span> better, and scales to millions of data points!
+        </p>
+        <div class="ml-comparison-grid" style="margin-top: 1rem;">
+            <div class="ml-compare-box" style="background: rgba(167, 139, 250, 0.06); border-color: rgba(167, 139, 250, 0.2);">
+                <h4>t-SNE vs UMAP</h4>
+                <div class="ml-data-table-wrapper" style="margin-top: 0.5rem;">
+                    <table class="ml-data-table" style="font-size: 0.9rem;">
+                        <thead><tr><th>Feature</th><th>t-SNE</th><th>UMAP</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>Speed</strong></td><td>Slow 🐢</td><td>Fast 🚀</td></tr>
+                            <tr><td><strong>Global Structure</strong></td><td>❌ Loses it</td><td>✅ Preserves it</td></tr>
+                            <tr><td><strong>Scalability</strong></td><td>~10K points</td><td>Millions!</td></tr>
+                            <tr><td><strong>Use Case</strong></td><td>Small datasets</td><td>Any size dataset</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(56, 189, 248, 0.06); border-color: rgba(56, 189, 248, 0.2);">
+                <h4>When to Use What?</h4>
+                <ul style="color: var(--text-secondary); line-height: 1.8; padding-left: 1.5rem; font-size: 0.9rem; margin-top: 0.5rem;">
+                    <li><strong>PCA:</strong> Fast, linear, good for preprocessing</li>
+                    <li><strong>t-SNE:</strong> Beautiful 2D plots, small datasets</li>
+                    <li><strong>UMAP:</strong> Best all-rounder — fast, scalable, beautiful</li>
+                    <li><strong>Autoencoder:</strong> Non-linear, deep learning pipeline</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- EVALUATION METRICS                         -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">📏 Evaluating Unsupervised Models</h2>
+
+    <div class="storybook-intro">
+        <p>In supervised learning, you have labels to check accuracy. But in unsupervised learning, <strong>there are no right answers!</strong> So how do we know if our clusters are good? These metrics help! 📊</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📊 Clustering Quality Metrics</h3>
+        <div class="ml-reason-grid">
+            <div class="ml-reason-card" style="border-top: 3px solid #38bdf8;">
+                <div class="ml-reason-icon">📏</div>
+                <h4 style="color: #38bdf8;">Silhouette Score</h4>
+                <p>Measures how similar each point is to <strong>its own cluster</strong> vs the <strong>nearest other cluster</strong>.</p>
+                <ul style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem; padding-left: 1.2rem;">
+                    <li>Range: <strong>-1 to 1</strong></li>
+                    <li>1 = Perfect clustering</li>
+                    <li>0 = Overlapping clusters</li>
+                    <li>-1 = Wrong clustering</li>
+                </ul>
+            </div>
+            <div class="ml-reason-card" style="border-top: 3px solid #a78bfa;">
+                <div class="ml-reason-icon">📐</div>
+                <h4 style="color: #a78bfa;">Davies-Bouldin Index</h4>
+                <p>Measures the <strong>average similarity</strong> between each cluster and its most similar cluster.</p>
+                <ul style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem; padding-left: 1.2rem;">
+                    <li>Range: <strong>0 to ∞</strong></li>
+                    <li><strong>Lower = Better</strong></li>
+                    <li>0 = Perfect (no similarity between clusters)</li>
+                </ul>
+            </div>
+            <div class="ml-reason-card" style="border-top: 3px solid #34d399;">
+                <div class="ml-reason-icon">📈</div>
+                <h4 style="color: #34d399;">Calinski-Harabasz Index</h4>
+                <p>Ratio of <strong>between-cluster variance</strong> to <strong>within-cluster variance</strong>. Dense, well-separated clusters score high!</p>
+                <ul style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem; padding-left: 1.2rem;">
+                    <li>Range: <strong>0 to ∞</strong></li>
+                    <li><strong>Higher = Better</strong></li>
+                    <li>Also called Variance Ratio Criterion</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
     <!-- REAL-WORLD APPLICATIONS                    -->
     <!-- ═══════════════════════════════════════════ -->
 
@@ -916,22 +1208,77 @@ print(f<span class="string">"\n🏆 Best K = {best_k} (Silhouette Score = {max(s
                         <td>—</td>
                         <td style="text-align: left;">2D/3D visualization of high-dim data</td>
                     </tr>
+                    <tr>
+                        <td><strong>UMAP</strong></td>
+                        <td>Dim. Reduction</td>
+                        <td>—</td>
+                        <td>—</td>
+                        <td style="text-align: left;">Fast visualization, large datasets</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Isolation Forest</strong></td>
+                        <td>Anomaly Detection</td>
+                        <td>—</td>
+                        <td>✅ Yes</td>
+                        <td style="text-align: left;">Fraud detection, outlier detection</td>
+                    </tr>
+                    <tr>
+                        <td><strong>One-Class SVM</strong></td>
+                        <td>Anomaly Detection</td>
+                        <td>—</td>
+                        <td>✅ Yes</td>
+                        <td style="text-align: left;">Boundary-based anomaly detection</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Autoencoder</strong></td>
+                        <td>Dim. Reduction / Generative</td>
+                        <td>—</td>
+                        <td>—</td>
+                        <td style="text-align: left;">Non-linear compression, denoising</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
     </div>
 
-    <!-- What's Next -->
+    <!-- Common Mistakes -->
+    <div class="task-card" style="margin-top: 2rem;">
+        <h3 class="task-title">⚠️ Common Mistakes</h3>
+        <ul style="color: #f87171; line-height: 1.8; margin-left: 1.5rem; margin-bottom: 2rem;">
+            <li><strong>Not scaling features before clustering</strong> — If one feature is in millions and another is 0-1, K-Means will be dominated by the large feature. Always use StandardScaler!</li>
+            <li><strong>Choosing random K without Elbow/Silhouette</strong> — Don't guess! Use the Elbow Method or Silhouette Score to find the optimal number of clusters.</li>
+            <li><strong>Using K-Means for non-spherical data</strong> — K-Means assumes round clusters. For crescent or ring shapes, use DBSCAN instead!</li>
+            <li><strong>Ignoring outliers</strong> — Some algorithms (K-Means) are heavily influenced by outliers. Consider removing them first, or use DBSCAN which handles noise.</li>
+            <li><strong>Too many features (Curse of Dimensionality)</strong> — In high dimensions, distances become meaningless. Apply PCA first, then cluster!</li>
+        </ul>
+    </div>
+
+    <!-- Key Takeaway -->
     <div class="task-card" style="margin-top: 3rem; text-align: center;">
         <h3 class="task-title">🎓 Key Takeaway</h3>
         <p class="task-desc">
-            Unsupervised Learning discovers <strong>hidden patterns in unlabeled data</strong>. It groups similar items (clustering), simplifies complex data (dimensionality reduction), and finds relationships (association rules) — all without being told the answers!
+            Unsupervised Learning discovers <strong>hidden patterns in unlabeled data</strong>. It groups similar items (clustering), simplifies complex data (dimensionality reduction), finds relationships (association rules), and catches anomalies — all without being told the answers!
         </p>
         <div class="ml-paradigm-tags">
             <span class="ml-tag ml-tag-supervised">Clustering → Groups 🫧</span>
             <span class="ml-tag" style="background: rgba(167, 139, 250, 0.12); color: var(--accent-purple); border: 1px solid rgba(167, 139, 250, 0.3);">Dim. Reduction → Simplify 📉</span>
             <span class="ml-tag ml-tag-rl">Association → Rules 🔗</span>
+            <span class="ml-tag" style="background: rgba(239, 68, 68, 0.12); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3);">Anomaly Detection → Outliers 🚨</span>
         </div>
+    </div>
+
+    <!-- Practice Questions -->
+    <div class="task-card" style="margin-top: 3rem; background: rgba(56, 189, 248, 0.05); border-color: rgba(56, 189, 248, 0.3);">
+        <h3 class="task-title" style="color: var(--accent-cyan); text-align: center;">🤔 Practice Questions</h3>
+        <ol style="color: var(--text-light); line-height: 2; margin-left: 20px; font-size: 1.1rem; max-width: 600px; margin: 0 auto; padding-left: 20px;">
+            <li>What is the difference between supervised and unsupervised learning?</li>
+            <li>Explain K-Means clustering and the Elbow Method in your own words.</li>
+            <li>When would you use DBSCAN instead of K-Means? Give an example.</li>
+            <li>What does PCA do, and why is it useful before training an ML model?</li>
+            <li>What is Isolation Forest, and how does it detect anomalies?</li>
+            <li>Describe the architecture of an Autoencoder (Encoder → Bottleneck → Decoder).</li>
+            <li>What is the Silhouette Score, and what does a score close to 1 mean?</li>
+        </ol>
     </div>
 
     </div><!-- .container -->
