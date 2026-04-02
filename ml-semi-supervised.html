@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semi-Supervised Learning — The Best of Both Worlds</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .formula-showcase { font-size: 1.3rem; text-align: center; margin: 1.5rem 0; padding: 1.5rem; background: rgba(56, 189, 248, 0.08); border-radius: 8px; border: 1px dashed var(--accent-cyan); color: #fff; }
+        .math-expr { font-family: 'Fira Code', monospace; color: var(--accent-cyan); font-weight: bold; background: rgba(56, 189, 248, 0.1); padding: 0.2rem 0.4rem; border-radius: 4px;}
+        .highlight-box { background: rgba(167, 139, 250, 0.05); border-left: 4px solid var(--accent-purple); padding: 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem; }
+        .ssl-ratio-bar { display: flex; border-radius: 8px; overflow: hidden; height: 40px; margin: 1.5rem 0; }
+        .ssl-ratio-labeled { background: linear-gradient(135deg, #38bdf8, #818cf8); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: bold; font-size: 0.85rem; }
+        .ssl-ratio-unlabeled { background: linear-gradient(135deg, #1e293b, #334155); display: flex; align-items: center; justify-content: center; color: #94a3b8; font-weight: bold; font-size: 0.85rem; border: 1px dashed #475569; }
+    </style>
+</head>
+<body>
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="container">
+
+    <nav class="top-nav">
+        <div class="dropdown">
+            <button class="dropbtn">�� Python <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="basics.html">📘 Basics</a>
+                <a href="index.html">🐍 Functions</a>
+                <a href="oop.html">🏗️ OOP</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">📚 Libraries <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="numpy.html">🧮 NumPy</a>
+                <a href="pandas.html">🐼 Pandas</a>
+                <a href="matplotlib.html">📊 Matplotlib</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn active">🤖 Machine Learning <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="ml-intro.html">�� Introduction</a>
+                <a href="ml-supervised.html">📊 Supervised Learning</a>
+                <a href="ml-classification-regression.html">🎯 Classification / Regression</a>
+                <a href="ml-semi-supervised.html" class="active">🔀 Semi-Supervised Learning</a>
+                <a href="ml-unsupervised.html">🔍 Unsupervised Learning</a>
+                <a href="ml-reinforcement.html">🎮 Reinforcement Learning</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">➗ Mathematics <span class="caret">▼</span></button>
+            <div class="dropdown-content">
+                <a href="linear-algebra.html">📐 Linear Algebra</a>
+                <a href="probability.html">🎲 Probability</a>
+                <a href="statistics.html">📊 Statistics</a>
+                <a href="calculus.html">📈 Calculus</a>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <h1>🔀 Semi-Supervised Learning</h1>
+        <p>What if you have millions of data points but only a handful of labels? Don't worry — semi-supervised learning uses the best of both worlds to build powerful models! 🌍</p>
+    </header>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- INTRODUCTION                              -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">🧠 What is Semi-Supervised Learning?</h2>
+
+    <div class="storybook-intro">
+        <p>Imagine you're a teacher grading 1,000 essays. You carefully grade the first <strong>50 essays</strong> (labeled data ✅), but you're too tired to grade the remaining <strong>950</strong> (unlabeled data ❓). Instead, you use patterns from those 50 graded essays to <strong>automatically estimate grades</strong> for the rest. That's <strong>Semi-Supervised Learning!</strong> 📝</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📖 The Definition</h3>
+        <p class="task-desc">
+            <strong>Semi-Supervised Learning</strong> is a <span class="highlight-term">hybrid approach</span> that combines <strong>supervised learning</strong> (learning from labeled data) and <strong>unsupervised learning</strong> (finding patterns in unlabeled data). It's used when you have a <strong>small amount of labeled data</strong> and a <strong>large amount of unlabeled data</strong>.
+        </p>
+        <div class="formula-showcase">
+            <strong>Key Idea: Use a little labeled data + lots of unlabeled data = Better model! 🚀</strong>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">📊 The Reality of Real-World Data</h3>
+        <p class="task-desc">In most real-world scenarios, labeled data is <strong>expensive</strong> and <strong>time-consuming</strong> to create, while unlabeled data is <strong>everywhere</strong>:</p>
+
+        <div class="ssl-ratio-bar">
+            <div class="ssl-ratio-labeled" style="width: 5%;">5%</div>
+            <div class="ssl-ratio-unlabeled" style="width: 95%;">95% Unlabeled</div>
+        </div>
+
+        <div class="ml-reason-grid" style="margin-top: 1rem;">
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🏥</div>
+                <h4>Medical Images</h4>
+                <p>Millions of X-rays exist, but only a <strong>doctor</strong> can label them. Labeling costs ~$50 per image!</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🎵</div>
+                <h4>Audio Data</h4>
+                <p>YouTube has billions of hours of audio, but <strong>transcribing</strong> even 1 hour takes 4+ hours of human work!</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">📸</div>
+                <h4>Image Classification</h4>
+                <p>Instagram has <strong>2 billion+ images</strong> daily. Labeling each one? Impossible! But a few thousand labeled samples + millions unlabeled = magic!</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">⚔️ Where Does It Fit?</h3>
+        <div class="ml-data-table-wrapper">
+            <table class="ml-data-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>📊 Supervised</th>
+                        <th>🔀 Semi-Supervised</th>
+                        <th>🔍 Unsupervised</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Labeled Data</strong></td>
+                        <td>All labeled ✅</td>
+                        <td>Few labeled + many unlabeled</td>
+                        <td>None ❌</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cost</strong></td>
+                        <td>Expensive 💰💰💰</td>
+                        <td>Moderate 💰</td>
+                        <td>Cheap 💰</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Accuracy</strong></td>
+                        <td>Highest (if enough labels)</td>
+                        <td>Very Good ✅</td>
+                        <td>Lower (no guidance)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Use When</strong></td>
+                        <td>Labels are abundant</td>
+                        <td>Labels are scarce, data is plenty</td>
+                        <td>No labels available</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Example</strong></td>
+                        <td>Email spam filter (labeled emails)</td>
+                        <td>Medical imaging (few expert labels)</td>
+                        <td>Customer segmentation</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 5.1 CONCEPT                               -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">💡 5.1 Core Concept — How It Works</h2>
+
+    <div class="task-card">
+        <h3 class="task-title">🔑 Key Characteristics</h3>
+        <div class="ml-reason-grid">
+            <div class="ml-reason-card" style="border-top: 3px solid #38bdf8;">
+                <div class="ml-reason-icon">🏷️</div>
+                <h4 style="color: #38bdf8;">Small Labeled Dataset</h4>
+                <p>A handful of carefully labeled examples (e.g., 100 labeled images out of 10,000 total).</p>
+            </div>
+            <div class="ml-reason-card" style="border-top: 3px solid #a78bfa;">
+                <div class="ml-reason-icon">❓</div>
+                <h4 style="color: #a78bfa;">Large Unlabeled Dataset</h4>
+                <p>Thousands or millions of data points without labels — cheap and easy to collect!</p>
+            </div>
+            <div class="ml-reason-card" style="border-top: 3px solid #34d399;">
+                <div class="ml-reason-icon">🤝</div>
+                <h4 style="color: #34d399;">Best of Both Worlds</h4>
+                <p>Combines the <strong>accuracy</strong> of supervised learning with the <strong>data efficiency</strong> of unsupervised learning!</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">⚙️ The Working Principle — Step by Step</h3>
+        <div class="ml-workflow-pipeline">
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">1</div>
+                <div class="ml-step-content">
+                    <h4>🏷️ Train on Labeled Data</h4>
+                    <p>Initially train the model using only the small labeled dataset. The model gets a basic understanding.</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">2</div>
+                <div class="ml-step-content">
+                    <h4>🔮 Predict Unlabeled Data</h4>
+                    <p>Use the trained model to predict labels for the large unlabeled dataset.</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">3</div>
+                <div class="ml-step-content">
+                    <h4>✅ Select High-Confidence Predictions</h4>
+                    <p>Only keep predictions the model is <strong>very confident</strong> about (e.g., >95% sure).</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">4</div>
+                <div class="ml-step-content">
+                    <h4>📥 Add to Training Set</h4>
+                    <p>Treat these confident predictions as new labeled data and add them to the training set.</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step ml-workflow-step-final">
+                <div class="ml-step-number">5</div>
+                <div class="ml-step-content">
+                    <h4>🔄 Retrain & Repeat!</h4>
+                    <p>Retrain the model with the expanded dataset. The model gets better each iteration!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🧮 The Core Assumption</h3>
+        <p class="task-desc">Semi-supervised learning relies on important assumptions about the data:</p>
+
+        <div class="ml-reason-grid" style="margin-top: 1rem;">
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">🫧</div>
+                <h4>Cluster Assumption</h4>
+                <p>Data points that are <strong>close together</strong> in feature space are likely to have the <strong>same label</strong>. If cats cluster together, nearby unlabeled points are probably cats too!</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">📈</div>
+                <h4>Smoothness Assumption</h4>
+                <p>Points that are <strong>close in input space</strong> should have <strong>similar outputs</strong>. Small changes in features → small changes in prediction.</p>
+            </div>
+            <div class="ml-reason-card">
+                <div class="ml-reason-icon">📐</div>
+                <h4>Low-Density Separation</h4>
+                <p>The decision boundary should pass through <strong>low-density regions</strong> — don't cut through clusters of data!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 5.2 TECHNIQUES                            -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">🛠️ 5.2 Key Techniques</h2>
+
+    <div class="storybook-intro">
+        <p>There are several clever techniques to leverage unlabeled data. Let's explore the most important ones!</p>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🏷️ Pseudo-Labeling <span style="color:#34d399; font-size: 0.9rem; vertical-align:middle; background:rgba(52, 211, 153, 0.1); padding: 4px 8px; border-radius: 4px; border: 1px solid #34d399;">MOST POPULAR ⭐</span></h3>
+        <p class="task-desc">The model generates <span class="highlight-term">fake labels</span> for unlabeled data based on its own predictions. The most confident predictions become "pseudo labels" and are added to training!</p>
+
+        <div class="ml-workflow-pipeline" style="margin-top: 1.5rem;">
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">1</div>
+                <div class="ml-step-content">
+                    <h4>Train on labeled data</h4>
+                    <p>Build initial model with small labeled set</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">2</div>
+                <div class="ml-step-content">
+                    <h4>Predict unlabeled data</h4>
+                    <p>Model says: "This image is 95% Cat 🐱"</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step">
+                <div class="ml-step-number">3</div>
+                <div class="ml-step-content">
+                    <h4>Select confident ones (>90%)</h4>
+                    <p>Keep only high-confidence pseudo-labels</p>
+                </div>
+            </div>
+            <div class="ml-workflow-connector"></div>
+            <div class="ml-workflow-step ml-workflow-step-final">
+                <div class="ml-step-number">4</div>
+                <div class="ml-step-content">
+                    <h4>Add to training & retrain!</h4>
+                    <p>Model improves with more "labeled" data</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-card">
+        <h3 class="task-title">🏗️ Other Techniques</h3>
+        <div class="ml-comparison-grid">
+            <div class="ml-compare-box" style="background: rgba(56, 189, 248, 0.06); border-color: rgba(56, 189, 248, 0.2);">
+                <h4 style="color: var(--accent-cyan);">👥 Self-Training</h4>
+                <p>The model <strong>teaches itself</strong>! It predicts labels, adds confident ones, and retrains iteratively. Simple but effective!</p>
+                <div class="ml-example-box" style="margin-top: 0.75rem;">
+                    <p>Like a student who solves practice problems, checks their own answers, and learns from the ones they're confident about.</p>
+                </div>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(167, 139, 250, 0.06); border-color: rgba(167, 139, 250, 0.2);">
+                <h4 style="color: var(--accent-purple);">🤝 Co-Training</h4>
+                <p>Train <strong>two different models</strong> on different feature sets. Each model labels data for the other model to learn from!</p>
+                <div class="ml-example-box" style="margin-top: 0.75rem;">
+                    <p>Like two students studying different chapters, then teaching each other what they learned.</p>
+                </div>
+            </div>
+        </div>
+        <div class="ml-comparison-grid" style="margin-top: 1rem;">
+            <div class="ml-compare-box" style="background: rgba(52, 211, 153, 0.06); border-color: rgba(52, 211, 153, 0.2);">
+                <h4 style="color: #34d399;">📊 Label Propagation</h4>
+                <p>Uses the <strong>graph structure</strong> of data to spread labels from labeled to unlabeled points. Labels "flow" through connections to similar points.</p>
+                <div class="ml-example-box" style="margin-top: 0.75rem;">
+                    <p>Like gossip spreading — if your neighbors are all "cats," you're probably a cat too! 🐱</p>
+                </div>
+            </div>
+            <div class="ml-compare-box" style="background: rgba(251, 191, 36, 0.06); border-color: rgba(251, 191, 36, 0.2);">
+                <h4 style="color: #fbbf24;">🧠 Consistency Regularization</h4>
+                <p>The model should give the <strong>same prediction</strong> for an image even if it's slightly rotated, flipped, or noisy. Modern deep learning approach!</p>
+                <div class="ml-example-box" style="margin-top: 0.75rem;">
+                    <p>Used in <strong>FixMatch</strong> and <strong>MixMatch</strong> — state-of-the-art SSL! A cat rotated 10° is still a cat.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- 5.3 APPLICATIONS                          -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">🌍 5.3 Real-World Applications</h2>
+
+    <div class="ml-apps-grid">
+        <div class="task-card ml-app-card">
+            <div class="ml-app-icon">🏥</div>
+            <h3 class="task-title">Medical Imaging</h3>
+            <ul class="ml-app-list">
+                <li>Millions of X-rays, CT scans available</li>
+                <li>Only a few labeled by expert doctors</li>
+                <li>SSL detects <strong>tumors, fractures, diseases</strong></li>
+                <li>Saves lives by making AI diagnosis cheaper!</li>
+            </ul>
+        </div>
+        <div class="task-card ml-app-card">
+            <div class="ml-app-icon">🗣️</div>
+            <h3 class="task-title">Speech Recognition</h3>
+            <ul class="ml-app-list">
+                <li>Billions of hours of audio on YouTube</li>
+                <li>Transcribing is <strong>extremely expensive</strong></li>
+                <li>Used by Siri, Alexa, Google Assistant</li>
+                <li>SSL learns from unlabeled audio patterns</li>
+            </ul>
+        </div>
+        <div class="task-card ml-app-card">
+            <div class="ml-app-icon">📝</div>
+            <h3 class="task-title">NLP & Text Classification</h3>
+            <ul class="ml-app-list">
+                <li>Twitter/Reddit has <strong>millions of posts</strong></li>
+                <li>Labeling sentiment for all? Impossible!</li>
+                <li>SSL + BERT achieves near-human accuracy</li>
+                <li>Spam detection, news categorization</li>
+            </ul>
+        </div>
+        <div class="task-card ml-app-card">
+            <div class="ml-app-icon">📸</div>
+            <h3 class="task-title">Computer Vision</h3>
+            <ul class="ml-app-list">
+                <li>Self-driving cars: label a few frames, learn from millions</li>
+                <li>Satellite imagery classification</li>
+                <li>Product defect detection in factories</li>
+            </ul>
+        </div>
+        <div class="task-card ml-app-card">
+            <div class="ml-app-icon">🌐</div>
+            <h3 class="task-title">Web Content</h3>
+            <ul class="ml-app-list">
+                <li>Billions of web pages exist</li>
+                <li>Only a fraction are categorized</li>
+                <li>Google uses SSL for search ranking!</li>
+            </ul>
+        </div>
+        <div class="task-card ml-app-card">
+            <div class="ml-app-icon">🧬</div>
+            <h3 class="task-title">Drug Discovery</h3>
+            <ul class="ml-app-list">
+                <li>Millions of molecule structures available</li>
+                <li>Very few tested in labs (labeled)</li>
+                <li>SSL predicts drug effectiveness!</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- ALGORITHMS COMPARISON                     -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <div class="task-card" style="margin-top: 2rem;">
+        <h3 class="task-title">📋 Semi-Supervised Algorithms Comparison</h3>
+        <div class="ml-data-table-wrapper">
+            <table class="ml-data-table">
+                <thead>
+                    <tr>
+                        <th>Algorithm</th>
+                        <th>Type</th>
+                        <th>Complexity</th>
+                        <th>Best For</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Pseudo-Labeling</strong></td>
+                        <td>Self-Training</td>
+                        <td>⭐ Simple</td>
+                        <td style="text-align:left;">Quick baseline, any model</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Label Propagation</strong></td>
+                        <td>Graph-Based</td>
+                        <td>⭐⭐ Medium</td>
+                        <td style="text-align:left;">Structured data, clusters</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Label Spreading</strong></td>
+                        <td>Graph-Based</td>
+                        <td>⭐⭐ Medium</td>
+                        <td style="text-align:left;">Noisy data, soft labels</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Co-Training</strong></td>
+                        <td>Multi-View</td>
+                        <td>⭐⭐ Medium</td>
+                        <td style="text-align:left;">Multi-feature datasets</td>
+                    </tr>
+                    <tr>
+                        <td><strong>FixMatch</strong></td>
+                        <td>Consistency</td>
+                        <td>⭐⭐⭐ Advanced</td>
+                        <td style="text-align:left;">Image classification (SOTA)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MixMatch</strong></td>
+                        <td>Consistency</td>
+                        <td>⭐⭐⭐ Advanced</td>
+                        <td style="text-align:left;">Deep learning, images</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- PYTHON CODE                               -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">💻 Hands-On Code — Run in Google Colab!</h2>
+
+    <div class="storybook-intro">
+        <p>Let's build semi-supervised models step by step! 🧑‍💻 Copy each block and run it in <a href="https://colab.research.google.com" target="_blank" style="color: var(--accent-cyan); text-decoration: underline;">Google Colab</a>.</p>
+    </div>
+
+    <!-- Code Block 1: Self-Training with Pseudo Labels -->
+    <div class="task-card">
+        <h3 class="task-title">Step 1: Self-Training with Pseudo-Labels 🏷️</h3>
+        <p class="task-desc">We'll simulate a real scenario: only <strong>10% of data is labeled</strong>. The model trains on labeled data, predicts unlabeled data, and adds confident predictions to retrain!</p>
+        <button class="btn-toggle" onclick="toggleCode('ssl-code1', this)">Show Code</button>
+        <div id="ssl-code1" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> make_moons
+<span class="keyword">from</span> sklearn.semi_supervised <span class="keyword">import</span> SelfTrainingClassifier
+<span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC
+<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score, classification_report
+
+<span class="comment"># 🌙 Generate 1000 data points (moon-shaped)</span>
+X, y_true = make_moons(n_samples=1000, noise=0.15, random_state=42)
+
+<span class="comment"># 🏷️ Simulate semi-supervised: only label 10% of data!</span>
+np.random.seed(42)
+n_labeled = 100  <span class="comment"># Only 100 out of 1000 are labeled</span>
+mask = np.random.choice(len(X), size=len(X) - n_labeled, replace=<span class="keyword">False</span>)
+y_ssl = y_true.copy()
+y_ssl[mask] = -1  <span class="comment"># -1 = unlabeled in sklearn</span>
+
+print(f<span class="string">"📊 Total samples: {len(X)}"</span>)
+print(f<span class="string">"🏷️ Labeled:   {n_labeled} ({n_labeled/len(X)*100:.0f}%)"</span>)
+print(f<span class="string">"❓ Unlabeled: {len(X) - n_labeled} ({(len(X)-n_labeled)/len(X)*100:.0f}%)"</span>)
+
+<span class="comment"># 🤖 Self-Training: SVM + Pseudo-Labeling!</span>
+base_model = SVC(kernel=<span class="string">'rbf'</span>, probability=<span class="keyword">True</span>, gamma=<span class="string">'auto'</span>)
+self_trainer = SelfTrainingClassifier(base_model, threshold=0.9)
+self_trainer.fit(X, y_ssl)
+
+<span class="comment"># 📊 Evaluate</span>
+y_pred = self_trainer.predict(X)
+acc = accuracy_score(y_true, y_pred)
+print(f<span class="string">"\n🏆 Self-Training Accuracy: {acc:.1%}"</span>)
+
+<span class="comment"># Compare with supervised (only labeled data)</span>
+labeled_mask = y_ssl != -1
+svm_only = SVC(kernel=<span class="string">'rbf'</span>, probability=<span class="keyword">True</span>, gamma=<span class="string">'auto'</span>)
+svm_only.fit(X[labeled_mask], y_true[labeled_mask])
+y_pred_sup = svm_only.predict(X)
+acc_sup = accuracy_score(y_true, y_pred_sup)
+print(f<span class="string">"📊 Supervised-Only Accuracy: {acc_sup:.1%}"</span>)
+print(f<span class="string">"📈 Improvement: +{(acc - acc_sup)*100:.1f}% from using unlabeled data!"</span>)</code>
+            </div>
+        </div>
+    </div>
+
+    <!-- Code Block 2: Label Propagation -->
+    <div class="task-card">
+        <h3 class="task-title">Step 2: Label Propagation — Spread the Labels! 📊</h3>
+        <p class="task-desc"><strong>Label Propagation</strong> builds a graph where similar data points are connected, then <span class="highlight-term">propagates labels</span> from labeled to unlabeled points through the graph. Labels literally "flow" to nearby points!</p>
+        <button class="btn-toggle" onclick="toggleCode('ssl-code2', this)">Show Code</button>
+        <div id="ssl-code2" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="keyword">from</span> sklearn.semi_supervised <span class="keyword">import</span> LabelPropagation, LabelSpreading
+
+<span class="comment"># 📊 Label Propagation</span>
+lp = LabelPropagation(kernel=<span class="string">'knn'</span>, n_neighbors=7)
+lp.fit(X, y_ssl)
+y_pred_lp = lp.predict(X)
+acc_lp = accuracy_score(y_true, y_pred_lp)
+print(f<span class="string">"📊 Label Propagation Accuracy: {acc_lp:.1%}"</span>)
+
+<span class="comment"># 📊 Label Spreading (more robust to noise)</span>
+ls = LabelSpreading(kernel=<span class="string">'knn'</span>, n_neighbors=7)
+ls.fit(X, y_ssl)
+y_pred_ls = ls.predict(X)
+acc_ls = accuracy_score(y_true, y_pred_ls)
+print(f<span class="string">"📊 Label Spreading Accuracy:   {acc_ls:.1%}"</span>)
+
+<span class="comment"># 📊 Compare all methods!</span>
+methods = [<span class="string">'Supervised\n(10% labels)'</span>, <span class="string">'Self-Training'</span>, <span class="string">'Label\nPropagation'</span>, <span class="string">'Label\nSpreading'</span>]
+scores = [acc_sup, acc, acc_lp, acc_ls]
+colors = [<span class="string">'#636e72'</span>, <span class="string">'#38bdf8'</span>, <span class="string">'#a78bfa'</span>, <span class="string">'#34d399'</span>]
+
+plt.figure(figsize=(10, 5))
+bars = plt.bar(methods, scores, color=colors, edgecolor=<span class="string">'white'</span>, linewidth=1.5)
+<span class="keyword">for</span> bar, score <span class="keyword">in</span> zip(bars, scores):
+    plt.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.01,
+             f<span class="string">'{score:.1%}'</span>, ha=<span class="string">'center'</span>, fontsize=12, fontweight=<span class="string">'bold'</span>)
+
+plt.ylim(0, 1.15); plt.ylabel(<span class="string">'Accuracy'</span>, fontsize=12)
+plt.title(<span class="string">'🔀 Semi-Supervised vs Supervised (Only 10% Labels!)'</span>, fontsize=14)
+plt.grid(axis=<span class="string">'y'</span>, alpha=0.2); plt.tight_layout(); plt.show()
+
+print(<span class="string">"💡 Semi-supervised methods beat pure supervised with just 10% labels!"</span>)</code>
+            </div>
+        </div>
+    </div>
+
+    <!-- Code Block 3: Visualization -->
+    <div class="task-card">
+        <h3 class="task-title">Step 3: Visualize the Decision Boundaries 🎨</h3>
+        <p class="task-desc">Let's see how each method draws its decision boundary. Supervised (with only 10% labels) vs Semi-Supervised — which one looks better?</p>
+        <button class="btn-toggle" onclick="toggleCode('ssl-code3', this)">Show Code</button>
+        <div id="ssl-code3" class="answer-container">
+            <div class="code-header">
+                <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy Code</button>
+            </div>
+            <div class="code-container">
+<code><span class="comment"># 🎨 Visualize labeled vs unlabeled + decision boundary</span>
+fig, axes = plt.subplots(1, 3, figsize=(18, 5))
+
+<span class="comment"># Plot 1: Raw data (labeled vs unlabeled)</span>
+labeled = y_ssl != -1
+axes[0].scatter(X[~labeled, 0], X[~labeled, 1], c=<span class="string">'#636e72'</span>, s=10, alpha=0.3, label=<span class="string">'Unlabeled'</span>)
+axes[0].scatter(X[labeled & (y_true==0), 0], X[labeled & (y_true==0), 1],
+                c=<span class="string">'#38bdf8'</span>, s=50, edgecolors=<span class="string">'white'</span>, label=<span class="string">'Class 0 (labeled)'</span>)
+axes[0].scatter(X[labeled & (y_true==1), 0], X[labeled & (y_true==1), 1],
+                c=<span class="string">'#a78bfa'</span>, s=50, edgecolors=<span class="string">'white'</span>, label=<span class="string">'Class 1 (labeled)'</span>)
+axes[0].set_title(<span class="string">'📊 Data: 10% Labeled, 90% Unlabeled'</span>, fontsize=12)
+axes[0].legend(fontsize=8)
+
+<span class="comment"># Plot 2: Supervised only</span>
+axes[1].scatter(X[:, 0], X[:, 1], c=[<span class="string">'#38bdf8'</span> <span class="keyword">if</span> p==0 <span class="keyword">else</span> <span class="string">'#a78bfa'</span> <span class="keyword">for</span> p <span class="keyword">in</span> y_pred_sup],
+                s=15, alpha=0.5)
+axes[1].set_title(f<span class="string">'❌ Supervised Only: {acc_sup:.1%}'</span>, fontsize=12)
+
+<span class="comment"># Plot 3: Semi-supervised (Self-Training)</span>
+axes[2].scatter(X[:, 0], X[:, 1], c=[<span class="string">'#38bdf8'</span> <span class="keyword">if</span> p==0 <span class="keyword">else</span> <span class="string">'#a78bfa'</span> <span class="keyword">for</span> p <span class="keyword">in</span> y_pred],
+                s=15, alpha=0.5)
+axes[2].set_title(f<span class="string">'✅ Semi-Supervised: {acc:.1%}'</span>, fontsize=12)
+
+plt.suptitle(<span class="string">'🔀 Semi-Supervised Learning: Unlabeled Data Helps!'</span>, fontsize=15)
+plt.tight_layout(); plt.show()</code>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- WRAP UP                                   -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2 class="module-title">Wrap-Up & Review</h2>
+
+    <!-- Common Mistakes -->
+    <div class="task-card">
+        <h3 class="task-title">⚠️ Common Mistakes</h3>
+        <ul style="color: #f87171; line-height: 1.8; margin-left: 1.5rem; margin-bottom: 2rem;">
+            <li><strong>Using low-confidence pseudo labels</strong> — If you add wrong predictions to training, the model gets worse! Always use a high confidence threshold (>90%).</li>
+            <li><strong>Not enough labeled data to start</strong> — If your initial labeled data is too small or unbalanced, the first model will be terrible and pseudo-labels will be garbage.</li>
+            <li><strong>Ignoring class imbalance</strong> — If the labeled set only has examples of one class, the model will pseudo-label everything as that class!</li>
+            <li><strong>Expecting miracles</strong> — SSL improves accuracy by 5-15% typically. If you need 99% accuracy, you still need more real labels.</li>
+        </ul>
+    </div>
+
+    <!-- Key Takeaway -->
+    <div class="task-card" style="text-align: center;">
+        <h3 class="task-title">🎓 Key Takeaway</h3>
+        <p class="task-desc">
+            Semi-Supervised Learning is a <strong>practical, cost-effective approach</strong> that leverages both labeled and unlabeled data. It's perfect for real-world scenarios where labeling is expensive but data is abundant. The key techniques — <strong>Pseudo-Labeling, Self-Training, Label Propagation</strong> — all share one idea: let the structure of unlabeled data guide the model!
+        </p>
+        <div class="ml-paradigm-tags">
+            <span class="ml-tag ml-tag-supervised">Labeled Data 🏷️</span>
+            <span class="ml-tag" style="background: rgba(167, 139, 250, 0.12); color: var(--accent-purple); border: 1px solid rgba(167, 139, 250, 0.3);">+ Unlabeled Data ❓</span>
+            <span class="ml-tag ml-tag-rl">= Better Model 🚀</span>
+        </div>
+    </div>
+
+    <!-- Practice Questions -->
+    <div class="task-card" style="margin-top: 3rem; background: rgba(56, 189, 248, 0.05); border-color: rgba(56, 189, 248, 0.3);">
+        <h3 class="task-title" style="color: var(--accent-cyan); text-align: center;">🤔 Practice Questions</h3>
+        <ol style="color: var(--text-light); line-height: 2; margin-left: 20px; font-size: 1.1rem; max-width: 600px; margin: 0 auto; padding-left: 20px;">
+            <li>What is semi-supervised learning and when would you use it?</li>
+            <li>Explain pseudo-labeling in your own words with an example.</li>
+            <li>What is the Cluster Assumption and why is it important for SSL?</li>
+            <li>How does Label Propagation work? What is it "propagating"?</li>
+            <li>Name 3 real-world applications where semi-supervised learning is valuable.</li>
+            <li>Why is it dangerous to use low-confidence pseudo labels?</li>
+            <li>What is the difference between Self-Training and Co-Training?</li>
+        </ol>
+    </div>
+
+    </div><!-- .container -->
+
+    <script src="script.js?v=2"></script>
+</body>
+</html>
